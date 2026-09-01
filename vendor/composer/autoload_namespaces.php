@@ -6,8 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'org\\bovigo\\vfs\\' => array($vendorDir . '/mikey179/vfsstream/src/main/php'),
-    'WebDriver' => array($vendorDir . '/lullabot/php-webdriver/lib'),
     'Validate' => array($vendorDir . '/pear/validate_finance_creditcard'),
     'TOGoS_GitIgnore_' => array($vendorDir . '/togos/gitignore/src/main/php'),
     'Stiphle' => array($vendorDir . '/davedevelopment/stiphle/src'),

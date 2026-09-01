@@ -31,24 +31,20 @@ class CCL {
    * If the target file is newer, it is overwritten only when the
    * $overwriteNewerFiles option is set to true.
    *
-   * @return void
-   *
    * @throws FileNotFoundException When originFile doesn't exist
    * @throws IOException           When copy fails
    */
   public static function copy($originFile, $targetFile, bool $overwriteNewerFiles = TRUE) {
-    return self::_sym()->copy($originFile, $targetFile, $overwriteNewerFiles);
+    self::_sym()->copy($originFile, $targetFile, $overwriteNewerFiles);
   }
 
   /**
    * Creates a directory recursively.
    *
-   * @return void
-   *
    * @throws IOException On any directory creation failure
    */
   public static function mkdir($dirs, $mode = 511) {
-    return self::_sym()->mkdir($dirs, $mode);
+    self::_sym()->mkdir($dirs, $mode);
   }
 
   /**
@@ -64,23 +60,19 @@ class CCL {
    * @param int|null $time  The touch time as a Unix timestamp, if not supplied the current system time is used
    * @param int|null $atime The access time as a Unix timestamp, if not supplied the current system time is used
    *
-   * @return void
-   *
    * @throws IOException When touch fails
    */
   public static function touch($files, $time = NULL, $atime = NULL) {
-    return self::_sym()->touch($files, $time, $atime);
+    self::_sym()->touch($files, $time, $atime);
   }
 
   /**
    * Removes files or directories.
    *
-   * @return void
-   *
    * @throws IOException When removal fails
    */
   public static function remove($files) {
-    return self::_sym()->remove($files);
+    self::_sym()->remove($files);
   }
 
   /**
@@ -90,12 +82,10 @@ class CCL {
    * @param int  $umask     The mode mask (octal)
    * @param bool $recursive Whether change the mod recursively or not
    *
-   * @return void
-   *
    * @throws IOException When the change fails
    */
   public static function chmod($files, $mode, $umask = 0, $recursive = FALSE) {
-    return self::_sym()->chmod($files, $mode, $umask, $recursive);
+    self::_sym()->chmod($files, $mode, $umask, $recursive);
   }
 
   /**
@@ -108,12 +98,10 @@ class CCL {
    * @param string|int $user      A user name or number
    * @param bool       $recursive Whether change the owner recursively or not
    *
-   * @return void
-   *
    * @throws IOException When the change fails
    */
   public static function chown($files, $user, $recursive = FALSE) {
-    return self::_sym()->chown($files, $user, $recursive);
+    self::_sym()->chown($files, $user, $recursive);
   }
 
   /**
@@ -126,35 +114,29 @@ class CCL {
    * @param string|int $group     A group name or number
    * @param bool       $recursive Whether change the group recursively or not
    *
-   * @return void
-   *
    * @throws IOException When the change fails
    */
   public static function chgrp($files, $group, $recursive = FALSE) {
-    return self::_sym()->chgrp($files, $group, $recursive);
+    self::_sym()->chgrp($files, $group, $recursive);
   }
 
   /**
    * Renames a file or a directory.
    *
-   * @return void
-   *
    * @throws IOException When target file or directory already exists
    * @throws IOException When origin cannot be renamed
    */
   public static function rename($origin, $target, $overwrite = FALSE) {
-    return self::_sym()->rename($origin, $target, $overwrite);
+    self::_sym()->rename($origin, $target, $overwrite);
   }
 
   /**
    * Creates a symbolic link or copy a directory.
    *
-   * @return void
-   *
    * @throws IOException When symlink fails
    */
   public static function symlink($originDir, $targetDir, $copyOnWindows = FALSE) {
-    return self::_sym()->symlink($originDir, $targetDir, $copyOnWindows);
+    self::_sym()->symlink($originDir, $targetDir, $copyOnWindows);
   }
 
   /**
@@ -162,13 +144,11 @@ class CCL {
    *
    * @param string|string[] $targetFiles The target file(s)
    *
-   * @return void
-   *
    * @throws FileNotFoundException When original file is missing or not a file
    * @throws IOException           When link fails, including if link already exists
    */
   public static function hardlink($originFile, $targetFiles) {
-    return self::_sym()->hardlink($originFile, $targetFiles);
+    self::_sym()->hardlink($originFile, $targetFiles);
   }
 
   /**
@@ -208,16 +188,14 @@ class CCL {
    *                                    - $options['copy_on_windows'] Whether to copy files instead of links on Windows (see symlink(), defaults to false)
    *                                    - $options['delete'] Whether to delete files that are not in the source directory (defaults to false)
    *
-   * @return void
-   *
    * @throws IOException When file type is unknown
    */
   public static function mirror($originDir, $targetDir, $iterator = NULL, $options = []) {
-    return self::_sym()->mirror($originDir, $targetDir, $iterator, $options);
+    self::_sym()->mirror($originDir, $targetDir, $iterator, $options);
   }
 
   /**
-   * Returns whether the file path is an absolute path.
+   * Returns whether the given path is absolute.
    */
   public static function isAbsolutePath($file) {
     self::_sym()->isAbsolutePath($file);
@@ -241,12 +219,10 @@ class CCL {
    *
    * @param string|resource $content The data to write into the file
    *
-   * @return void
-   *
    * @throws IOException if the file cannot be written to
    */
   public static function dumpFile($filename, $content) {
-    return self::_sym()->dumpFile($filename, $content);
+    self::_sym()->dumpFile($filename, $content);
   }
 
   /**
@@ -255,12 +231,19 @@ class CCL {
    * @param string|resource $content The content to append
    * @param bool            $lock    Whether the file should be locked when writing to it
    *
-   * @return void
-   *
    * @throws IOException If the file is not writable
    */
-  public static function appendToFile($filename, $content) {
-    return self::_sym()->appendToFile($filename, $content);
+  public static function appendToFile($filename, $content, $lock = FALSE) {
+    self::_sym()->appendToFile($filename, $content, $lock);
+  }
+
+  /**
+   * Returns the content of a file as a string.
+   *
+   * @throws IOException If the file cannot be read
+   */
+  public static function readFile($filename) {
+    self::_sym()->readFile($filename);
   }
 
   /**

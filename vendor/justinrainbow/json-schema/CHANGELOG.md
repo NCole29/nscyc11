@@ -7,48 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [6.11.0] - 2026-08-21
-
-### Fixed
-- fix: Handle null byte when validating date/time formats ([#939](https://github.com/jsonrainbow/json-schema/pull/939))
-- fix: Correct php-cs-fixer setup ([#938](https://github.com/jsonrainbow/json-schema/pull/938))
-- fix: Ignore Content-Type header parameters when checking media type ([#934](https://github.com/jsonrainbow/json-schema/pull/934))
-- fix: Dont use mb_detect_encoding for mb_string function calls ([#924](https://github.com/jsonrainbow/json-schema/pull/924))
-- Add missing ext-filter dependency ([#922](https://github.com/jsonrainbow/json-schema/pull/922))
-
-### Changed
-- Update README with Draft 7 badge correction and include JetBrains logo ([#921](https://github.com/jsonrainbow/json-schema/pull/921))
-
-### Added
-- Update composer.json authors to reflect current active maintainer ([#928](https://github.com/jsonrainbow/json-schema/pull/928))
-
-
-## [6.10.0] - 2026-06-16
-
-### Added
-- feat: Add Draft-2019-09 ([#885](https://github.com/jsonrainbow/json-schema/pull/885))
-
-
-## [6.9.0] - 2026-06-05
-
-### Fixed
-- fix: allow "#", "?", and "?#" as valid URI references per RFC 3986 ([#910](https://github.com/jsonrainbow/json-schema/pull/910))
-- fix: annotate resolved schemas with dialect-aware id keyword ([#912](https://github.com/jsonrainbow/json-schema/pull/912))
-
-### Added
-- fix: treat optional JSON Schema test suite cases as real tests (#913) ([#915](https://github.com/jsonrainbow/json-schema/pull/915))
-- feat: add bin/run-test-case to run a single test suite case by description ([#914](https://github.com/jsonrainbow/json-schema/pull/914))
-
-
 ## [6.8.2] - 2026-05-05
 
 ### Fixed
 - Update to json schema test suite main branch ([#906](https://github.com/jsonrainbow/json-schema/pull/906))
 
+
 ## [6.8.1] - 2026-05-04
 
 ### Fixed
 - Bump actions/checkout from v4 to v5 was re-applied due to PR merge issues with GitHub ([#902](https://github.com/jsonrainbow/json-schema/pull/902))
+
 
 ## [6.8.0] - 2026-04-02
 

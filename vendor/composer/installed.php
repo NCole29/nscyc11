@@ -3,7 +3,7 @@
         'name' => 'drupal/recommended-project',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '34ca2836d01bb35eb71be90f8cf0a2c8c796e212',
+        'reference' => '358b13fe209368d8e8612a5480722f1fe44e8706',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -586,15 +586,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'drupal/contact_storage' => array(
-            'pretty_version' => '1.5.0',
-            'version' => '1.5.0.0',
-            'reference' => '8.x-1.5',
-            'type' => 'drupal-module',
-            'install_path' => __DIR__ . '/../../web/modules/contrib/contact_storage',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'drupal/content_moderation_notifications' => array(
             'pretty_version' => '3.9.0',
             'version' => '3.9.0.0',
@@ -1147,7 +1138,7 @@
         'drupal/recommended-project' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '34ca2836d01bb35eb71be90f8cf0a2c8c796e212',
+            'reference' => '358b13fe209368d8e8612a5480722f1fe44e8706',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

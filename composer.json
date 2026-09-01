@@ -142,7 +142,6 @@
     "drupal/config_delete": "^2.0",
     "drupal/config_single_export": "^1.4",
     "drupal/config_split": "^2.0",
-    "drupal/contact_storage": "*",
     "drupal/content_moderation_notifications": "^3.9",
     "drupal/core-composer-scaffold": "11.4.5",
     "drupal/core-project-message": "11.4.5",

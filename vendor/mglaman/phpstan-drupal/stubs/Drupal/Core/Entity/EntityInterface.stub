@@ -4,7 +4,4 @@ namespace Drupal\Core\Entity;
 
 interface EntityInterface {
 
-    public function id(): string|int|null;
-    public function isNew(): bool;
-
 }

@@ -1,7 +1,0 @@
-node.add_location:
-  route_name: 'node.add'
-  route_parameters:
-    node_type: 'location'
-  title: 'Add location'
-  appears_on:
-    - view.locations.admin

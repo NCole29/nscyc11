@@ -1,7 +1,0 @@
-  
-{% for item in items %}
-  <div{{ item.attributes.addClass('w3-bar-item field__item') }}>
-    {{ item.content.address_line1 }} <br>
-    {{ item.content.locality }} {{ item.content.administrative_area }} {{ item.content.postal_code }}<br>
-  </div>
-{% endfor %}

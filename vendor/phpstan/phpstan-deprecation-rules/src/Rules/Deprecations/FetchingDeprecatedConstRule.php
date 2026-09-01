@@ -16,9 +16,11 @@ use function sprintf;
 class FetchingDeprecatedConstRule implements Rule
 {
 
-	private ReflectionProvider $reflectionProvider;
+	/** @var ReflectionProvider */
+	private $reflectionProvider;
 
-	private DeprecatedScopeHelper $deprecatedScopeHelper;
+	/** @var DeprecatedScopeHelper */
+	private $deprecatedScopeHelper;
 
 	public function __construct(ReflectionProvider $reflectionProvider, DeprecatedScopeHelper $deprecatedScopeHelper)
 	{
@@ -47,7 +49,7 @@ class FetchingDeprecatedConstRule implements Rule
 			return [
 				RuleErrorBuilder::message(sprintf(
 					$constantReflection->getDeprecatedDescription() ?? 'Use of constant %s is deprecated.',
-					$constantReflection->getName(),
+					$constantReflection->getName()
 				))->identifier('constant.deprecated')->build(),
 			];
 		}

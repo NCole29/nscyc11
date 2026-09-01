@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - node
-id: node.teaser2
-label: Teaser2
-targetEntityType: node
-cache: true

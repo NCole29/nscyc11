@@ -1,0 +1,32 @@
+# Default features.
+features:
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: true
+  logo: true
+  name: true
+  node_user_picture: true
+  slogan: true
+logo:
+  use_default: true
+favicon:
+  use_default: true
+sm_icon_facebook: 'https://www.facebook.com/groups/nscyclists/members/'
+sm_icon_rwgps: '/ride-gps-club-account'
+footer_copyright: 'Copyright © %year% North Shore Cyclists. All rights reserved'
+footer_use_formatted_text: false
+sm_show_icons: true
+sm_icon_size: 'sm-icons-small'
+footer_link: ''
+footer_link_label: ''
+footer_link_text: ''
+count_main: 2
+site_global_width: sw-1600
+site_global_breakpoints: sb-992
+site_global_regions_gap: '16'
+site_global_font_size: '16'
+site_menu_breakpoints: mn-992
+header_login_links: Login
+color_coded_system_tabs: true
+site_breadcrumb_scroll: true
+keyboard_navigation_menus: []

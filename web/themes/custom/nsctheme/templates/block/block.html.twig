@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Theme override to allow templates extending this to remove classes.
+ *
+ */
+#}
+
+{% set classes = [
+    'solo-clear',
+    'solo-block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+  ]
+%}
+<section{{ attributes.addClass(classes).removeClass(remove_class) }}>
+  {% if solo_block_title_visibility_enabled %}
+    {# Use new conditional logic with visibility control. #}
+    {% include '@solo/templates/block/block-title.html.twig' %}
+  {% else %}
+    {# Use fallback title output for sites not using visibility setting. #}
+    {{ title_prefix }}
+    {% if label %}
+      <h2{{ title_attributes.addClass('solo-block-title') }}>{{ label }}</h2>
+    {% endif %}
+    {{ title_suffix }}
+  {% endif %}
+
+  {% block content %}
+    {{ content }}
+  {% endblock %}
+</section>

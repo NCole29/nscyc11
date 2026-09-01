@@ -1,0 +1,21 @@
+{# Removed social icons. They were moved to footer_third #}
+
+  {% if page.footer_menu or sm_show_icons %}
+    <!-- Start: Footer Menu -->
+    <div id="footer-menu" aria-label="{{ 'Footer Menu'|t }}" class="solo-outer lone footer-menu{{ classes_footer_menu ? ' ' ~ classes_footer_menu }}" {{ attributes_footer_menu }}>
+      <div id="footer-menu-inner" class="solo-inner solo-col solo-col-1 footer-menu-inner">
+
+        <!-- Start: Bottom Menu -->
+        {% if page.footer_menu %}
+          <div class="solo-clear footer-menu-second fade-inner">
+            {% if enabled_skip_links.skip_footer_content %}
+              <a id="footer-content" tabindex="-1" class="skip-anchor-target"></a>
+            {% endif %}
+            {{ page.footer_menu }}
+          </div>
+          <!-- End: Bottom Menu -->
+        {% endif %}
+      </div>
+    </div>
+    <!-- End: Footer Menu -->
+  {% endif %}

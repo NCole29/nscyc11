@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - node
-id: node.past_event
-label: 'Past event'
-targetEntityType: node
-cache: true

@@ -1,8 +1,0 @@
-# Define menu links for club_schedule entity
-
-# Listbuilder link not needed since output is replaced by view
-club_schedule.admin.structure.settings:
-  title: 'Schedule of ride dates'
-  description: 'Sunday and Wednesday dates, April-November. Use schedule to assign ride leaders. Schedule is joined with ride pages.'
-  route_name:  club_schedule.schedule_settings
-  parent: system.admin_structure

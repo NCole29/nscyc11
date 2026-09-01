@@ -1,0 +1,30 @@
+  {% if is_front %}
+    {% if page.full_width_blocks %}
+      <!-- Start: Full width blocks. Alternating bkgrd color set by blocknum counter -->
+      <div id="full_width" class="solo-clear">
+        {% set blocknum = 0 %}
+
+        {% for block_key, block in page.full_width_blocks %}
+
+          {% if block_key|first != '#' %}
+            {% set blocknum = blocknum + 1 %}
+            {% if blocknum is odd %}
+              <div id="full-width-block" class="solo-clear w3-theme-d5">
+                <div>
+                  {{ block }}
+                </div>
+              </div>
+				  
+            {% else %}
+              <div id="full-width-block">
+                <div>
+                  {{ block }}
+                </div>
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}      
+      </div>
+    <!-- End: Full width blocks -->
+    {% endif %}
+  {% endif %}

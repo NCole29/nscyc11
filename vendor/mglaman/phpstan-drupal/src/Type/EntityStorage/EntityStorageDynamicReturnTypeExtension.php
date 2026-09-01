@@ -57,7 +57,7 @@ class EntityStorageDynamicReturnTypeExtension implements DynamicMethodReturnType
         Scope $scope
     ): Type {
         $callerType = $scope->getType($methodCall->var);
-        if (!$callerType->isObject()->yes()) {
+        if (!$callerType instanceof ObjectType) {
             return ParametersAcceptorSelector::selectFromArgs(
                 $scope,
                 $methodCall->getArgs(),

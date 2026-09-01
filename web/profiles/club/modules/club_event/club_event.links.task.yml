@@ -1,5 +1,0 @@
-entity.club_event.user.submission.delete:
-  title: 'Delete'
-  route_name: entity.club_event.user.submission.delete
-  base_route: entity.club_event.user.submission.delete
-  weight: 0

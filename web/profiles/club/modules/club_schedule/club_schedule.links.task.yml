@@ -1,9 +1,0 @@
-club_schedule.view:
-  route_name: entity.club_schedule.collection
-  base_route: entity.club_schedule.collection
-  title: View
-
-club_schedule.edit_form:
-  route_name: entity.club_schedule.edit_form
-  base_route: entity.club_schedule.canonical
-  title: Edit

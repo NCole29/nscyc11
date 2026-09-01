@@ -63,7 +63,6 @@ final class TestClassSuffixNameRule implements Rule
                 )
                 ->line($node->getStartLine())
                 ->tip('See https://www.drupal.org/docs/develop/standards/php/object-oriented-code#naming')
-                ->identifier('nonAbstractTestClass.NameNoSuffixTest')
                 ->build()
         ];
     }

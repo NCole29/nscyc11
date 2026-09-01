@@ -48,47 +48,34 @@ class ClassExtendsInternalClassRule implements Rule
         }
 
         if (!isset($node->namespacedName)) {
-            return $this->buildError(null, $extendedClassName, null);
+            return [$this->buildError(null, $extendedClassName)->build()];
         }
 
         $currentClassName = $node->namespacedName->toString();
 
         if (!NamespaceCheck::isDrupalNamespace($node)) {
-            return $this->buildError($currentClassName, $extendedClassName, null);
+            return [$this->buildError($currentClassName, $extendedClassName)->build()];
         }
 
         if (NamespaceCheck::isSharedNamespace($node)) {
             return [];
         }
 
-        $tip = null;
+        $errorBuilder = $this->buildError($currentClassName, $extendedClassName);
         if ($extendedClassName === 'Drupal\Core\Entity\ContentEntityDeleteForm') {
-            $tip = 'Extend \Drupal\Core\Entity\ContentEntityConfirmFormBase. See https://www.drupal.org/node/2491057';
+            $errorBuilder->tip('Extend \Drupal\Core\Entity\ContentEntityConfirmFormBase. See https://www.drupal.org/node/2491057');
         } elseif ((string) $node->extends->slice(0, 2) === 'Drupal\Core') {
-            $tip = 'Read the Drupal core backwards compatibility and internal API policy: https://www.drupal.org/about/core/policies/core-change-policies/drupal-8-and-9-backwards-compatibility-and-internal-api#internal';
+            $errorBuilder->tip('Read the Drupal core backwards compatibility and internal API policy: https://www.drupal.org/about/core/policies/core-change-policies/drupal-8-and-9-backwards-compatibility-and-internal-api#internal');
         }
-
-        return $this->buildError(
-            $currentClassName,
-            $extendedClassName,
-            $tip
-        );
+        return [$errorBuilder->build()];
     }
 
-    /**
-     * @return list<\PHPStan\Rules\IdentifierRuleError>
-     */
-    private function buildError(?string $currentClassName, string $extendedClassName, ?string $tip): array
+    private function buildError(?string $currentClassName, string $extendedClassName): RuleErrorBuilder
     {
-        $ruleErrorBuilder = RuleErrorBuilder::message(sprintf(
+        return RuleErrorBuilder::message(sprintf(
             '%s extends @internal class %s.',
             $currentClassName !== null ? sprintf('Class %s', $currentClassName) : 'Anonymous class',
             $extendedClassName
-        ))->identifier('classExtendsInternalClass.classExtendsInternalClass');
-        if ($tip !== null) {
-            $ruleErrorBuilder->tip($tip);
-        }
-
-        return [$ruleErrorBuilder->build()];
+        ));
     }
 }

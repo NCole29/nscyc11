@@ -1,0 +1,32 @@
+{#
+/**
+ * Overrides block.html.twig for Views displayed in block.
+ * Display title as <h3> instead of <h2> and remove w3-padding.
+ * <h2> is hardcoded so can't change with attributes.
+ */
+#}
+
+{%
+  set classes = [
+    'solo-clear',
+    'solo-block',
+    'solo-block-wrapper',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+  ]
+%}
+<section{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if label %}
+
+ {#	<h3{{ title_attributes.addClass('w3-block-title') }}>{{ label }}</h3> #}
+ <h3>{{ label }}</h3>
+	
+	{# ALTERNATIVELY, CHANGE <h2> TO <label> ON NEXT LINE #}
+    {# <label class="field__label">{{ label }}</label> #}
+  {% endif %}
+  {{ title_suffix }}
+  {% block content %}
+    {{ content }}
+  {% endblock %}
+</section>

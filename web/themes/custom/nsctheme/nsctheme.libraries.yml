@@ -1,0 +1,12 @@
+nsctheme-global:
+  css:
+    theme:
+      css/bikeclub.css: { }
+      css/bikeclub_solo.css: { }
+      css/accordion.css: { }   
+      css/club-calendar.css: { }
+      css/club-tables.css: { }
+      css/gin-custom.css: { }
+
+  js:
+    js/solo-subtheme-script.js: {}

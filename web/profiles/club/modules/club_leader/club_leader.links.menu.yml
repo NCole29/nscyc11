@@ -1,9 +1,0 @@
-# Define menu links for club_contacts entity
-
-# Contacts settings link; listbuilder link not needed since output is replaced by view
-club_contacts.admin.structure.settings:
-  title: 'Club leaders'
-  description: 'Configure club leader entity'
-  route_name:  club_leader.contact_settings
-  parent: system.admin_structure
-

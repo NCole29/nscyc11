@@ -60,6 +60,7 @@ final class BrowserTestBaseDefaultThemeRule implements Rule
 
 
         $classType = $scope->resolveTypeByName($node->namespacedName);
+        assert($classType instanceof ObjectType);
 
         $browserTestBaseType = new ObjectType('Drupal\\Tests\\BrowserTestBase');
         if (!$browserTestBaseType->isSuperTypeOf($classType)->yes()) {
@@ -75,11 +76,8 @@ final class BrowserTestBaseDefaultThemeRule implements Rule
             return [];
         }
 
-        $classReflections = $classType->getObjectClassReflections();
-        if (count($classReflections) !== 1) {
-            return [];
-        }
-        $reflection = $classReflections[0];
+        $reflection = $classType->getClassReflection();
+        assert($reflection !== null);
         if ($reflection->isAbstract()) {
             return [];
         }
@@ -104,9 +102,7 @@ final class BrowserTestBaseDefaultThemeRule implements Rule
         if ($defaultTheme === null || $defaultTheme === '') {
             return [
                 RuleErrorBuilder::message('Drupal\Tests\BrowserTestBase::$defaultTheme is required. See https://www.drupal.org/node/3083055, which includes recommendations on which theme to use.')
-                    ->line($node->getStartLine())
-                    ->identifier('BrowserTestBase.defaultThemeRequired')
-                    ->build(),
+                    ->line($node->getStartLine())->build(),
             ];
         }
         return [];

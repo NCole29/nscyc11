@@ -34,7 +34,6 @@ enable_links_per_type:
       delete: delete
 disable_links: false
 disable_hooks_per_type:
-  civicrm_action_schedule: 0
   civicrm_activity: 0
   civicrm_address: 0
   civicrm_campaign: 0

@@ -1,6 +1,0 @@
-# Edit link for own user info; display in clubtheme not admin theme
-user.edit_myform:
-  route_name: user.edit_myform
-  base_route: user.default
-  title: Edit
-  weight: 2

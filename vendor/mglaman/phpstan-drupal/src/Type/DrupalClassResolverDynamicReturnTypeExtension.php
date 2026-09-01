@@ -14,10 +14,14 @@ use function count;
 
 class DrupalClassResolverDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension
 {
-    public function __construct(
-        private ServiceMap $serviceMap,
-        private bool $classResolverReturnType = true,
-    ) {
+    /**
+     * @var ServiceMap
+     */
+    private $serviceMap;
+
+    public function __construct(ServiceMap $serviceMap)
+    {
+        $this->serviceMap = $serviceMap;
     }
 
     public function getClass(): string
@@ -35,7 +39,7 @@ class DrupalClassResolverDynamicReturnTypeExtension implements DynamicMethodRetu
         MethodCall $methodCall,
         Scope $scope
     ): Type {
-        if (!$this->classResolverReturnType || 0 === count($methodCall->getArgs())) {
+        if (0 === count($methodCall->getArgs())) {
             return ParametersAcceptorSelector::selectFromArgs(
                 $scope,
                 $methodCall->getArgs(),

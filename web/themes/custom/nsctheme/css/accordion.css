@@ -1,0 +1,51 @@
+:root{
+	--activebg: #cccccc;
+	--activefg: #000000;
+
+	--inactivebg:#134a85;
+	--inactivefg: #ffffff;
+
+	--answerBorder:#c5c5c5;
+	--border: #c5c5c5;
+	--hoverbg:#edf4fc;
+	--hoverBorder: #c5c5c5;
+}
+
+/* Default Question (unopened) */
+.ui-accordion-header-collapsed {
+	background: var(--inactivebg)!important;
+	color: var(--inactivefg)!important;
+}
+.ui-icon,
+.ui-widget-content .ui-icon {
+	background-image: url("images/ui-icons_ffffff_256x240.png")!important;
+}
+
+/* Active Question (after clicking to open it) */
+.ui-accordion-header-active {
+	color: var(--activefg)!important;
+}
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+a.ui-button:active,
+.ui-button:active,
+.ui-button.ui-state-active:hover {
+	border: 1px solid var(--activebg)!important /*{borderColorActive}*/;
+	background: var(--activebg)!important /*{bgColorActive}*/ /*{bgImgUrlActive}*/ /*{bgActiveXPos}*/ /*{bgActiveYPos}*/ /*{bgActiveRepeat}*/;
+	color: var(--activefg)/*{fcActive}*/;
+}
+.ui-icon-background,
+.ui-state-active .ui-icon-background {
+	border: var(--activebg)!important /*{borderColorActive}*/;
+	background-color: var(--activefg)/*{fcActive}*/;
+}
+.ui-state-active .ui-icon, .ui-button:active .ui-icon {
+	background-image: url("images/ui-icons_444444_256x240.png")!important;
+}
+.ui-state-active a,
+.ui-state-active a:link,
+.ui-state-active a:visited {
+	color: var(--activefg)/*{fcActive}*/;
+	text-decoration: none;
+}

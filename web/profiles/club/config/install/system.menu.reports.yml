@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: reports
-label: 'Club Reports'
-description: 'Reports from CiviCRM, Drupal views, and custom PHP.'
-locked: false

@@ -1,0 +1,69 @@
+:root {
+/* Color Variables set in clubtheme and used in css */
+--bg-theme:#155295; 
+--bg-l1:#1e73cf; 
+--bg-l3:#87b9ee; 
+--bg-l5:#edf4fc; 
+--bg-d1:#134a85; 
+--bg-d3:#0f3967; 
+--bg-d5:#0b294a;
+}
+
+html,
+body {
+  line-height: 1.6;
+}
+
+/* Tables */
+.w3-table,
+.w3-table-all {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  display: table;
+}
+
+.page-wrapper .w3-table-all {
+  border: 1px solid #ccc;
+}
+
+.page-wrapper .w3-bordered tr,
+.page-wrapper .w3-table-all tr {
+  border-block-end: 1px solid #ddd;
+}
+
+.page-wrapper .w3-table-all tr:nth-child(even),
+.page-wrapper .w3-striped tbody tr:nth-child(even) {
+  background-color: #f1f1f1;
+}
+
+.page-wrapper .w3-table-all tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+.page-wrapper .w3-hoverable tbody tr:hover,
+.page-wrapper .w3-ul.w3-hoverable li:hover {
+  background-color: #ccc;
+}
+
+.w3-centered tr th,
+.w3-centered tr td {
+  text-align: center;
+}
+
+.w3-table td,
+.w3-table th,
+.w3-table-all td,
+.w3-table-all th {
+  padding: 8px;
+  display: table-cell;
+  text-align: var(--solo-text-align-start);
+  vertical-align: top;
+}
+
+.w3-table th:first-child,
+.w3-table td:first-child,
+.w3-table-all th:first-child,
+.w3-table-all td:first-child {
+  padding-inline-start: 16px;
+}

@@ -78,9 +78,9 @@ class PluginManagerInspectionRule implements Rule
             $errors[] = RuleErrorBuilder::message(
                 'Plugin managers should call alterInfo to allow plugin definitions to be altered.'
             )
+                ->identifier('plugin.manager.alterInfoMissing')
                 ->tip('For example, to invoke hook_mymodule_data_alter() call alterInfo with "mymodule_data".')
                 ->line($node->getStartLine())
-                ->identifier('pluginManagerInspection.alterInfoMissing')
                 ->build();
         }
 
@@ -110,9 +110,6 @@ class PluginManagerInspectionRule implements Rule
         return false;
     }
 
-    /**
-     * @return list<\PHPStan\Rules\IdentifierRuleError>
-     */
     private function inspectYamlPluginManager(Node\Stmt\Class_ $class, Node\Stmt\ClassMethod $constructorMethodNode): array
     {
         $errors = [];
@@ -122,11 +119,7 @@ class PluginManagerInspectionRule implements Rule
         $constructor = $reflection->getConstructor();
 
         if ($constructor->getDeclaringClass()->getName() !== $fqn) {
-            $errors[] = RuleErrorBuilder::message(
-                sprintf('%s must override __construct if using YAML plugins.', $fqn)
-            )
-                ->identifier('pluginManagerInspection.callAlterInfo')
-                ->build();
+            $errors[] = sprintf('%s must override __construct if using YAML plugins.', $fqn);
         } else {
             foreach ($constructorMethodNode->stmts ?? [] as $constructorStmt) {
                 if ($constructorStmt instanceof Node\Stmt\Expression) {
@@ -137,11 +130,7 @@ class PluginManagerInspectionRule implements Rule
                     && ((string)$constructorStmt->class === 'parent')
                     && $constructorStmt->name instanceof Node\Identifier
                     && $constructorStmt->name->name === '__construct') {
-                    $errors[] = RuleErrorBuilder::message(
-                        'YAML plugin managers should not invoke its parent constructor.'
-                    )
-                        ->identifier('pluginManagerInspection.yamlPluginManagersInvokesParentConstructor')
-                        ->build();
+                    $errors[] = 'YAML plugin managers should not invoke its parent constructor.';
                 }
             }
         }

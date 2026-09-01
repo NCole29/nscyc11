@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  enforced:
-    module:
-      - club_user
-id: ride-leaders
-label: 'Ride leaders'

@@ -1,7 +1,0 @@
-'view club_schedule entity':
-  title: View schedule dates
-'edit club_schedule entity':
-  title: Edit schedule dates
-'administer club_schedule entity':
-  title: Administer schedule settings
-

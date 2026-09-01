@@ -37,10 +37,6 @@ In case you don't own the code which you want to be considered deprecated, use [
 class ThirdPartyClass {}
 ```
 
-## Custom deprecation markers
-
-You can implement extensions to support even e.g. custom `#[MyDeprecated]` attribute.  [Learn more](https://phpstan.org/developing-extensions/custom-deprecations).
-
 
 ## Custom deprecated scopes
 

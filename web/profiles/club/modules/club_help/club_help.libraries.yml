@@ -1,5 +1,0 @@
-club-help:
-  version: VERSION
-  css:
-    component:
-      css/help-icon.css: { media: screen }  

@@ -6,7 +6,6 @@ use FilesystemIterator;
 use mglaman\PHPStanDrupal\Drupal\Extension;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use Symfony\Component\Finder\Finder;
 use function array_filter;
 use function array_flip;
 use function array_multisort;
@@ -73,11 +72,11 @@ class ExtensionDiscovery
     protected $root;
 
     /**
-     * The site paths.
+     * The site path.
      *
-     * @var string[]
+     * @var string
      */
-    protected $sitePaths;
+    protected $sitePath;
 
     /**
      * Constructs a new ExtensionDiscovery object.
@@ -91,27 +90,7 @@ class ExtensionDiscovery
         $this->profileDirectories = [
             $root . '/core/profiles/standard'
         ];
-        $this->sitePaths = $this->discoverSitePaths();
-    }
-
-    /**
-     * Discovers all site-specific directories under sites/.
-     *
-     * @return string[]
-     *   An array of site paths relative to the root (e.g. 'sites/default').
-     */
-    private function discoverSitePaths(): array
-    {
-        $sitesDir = $this->root . '/sites';
-        if (!is_dir($sitesDir)) {
-            return [];
-        }
-        $finder = Finder::create()->directories()->in($sitesDir)->depth(0)->exclude(['all', 'default', 'simpletest']);
-        $paths = [];
-        foreach ($finder as $dir) {
-            $paths[] = 'sites/' . $dir->getFilename();
-        }
-        return $paths;
+        $this->sitePath = 'sites/default';
     }
 
     /**
@@ -173,12 +152,7 @@ class ExtensionDiscovery
         // type specific directory names only.
         $searchdirs[self::ORIGIN_ROOT] = '';
 
-        // Search the default site-specific directory, plus any additional site
-        // directories discovered for multisite setups.
-        $searchdirs[self::ORIGIN_SITE] = 'sites/default';
-        foreach ($this->sitePaths as $sitePath) {
-            $searchdirs[] = $sitePath;
-        }
+        $searchdirs[self::ORIGIN_SITE] = $this->sitePath;
 
         $files = [];
         foreach ($searchdirs as $dir) {

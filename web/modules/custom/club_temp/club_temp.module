@@ -1,0 +1,37 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/*
+ * Implement hook_help.
+ * Test code is written to help page
+ */
+function club_temp_help($route_name, RouteMatchInterface $route_match) {
+
+  if ($route_name == 'help.page.club_temp') {
+    // 1. Point the system configuration to a core profile (e.g., standard or minimal)
+    \Drupal::configFactory()->getEditable('core.extension')
+      ->set('profile', 'minimal')
+      ->save();
+    
+    // 2. Clear all caches to recognize the system change
+    drupal_flush_all_caches();
+    
+    // 3. Formally install the core profile as an available extension
+    \Drupal::service('module_installer')->install(['minimal']);
+      
+    // 4. Uninstall the old profile
+    \Drupal::service('module_installer')->uninstall(['your_old_profile_name']);
+    
+    // 5. Clean up remnants from the system schema register
+    $schema = \Drupal::keyValue('system.schema');
+    	if ($schema->get('club')) {
+      $schema->delete('club');
+    }
+   
+    // 6. Flush caches one final time
+    drupal_flush_all_caches();
+ 
+  }
+}
+  

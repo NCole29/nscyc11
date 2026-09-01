@@ -61,7 +61,7 @@ class FieldItemListMethodReflection implements MethodReflection
     }
 
     /**
-     * @return list<\PHPStan\Reflection\ParametersAcceptor>
+     * @return \PHPStan\Reflection\ParametersAcceptor[]
      */
     public function getVariants(): array
     {

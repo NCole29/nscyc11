@@ -50,15 +50,9 @@ class DrupalStaticEntityQueryDynamicReturnTypeExtension implements DynamicStatic
             $methodCall->getArgs(),
             $methodReflection->getVariants()
         )->getReturnType();
-        if (!$returnType->isObject()->yes()) {
+        if (!$returnType instanceof ObjectType) {
             return $returnType;
         }
-        $objectClassNames = $returnType->getObjectClassNames();
-        if (count($objectClassNames) !== 1) {
-            return $returnType;
-        }
-        $className = $objectClassNames[0];
-
         $args = $methodCall->getArgs();
         if (count($args) !== 1) {
             return $returnType;
@@ -68,7 +62,11 @@ class DrupalStaticEntityQueryDynamicReturnTypeExtension implements DynamicStatic
         if (count($type->getConstantStrings()) === 0) {
             // We're unsure what specific EntityQueryType it is, so let's stick
             // with the general class itself to ensure it gets access checked.
-            return new EntityQueryType($className);
+            return new EntityQueryType(
+                $returnType->getClassName(),
+                $returnType->getSubtractedType(),
+                $returnType->getClassReflection()
+            );
         }
         $entityTypeId = $type->getConstantStrings()[0]->getValue();
         $entityType = $this->entityDataRepository->get($entityTypeId);
@@ -78,12 +76,24 @@ class DrupalStaticEntityQueryDynamicReturnTypeExtension implements DynamicStatic
         }
 
         if ((new ObjectType(ContentEntityStorageInterface::class))->isSuperTypeOf($entityStorageType)->yes()) {
-            return new ContentEntityQueryType($className);
+            return new ContentEntityQueryType(
+                $returnType->getClassName(),
+                $returnType->getSubtractedType(),
+                $returnType->getClassReflection()
+            );
         }
         if ((new ObjectType(ConfigEntityStorageInterface::class))->isSuperTypeOf($entityStorageType)->yes()) {
-            return new ConfigEntityQueryType($className);
+            return new ConfigEntityQueryType(
+                $returnType->getClassName(),
+                $returnType->getSubtractedType(),
+                $returnType->getClassReflection()
+            );
         }
 
-        return new EntityQueryType($className);
+        return new EntityQueryType(
+            $returnType->getClassName(),
+            $returnType->getSubtractedType(),
+            $returnType->getClassReflection()
+        );
     }
 }

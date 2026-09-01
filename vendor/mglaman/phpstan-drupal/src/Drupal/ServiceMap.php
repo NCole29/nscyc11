@@ -2,7 +2,6 @@
 
 namespace mglaman\PHPStanDrupal\Drupal;
 
-use Throwable;
 use function class_exists;
 
 class ServiceMap
@@ -37,12 +36,12 @@ class ServiceMap
             }
 
             if (isset($serviceDefinition['decorates'])) {
-                $decorators[$serviceDefinition['decorates']][$serviceId] = $serviceDefinition['decoration_on_invalid'] ?? 'exception';
+                $decorators[$serviceDefinition['decorates']][] = $serviceId;
             }
 
             // @todo support factories
             if (!isset($serviceDefinition['class'])) {
-                if (self::classExists($serviceId)) {
+                if (class_exists($serviceId)) {
                     $serviceDefinition['class'] = $serviceId;
                 } else {
                     continue;
@@ -68,33 +67,12 @@ class ServiceMap
         }
 
         foreach ($decorators as $decorated_service_id => $services) {
-            foreach ($services as $decorating_service_id => $decoration_on_invalid) {
+            foreach ($services as $dcorating_service_id) {
                 if (!isset(self::$services[$decorated_service_id])) {
-                    // Symfony removes the decorating service from the
-                    // container when the decorated service does not exist and
-                    // decoration_on_invalid is set to ignore.
-                    if ($decoration_on_invalid === 'ignore') {
-                        unset(self::$services[$decorating_service_id]);
-                    }
                     continue;
                 }
-                if (!isset(self::$services[$decorating_service_id])) {
-                    continue;
-                }
-                self::$services[$decorated_service_id]->addDecorator(self::$services[$decorating_service_id]);
+                self::$services[$decorated_service_id]->addDecorator(self::$services[$dcorating_service_id]);
             }
-        }
-    }
-
-    private static function classExists(string $className): bool
-    {
-        try {
-            return class_exists($className);
-        } catch (Throwable) {
-            // Loading the class can fail when it depends on a class from an
-            // extension that is not available, such as a decorator for an
-            // optional module registered with decoration_on_invalid: ignore.
-            return false;
         }
     }
 

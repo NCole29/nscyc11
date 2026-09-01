@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.announcement.field_text
     - node.type.announcement
   module:
-    - club
     - layout_builder
     - layout_builder_restrictions
     - text

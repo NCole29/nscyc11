@@ -1,0 +1,5 @@
+name: Club temp
+type: module
+description: 'Temporarily move src folder from club profile..'
+package: Club
+core_version_requirement: ^10 ||^11

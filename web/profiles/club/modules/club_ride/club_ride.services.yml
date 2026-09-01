@@ -1,9 +1,0 @@
-services:
-  club_ride.route_subscriber:
-    class: Drupal\club_ride\Routing\RouteSubscriber
-    tags:
-      - { name: event_subscriber }
-  get_rwgps_client:
-    class: Drupal\club_ride\GetRwgpsClient
-    arguments:
-      - '@http_client_factory'

@@ -41,53 +41,40 @@ class ModuleLoadInclude extends LoadIncludeBase
             return [];
         }
 
-        // Try to invoke it similarly as the module handler itself.
-        [$moduleName, $filename] = $this->parseLoadIncludeArgs($args[1], $args[0], $args[2] ?? null, $scope);
-        if ($moduleName === false || $filename === false) {
-            // Couldn't determine module- nor file-name, most probably
-            // because it's a variable. Nothing to load, bail now.
-            return [];
-        }
-        $module = $this->extensionMap->getModule($moduleName);
-        if ($module === null) {
-            return [
-                RuleErrorBuilder::message(sprintf(
-                    'File %s could not be loaded from module_load_include because %s module is not found.',
-                    $filename,
-                    $moduleName
-                ))
-                ->line($node->getStartLine())
-                ->identifier('moduleLoadInclude.moduleNotFound')
-                ->build()
-            ];
-        }
-        $file = $module->getAbsolutePath() . DIRECTORY_SEPARATOR . $filename;
-        if (is_file($file)) {
-            try {
-                // Load the include so its symbols are available for the rest
-                // of the analysis, mirroring what module_load_include() does
-                // at runtime. Only the require itself is guarded: a broken
-                // include must not crash the analysis, but PHPStan's own
-                // exceptions elsewhere must propagate.
-                require_once $file;
-            } catch (Throwable $e) {
+        try {
+            // Try to invoke it similarly as the module handler itself.
+            [$moduleName, $filename] = $this->parseLoadIncludeArgs($args[1], $args[0], $args[2] ?? null, $scope);
+            $module = $this->extensionMap->getModule($moduleName);
+            if ($module === null) {
                 return [
-                    RuleErrorBuilder::message('A file could not be loaded from module_load_include')
-                    ->line($node->getStartLine())
-                    ->identifier('moduleLoadInclude.moduleNotLoadable')
-                    ->build()
+                    RuleErrorBuilder::message(sprintf(
+                        'File %s could not be loaded from module_load_include because %s module is not found.',
+                        $filename,
+                        $moduleName
+                    ))
+                        ->line($node->getStartLine())
+                        ->build()
                 ];
             }
-            return [];
+            $file = $module->getAbsolutePath() . DIRECTORY_SEPARATOR . $filename;
+            if (is_file($file)) {
+                require_once $file;
+                return [];
+            }
+            return [
+                RuleErrorBuilder::message(sprintf(
+                    'File %s could not be loaded from module_load_include.',
+                    $module->getPath() . '/' . $filename
+                ))
+                    ->line($node->getStartLine())
+                    ->build()
+            ];
+        } catch (Throwable $e) {
+            return [
+                RuleErrorBuilder::message('A file could not be loaded from module_load_include')
+                    ->line($node->getStartLine())
+                    ->build()
+            ];
         }
-        return [
-            RuleErrorBuilder::message(sprintf(
-                'File %s could not be loaded from module_load_include.',
-                $module->getPath() . '/' . $filename
-            ))
-            ->line($node->getStartLine())
-            ->identifier('moduleLoadInclude.moduleNotLoadable')
-            ->build()
-        ];
     }
 }

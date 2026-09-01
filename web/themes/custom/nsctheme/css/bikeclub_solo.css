@@ -1,0 +1,144 @@
+/*----------------------------------------------------
+  Modify SOLO theme
+  Note: modifications to the css/templates of contrib  
+   modules are in bikeclub/css and bikeclub/templates
+  ----------------------------------------------------*/
+
+/* Classes used in full-width blocks. Check if view headers are messed up in other places. */
+.view-header {
+  padding: 0 1rem;
+}
+.view-header p {
+  color:#fff!important;
+}
+
+.w3-theme-d5 {
+  color: #fff !important;
+  background-color: #0b294a !important;
+}
+
+/* Three footer containers */
+.footer-site-name {
+  display:block;
+  font-size:1.5rem;
+  margin:0!important;
+}
+
+.footer-width {
+  width:33%;
+}
+
+/* system message on Appearance > solo had black background and was unreadable */
+ul.settings-message {
+  background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 3%, #ffffff 100%) !important;
+}
+
+/* Eliminate padding (fixes Calendar & Login menu */
+.header-inner {
+  padding-top:0!important;
+}
+
+/* Change dark background on account menu */
+.header-inner nav .navigation__menubar > li > button,
+.header-inner nav .navigation__menubar > li > a,
+.solo-inner .navigation__menubar-account li a {
+  background-color: inherit; /* white;*/
+}
+
+/* Decrease logo size & left-align logo */
+.site-logo-img {
+  height:80%!important;
+  width:auto;
+}
+.branding-wrapper .branding-first a {
+  display: inline-flex;
+  justify-content: left;
+  align-items: center;
+}
+h1.page-title-text {
+  padding-block:0!important;
+}
+
+.page-wrapper h2 {
+  font-weight: 600!important;
+}
+
+h3 {
+  font-weight: 400; /* was 700 */
+}
+
+@media(max-width: 767px) {
+  h2 {
+    font-size:20px!important;
+    margin:0;
+  }
+  p {
+    margin-bottom: .5rem;
+  }
+  .bottom-container {
+    margin-top: -2rem!important;
+  }
+}
+
+/* Region overlapped so add padding */ 
+.layout--twocol-section > .layout__region {
+  flex: 0 1 100%;
+  padding: 0 1rem 0 1rem!important;
+}
+
+/* Teasers */
+.views-field-title a {
+  font-weight: bold;
+}
+
+hr {
+  margin-block: 0;
+} 
+
+label, .field__label {
+  font-weight: 600;
+  font-size: 110%;
+}
+
+/* Remove bottom margins to reduce white space.
+   Barely noticeable on desktop but helps on phone. 
+ */
+.region-inner {
+  padding-top: 0!important;
+}
+
+.main-container-inner {
+  padding-top: 0!important;
+}
+
+/* Reduce form width (improves webform fit on page) */ 
+.solo-input,
+.solo-select {
+  width: fit-content !important; /* was 100% and impacts webforms*/
+}
+
+.solo-inner:not( .primary-menu-inner,
+.primary-sidebar-menu-inner,
+.system-messages-inner,
+.highlighted-inner,
+.active-top-1 > .solo-inner,
+.active-main-1 > .solo-inner,
+.active-bottom-1 > .solo-inner,
+.active-footer-1 > .solo-inner) {
+  padding-bottom: 0!important;
+}
+
+/* Upcoming rides and events blocks on the home page.
+   The css class is added in the View (no need for custom template). */
+.rides-list {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: #F5F5F5 ;
+  color: #000000;
+  height:100%;
+  padding: 1rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+

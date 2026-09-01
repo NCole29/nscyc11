@@ -1,8 +1,0 @@
-uuid: 1172a840-a23f-42fb-bb50-9368b027f7f7
-langcode: en
-status: true
-dependencies: {  }
-id: time
-label: Time
-locked: false
-pattern: 'g:i a'

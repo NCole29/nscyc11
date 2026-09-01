@@ -15,6 +15,7 @@
 /web/sites
 /private
 /keys
+/sync_partial
 
 # Ignore paths that may contain temporary files
 /tmp

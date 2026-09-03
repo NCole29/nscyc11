@@ -4,7 +4,6 @@ status: true
 dependencies:
   module:
     - civicrm
-    - contact
     - media
     - system
 _core:
@@ -18,9 +17,7 @@ permissions:
   - 'access CiviMail subscribe/unsubscribe pages'
   - 'access all custom data'
   - 'access content'
-  - 'access site-wide contact form'
   - 'access uploaded files'
-  - 'access user contact forms'
   - 'make online contributions'
   - 'profile create'
   - 'profile edit'

@@ -1,0 +1,6 @@
+# Put the 'Add' link on the view that replaces entity.club_leader.collection.
+bikeclub_leader.leader_add:
+  route_name: bikeclub_leader.leader_add
+  title: 'Add leader'
+  appears_on:
+    - view.club_leaders.edit

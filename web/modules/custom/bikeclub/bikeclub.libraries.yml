@@ -1,0 +1,13 @@
+bikeclub_styles:
+  version: 1.x
+  css:
+    theme:
+      css/bikeclub.css: { }
+      css/accordion.css: { }   
+      css/club-calendar.css: { }
+      css/club-tables.css: { }
+      css/gin-custom.css: { }
+olivero_calendar:
+  css:
+    theme:
+      css/olivero_calendar.css: { }  

@@ -1,0 +1,35 @@
+# ------------------------------
+# Add to Admin menu > Content
+# ------------------------------
+bikeclub.add_content:
+  title: 'Add content'
+  route_name: node.add_page
+  parent: system.admin_content
+  weight: -10
+
+bikeclub.rides:
+  title: 'Rides'
+  route_name: view.rides.rides
+  parent: system.admin_content
+  weight: 0
+
+# ------------------------------
+# Structure > Bikeclub entities
+#  - submodules add menu items
+# ------------------------------
+bikeclub.custom_entities:
+  title: 'Bikeclub entities'
+  description: 'Manage custom entities.'
+  route_name: bikeclub.custom_entities
+  parent: 'system.admin_structure'
+
+# --------------------------------
+# Configuration > Bikeclub config
+#  - submodules add menu items
+# --------------------------------
+bikeclub.custom_config:
+  title: 'Bikeclub config'
+  description: 'Manage custom configuration.'
+  route_name: bikeclub.custom_config
+  parent: 'system.admin_config'
+  weight: -15  

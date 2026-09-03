@@ -1,0 +1,22 @@
+# Define the 'local' links tabs for the module
+
+# Provides tabs on the settings page: Settings, Manage fields, Manage form display, Manage display
+bikeclub_leader.settings_tab:
+  route_name: bikeclub_leader.leader_settings
+  title: Settings
+  base_route: bikeclub_leader.leader_settings
+
+bikeclub_leader.view:
+  route_name: entity.club_leader.canonical
+  base_route: entity.club_leader.canonical
+  title: View
+
+bikeclub_leader.edit_form:
+  route_name: entity.club_leader.edit_form
+  base_route: view.club_contacts.edit
+  title: Edit
+
+bikeclub_leader.delete_form:
+  route_name:  entity.club_leader.delete_form
+  base_route:  view.club_contacts.edit
+  title: Delete

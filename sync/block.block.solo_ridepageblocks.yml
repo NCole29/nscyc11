@@ -1,0 +1,32 @@
+uuid: 28e0d023-8df3-40d2-80fa-2e5a46682b4d
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:paragraphs_block:caafdc56-4fa6-4ca5-8d5b-c2e1f2b29bea'
+  module:
+    - block_content
+    - node
+  theme:
+    - solo
+id: solo_ridepageblocks
+theme: solo
+region: content
+weight: -10
+provider: null
+plugin: 'block_content:caafdc56-4fa6-4ca5-8d5b-c2e1f2b29bea'
+settings:
+  id: 'block_content:caafdc56-4fa6-4ca5-8d5b-c2e1f2b29bea'
+  label: 'Ride page blocks'
+  label_display: '0'
+  provider: block_content
+  view_mode: full
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      recurring_ride: recurring_ride
+      ride: ride

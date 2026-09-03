@@ -1,0 +1,37 @@
+uuid: 85d3d4ab-287b-4ee2-9f22-7e23f9e7198d
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.who_s_online
+  module:
+    - system
+    - user
+    - views
+  theme:
+    - stark
+id: stark_views_block__who_s_online_who_s_online_block
+theme: stark
+region: sidebar_second
+weight: -15
+provider: null
+plugin: 'views_block:who_s_online-who_s_online_block'
+settings:
+  id: 'views_block:who_s_online-who_s_online_block'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: null
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      administrator: administrator

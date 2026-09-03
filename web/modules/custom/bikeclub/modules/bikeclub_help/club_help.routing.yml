@@ -1,0 +1,6 @@
+club_help.docs:
+  path: '/sites/default/files/help/index.html'
+  defaults: 
+    _title: 'Help pages'
+  requirements: 
+    _permission: 'access toolbar'

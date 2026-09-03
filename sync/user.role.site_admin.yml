@@ -8,8 +8,6 @@ dependencies:
     - core.entity_view_display.node.event.default
     - core.entity_view_display.node.page.default
     - filter.format.basic_html
-    - filter.format.ride_page
-    - filter.format.summary_fields
     - media.type.gallery
     - media.type.image
     - media.type.image_crop_16_9
@@ -32,7 +30,6 @@ dependencies:
     - block_content
     - civicrm
     - civicrm_group_roles
-    - contact
     - content_moderation
     - contextual
     - field_ui
@@ -85,7 +82,6 @@ permissions:
   - 'access user profiles'
   - 'access webform help'
   - 'access webform overview'
-  - 'add club_contact entity'
   - 'add contact notes'
   - 'add contacts'
   - 'administer CiviCRM'
@@ -95,7 +91,6 @@ permissions:
   - 'administer Tagsets'
   - 'administer block content'
   - 'administer block_content display'
-  - 'administer contact forms'
   - 'administer dedupe rules'
   - 'administer footer menu items'
   - 'administer main menu items'
@@ -144,8 +139,6 @@ permissions:
   - 'delete any recurring_ride content'
   - 'delete any ride content'
   - 'delete any webform content'
-  - 'delete club_contact entity'
-  - 'delete club_route entity'
   - 'delete contacts'
   - 'delete files immediately'
   - 'delete files override usage'
@@ -175,8 +168,6 @@ permissions:
   - 'edit any restricted_file media'
   - 'edit any ride content'
   - 'edit any webform content'
-  - 'edit club_contact entity'
-  - 'edit club_route entity'
   - 'edit contributions'
   - 'edit event participants'
   - 'edit groups'
@@ -187,11 +178,11 @@ permissions:
   - 'edit own webform'
   - 'edit system workflow message templates'
   - 'edit user-driven message templates'
-  - 'enter waivers'
   - 'make smart dates recur'
   - 'manage event profiles'
   - 'manage tags'
   - 'merge duplicate contacts'
+  - 'rebuild node access permissions'
   - 'reschedule smart date recur instances'
   - 'revert all revisions'
   - 'revert any basic block content revisions'
@@ -211,8 +202,6 @@ permissions:
   - 'use rides transition publish'
   - 'use rides transition publish_notify'
   - 'use text format basic_html'
-  - 'use text format ride_page'
-  - 'use text format summary_fields'
   - 'view all activities'
   - 'view all contacts'
   - 'view all media revisions'
@@ -221,9 +210,6 @@ permissions:
   - 'view any unpublished banner content'
   - 'view any unpublished content'
   - 'view banner revisions'
-  - 'view club_contact entity'
-  - 'view club_route entity'
-  - 'view club_schedule entity'
   - 'view latest version'
   - 'view media'
   - 'view own unpublished content'

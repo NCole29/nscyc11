@@ -1,0 +1,20 @@
+uuid: 388fc1f0-8447-417f-b3b9-f3ff64fcb505
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - solo
+id: solo_breadcrumbs
+theme: solo
+region: breadcrumb
+weight: -100
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

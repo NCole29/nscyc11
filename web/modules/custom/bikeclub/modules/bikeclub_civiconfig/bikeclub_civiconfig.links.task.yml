@@ -1,0 +1,6 @@
+# Edit link for contact info in CiviCRM
+user.edit_myprofile:
+  route_name: user.edit_myprofile
+  base_route: civicrm.user_profile
+  title: 'Edit profile'
+  weight: 2

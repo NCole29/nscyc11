@@ -1,0 +1,16 @@
+/* Toolbar icon for Club Help */
+.toolbar-bar .toolbar-icon-clubhelp:before {
+  background-image: url("icons/question-mark.svg");
+}
+.toolbar-bar .toolbar-icon-clubhelp:active:before,
+.toolbar-bar .toolbar-icon-clubhelp.is-active:before {
+  background-image: url("icons/question-mark.svg");
+}
+
+.no-svg .toolbar-bar .toolbar-icon-clubhelp:before {
+  background-image: url("icons/question-mark.png");
+}
+.no-svg .toolbar-bar .toolbar-icon-clubhelp:active:before,
+.no-svg .toolbar-bar .toolbar-icon-clubhelp.active:before {
+  background-image: url("icons/question-mark.png");
+}

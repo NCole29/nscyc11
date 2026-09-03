@@ -1,0 +1,37 @@
+uuid: b9c213a2-0bb3-408d-bc9f-3214475689f6
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.who_s_online
+  module:
+    - system
+    - user
+    - views
+  theme:
+    - nsctheme
+id: nsctheme_views_block__who_s_online_who_s_online_block
+theme: nsctheme
+region: sidebar_first
+weight: -9
+provider: null
+plugin: 'views_block:who_s_online-who_s_online_block'
+settings:
+  id: 'views_block:who_s_online-who_s_online_block'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: null
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      administrator: administrator

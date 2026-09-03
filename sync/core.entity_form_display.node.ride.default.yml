@@ -24,8 +24,6 @@ dependencies:
     - field.field.node.ride.field_results_access
     - field.field.node.ride.field_ride_leader
     - field.field.node.ride.field_ride_picture
-    - field.field.node.ride.field_rwgps_routes
-    - field.field.node.ride.field_schedule_date
     - field.field.node.ride.field_show_and_go
     - field.field.node.ride.field_time
     - node.type.ride
@@ -487,16 +485,6 @@ content:
     settings:
       media_types: {  }
     third_party_settings: {  }
-  field_rwgps_routes:
-    type: entity_reference_autocomplete
-    weight: 50
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   field_time:
     type: string_textfield
     weight: 7
@@ -584,7 +572,6 @@ hidden:
   created: true
   field_day: true
   field_dayofweek: true
-  field_schedule_date: true
   field_show_and_go: true
   promote: true
   publish_on: true

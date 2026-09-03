@@ -1,0 +1,37 @@
+uuid: bc53f408-dca4-4da6-b9ec-a0e34653994d
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:18665b8a-56c0-44bb-86cb-da0384ec1dd9'
+  module:
+    - block_content
+    - system
+    - user
+  theme:
+    - solo
+id: solo_bscmemberdiscount
+theme: solo
+region: content
+weight: -12
+provider: null
+plugin: 'block_content:18665b8a-56c0-44bb-86cb-da0384ec1dd9'
+settings:
+  id: 'block_content:18665b8a-56c0-44bb-86cb-da0384ec1dd9'
+  label: 'BSC Member Discount'
+  label_display: visible
+  provider: block_content
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /blazing-saddles-century-2026-0
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      administrator: administrator
+      member: member

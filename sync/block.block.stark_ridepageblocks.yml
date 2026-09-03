@@ -1,0 +1,32 @@
+uuid: 92508459-e1ee-4bc0-ad5e-776c800b579c
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:paragraphs_block:caafdc56-4fa6-4ca5-8d5b-c2e1f2b29bea'
+  module:
+    - block_content
+    - node
+  theme:
+    - stark
+id: stark_ridepageblocks
+theme: stark
+region: content
+weight: -10
+provider: null
+plugin: 'block_content:caafdc56-4fa6-4ca5-8d5b-c2e1f2b29bea'
+settings:
+  id: 'block_content:caafdc56-4fa6-4ca5-8d5b-c2e1f2b29bea'
+  label: 'Ride page blocks'
+  label_display: '0'
+  provider: block_content
+  view_mode: full
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      recurring_ride: recurring_ride
+      ride: ride

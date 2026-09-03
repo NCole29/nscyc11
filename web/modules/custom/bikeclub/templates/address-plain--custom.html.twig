@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Default template for the 'plain' address formatter.
+ * Modified - remove margins by removing <p>
+ *
+ *
+ * @ingroup themeable
+ */
+#}
+{# <p class="address" translate="no"> 
+</p>
+#}
+  {% if given_name or family_name %}
+    {{ given_name }} {{ family_name }} <br>
+  {% endif %}
+  {% if organization %}
+    {{ organization }} <br>
+  {% endif %}
+  {% if address_line1 %}
+    {{ address_line1 }} <br>
+  {% endif %}
+  {% if address_line2 %}
+    {{ address_line2 }} <br>
+  {% endif %}
+  {% if address_line3 %}
+    {{ address_line3 }} <br>
+  {% endif %}
+  {% if dependent_locality.code %}
+    {{ dependent_locality.code }} <br>
+  {% endif %}
+  {% if locality.code or postal_code or administrative_area.code %}
+    {{ locality.code }} {{ postal_code }} {{ administrative_area.code }} <br>
+  {% endif %}
+  {{ country.name }}
+

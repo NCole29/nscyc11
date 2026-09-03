@@ -1,0 +1,28 @@
+uuid: 501e53e1-745c-48e4-8968-b05608d70b2f
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:f6e91878-5775-4e05-ad0c-ae009f04bf71'
+  module:
+    - block_content
+    - system
+  theme:
+    - nsctheme
+id: nsctheme_rideleaderguidelines
+theme: nsctheme
+region: sidebar_first
+weight: -11
+provider: null
+plugin: 'block_content:f6e91878-5775-4e05-ad0c-ae009f04bf71'
+settings:
+  id: 'block_content:f6e91878-5775-4e05-ad0c-ae009f04bf71'
+  label: 'Ride Leader Guidelines'
+  label_display: visible
+  provider: block_content
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/rl/*'

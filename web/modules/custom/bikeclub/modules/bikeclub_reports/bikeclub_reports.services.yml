@@ -1,0 +1,4 @@
+services:
+  bikeclub_reports.annual_stats:
+    class: Drupal\bikeclub_reports\Controller\AnnualStatistics
+    arguments: ['@database','entity_type.manager','logger.factory']

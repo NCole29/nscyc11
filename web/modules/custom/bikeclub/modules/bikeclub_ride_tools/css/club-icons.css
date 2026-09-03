@@ -1,0 +1,25 @@
+/* Icon for 'Ride tools' menu item */
+.ride-tools-menu-item-class::before { mask-image: url(svg/noun-bicycle.svg); }
+
+.toolbar-icon-system-admin-ridetools:before {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cg%3e%3cpath fill='%23787878' d='M12.502 7h-5c-.276 0-.502-.225-.502-.5v-5c0-.275-.225-.5-.5-.5h-3c-.275 0-.5.225-.5.5v12.029c0 .275.225.5.5.5h9.002c.275 0 .5-.225.5-.5v-6.029c0-.275-.225-.5-.5-.5zM8.502 6h4c.275 0 .34-.159.146-.354l-4.293-4.292c-.195-.195-.353-.129-.353.146v4c0 .275.225.5.5.5z'/%3e%3c/g%3e%3c/svg%3e");
+}
+
+.toolbar-icon-system-admin-ridetools:active:before,
+.toolbar-icon-system-admin-ridetools.is-active:before {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cg%3e%3cpath fill='%23000000' d='M12.502 7h-5c-.276 0-.502-.225-.502-.5v-5c0-.275-.225-.5-.5-.5h-3c-.275 0-.5.225-.5.5v12.029c0 .275.225.5.5.5h9.002c.275 0 .5-.225.5-.5v-6.029c0-.275-.225-.5-.5-.5zM8.502 6h4c.275 0 .34-.159.146-.354l-4.293-4.292c-.195-.195-.353-.129-.353.146v4c0 .275.225.5.5.5z'/%3e%3c/g%3e%3c/svg%3e");
+}
+
+
+/* File icons - css from /core/themes/classy/css */
+/* Images in /core/themes/classy/images/icons copied to clubtheme/images */
+.file {
+  display: inline-block;
+  min-height: 16px;
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+.file__size {
+  color: #55565b;
+}

@@ -1,0 +1,22 @@
+'add club_route entity':
+  title: Add club route
+'delete club_route entity':
+  title: Delete club route
+'edit club_route entity':
+  title: Edit club route
+'view club_route entity':
+  title: View club routes
+'administer club_route entity':
+  title: Administer club route settings
+
+'administer rwgps_api_form':
+  title: Administer RWGPS API key
+'enter waivers':
+  title: Enter nonmembers from waiver forms
+
+'edit club_schedule entity':
+  title: Edit schedule dates
+'view club_schedule entity':
+  title: View schedule dates
+'administer club_schedule entity':
+  title: Administer schedule settings

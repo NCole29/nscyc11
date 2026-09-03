@@ -1,0 +1,35 @@
+<?php
+
+use Drupal\Core\Entity\ContentEntityType;
+
+include_once __DIR__ . '/includes/install_nodes.inc';
+
+/**
+ * Implements hook_install.
+ */
+function bikeclub_reports_install() {
+  // Add pages to: (a) hold blocks created in Views; (b) display custom PHP report.
+  // Install menu links report uploads.
+  
+  //club_nodes();
+}
+
+/**
+ * Implements hook_uninstall.
+ */
+function bikeclub_reports_uninstall() {
+
+  // Delete nodes.
+  $pages = ['Membership Statistics','Century Statistics','Event Statistics'];
+
+  $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
+    ->condition('type','page')
+    ->condition('title', $pages, 'IN');
+  $nids = $query->execute();
+
+  $storageHandler = \Drupal::entityTypeManager()->getStorage('node');
+  $nodes = $storageHandler->loadMultiple($nids);
+  $storageHandler->delete($nodes);
+
+}

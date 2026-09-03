@@ -1,0 +1,18 @@
+{
+  "name": "bikeclub/bikeclub_report",
+  "description": "Reports of Membership, Events, Multiple Memberships, PayPal Notifications, and PayPal/CiviCRM inconsistencies.",
+  "type": "drupal-module",
+  "license": ["GPL-2.0-or-later"],
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "Nancy Cole",
+      "homepage": "https://bikeclubsites.com",
+      "role": "Maintainer"
+    }
+  ],
+  "require": {
+    "drupal/core": "^11"
+  },
+  "version": "1.0.1"
+}

@@ -1,0 +1,103 @@
+/*  CUSTOM TABLE STYLES used in Views
+  Plain table - no shading, border on bottom only
+  Leader table - enforce equal column width
+  Report table  - alternate row shading, right align, small font
+  Schedule table - same as report + border between schedule and ride fields
+  --------------------------------------------------------------------------*/
+.narrow-table {
+  width: 50% !important;
+}
+
+.plain-table tr {
+  border-bottom: 1px solid var(--bg-d1)!important;
+}
+.plain-table td,
+.plain-table th {
+  font-size: .8em;
+  padding: 4px 4px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.leader-table,
+.report-table,
+.schedule-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 98%;
+  margin-left: 2em;
+  display: table;
+  font-size:medium;
+}
+.leader-table tr,
+.report-table tr,
+.schedule-table tr {
+  border-bottom: 1px solid #ddd;
+}
+.leader-table   th:first-child,
+.leader-table   td:first-child,
+.report-table   th:first-child,
+.report-table   td:first-child,
+.schedule-table th:first-child,
+.schedule-table td:first-child {
+  padding-left: 16px;
+  text-align: left;
+}
+.leader-table th,
+.leader-table td,
+.report-table th,
+.report-table td,
+.schedule-table th,
+.schedule-table td {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-right: 1em;
+  display: table-cell;
+  vertical-align: top;
+}
+.report-table th,
+.report-table td,
+.schedule-table th,
+.schedule-table td {
+  font-size: .8em!important;
+}
+
+/* Alternate row shading  */
+.leader-table tr:nth-child(odd),
+.report-table tr:nth-child(odd) {
+  background-color: #fff;
+}
+.leader-table tr:nth-child(even),
+.report-table tr:nth-child(even) {
+  background-color: #f1f1f1;
+}
+
+/* Enforce equal column width */
+.leader-table th,
+.leader-table td {
+  width: 20%;
+}
+
+.leader-table th,
+.leader-table td {
+  padding-left: 8px;
+  text-align: left;
+}
+
+/* Right-align */
+.report-table th {
+   text-align: center!important;
+}
+.report-table td {
+   text-align: right!important;
+}
+.schedule-table th,
+.schedule-table td {
+   text-align: left!important;
+}
+
+/* Vertical border between schedule and ride fields */
+.schedule-table th:nth-child(3),
+.schedule-table td:nth-child(3) {
+  border-left: 1px solid gray;
+}

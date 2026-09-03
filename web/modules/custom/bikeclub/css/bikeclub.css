@@ -1,0 +1,85 @@
+/*
+  CSS modifications to styles in core & contrib modules. These changes apply to all themes.
+  Additional CSS is in themes/bikeclub_solo (SOLO subtheme) to modify the Solo theme defaults.
+  Color modifications are done through the UI in bikeclub_solo theme settings.
+*/
+
+/* Style is applied in Hook/BikeclubMenus.php */
+.home-button {
+  padding: 0.95rem 0.5rem 0 0!important;
+}
+
+.fontawesome-icons {
+  text-align: center;
+}
+
+/* Style the text box overlay on banner pictures */
+.banner-textbox {
+  background-color: white;
+  color: black;
+  padding: 1rem;
+}
+
+/* CKEDITOR - Add styles for selection in editor */
+p.small {
+  font-size: 85%;
+  line-height: 1.4;
+}
+p.medium {
+  font-size: 95%;
+  line-height: 1.5;
+}
+p.regular {
+  font-size: 100%;
+  line-height: 1.5;
+}
+p.large {
+  font-size: 115%;
+  line-height: 1.5;
+}
+p.large {
+  font-size: 125%;
+  line-height: 1.5;
+}
+p.button {
+  display: inline-block;
+  width: fit-content;
+  margin:auto;
+  border: 1px solid #134a84;
+  border-radius: 0.3rem;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  margin-bottom: 1rem;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  color: #ffffff!important;
+  background-color: #134a84 ;
+}
+p.button a {
+  color: #ffffff!important;
+}
+
+/* ADDRESS module - Remove margins. */
+.address {
+  margin-top: 0;
+  margin-bottom: 0;  
+}
+
+
+/* WEBFORM module - Change element width in Flex containers. */
+.webform-flex--container > .form-item > input:not([type="checkbox"]),
+.webform-flex--container > .form-item > select {
+    width: fit-content!important; /* was 100% */
+}
+
+/* Remove "About text formats" from forms. */
+.filter-tips {
+    display: none!important;
+}
+
+.footer {
+  font-size: 80%;
+  line-height: 1.1;
+}

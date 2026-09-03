@@ -6,7 +6,7 @@
 }
 .calendar-view-pager__reset a,
 .calendar-view-pager .pager__item > * {
-  padding: 1rem 0.5rem;
+  padding: 2rem 0.5rem;
   font-size: 1.5rem; /* was 0.8125rem */
   line-height: 0;
   text-transform: capitalize; /* was uppercase */

@@ -1,0 +1,9 @@
+name: 'Bikeclub Ride Tools'
+type: module
+description: 'Adds custom entities: RWGPS routes and Schedule dates. Adds Ride tools to cancel ride, enter waiver form, view ride schedules.'
+package: Bikeclub
+core_version_requirement: ^9 || ^10 || ^11
+dependencies:
+  - bikeclub:bikeclub
+  - drupal:datetime
+  - views_bulk_operations:views_bulk_operations  

@@ -1,0 +1,13 @@
+uuid: 7cf85811-06fc-405f-ac89-e7d565f4c03c
+langcode: en
+status: true
+dependencies:
+  enforced:
+    theme:
+      - solo
+_core:
+  default_config_hash: JQB4qj0LQT8T2CO1mzne5eFXQ1I1oEUwXQsLv0FaLsk
+id: solo_date_l
+label: 'Solo Date Long'
+locked: false
+pattern: 'g:i A T, D F d, o'

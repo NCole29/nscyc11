@@ -1,0 +1,20 @@
+uuid: d4e0393c-db74-41c8-ba4a-d4208ff4d4e5
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - solo
+id: solo_content
+theme: solo
+region: content
+weight: -11
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

@@ -1,0 +1,13 @@
+# Menu item under Structure > Bikeclub entities.
+bikeclub_leader.admin:
+  title: 'Club leader entity'
+  description: 'Club leader data'
+  route_name:  bikeclub_leader.leader_settings
+  parent: 'bikeclub.custom_entities' 
+
+# Menu item under People.
+bikeclub_leader.leaders:
+  title: 'Club leader list'
+  description: 'Club leader admin list'
+  route_name: view.club_leaders.edit
+  parent: entity.user.collection

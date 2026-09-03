@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Theme override to display location address on a node (view mode = address)
+ *  with the location name displayed as a field label not a node title (no link).
+ * 
+ */
+#}
+{% set classes = [
+    'node',
+    'solo-clear',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+{% set title_classes = [
+    'field__label',
+    label_display == 'visually_hidden' ? 'visually-hidden',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div{{ content_attributes.addClass('solo-clear node__content') }}>
+    {{ label }}
+    {{ content }}
+  </div>
+</article>

@@ -1,0 +1,44 @@
+/* CALENDAR_VIEW module */
+
+/* Revise pager display and remove caption since it duplicates the pager */
+.calendar-view-pager li {
+  list-style-type: none; 
+}
+.calendar-view-pager__reset a,
+.calendar-view-pager .pager__item > * {
+  padding: 1rem 0.5rem;
+  font-size: 1.5rem; /* was 0.8125rem */
+  line-height: 0;
+  text-transform: capitalize; /* was uppercase */
+  font-weight: bold;
+  text-decoration: none;
+}
+.pager__item a {
+  border: 0 !important;
+}
+.calendar-view-table caption {
+  display: none!important;
+}
+
+/* Set colors */
+.calendar-view-table {
+  --calendar-view-color-light: #edf4fc;
+  --calendar-view-color-dark: #134a85;
+  /* Original:
+  --calendar-view-columns: 7;
+  --calendar-view-color-white: #fff;
+  --calendar-view-color-lighter: #f8f8f8;
+  --calendar-view-color-light: #f4f4f4; 
+  --calendar-view-color-grey: #ccc;
+  --calendar-view-color-gray: #555;
+  --calendar-view-color-evil: #666;
+  --calendar-view-color-dark: #333;
+  --calendar-view-day-rows-gap: 0.5rem;
+  */
+}
+
+/* Use white text in header when background is dark */
+.calendar-view-table th {
+  color: #fff !important;
+}
+

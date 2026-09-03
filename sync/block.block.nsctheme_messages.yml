@@ -1,0 +1,20 @@
+uuid: 341bea2b-32c2-4a61-8c78-9de7f16abbe6
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - nsctheme
+id: nsctheme_messages
+theme: nsctheme
+region: system_messages
+weight: -50
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

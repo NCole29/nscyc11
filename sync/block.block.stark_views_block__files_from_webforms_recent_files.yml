@@ -1,0 +1,29 @@
+uuid: cd288957-e451-4572-94b6-93a3e92ef324
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.files_from_webforms
+  module:
+    - system
+    - views
+  theme:
+    - stark
+id: stark_views_block__files_from_webforms_recent_files
+theme: stark
+region: content
+weight: -9
+provider: null
+plugin: 'views_block:files_from_webforms-recent_files'
+settings:
+  id: 'views_block:files_from_webforms-recent_files'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: null
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

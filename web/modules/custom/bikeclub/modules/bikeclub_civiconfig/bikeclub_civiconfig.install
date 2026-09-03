@@ -1,0 +1,50 @@
+<?php
+
+use \Drupal\Core\Url;
+
+include_once __DIR__ . '/includes/bikeclub_civiconfig_settings.inc';
+include_once __DIR__ . '/includes/bikeclub_civiconfig_membership.inc';
+
+/**
+ * Implements hook_requirements().
+ */
+function bikeclub_civiconfig_requirements($phase) {
+  $requirements = [];
+  if ($phase === 'install') {
+    if (!\Drupal::moduleHandler()->moduleExists('civicrm')) {
+      $requirements['civicrm'] = [
+        'severity' => REQUIREMENT_ERROR,
+        'description' => t('CiviCRM Core must be installed first. Please see <a href=":link">CiviCRM installation instructions.</a>', [ 
+          ':link' => 'https://docs.civicrm.org/installation/en/latest/drupal/',
+        ]),
+      ];
+    }
+  }
+  return $requirements;
+}
+
+/**
+ * Implements hook_install().
+ *
+ * Set up CiviCRM configurations.
+ *
+ * @see system_install()
+ */
+function bikeclub_civiconfig_install() {
+
+  // Install civicrm_entity module here because error is returned
+  //  when module is a dependency in .info.yml, and hook_requirement returns REQUIREMENT_ERROR
+  \Drupal::service('module_installer')->install(['civicrm_entity']);
+
+  // Configure membership types & membership contribution page (needed for webform setup to work).
+  bikeclub_civiconfig_membership();
+
+  // Configure localization, display preferences, menus, tags, option groups, custom data.
+  bikeclub_civiconfig_settings();
+
+  // Must cleanup caches for navigation menu changes to take effect.
+  $item = t('Go to <a href=":href">CiviCRM Settings</a> and click the Cleanup Caches button to complete installation.', 
+    [':href' => Url::fromRoute('civicrm.civicrm_admin_setting_updateConfigBackend')->toString()]);
+
+  \Drupal::messenger()->addWarning($item);
+}

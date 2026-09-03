@@ -1,0 +1,29 @@
+uuid: ff613cbf-5272-4327-9af3-12311c707f1e
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.club-reports
+  module:
+    - system
+  theme:
+    - stark
+id: stark_clubreports
+theme: stark
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:club-reports'
+settings:
+  id: 'system_menu_block:club-reports'
+  label: 'Club Reports'
+  label_display: visible
+  provider: system
+  level: 1
+  depth: null
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/report/*'

@@ -1,0 +1,20 @@
+uuid: 4c3e1cbe-8ec6-4817-abb9-7d489dddeceb
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - nsctheme
+id: nsctheme_powered
+theme: nsctheme
+region: bottom_first
+weight: -14
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  label_display: '0'
+  provider: system
+visibility: {  }

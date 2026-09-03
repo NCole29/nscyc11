@@ -4,8 +4,6 @@ status: true
 dependencies:
   config:
     - filter.format.basic_html
-    - filter.format.ride_page
-    - filter.format.summary_fields
     - node.type.location
     - node.type.recurring_ride
     - node.type.ride
@@ -14,7 +12,6 @@ dependencies:
     - civicrm
     - civicrm_group_roles
     - comment
-    - contact
     - content_moderation
     - contextual
     - file
@@ -50,7 +47,6 @@ permissions:
   - 'access media overview'
   - 'access shortcuts'
   - 'access toolbar'
-  - 'access user contact forms'
   - 'administer Reports'
   - 'cancel smart date recur instances'
   - 'clone recurring_ride content'
@@ -63,7 +59,6 @@ permissions:
   - 'delete any location content'
   - 'delete any recurring_ride content'
   - 'delete any ride content'
-  - 'delete club_route entity'
   - 'delete in CiviMail'
   - 'delete location revisions'
   - 'delete media'
@@ -73,8 +68,6 @@ permissions:
   - 'edit any location content'
   - 'edit any recurring_ride content'
   - 'edit any ride content'
-  - 'edit club_route entity'
-  - 'edit club_schedule entity'
   - 'edit groups'
   - 'edit message templates'
   - 'make smart dates recur'
@@ -91,13 +84,9 @@ permissions:
   - 'use rides transition publish'
   - 'use rides transition publish_notify'
   - 'use text format basic_html'
-  - 'use text format ride_page'
-  - 'use text format summary_fields'
   - 'view all contacts'
   - 'view all revisions'
   - 'view any unpublished content'
-  - 'view club_route entity'
-  - 'view club_schedule entity'
   - 'view latest version'
   - 'view media'
   - 'view own unpublished content'

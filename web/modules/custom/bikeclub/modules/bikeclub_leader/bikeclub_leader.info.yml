@@ -1,0 +1,16 @@
+name: 'Bikeclub Leaders'
+type: module
+description: 'Provides Club Leader entity type to track Officers and Coordinators and automatically assign Drupal roles.'
+package: Bikeclub
+core_version_requirement: ^10.1 || ^11
+dependencies:
+  - drupal:contact
+  - drupal:datetime
+  - drupal:field_ui
+  - drupal:image
+  - drupal:menu_ui
+  - drupal:options
+  - drupal:taxonomy
+  - drupal:views
+  - drupal:views_ui
+  - drupal:user

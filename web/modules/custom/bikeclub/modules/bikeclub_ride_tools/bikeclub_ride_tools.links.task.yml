@@ -1,0 +1,39 @@
+# Custom route entity: settings, view, edit, delete.
+# Routes are added only via download from RWGPS.
+route.settings_tab:
+  route_name: bikeclub_ride_tools.route_settings
+  base_route: bikeclub_ride_tools.route_settings
+  title: Settings
+
+route.view:
+  route_name: entity.bikeclub_route.canonical
+  base_route: entity.bikeclub_route.canonical
+  title: View
+
+route.edit_form:
+  route_name: entity.bikeclub_route.edit_form
+  base_route: entity.bikeclub_route.canonical
+  title: Edit
+
+route.delete_form:
+  route_name:  entity.bikeclub_route.delete_form
+  base_route:  entity.bikeclub_route.canonical
+  title: Delete
+
+# Custom schedule date entity: settings, view, edit.
+# Schedule dates (all calendar dates for 6 years) are 
+#  loaded upon module install and cannot be deleted.
+schedule.settings_tab:
+  route_name: bikeclub_ride_tools.schedule_settings
+  base_route: bikeclub_ride_tools.schedule_settings
+  title: Settings
+
+schedule.view:
+  route_name: entity.bikeclub_schedule.canonical
+  base_route: view.schedule_ride_dates.ride_schedule
+  title: View
+
+schedule.edit_form:
+  route_name: entity.bikeclub_schedule.edit_form
+  base_route: view.schedule_ride_dates.ride_schedule
+  title: Edit

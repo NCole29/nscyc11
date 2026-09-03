@@ -1,0 +1,28 @@
+# Read CiviCRM membership contribution records and display date range
+#  for each "total amount" paid.
+bikeclub_history.get_fees:
+  path: '/admin/membership/fee-dates'
+  defaults:
+    _controller: '\Drupal\bikeclub_history\Controller\GetFeeDates::getDates'
+    _title: 'Get range of dates associated with each membership fee'
+  requirements:
+    _role: 'administrator'
+
+# Fill field_membership_term on civicrm contributions based on current 
+#  and historic membership fees.
+bikeclub_history.add_terms:
+  path: '/admin/membership/add-terms'
+  defaults:
+    _controller: '\Drupal\bikeclub_history\Controller\OldMemberTerms::addterm'
+    _title: 'Add membership term to contribution records'
+  requirements:
+    _role: 'administrator'
+
+# Count PAST annual membership and save to Statistics nodes. 
+bikeclub_history.oldmember_counts:
+  path: '/admin/membership/oldmember-counts'
+  defaults:
+    _controller: '\Drupal\bikeclub_history\Controller\OldMemberCounts::tabulate'
+    _title: 'Count PAST annual membership and save to Statistics'
+  requirements:
+    _role: 'administrator'

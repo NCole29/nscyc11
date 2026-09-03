@@ -9,14 +9,6 @@ body {
   line-height: 1.6;
 }
 
-/* Classes used in full-width blocks. Check if view headers are messed up in other places. */
-.view-header {
-  padding: 0 1rem;
-}
-.view-header p {
-  color:#fff!important;
-}
-
 /* Style is applied in Hook/BikeclubMenus.php */
 .home-button {
   padding: 0.95rem 0.5rem 0 0!important;

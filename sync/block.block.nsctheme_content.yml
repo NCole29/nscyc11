@@ -1,0 +1,20 @@
+uuid: aab97542-55a7-4dac-b3ee-bfdf4b8d3927
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - nsctheme
+id: nsctheme_content
+theme: nsctheme
+region: content
+weight: -11
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

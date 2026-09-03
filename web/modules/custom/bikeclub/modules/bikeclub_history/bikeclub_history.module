@@ -1,0 +1,81 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_help().
+ */
+function bikeclub_history_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.bikeclub_history':
+      $oldfees        = Url::fromUri('internal:/form/old-membership-fees')->toString();
+      $fee_dates      = Url::fromRoute('bikeclub_history.get_fees')->toString();
+      $addterm        = Url::fromRoute('bikeclub_history.add_terms')->toString();
+      $review         = '/admin/structure/civicrm-entity/civicrm-contribution/memberships';
+      $getcounts      = Url::fromRoute('bikeclub_history.oldmember_counts')->toString();
+      $currentMembers = Url::fromRoute('bikeclub_reports.current_members')->toString();
+      $currentRides   = Url::fromRoute('bikeclub_reports.current_rides')->toString();
+                                      
+      $oldfees_button  = "<a href='" . $oldfees   . "' class='button'>Enter old member fees</a>"; 
+      $addterm_button  = "<a href='" . $addterm   . "' class='button'>Add membership terms</a>";
+      $review_button   = "<a href='" . $review    . "' class='button'>Review memberships w/o terms</a>";
+      $counts_button   = "<a href='" . $getcounts . "' class='button'>Tabulate annual membership</a>";
+      $current_members = "<a href='" . $currentMembers . "' class='button'>Tabulate current membership</a>";
+      $current_rides   = "<a href='" . $currentRides   . "' class='button'>Count rides this year</a>";
+      $stats_view      = "<a href='/admin/structure/views/view/club_statistics'>View</a>";
+
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t("The <strong>Bikeclub Statistics</strong> module provides a content type to store annual statistics. 
+      Custom programming will automatically add two statistics each year on December 31, triggered by a cron job. 
+      <ol><li><strong>Memberships</strong> - the number of current and new memberships as of year-end, calculated from CiviCRM <strong>membership</strong> data.</li>
+      <li><strong>Rides</strong> - the number of rides offered in the past year, including all <strong>non-recurring rides</strong> and <strong>recurring ride dates</strong>, 
+      for rides that were not cancelled.</li></ol></p>"); 
+
+      $output .= t("<h3>Calculation of past annual memberships</h3> 
+      A process is provided to calculate past annual membership counts if this module is installed on a system with historic CiviCRM membership data. 
+      <p>Past counts cannot be obtained directly from CiviCRM membership data because each membership is represented by a single record;  
+      the end date is updated upon renewal but membership may not be continuous.
+      Past annual membership counts must be calculated from CiviCRM <strong>contribution</strong> data after assigning the membership term (years) 
+      to each contribution record based on the fee amount paid.</p>");
+
+      $output .= "<h5>Process</h5>";
+      $output .= "<table>";
+
+      $output .= "<tr> <th width='70%'>Task</th><th width='30%'>Link</th></tr>";
+      $output .= "<tr>";
+      $output .= "  <td><strong>Provide</strong> the <strong>historic membership fees</strong>, specifying the <strong>associated membership term</strong> 
+      (in years) and the <strong>last effective date</strong> for each.<br>
+      Fees and associated date ranges are <a href=$fee_dates>shown here</a> for help in filling the 'Old Member Fees' form.";
+      $output .= '  <td>' . $oldfees_button . "</td>";
+      $output .= "</tr>";
+
+      $output .= "<tr>";
+      $output .= "  <td><strong>Execute</strong> the program to assign the appropriate membership term to each CiviCRM contribution record. This assignment 
+      is determined by the fee paid, referencing both current and historic membership fee data.</td>";
+      $output .= "  <td>" . $addterm_button . "</td>";
+      $output .= "</tr>";
+
+      $output .= "<tr>";
+      $output .= "  <td><strong>Resolve</strong> CiviCRM membership contribution records (from prior years) that are missing a membership term. 
+      Either (1) update historic membership fees and rerun the program to assign terms; or (2) edit individual records to 
+      manually assign the appropriate membership term where missing.</td>";
+      $output .= "  <td>" . $review_button . "</td>";
+      $output .= "</tr>";
+    
+      $output .= "<tr>";
+      $output .= "<td><strong>Calculate</strong> the number of past annual memberships after membership terms are finalized.<br>
+      The program calculates yearly membership activity by analyzing the complete contribution history of each member to determine the years in which they were active (accounting for early renewals).
+      Yearly memberships are aggregated to generate total membership statistics, which are then saved to the Statistics content type. </td>";
+      $output .= "  <td>" . $counts_button . "<p>" . $current_members . "</p>" . "<p>" . $current_rides . "</p></td>";
+      $output .= "</tr></table>";
+
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<dl><dt></dt>';
+      $output .= '<dd>' . t("A $stats_view of Statistics provides separate blocks for memberships and rides.") . '</dd>';
+      $output .= '</dl>';
+
+      return $output;
+  }
+}

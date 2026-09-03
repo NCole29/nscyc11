@@ -399,8 +399,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
           is_grouped: false
           group_info:
             label: ''
@@ -484,13 +482,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              ride_leader: '0'
-              rides_coordinator: '0'
-              editor: '0'
-              civicrm: '0'
-              site_admin: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -659,6 +650,7 @@ display:
           empty_table: true
           caption: ''
           description: ''
+          class: ''
       row:
         type: fields
       query:
@@ -1173,8 +1165,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
           is_grouped: false
           group_info:
             label: ''
@@ -1303,14 +1293,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              member: '0'
-              editor: '0'
-              ride_leader: '0'
-              rides_coordinator: '0'
-              civicrm: '0'
-              site_admin: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -1363,17 +1345,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              member: '0'
-              board: '0'
-              events_coordinator: '0'
-              civicrm: '0'
-              ride_leader: '0'
-              rides_coordinator: '0'
-              content_creator: '0'
-              editor: '0'
-              site_admin: '0'
             reduce: true
           is_grouped: false
           group_info:
@@ -1415,17 +1386,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              member: '0'
-              board: '0'
-              events_coordinator: '0'
-              civicrm: '0'
-              ride_leader: '0'
-              rides_coordinator: '0'
-              content_creator: '0'
-              editor: '0'
-              site_admin: '0'
           is_grouped: false
           group_info:
             label: ''

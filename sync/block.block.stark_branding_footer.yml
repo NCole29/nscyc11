@@ -1,0 +1,25 @@
+uuid: 7759640a-94ea-4d7c-aeea-1d486c0e435a
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - stark
+_core:
+  default_config_hash: 3mIPadGlwtz6yLsKiaiQ0vpe_kp_isFRw8_XgciKQ44
+id: stark_branding_footer
+theme: stark
+region: sidebar_first
+weight: -5
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding for footer'
+  label_display: '0'
+  provider: system
+  use_site_logo: false
+  use_site_name: true
+  use_site_slogan: true
+visibility: {  }

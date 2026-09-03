@@ -1,0 +1,23 @@
+uuid: d18b6085-a7c2-403d-a5e0-34243062bf6a
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - nsctheme
+id: nsctheme_branding_footer
+theme: nsctheme
+region: footer_first
+weight: -5
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding for footer'
+  label_display: '0'
+  provider: system
+  use_site_logo: false
+  use_site_name: true
+  use_site_slogan: true
+visibility: {  }

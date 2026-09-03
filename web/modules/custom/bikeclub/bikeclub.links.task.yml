@@ -1,0 +1,12 @@
+entity.bikeclub.user.submission.delete:
+  title: 'Delete'
+  route_name: entity.bikeclub.user.submission.delete
+  base_route: entity.bikeclub.user.submission.delete
+  weight: 0
+
+# Edit link for own user info; don't use admin theme
+user.edit_myform:
+  route_name: user.edit_myform
+  base_route: user.default
+  title: Edit
+  weight: 2

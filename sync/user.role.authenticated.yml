@@ -2,14 +2,10 @@ uuid: 3d8fd5b3-7344-4831-ac10-dabed70f9b38
 langcode: en
 status: true
 dependencies:
-  config:
-    - filter.format.webform_default
   module:
     - civicrm
-    - contact
     - file
     - file_delete
-    - filter
     - media
     - system
     - webform
@@ -24,9 +20,7 @@ permissions:
   - 'access CiviMail subscribe/unsubscribe pages'
   - 'access all custom data'
   - 'access content'
-  - 'access site-wide contact form'
   - 'access uploaded files'
-  - 'access user contact forms'
   - 'delete files immediately'
   - 'delete files override usage'
   - 'delete own files'
@@ -36,8 +30,6 @@ permissions:
   - 'profile edit'
   - 'profile view'
   - 'register for events'
-  - 'use text format webform_default'
-  - 'view club_route entity'
   - 'view event info'
   - 'view event participants'
   - 'view media'

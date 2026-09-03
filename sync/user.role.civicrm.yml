@@ -4,8 +4,6 @@ status: true
 dependencies:
   config:
     - filter.format.basic_html
-    - filter.format.ride_page
-    - filter.format.summary_fields
     - node.type.announcement
     - node.type.event
     - node.type.page
@@ -14,7 +12,6 @@ dependencies:
   module:
     - civicrm
     - comment
-    - contact
     - content_moderation
     - contextual
     - file
@@ -50,9 +47,7 @@ permissions:
   - 'access help pages'
   - 'access media overview'
   - 'access toolbar'
-  - 'access user contact forms'
   - 'access user profiles'
-  - 'add club_contact entity'
   - 'add contact notes'
   - 'add contacts'
   - 'administer CiviCRM'
@@ -70,7 +65,6 @@ permissions:
   - 'clone webform content'
   - 'create announcement content'
   - 'create media'
-  - 'delete club_contact entity'
   - 'delete contacts'
   - 'delete files immediately'
   - 'delete files override usage'
@@ -85,7 +79,6 @@ permissions:
   - 'edit all events'
   - 'edit any announcement content'
   - 'edit any page content'
-  - 'edit club_contact entity'
   - 'edit contributions'
   - 'edit event participants'
   - 'edit groups'
@@ -95,7 +88,6 @@ permissions:
   - 'edit message templates'
   - 'edit system workflow message templates'
   - 'edit user-driven message templates'
-  - 'enter waivers'
   - 'manage event profiles'
   - 'manage tags'
   - 'merge duplicate contacts'
@@ -107,13 +99,10 @@ permissions:
   - 'use editorial transition create_new_draft'
   - 'use editorial transition finalize_draft'
   - 'use text format basic_html'
-  - 'use text format ride_page'
-  - 'use text format summary_fields'
   - 'view all activities'
   - 'view all contacts'
   - 'view all notes'
   - 'view announcement revisions'
-  - 'view club_contact entity'
   - 'view latest version'
   - 'view own unpublished content'
   - 'view own unpublished media'

@@ -1,0 +1,76 @@
+# ------------------------------
+# Ride tools on the Admin menu
+# ------------------------------
+bikeclub_ride_tools.ride_tools:
+  title: 'Ride tools'
+  description: 'Ride tools'
+  route_name: bikeclub_ride_tools.ride_tools
+  parent: system.admin
+  enabled: 1
+  weight: -9
+  menu_name: admin
+  options:
+    query:
+      uid: 1
+    attributes:
+      class:
+        - toolbar-icon
+        - toolbar-icon-system-admin-config
+
+# Ride tool menu items.
+bikeclub_ride_tools.cancel_ride:
+  title: 'Cancel ride'
+  description: "Cancel a ride scheduled within the next two weeks."
+  route_name: bikeclub_ride_tools.cancel_ride
+  parent: bikeclub_ride_tools.ride_tools
+  enabled: 1
+  menu_name: admin
+
+bikeclub_ride_tools.nonmember_waiver:
+  title: 'Nonmember waiver'
+  description: "Enter nonmembers who signed a waiver at the ride start. This triggers an automatic 'Welcome' email."
+  route_name: bikeclub_ride_tools.nonmember_form
+  parent: bikeclub_ride_tools.ride_tools
+  enabled: 1
+  menu_name: admin
+
+bikeclub_ride_tools.view_ride_schedule:
+  title: 'View ride schedule'
+  description: 'View Scheduled rides for a list of dates with rides and to find dates with no scheduled ride.'
+  route_name: view.ride_schedule.ride_schedule
+  parent: bikeclub_ride_tools.ride_tools
+  enabled: 1
+  menu_name: admin
+
+# ----------------------------------------------
+# Menu items under Structure > Bikeclub entities
+# ----------------------------------------------
+bikeclub_ride_tools.route_settings:
+  title: 'Club route entity'
+  description: 'RWGPS route data saved to the database.'
+  route_name: bikeclub_ride_tools.route_settings
+  parent: 'bikeclub.custom_entities'
+
+bikeclub_ride_tools.schedule_settings:
+  title: 'Club schedule entity'
+  description: 'Schedule (i.e., calendar) dates. See <strong>Ride tools >View Scheduled rides</strong> to see scheduled rides and dates without a scheduled ride.'
+  route_name:  bikeclub_ride_tools.schedule_settings
+  parent: 'bikeclub.custom_entities'
+
+# ------------------------------------------------
+# Menu items under Configuration > Bikeclub config
+# ------------------------------------------------
+bikeclub_ride_tools.rwgps_api:
+  title: 'RWGPS API key'
+  route_name: bikeclub_ride_tools.rwgps_api
+  parent: bikeclub.custom_config
+  menu_name: admin
+  enabled: 1
+
+bikeclub_ride_tools.admin_settings:
+  title: 'Schedule dates'
+  description: 'Add calendar dates for View Ride Schedules'
+  route_name: bikeclub_ride_tools.add_schedule_dates
+  parent: bikeclub.custom_config
+  menu_name: admin
+  enabled: 1

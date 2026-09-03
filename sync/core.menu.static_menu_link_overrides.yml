@@ -2,17 +2,17 @@ _core:
   default_config_hash: tL9xuN0xf22P9zPLwOSnlq17jg0nL-i6hVH1KkNxLd0
 definitions:
   contact__site_page:
-    enabled: true
     menu_name: footer
     parent: ''
-    expanded: false
     weight: 0
+    expanded: false
+    enabled: true
   masquerade__unmasquerade:
-    enabled: false
     menu_name: account
     parent: ''
-    expanded: false
     weight: -50
+    expanded: false
+    enabled: false
   club_contacts__admin__structure__settings:
     menu_name: admin
     parent: 'menu_link_content:5b3136d9-da74-4285-836c-74a92ef5022a'
@@ -26,878 +26,872 @@ definitions:
     expanded: false
     enabled: true
   civicrm_group_roles__admin_config_civicrm__civicrm_group_roles:
-    enabled: false
     menu_name: admin
     parent: civicrm.admin_config_civicrm
-    expanded: false
     weight: 0
-  'admin_toolbar_tools__extra_links:user__admin_create':
+    expanded: false
     enabled: false
+  'admin_toolbar_tools__extra_links:user__admin_create':
     menu_name: admin
     parent: entity.user.collection
-    expanded: false
     weight: 0
+    expanded: false
+    enabled: false
   user__page:
-    weight: -48
     menu_name: account
     parent: ''
+    weight: -48
     expanded: false
     enabled: true
   user__logout:
-    weight: -47
     menu_name: account
     parent: ''
+    weight: -47
     expanded: false
     enabled: true
   club_report__admin_uploads:
-    weight: -97
     menu_name: admin
     parent: system.admin
+    weight: -97
     expanded: false
     enabled: true
   system__admin_content:
+    menu_name: admin
+    parent: system.admin
     weight: -99
-    menu_name: admin
-    parent: system.admin
-    enabled: true
     expanded: false
+    enabled: true
   club_ride__admin_ride_tools:
+    menu_name: admin
+    parent: system.admin
     weight: -98
-    menu_name: admin
-    parent: system.admin
-    enabled: true
     expanded: false
+    enabled: true
   system__admin_structure:
-    weight: -96
     menu_name: admin
     parent: system.admin
+    weight: -96
     expanded: false
     enabled: true
   system__themes_page:
-    weight: -95
     menu_name: admin
     parent: system.admin
+    weight: -95
     expanded: false
     enabled: true
   system__modules_list:
-    weight: -94
     menu_name: admin
     parent: system.admin
+    weight: -94
     expanded: false
     enabled: true
   system__admin_config:
-    weight: -93
     menu_name: admin
     parent: system.admin
+    weight: -93
     expanded: false
     enabled: true
   entity__user__collection:
-    weight: -92
     menu_name: admin
     parent: system.admin
+    weight: -92
     expanded: false
     enabled: true
   system__admin_reports:
-    weight: -91
     menu_name: admin
     parent: system.admin
+    weight: -91
     expanded: false
     enabled: true
   help__main:
-    weight: -90
     menu_name: admin
     parent: system.admin
+    weight: -90
     expanded: false
     enabled: true
   entity__block_content_type__collection:
-    weight: 1
     menu_name: admin
     parent: system.admin_structure
+    weight: 1
     expanded: false
     enabled: true
   civicrm_entity__admin:
-    weight: 3
     menu_name: admin
     parent: system.admin_structure
+    weight: 3
     expanded: false
     enabled: true
   entity__comment_type__collection:
-    weight: 4
     menu_name: admin
     parent: system.admin_structure
+    weight: 4
     expanded: false
     enabled: true
   entity__contact_form__collection:
-    weight: 5
     menu_name: admin
     parent: system.admin_structure
+    weight: 5
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__contact_form__edit_form__blazing_saddles':
-    weight: -4
     menu_name: admin
     parent: entity.contact_form.collection
+    weight: -4
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__contact_form__edit_form__facebook':
-    weight: -2
     menu_name: admin
     parent: entity.contact_form.collection
+    weight: -2
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__contact_form__edit_form__membership':
-    weight: -1
     menu_name: admin
     parent: entity.contact_form.collection
+    weight: -1
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__contact_form__edit_form__nsc_board':
-    weight: 1
     menu_name: admin
     parent: entity.contact_form.collection
+    weight: 1
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__contact_form__edit_form__personal':
-    weight: 2
     menu_name: admin
     parent: entity.contact_form.collection
+    weight: 2
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__contact_form__edit_form__rides':
-    weight: 3
     menu_name: admin
     parent: entity.contact_form.collection
+    weight: 3
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__contact_form__edit_form__treasurer':
-    weight: 4
     menu_name: admin
     parent: entity.contact_form.collection
+    weight: 4
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__contact_form__edit_form__feedback':
-    weight: 5
     menu_name: admin
     parent: entity.contact_form.collection
+    weight: 5
     expanded: false
     enabled: true
   entity__node_type__collection:
-    weight: 6
     menu_name: admin
     parent: system.admin_structure
+    weight: 6
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__node_type__edit_form__announcement':
-    weight: -1
     menu_name: admin
     parent: entity.node_type.collection
+    weight: -1
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__node_type__edit_form__page':
-    weight: 1
     menu_name: admin
     parent: entity.node_type.collection
+    weight: 1
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__node_type__edit_form__event':
-    weight: 2
     menu_name: admin
     parent: entity.node_type.collection
+    weight: 2
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__node_type__edit_form__banner':
-    weight: 3
     menu_name: admin
     parent: entity.node_type.collection
+    weight: 3
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__node_type__edit_form__location':
-    weight: 4
     menu_name: admin
     parent: entity.node_type.collection
+    weight: 4
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__node_type__edit_form__recurring_dates':
-    weight: 5
     menu_name: admin
     parent: entity.node_type.collection
+    weight: 5
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__node_type__edit_form__recurring_ride':
-    weight: 6
     menu_name: admin
     parent: entity.node_type.collection
+    weight: 6
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__node_type__edit_form__ride':
-    weight: 7
     menu_name: admin
     parent: entity.node_type.collection
+    weight: 7
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__node_type__edit_form__statistic':
-    weight: 8
     menu_name: admin
     parent: entity.node_type.collection
+    weight: 8
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__node_type__edit_form__webform':
-    weight: 9
     menu_name: admin
     parent: entity.node_type.collection
+    weight: 9
     expanded: false
     enabled: true
   field_ui__display_mode:
-    weight: 8
     menu_name: admin
     parent: system.admin_structure
+    weight: 8
     expanded: false
     enabled: true
   entity__media_type__collection:
-    weight: 9
     menu_name: admin
     parent: system.admin_structure
+    weight: 9
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__media_type__edit_form__image_crop_20_7':
-    weight: -1
     menu_name: admin
     parent: entity.media_type.collection
+    weight: -1
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__media_type__edit_form__image':
-    weight: 2
     menu_name: admin
     parent: entity.media_type.collection
+    weight: 2
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__media_type__edit_form__image_crop_16_9':
-    weight: 3
     menu_name: admin
     parent: entity.media_type.collection
+    weight: 3
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__media_type__edit_form__image_crop_4_3':
-    weight: 4
     menu_name: admin
     parent: entity.media_type.collection
+    weight: 4
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__entity_permissions_form__media__default__image_crop_4_3':
-    weight: 5
     menu_name: admin
     parent: 'admin_toolbar_tools.extra_links:entity.media_type.edit_form.image_crop_4_3'
+    weight: 5
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__media_type__devel_load__image_crop_4_3':
-    weight: 6
     menu_name: admin
     parent: 'admin_toolbar_tools.extra_links:entity.media_type.edit_form.image_crop_4_3'
+    weight: 6
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__media_type__delete_form__image_crop_4_3':
-    weight: 7
     menu_name: admin
     parent: 'admin_toolbar_tools.extra_links:entity.media_type.edit_form.image_crop_4_3'
+    weight: 7
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__media_type__edit_form__public_file':
-    weight: 5
     menu_name: admin
     parent: entity.media_type.collection
+    weight: 5
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__media_type__edit_form__remote_video':
-    weight: 6
     menu_name: admin
     parent: entity.media_type.collection
+    weight: 6
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__media_type__edit_form__restricted_file':
-    weight: 7
     menu_name: admin
     parent: entity.media_type.collection
+    weight: 7
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__media_type__edit_form__video':
-    weight: 8
     menu_name: admin
     parent: entity.media_type.collection
+    weight: 8
     expanded: false
     enabled: true
   entity__menu__collection:
-    weight: 10
     menu_name: admin
     parent: system.admin_structure
+    weight: 10
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__menu__delete_form__club-reports':
-    weight: 3
     menu_name: admin
     parent: 'admin_toolbar_tools.extra_links:entity.menu.edit_form.club-reports'
+    weight: 3
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__menu__edit_form__account':
-    weight: 8
     menu_name: admin
     parent: entity.menu.collection
+    weight: 8
     expanded: false
     enabled: true
   entity__paragraphs_type__collection:
-    weight: 11
     menu_name: admin
     parent: system.admin_structure
+    weight: 11
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__paragraphs_type__edit_form__card':
-    weight: 1
     menu_name: admin
     parent: entity.paragraphs_type.collection
+    weight: 1
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__paragraphs_type__edit_form__section':
-    weight: 3
     menu_name: admin
     parent: entity.paragraphs_type.collection
+    weight: 3
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__paragraphs_type__edit_form__text':
-    weight: 4
     menu_name: admin
     parent: entity.paragraphs_type.collection
+    weight: 4
     expanded: false
     enabled: true
   entity__taxonomy_vocabulary__collection:
-    weight: 12
     menu_name: admin
     parent: system.admin_structure
+    weight: 12
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__taxonomy_vocabulary__overview_form__activities':
-    weight: -997
     menu_name: admin
     parent: entity.taxonomy_vocabulary.collection
+    weight: -997
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__taxonomy_vocabulary__overview_form__positions':
-    weight: -995
     menu_name: admin
     parent: entity.taxonomy_vocabulary.collection
+    weight: -995
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__taxonomy_vocabulary__overview_form__document_category':
-    weight: -994
     menu_name: admin
     parent: entity.taxonomy_vocabulary.collection
+    weight: -994
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__taxonomy_vocabulary__overview_form__gravel_categories':
-    weight: -993
     menu_name: admin
     parent: entity.taxonomy_vocabulary.collection
+    weight: -993
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__taxonomy_vocabulary__overview_form__image_category':
-    weight: -992
     menu_name: admin
     parent: entity.taxonomy_vocabulary.collection
+    weight: -992
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__taxonomy_vocabulary__overview_form__locations':
-    weight: -991
     menu_name: admin
     parent: entity.taxonomy_vocabulary.collection
+    weight: -991
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__taxonomy_vocabulary__overview_form__page_access':
-    weight: -990
     menu_name: admin
     parent: entity.taxonomy_vocabulary.collection
+    weight: -990
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__taxonomy_vocabulary__overview_form__statistics':
-    weight: -989
     menu_name: admin
     parent: entity.taxonomy_vocabulary.collection
+    weight: -989
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__taxonomy_vocabulary__overview_form__tags':
-    weight: -988
     menu_name: admin
     parent: entity.taxonomy_vocabulary.collection
+    weight: -988
     expanded: false
     enabled: true
   entity__view__collection:
-    weight: 13
     menu_name: admin
     parent: system.admin_structure
+    weight: 13
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__banner':
-    weight: -4
     menu_name: admin
     parent: entity.view.collection
+    weight: -4
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__calendar':
-    weight: -3
     menu_name: admin
     parent: entity.view.collection
+    weight: -3
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__cancellations':
-    weight: -2
     menu_name: admin
     parent: entity.view.collection
+    weight: -2
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__change_log':
-    weight: -1
     menu_name: admin
     parent: entity.view.collection
+    weight: -1
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__civicrm_contacts':
-    weight: 2
     menu_name: admin
     parent: entity.view.collection
+    weight: 2
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__civicrm_events':
-    weight: 3
     menu_name: admin
     parent: entity.view.collection
+    weight: 3
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__civicrm_mail':
-    weight: 4
     menu_name: admin
     parent: entity.view.collection
+    weight: 4
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__civicrm_memberships':
-    weight: 5
     menu_name: admin
     parent: entity.view.collection
+    weight: 5
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__club_statistics':
-    weight: 6
     menu_name: admin
     parent: entity.view.collection
+    weight: 6
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__club_contacts':
-    weight: 7
     menu_name: admin
     parent: entity.view.collection
+    weight: 7
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__locations':
-    weight: 8
     menu_name: admin
     parent: entity.view.collection
+    weight: 8
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__club_positions':
-    weight: 9
     menu_name: admin
     parent: entity.view.collection
+    weight: 9
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__club_rides':
+    menu_name: admin
+    parent: entity.view.collection
     weight: 10
-    menu_name: admin
-    parent: entity.view.collection
-    expanded: false
-    enabled: true
-  'admin_toolbar_tools__extra_links:views_ui__club_routes':
-    weight: 11
-    menu_name: admin
-    parent: entity.view.collection
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__comment':
-    weight: 12
     menu_name: admin
     parent: entity.view.collection
+    weight: 12
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__contact_messages':
-    weight: 13
     menu_name: admin
     parent: entity.view.collection
+    weight: 13
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__content_rides':
-    weight: 14
     menu_name: admin
     parent: entity.view.collection
+    weight: 14
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__content':
-    weight: 15
     menu_name: admin
     parent: entity.view.collection
+    weight: 15
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__block_content':
-    weight: 16
     menu_name: admin
     parent: entity.view.collection
+    weight: 16
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__events':
-    weight: 17
     menu_name: admin
     parent: entity.view.collection
+    weight: 17
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__webform_event_submission':
-    weight: 18
     menu_name: admin
     parent: entity.view.collection
+    weight: 18
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__chart_revenue':
-    weight: 19
     menu_name: admin
     parent: entity.view.collection
+    weight: 19
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__files':
-    weight: 20
     menu_name: admin
     parent: entity.view.collection
+    weight: 20
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__files_from_webforms':
-    weight: 21
     menu_name: admin
     parent: entity.view.collection
+    weight: 21
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__frontpage':
-    weight: 22
     menu_name: admin
     parent: entity.view.collection
+    weight: 22
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__media_entity_browser_media_library':
-    weight: 23
     menu_name: admin
     parent: entity.view.collection
+    weight: 23
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__media':
-    weight: 24
     menu_name: admin
     parent: entity.view.collection
+    weight: 24
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__media_library':
-    weight: 25
     menu_name: admin
     parent: entity.view.collection
+    weight: 25
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__media_usage':
-    weight: 26
     menu_name: admin
     parent: entity.view.collection
+    weight: 26
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__moderated_content':
-    weight: 27
     menu_name: admin
     parent: entity.view.collection
+    weight: 27
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__nonmember_riders':
-    weight: 28
     menu_name: admin
     parent: entity.view.collection
+    weight: 28
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__club_paypal':
-    weight: 29
     menu_name: admin
     parent: entity.view.collection
+    weight: 29
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__user_admin_people':
-    weight: 30
     menu_name: admin
     parent: entity.view.collection
+    weight: 30
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__comments_recent':
-    weight: 31
     menu_name: admin
     parent: entity.view.collection
+    weight: 31
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__content_recent':
-    weight: 32
     menu_name: admin
     parent: entity.view.collection
+    weight: 32
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__redirect':
-    weight: 33
     menu_name: admin
     parent: entity.view.collection
+    weight: 33
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__related_rides':
-    weight: 34
     menu_name: admin
     parent: entity.view.collection
+    weight: 34
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__ride_dates':
-    weight: 35
     menu_name: admin
     parent: entity.view.collection
+    weight: 35
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__rides':
-    weight: 36
     menu_name: admin
     parent: entity.view.collection
+    weight: 36
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__schedule_ride_dates':
-    weight: 37
     menu_name: admin
     parent: entity.view.collection
+    weight: 37
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__scheduler_scheduled_content':
-    weight: 38
     menu_name: admin
     parent: entity.view.collection
+    weight: 38
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__taxonomy_term':
-    weight: 39
     menu_name: admin
     parent: entity.view.collection
+    weight: 39
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__user_account':
-    weight: 40
     menu_name: admin
     parent: entity.view.collection
+    weight: 40
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__watchdog':
-    weight: 41
     menu_name: admin
     parent: entity.view.collection
+    weight: 41
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__webform_submissions_cleanup':
-    weight: 42
     menu_name: admin
     parent: entity.view.collection
+    weight: 42
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__webform_submissions':
-    weight: 43
     menu_name: admin
     parent: entity.view.collection
+    weight: 43
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__webform_submissions_custom':
-    weight: 44
     menu_name: admin
     parent: entity.view.collection
+    weight: 44
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__who_s_new':
-    weight: 45
     menu_name: admin
     parent: entity.view.collection
+    weight: 45
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:views_ui__who_s_online':
-    weight: 46
     menu_name: admin
     parent: entity.view.collection
+    weight: 46
     expanded: false
     enabled: true
   entity__webform__collection:
-    weight: 14
     menu_name: admin
     parent: system.admin_structure
+    weight: 14
     expanded: false
     enabled: true
   entity__webform__templates__item:
-    weight: 1
     menu_name: admin
     parent: entity.webform.collection
+    weight: 1
     expanded: false
     enabled: true
   entity__webform_submission__collection__item:
-    weight: 2
     menu_name: admin
     parent: entity.webform.collection
+    weight: 2
     expanded: false
     enabled: true
   webform__options__item:
-    weight: 3
     menu_name: admin
     parent: entity.webform.collection
+    weight: 3
     expanded: false
     enabled: true
   webform__config__item:
-    weight: 5
     menu_name: admin
     parent: entity.webform.collection
+    weight: 5
     expanded: false
     enabled: true
   webform__addons__item:
-    weight: 6
     menu_name: admin
     parent: entity.webform.collection
+    weight: 6
     expanded: false
     enabled: true
   webform__help__item:
-    weight: 7
     menu_name: admin
     parent: entity.webform.collection
+    weight: 7
     expanded: false
     enabled: true
   system__admin_config_system:
-    weight: -18
     menu_name: admin
     parent: system.admin_config
+    weight: -18
     expanded: false
     enabled: true
   system__admin_config_content:
-    weight: -17
     menu_name: admin
     parent: system.admin_config
+    weight: -17
     expanded: false
     enabled: true
   system__admin_config_ui:
-    weight: -16
     menu_name: admin
     parent: system.admin_config
+    weight: -16
     expanded: false
     enabled: true
   civicrm__admin_config_civicrm:
-    weight: -15
     menu_name: admin
     parent: system.admin_config
+    weight: -15
     expanded: false
     enabled: true
   system__admin_config_development:
-    weight: -14
     menu_name: admin
     parent: system.admin_config
+    weight: -14
     expanded: false
     enabled: true
   system__admin_config_media:
-    weight: -13
     menu_name: admin
     parent: system.admin_config
+    weight: -13
     expanded: false
     enabled: true
   system__admin_config_search:
-    weight: -12
     menu_name: admin
     parent: system.admin_config
+    weight: -12
     expanded: false
     enabled: true
   system__admin_config_regional:
-    weight: -11
     menu_name: admin
     parent: system.admin_config
+    weight: -11
     expanded: false
     enabled: true
   system__admin_config_services:
-    weight: -10
     menu_name: admin
     parent: system.admin_config
+    weight: -10
     expanded: false
     enabled: true
   system__admin_config_workflow:
-    weight: -9
     menu_name: admin
     parent: system.admin_config
+    weight: -9
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__user_role__edit_form__anonymous':
-    weight: -49
     menu_name: admin
     parent: 'admin_toolbar_tools.extra_links:entity.user_role.collection'
+    weight: -49
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__user_role__edit_form__authenticated':
-    weight: -48
     menu_name: admin
     parent: 'admin_toolbar_tools.extra_links:entity.user_role.collection'
+    weight: -48
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__user_role__edit_form__administrator':
-    weight: -46
     menu_name: admin
     parent: 'admin_toolbar_tools.extra_links:entity.user_role.collection'
+    weight: -46
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__user_role__edit_form__member':
-    weight: -45
     menu_name: admin
     parent: 'admin_toolbar_tools.extra_links:entity.user_role.collection'
+    weight: -45
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__user_role__edit_form__events_coordinator':
-    weight: -44
     menu_name: admin
     parent: 'admin_toolbar_tools.extra_links:entity.user_role.collection'
+    weight: -44
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__user_role__edit_form__civicrm':
-    weight: -43
     menu_name: admin
     parent: 'admin_toolbar_tools.extra_links:entity.user_role.collection'
+    weight: -43
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__user_role__edit_form__ride_leader':
-    weight: -42
     menu_name: admin
     parent: 'admin_toolbar_tools.extra_links:entity.user_role.collection'
+    weight: -42
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__user_role__edit_form__rides_coordinator':
-    weight: -41
     menu_name: admin
     parent: 'admin_toolbar_tools.extra_links:entity.user_role.collection'
+    weight: -41
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__user_role__edit_form__content_creator':
-    weight: -40
     menu_name: admin
     parent: 'admin_toolbar_tools.extra_links:entity.user_role.collection'
+    weight: -40
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__user_role__edit_form__editor':
-    weight: -39
     menu_name: admin
     parent: 'admin_toolbar_tools.extra_links:entity.user_role.collection'
+    weight: -39
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__user_role__edit_form__site_admin':
-    weight: -38
     menu_name: admin
     parent: 'admin_toolbar_tools.extra_links:entity.user_role.collection'
+    weight: -38
     expanded: false
     enabled: true
   'admin_toolbar_tools__extra_links:entity__user_role__edit_form__board':
-    weight: -37
     menu_name: admin
     parent: 'admin_toolbar_tools.extra_links:entity.user_role.collection'
+    weight: -37
     expanded: false
     enabled: true

@@ -1,0 +1,22 @@
+uuid: 77e46958-f2d1-4d1f-bbda-cd6df65e558c
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - stark
+_core:
+  default_config_hash: 59CELSPWZCo9EM2HOnXvxDyA5ASZsZm7OySondX13wc
+id: stark_powered
+theme: stark
+region: sidebar_first
+weight: -14
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  label_display: '0'
+  provider: system
+visibility: {  }

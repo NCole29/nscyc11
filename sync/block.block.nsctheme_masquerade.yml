@@ -1,0 +1,34 @@
+uuid: 72606f41-7b59-4fc8-bad5-2c0abf26bc8c
+langcode: en
+status: true
+dependencies:
+  module:
+    - masquerade
+    - system
+    - user
+  theme:
+    - nsctheme
+id: nsctheme_masquerade
+theme: nsctheme
+region: sidebar_first
+weight: -8
+provider: null
+plugin: masquerade
+settings:
+  id: masquerade
+  label: Masquerade
+  label_display: '0'
+  provider: masquerade
+  show_unmasquerade_link: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      administrator: administrator

@@ -1,0 +1,19 @@
+{
+  "name": "bikeclub/bikeclub_ride_tools",
+  "description": "Provides ride pages, views, and configuration.",
+  "type": "drupal-custom-module",
+  "license": ["GPL-2.0-or-later"],
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "Nancy Cole",
+      "homepage": "https://bikeclubsites.com",
+      "role": "Maintainer"
+    }
+  ],
+  "require": {
+    "drupal/core": "^11",
+	"drupal/webform_query": "^1.0@alpha"
+  },
+  "version": "1.0.1"
+}

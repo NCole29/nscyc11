@@ -1,0 +1,90 @@
+<?php
+
+use Drupal\bikeclub_ride_tools\Utility\LoadSchedule;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\user\Entity\User;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
+
+/**
+ * Implements hook_install().
+ *
+ * @see system_install()
+ */
+function bikeclub_ride_tools_install() {
+  
+  // Add permissions to roles. 
+  $roles = [
+    'anonymous' => [
+      'view club_route entity',
+    ],
+    'authenticated' => [
+      'view club_route entity',
+    ],
+    'ride_leader' => [
+      'add club_route entity',
+      'enter waivers',
+      'view club_schedule entity',
+    ],
+    'rides_coordinator' => [
+      'add club_route entity',
+      'delete club_route entity',
+      'edit club_route entity',
+      'enter waivers',
+      'edit club_schedule entity',
+      'view club_schedule entity',
+    ],
+    'site_admin' => [
+      'administer rwgps_api_form',
+      'add club_route entity',
+      'delete club_route entity',
+      'edit club_route entity',
+      'enter waivers',
+      'edit club_schedule entity',
+      'view club_schedule entity',
+    ],
+    'membership' => ['enter waivers'],
+  ];
+
+  foreach ($roles as $role => $permissions) {
+    $role = \Drupal\user\Entity\Role::load($role);
+
+    if ($role) {
+      foreach ($permissions as $permission) {
+        $role->grantPermission($permission);
+      }
+      $role->save();
+    }
+  }
+
+  // Two versions of webform and View are provided, depending on whether CiviCRM is installed.
+  if (\Drupal::moduleHandler()->moduleExists('civicrm')) {
+    $subfolder = 'civicrm/';
+  } else {
+    $subfolder = 'nocivicrm/';
+  }  
+
+  $folder = \Drupal::service('extension.list.module')
+    ->getPath('bikeclub_ride_tools') . '/config/static/' . $subfolder;
+
+  $webform  = Yaml::parse((string) file_get_contents($folder . 'webform.webform.nonmembers.yml'));
+  $template = Yaml::parse((string) file_get_contents($folder . 'webform.webform.template_nonmembers.yml'));
+  $view     = Yaml::parse((string) file_get_contents($folder . 'views.view.nonmembers.yml'));
+
+  \Drupal::entityTypeManager()->getStorage('webform')
+    ->create($webform)
+    ->save();
+
+  \Drupal::entityTypeManager()->getStorage('webform')
+    ->create($template)
+    ->save();
+
+  \Drupal::entityTypeManager()->getStorage('view')
+    ->create($view)
+    ->save();
+
+  // Load three years of calendar dates in club_schedule table.    
+  LoadSchedule::loadSchedule(0);
+  drupal_flush_all_caches();
+}
+

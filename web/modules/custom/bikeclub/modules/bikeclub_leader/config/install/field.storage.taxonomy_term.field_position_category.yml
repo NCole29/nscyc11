@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - taxonomy
+    - bikeclub_leader
+id: taxonomy_term.field_position_category
+field_name: field_position_category
+entity_type: taxonomy_term
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'Board members'
+      label: 'Board members'
+    -
+      value: Officers
+      label: Officers
+    -
+      value: Coordinators
+      label: Coordinators
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

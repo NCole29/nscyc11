@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.page.banner_image
     - field.field.node.page.field_comment
     - field.field.node.page.field_components
-    - field.field.node.page.field_contact_form
     - field.field.node.page.field_contact_person
     - field.field.node.page.field_contact_us
     - field.field.node.page.field_padding
@@ -36,21 +35,6 @@ third_party_settings:
         layout_settings:
           label: ''
         components:
-          3dab5d79-ef2d-4d91-9e74-92ec952c7084:
-            uuid: 3dab5d79-ef2d-4d91-9e74-92ec952c7084
-            region: content
-            configuration:
-              id: 'field_block:node:page:field_text'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: text_default
-                label: hidden
-                settings: {  }
-                third_party_settings: {  }
-            weight: 3
-            additional: {  }
           4deab89e-5291-4122-a7ba-8bb203359365:
             uuid: 4deab89e-5291-4122-a7ba-8bb203359365
             region: content
@@ -76,7 +60,7 @@ third_party_settings:
               label_display: '0'
               context_mapping:
                 entity: layout_builder.entity
-            weight: 5
+            weight: 8
             additional: {  }
           c2b5a5e8-2403-413b-81ca-44c8cbc81ef7:
             uuid: c2b5a5e8-2403-413b-81ca-44c8cbc81ef7
@@ -93,7 +77,7 @@ third_party_settings:
                   view_mode: default
                   pager_id: 0
                 third_party_settings: {  }
-            weight: 6
+            weight: 9
             additional: {  }
           b01854ca-f7a3-4924-bea8-d2c20fc57b4b:
             uuid: b01854ca-f7a3-4924-bea8-d2c20fc57b4b
@@ -103,25 +87,22 @@ third_party_settings:
               label_display: '0'
               context_mapping:
                 entity: layout_builder.entity
-            weight: 7
+            weight: 10
             additional: {  }
-          32626fd8-b9a5-4efc-8906-f12825bc8ea3:
-            uuid: 32626fd8-b9a5-4efc-8906-f12825bc8ea3
+          c5c87e06-f77f-42ef-ab25-080e77e1e6d4:
+            uuid: c5c87e06-f77f-42ef-ab25-080e77e1e6d4
             region: content
             configuration:
-              id: 'field_block:node:page:field_contact_person'
-              label: 'Contact person'
+              id: 'field_block:node:page:field_text'
               label_display: '0'
-              provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
-                view_mode: view_mode
               formatter:
-                type: user_link_2_contactform
+                type: text_default
                 label: above
                 settings: {  }
                 third_party_settings: {  }
-            weight: 10
+            weight: 5
             additional: {  }
           10fa4fa2-1ba0-4d1e-a31a-0b2204183de8:
             uuid: 10fa4fa2-1ba0-4d1e-a31a-0b2204183de8
@@ -139,26 +120,25 @@ third_party_settings:
                 label: above
                 settings: {  }
                 third_party_settings: {  }
-            weight: 8
+            weight: 6
             additional: {  }
-          c1d8b908-62c8-412f-948a-eb714346fb7e:
-            uuid: c1d8b908-62c8-412f-948a-eb714346fb7e
+          32626fd8-b9a5-4efc-8906-f12825bc8ea3:
+            uuid: 32626fd8-b9a5-4efc-8906-f12825bc8ea3
             region: content
             configuration:
-              id: 'field_block:node:page:field_contact_form'
-              label: 'Contact form'
+              id: 'field_block:node:page:field_contact_person'
+              label: 'Contact person'
               label_display: '0'
               provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: entity_reference_label
+                type: user_link_2_contactform
                 label: above
-                settings:
-                  link: true
+                settings: {  }
                 third_party_settings: {  }
-            weight: 9
+            weight: 7
             additional: {  }
         third_party_settings: {  }
   layout_builder_restrictions:
@@ -226,10 +206,10 @@ content:
     region: content
   field_text:
     type: text_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 8
     region: content
   field_type_of_page:
     type: list_default
@@ -244,7 +224,6 @@ content:
     weight: 2
     region: content
 hidden:
-  field_contact_form: true
   field_contact_person: true
   field_page_access: true
   field_summary: true

@@ -1,0 +1,20 @@
+uuid: 9906f60b-5a64-4158-baf8-c9881315aad9
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - nsctheme
+id: nsctheme_breadcrumbs
+theme: nsctheme
+region: breadcrumb
+weight: -100
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

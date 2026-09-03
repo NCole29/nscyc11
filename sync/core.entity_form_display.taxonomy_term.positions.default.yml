@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.taxonomy_term.positions.field_disabled
     - field.field.taxonomy_term.positions.field_position_category
-    - field.field.taxonomy_term.positions.field_website_role
     - taxonomy.vocabulary.positions
 _core:
   default_config_hash: Zts1aZc84nSMLUS13BHfZmrdM8QjOHDsm7Q7g4aRXzI
@@ -24,12 +23,6 @@ content:
   field_position_category:
     type: options_select
     weight: 1
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_website_role:
-    type: options_select
-    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }

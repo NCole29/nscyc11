@@ -1,28 +1,24 @@
-uuid: 455a4b4a-eb02-4c49-899c-64aa4e3906d7
+uuid: 6c67808d-ca38-4bd8-9f5f-e25bf7b950fe
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_text
     - filter.format.basic_html
-    - filter.format.full_html
     - node.type.event
   module:
     - text
-_core:
-  default_config_hash: 3GoUEDZWgE6DJq3MkhwgYH323Dq0nq5gLb-7KYG7vQY
 id: node.event.field_text
 field_name: field_text
 entity_type: node
 bundle: event
 label: Text
-description: 'To insert images or files, click the media icon and "Choose file" to upload new or scroll down and select existing (e.g., to insert same image in summary for home page and here). Select image alignment and image size (click "Default") from the image toolbar. Hover over an image and click arrows to insert text before or after the image. Links may optionally be displayed as "buttons" using Styles on the toolbar.'
+description: ''
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   allowed_formats:
     - basic_html
-    - full_html
 field_type: text_long

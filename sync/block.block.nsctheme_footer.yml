@@ -1,0 +1,25 @@
+uuid: 37ec55a1-333f-4b1b-b639-56c694522492
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer
+  module:
+    - system
+  theme:
+    - nsctheme
+id: nsctheme_footer
+theme: nsctheme
+region: footer_second
+weight: 0
+provider: null
+plugin: 'system_menu_block:footer'
+settings:
+  id: 'system_menu_block:footer'
+  label: 'Footer menu'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: null
+  expand_all_items: false
+visibility: {  }

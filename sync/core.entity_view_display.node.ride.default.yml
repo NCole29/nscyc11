@@ -25,8 +25,6 @@ dependencies:
     - field.field.node.ride.field_results_access
     - field.field.node.ride.field_ride_leader
     - field.field.node.ride.field_ride_picture
-    - field.field.node.ride.field_rwgps_routes
-    - field.field.node.ride.field_schedule_date
     - field.field.node.ride.field_show_and_go
     - field.field.node.ride.field_time
     - node.type.ride
@@ -193,22 +191,6 @@ third_party_settings:
                   link: false
                 third_party_settings: {  }
             weight: 8
-            additional: {  }
-          766a6382-131a-4e41-a36a-f27446432b25:
-            uuid: 766a6382-131a-4e41-a36a-f27446432b25
-            region: content
-            configuration:
-              id: 'field_block:node:ride:field_rwgps_routes'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: entity_reference_label
-                label: above
-                settings:
-                  link: false
-                third_party_settings: {  }
-            weight: 9
             additional: {  }
           91f39cff-c3c5-4b9b-b388-ca77e4d728fc:
             uuid: 91f39cff-c3c5-4b9b-b388-ca77e4d728fc
@@ -572,14 +554,6 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
-  field_rwgps_routes:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: false
-    third_party_settings: {  }
-    weight: 9
-    region: content
   field_show_and_go:
     type: boolean
     label: hidden
@@ -604,5 +578,4 @@ hidden:
   field_gravel_category: true
   field_multiple_times: true
   field_ride_picture: true
-  field_schedule_date: true
   links: true

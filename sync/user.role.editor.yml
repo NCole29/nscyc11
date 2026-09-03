@@ -8,8 +8,6 @@ dependencies:
     - core.entity_view_display.node.event.default
     - core.entity_view_display.node.page.default
     - filter.format.basic_html
-    - filter.format.ride_page
-    - filter.format.summary_fields
     - media.type.gallery
     - media.type.image
     - media.type.image_crop_16_9
@@ -132,8 +130,6 @@ permissions:
   - 'use editorial transition publish'
   - 'use editorial transition publish_notify'
   - 'use text format basic_html'
-  - 'use text format ride_page'
-  - 'use text format summary_fields'
   - 'view all revisions'
   - 'view any unpublished banner content'
   - 'view any unpublished content'

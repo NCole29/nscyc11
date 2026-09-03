@@ -1,0 +1,28 @@
+uuid: 3dcb8ada-84ce-4ad7-9279-ffb41127d6b5
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:paragraphs_block:072779c4-7fc3-4862-852b-91deb3d4c469'
+  module:
+    - block_content
+    - system
+  theme:
+    - nsctheme
+id: nsctheme_homepageicons
+theme: nsctheme
+region: full_width_blocks
+weight: -12
+provider: null
+plugin: 'block_content:072779c4-7fc3-4862-852b-91deb3d4c469'
+settings:
+  id: 'block_content:072779c4-7fc3-4862-852b-91deb3d4c469'
+  label: 'Home page icons'
+  label_display: '0'
+  provider: block_content
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

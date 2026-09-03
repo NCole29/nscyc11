@@ -1,0 +1,115 @@
+# ------------------------------
+# Ride tools on top admin menu 
+# ------------------------------
+bikeclub_ride_tools.ride_tools:
+  path: '/admin/ride-tools'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Ride tools'
+  requirements:
+    _permission: 'access toolbar'
+
+# Menu items under Ride tools
+# Link to View schedule is set in the View.
+bikeclub_ride_tools.cancel_ride:
+  path: '/admin/cancel-ride'
+  defaults:
+    _form: '\Drupal\bikeclub_ride_tools\Form\RideCancellationForm'
+    _title: 'Cancel ride'
+  requirements:
+    _permission: 'create ride content'
+    _access: 'TRUE'
+
+bikeclub_ride_tools.nonmember_form:
+  path: '/admin/nonmember-form'
+  defaults:
+    _form: '\Drupal\bikeclub_ride_tools\Form\NonmemberForm'
+    _title: 'Select a ride to enter nonmembers from waiver form'
+  requirements:
+    _permission: 'create ride content'
+    _access: 'TRUE'    
+
+#------------------------------------------
+# Items under Structure > Bikeclub entities
+#------------------------------------------
+bikeclub_ride_tools.route_settings:
+  path: '/admin/structure/club_route'
+  defaults:
+    _form: '\Drupal\bikeclub_ride_tools\Form\ClubRouteSettingsForm'
+    _title: 'RWGPS route'
+  requirements:
+    _permission: 'administer club_route entity'
+
+bikeclub_ride_tools.schedule_settings:
+  path: '/admin/structure/club_schedule'
+  defaults:
+    _form: '\Drupal\bikeclub_ride_tools\Form\ClubScheduleSettingsForm'
+    _title: 'Ride schedule date'
+  requirements:
+    _permission: 'administer club_schedule entity'
+
+# View, edit, delete - Route
+entity.club_route.canonical:
+  path: '/admin/club_route/{club_route}'
+  defaults:
+    _entity_view: 'club_route'
+    _title: 'Club route'
+  requirements:
+    _permission: 'view club_route entity'
+
+entity.club_route.edit_form:
+  path: '/admin/club_route/{club_route}/edit'
+  defaults:
+    _entity_form: club_route.default
+    _title_callback: '\Drupal\Core\Entity\Controller\EntityController::title'
+  requirements:
+    _permission: 'edit club_route entity'
+
+entity.club_route.delete_form:
+  path: '/admin/club_route/{club_route}/delete'
+  defaults:
+    _entity_form: club_route.delete
+    _title: 'Delete route'
+  requirements:
+    _permission: 'delete club_route entity'
+
+# # View, edit - Schedule date
+entity.club_schedule.canonical:
+  path: '/admin/club_schedule/{club_schedule}'
+  defaults:
+    _entity_view: 'club_schedule'
+    _title: 'Ride schedule'
+  requirements:
+    _permission: 'view club_schedule entity'
+
+entity.club_schedule.edit_form:
+  path: '/admin/club_schedule/{club_schedule}/edit'
+  defaults:
+    _entity_form: club_schedule.default
+    _title: 'Edit schedule date'
+  requirements:
+    _permission: 'edit club_schedule entity'
+
+#--------------------------------------------
+# Items under Configuration > Bikeclub config
+#--------------------------------------------
+bikeclub_ride_tools.rwgps_api:
+  path: '/admin/config/bikeclub/rwgps-api'
+  defaults:
+    _form: '\Drupal\bikeclub_ride_tools\Form\RwgpsAPIForm'
+    _title: 'RWGPS API Form'
+  requirements:
+    _permission: 'administer rwgps_api_form'
+  options:
+    _admin_route: TRUE
+
+bikeclub_ride_tools.add_schedule_dates:
+  path: '/admin/config/bikeclub/add-schedule-dates'
+  defaults:
+    _form: '\Drupal\bikeclub_ride_tools\Form\AddScheduleDates'
+    _title: 'Add Schedule Dates'
+  requirements:
+    _role: 'administrator'
+  options:
+    _admin_route: TRUE
+    

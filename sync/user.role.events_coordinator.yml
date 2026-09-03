@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - filter.format.basic_html
-    - filter.format.summary_fields
     - media.type.image_crop_16_9
     - media.type.image_crop_4_3
     - media.type.public_file
@@ -60,7 +59,6 @@ permissions:
   - 'use editorial transition create_new_draft'
   - 'use editorial transition finalize_draft'
   - 'use text format basic_html'
-  - 'use text format summary_fields'
   - 'view announcement revisions'
   - 'view event revisions'
   - 'view latest version'

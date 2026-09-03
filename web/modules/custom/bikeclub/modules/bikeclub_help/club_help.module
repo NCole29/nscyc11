@@ -1,0 +1,64 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_toolbar().
+ *
+ * Adds a link to the black toolbar for mkdocs stored at sites/default/files/help
+ */
+function club_help_toolbar() {
+  $items = [];
+  
+  // Always return it with right cache context even if it's empty so that the
+  // permissions can control it's visibility.
+  $items['help'] = [
+    '#cache' => [
+      'contexts' => ['user.permissions', 'url.path'],
+    ],
+  ];
+
+  $items['help'] += [
+    '#type' => 'toolbar_item',
+    'tab' => [
+      '#type' => 'link',
+      '#title' => t('Club Help'),
+      '#url' => Url::fromRoute('club_help.docs'),
+      '#options' => [
+        'attributes' => [
+          'title' => t('Club Help'),
+          'class' => [
+            'toolbar-item',
+            'toolbar-icon',
+            'toolbar-icon-clubhelp',
+          ],
+        ],
+      ],
+    ],
+    '#attached' => [
+      'library' => [
+        'club_help/club-help',
+      ],
+    ],
+  ];
+  return $items;
+}
+
+/**
+ * Implements hook_help().
+ */
+function club_help_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.club_help':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module places a link on the black toolbar to access help pages for this configuration of Drupal, designed for bicycle clubs.');
+      $output .=  t(' Help pages are written in Markdown and compiled with <a href="https://www.mkdocs.org/">MkDocs</a>.') . '</p>';
+      $output .= '<h3>' . t('Configuration') . '</h3>';
+      $output .= '<p>' . t('If clicking <strong>Club Help</strong> returns an error, the Help system did not install correctly. Help pages should be located in sites/default/files/help.') . '</p>'; 
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<p>' . t('The Help system contains step-by-step instructions and screen images to guide you through website tasks. Help pages include hyperlinks: <ul><li>Links to other help pages open in the same browser window</li><li>Links to your Drupal/CiviCRM site open in a new tab that you can move to view side-by-side with the Help page.</li><ul>') . '</p>';
+      return $output;
+  }
+}

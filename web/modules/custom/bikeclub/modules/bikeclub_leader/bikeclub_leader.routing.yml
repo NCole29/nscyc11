@@ -1,0 +1,50 @@
+# Routes for Club_leader
+entity.club_leader.canonical:
+  path: '/admin/club_leader/{club_leader}'
+  defaults:
+    _entity_view: 'club_leader'
+    _title: 'Club leaders list'
+  requirements:
+    _permission: 'view club_leader entity'
+
+# Override the default 'list' builder.
+entity.club_leader.collection:
+  path: '/admin/club_leader/list'
+  defaults:
+    _entity_list: 'club_leader'
+    _title: 'Club leaders list'
+  requirements:
+    _permission: 'view club_leader entity'
+
+entity.club_leader.edit_form:
+  path: '/admin/club_leader/{club_leader}/edit'
+  defaults:
+    _entity_form: club_leader.default
+    _title: 'Edit club leader'
+  requirements:
+    _permission: 'edit club_leader entity'
+
+entity.club_leader.delete_form:
+  path: '/admin/club_leader/{club_leader}/delete'
+  defaults:
+    _entity_form: club_leader.delete
+    _title: 'Delete club leader'
+  requirements:
+    _permission: 'delete club_leader entity'
+
+bikeclub_leader.leader_settings:
+  path: '/admin/structure/club_leader'
+  defaults:
+    _form: '\Drupal\bikeclub_leader\Form\ClubLeaderSettingsForm'
+    _title: 'Club leader settings'
+  requirements:
+    _permission: 'administer club_leader entity'
+
+bikeclub_leader.leader_add:
+  path: '/admin/club_leader/add'
+  defaults:
+    _entity_form: club_leader.default
+    _title: 'Add leader'
+  requirements:
+    _permission: 'add leader entity'
+

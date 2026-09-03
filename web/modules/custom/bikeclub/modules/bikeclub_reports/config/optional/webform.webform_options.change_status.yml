@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies: {  }
+id: change_status
+label: 'Change status'
+category: Bikeclub
+likert: false
+options: |-
+  rejected: Rejected
+  pending: Pending
+  completed: Completed
+  deployed: Deployed

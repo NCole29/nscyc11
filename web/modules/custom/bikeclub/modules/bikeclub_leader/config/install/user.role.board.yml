@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: { }
+id: board
+label: Board
+weight: -6
+is_admin: false
+permissions:
+  - 'view club reports'

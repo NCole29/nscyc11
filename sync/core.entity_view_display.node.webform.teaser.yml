@@ -9,10 +9,10 @@ dependencies:
     - field.field.node.webform.field_components
     - field.field.node.webform.field_contact_form
     - field.field.node.webform.field_contact_person
+    - field.field.node.webform.field_contact_us
     - field.field.node.webform.field_padding
     - field.field.node.webform.field_page_access
     - field.field.node.webform.field_summary
-    - field.field.node.webform.field_text
     - field.field.node.webform.field_type_of_page
     - field.field.node.webform.webform
     - node.type.webform
@@ -28,7 +28,7 @@ content:
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: -20
+    weight: 0
     region: content
   field_summary:
     type: text_default
@@ -36,11 +36,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
-    region: content
-  links:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
     region: content
   webform:
     type: webform_entity_reference_link
@@ -66,3 +61,4 @@ hidden:
   field_text: true
   field_type_of_page: true
   layout_builder__layout: true
+  links: true

@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.civicrm_contribution.field_membership_term
+  module:
+    - civicrm_entity
+id: civicrm_contribution.civicrm_contribution.field_membership_term
+field_name: field_membership_term
+entity_type: civicrm_contribution
+bundle: civicrm_contribution
+label: 'Membership term'
+description: 'Membership type sets the fee for a membership term (#years). The term is programmatically added to the contribution record to enable counts of membership by year.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

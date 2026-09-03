@@ -1,0 +1,37 @@
+<?php
+
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_install().
+ *
+ * @see system_install()
+ */
+function bikeclub_leader_install() {
+
+  $vocab = 'positions';
+
+  $terms = [
+    ['President', 0, 'Officers','site_admin'],
+    ['Vice president', 0, 'Officers','board'],
+    ['Treasurer', 0, 'Officers','board'],
+    ['Secretary', 0, 'Officers','board'],
+    ['Clerk', 0, 'Officers','board'],
+    ['Events coordinator', 0, 'Coordinators','membership'],
+    ['Membership coordinator', 0, 'Coordinators','membership'],
+    ['Rides coordinator', 0, 'Coordinators','rides_coordinator'],
+    ['Website coordinator', 0, 'Coordinators','site_admin'],    
+    ['Director', 0, 'Board members','board'],
+    ['Past president', 0, 'Board members','board'], 
+  ];
+
+  foreach($terms as $term) {
+    $term =Term::create([
+      'name' => $term[0],
+      'field_disabled' => $term[3],
+      'field_position_category' => $term[1],
+      'field_website_role' => $term[2],
+      'vid' => $vocab,
+    ])->save();
+  }
+}

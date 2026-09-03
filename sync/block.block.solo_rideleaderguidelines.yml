@@ -1,0 +1,28 @@
+uuid: ad5dc44c-4a89-4c4c-9587-80c642bc258c
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:f6e91878-5775-4e05-ad0c-ae009f04bf71'
+  module:
+    - block_content
+    - system
+  theme:
+    - solo
+id: solo_rideleaderguidelines
+theme: solo
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'block_content:f6e91878-5775-4e05-ad0c-ae009f04bf71'
+settings:
+  id: 'block_content:f6e91878-5775-4e05-ad0c-ae009f04bf71'
+  label: 'Ride Leader Guidelines'
+  label_display: visible
+  provider: block_content
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/rl/*'

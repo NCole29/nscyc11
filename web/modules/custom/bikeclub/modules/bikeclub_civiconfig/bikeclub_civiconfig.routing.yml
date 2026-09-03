@@ -1,0 +1,12 @@
+# Display "entity = user.default" in "front-page" theme for Members
+# Rename "route = entity.user.edit_form" to entity.user.edit_myform
+
+entity.user.edit_myprofile:
+  path: '/user/{user}/edit/myprofile/1'
+  defaults:
+    _entity_form: civicrm.user_profile
+    _title: 'Edit User Profile'
+  requirements:
+    _permission: 'edit my contact'
+  options:
+    _admin_route: FALSE

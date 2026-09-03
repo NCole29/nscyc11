@@ -1,0 +1,9 @@
+name: 'Bikeclub Reports'
+type: module
+description: 'Annual membership and revenue reports, file uploads, website change log, and menu blocks for reports page.'
+package: Bikeclub
+core_version_requirement: ^9 || ^10 || ^11
+dependencies:
+  - drupal:datetime
+  - drupal:node
+  - drupal:options

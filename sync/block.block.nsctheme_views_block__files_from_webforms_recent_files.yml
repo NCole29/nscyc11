@@ -1,0 +1,29 @@
+uuid: fd670bd0-ebc1-48a8-915b-37e7ce4447a9
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.files_from_webforms
+  module:
+    - system
+    - views
+  theme:
+    - nsctheme
+id: nsctheme_views_block__files_from_webforms_recent_files
+theme: nsctheme
+region: content
+weight: -9
+provider: null
+plugin: 'views_block:files_from_webforms-recent_files'
+settings:
+  id: 'views_block:files_from_webforms-recent_files'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: null
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

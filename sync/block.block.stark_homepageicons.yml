@@ -1,0 +1,28 @@
+uuid: c4483376-d3fa-4475-9a07-b05e1e4fc855
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:paragraphs_block:072779c4-7fc3-4862-852b-91deb3d4c469'
+  module:
+    - block_content
+    - system
+  theme:
+    - stark
+id: stark_homepageicons
+theme: stark
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'block_content:072779c4-7fc3-4862-852b-91deb3d4c469'
+settings:
+  id: 'block_content:072779c4-7fc3-4862-852b-91deb3d4c469'
+  label: 'Home page icons'
+  label_display: '0'
+  provider: block_content
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

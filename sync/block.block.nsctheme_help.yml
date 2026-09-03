@@ -1,0 +1,20 @@
+uuid: 1f3d8915-39fd-45f3-9103-41c4d36355bb
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - nsctheme
+id: nsctheme_help
+theme: nsctheme
+region: content
+weight: -30
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

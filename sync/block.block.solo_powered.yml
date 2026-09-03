@@ -1,0 +1,20 @@
+uuid: 21dcaaf4-8d0f-4b79-be17-d3d574584dd4
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - solo
+id: solo_powered
+theme: solo
+region: bottom_first
+weight: -14
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  label_display: '0'
+  provider: system
+visibility: {  }

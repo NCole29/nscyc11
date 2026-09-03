@@ -1,0 +1,46 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.positions.field_disabled
+    - field.field.taxonomy_term.positions.field_position_category
+    - field.field.taxonomy_term.positions.field_website_role
+    - taxonomy.vocabulary.positions
+  module:
+    - bikeclub_leader
+id: taxonomy_term.positions.default
+targetEntityType: taxonomy_term
+bundle: positions
+mode: default
+content:
+  field_disabled:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_position_category:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_website_role:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 40
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  description: true
+  path: true
+  status: true

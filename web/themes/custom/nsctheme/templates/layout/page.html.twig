@@ -82,11 +82,6 @@
 %}
 
 <div id="page-wrapper" class="{{ page_wrapper_classes }}" {{ attributes_page_wrapper }}>
-  {% if page.canceled %}
-    <div id="canceled-rides" class="w3-col w3-clear">
-      {{ page.canceled }}
-    </div>
-  {% endif %}
 
   {% if site_regions_highlighted_disable == 0 %}
   {% include '@solo/partials/_highlighted.html.twig' %}

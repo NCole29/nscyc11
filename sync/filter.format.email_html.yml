@@ -3,16 +3,19 @@ langcode: en
 status: true
 dependencies:
   module:
-    - club
+    - club_temp
 _core:
   default_config_hash: 8UYEKlWeJ8cK8V-9ojit-_9SwBjQKk0SU-UkiuvlWKI
 name: 'Email HTML'
 format: email_html
 weight: 10
 filters:
-  filter_maplink:
-    id: filter_maplink
-    provider: club
-    status: true
-    weight: 0
-    settings: {  }
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: false
+    weight: -10
+    settings:
+      allowed_html: ''
+      filter_html_help: true
+      filter_html_nofollow: false

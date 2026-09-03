@@ -1,0 +1,5 @@
+name: 'Bikeclub Help'
+type: module
+description: 'Provides link to Club help documents.'
+package: Bikeclub
+core_version_requirement: ^9 || ^10 || ^11

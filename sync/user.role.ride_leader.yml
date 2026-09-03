@@ -4,15 +4,12 @@ status: true
 dependencies:
   config:
     - filter.format.basic_html
-    - filter.format.ride_page
-    - filter.format.summary_fields
     - node.type.location
     - node.type.recurring_ride
     - node.type.ride
     - workflows.workflow.rides
   module:
     - comment
-    - contact
     - content_moderation
     - filter
     - media
@@ -30,7 +27,6 @@ permissions:
   - 'access comments'
   - 'access content overview'
   - 'access toolbar'
-  - 'access user contact forms'
   - 'cancel smart date recur instances'
   - 'change own username'
   - 'clone recurring_ride content'
@@ -45,7 +41,6 @@ permissions:
   - 'edit own location content'
   - 'edit own recurring_ride content'
   - 'edit own ride content'
-  - 'enter waivers'
   - 'make smart dates recur'
   - 'post comments'
   - 'reschedule smart date recur instances'
@@ -53,9 +48,6 @@ permissions:
   - 'use rides transition create_new_draft'
   - 'use rides transition finalize_draft'
   - 'use text format basic_html'
-  - 'use text format ride_page'
-  - 'use text format summary_fields'
-  - 'view club_schedule entity'
   - 'view latest version'
   - 'view location revisions'
   - 'view own unpublished content'

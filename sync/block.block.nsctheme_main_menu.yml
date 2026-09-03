@@ -1,0 +1,25 @@
+uuid: 5fbc9be1-e4f6-44b2-9377-2fd84c0f2d95
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - nsctheme
+id: nsctheme_main_menu
+theme: nsctheme
+region: primary_menu
+weight: 10
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 3
+  expand_all_items: true
+visibility: {  }

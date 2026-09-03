@@ -1,0 +1,49 @@
+<?php
+
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
+
+//use Drupal\user\Entity\Role;
+use Drupal\user\Entity\User;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Theme\ThemeManagerInterface;
+use Drupal\webform\Entity\WebformSubmission;
+use Drupal\views\ViewExecutableFactory;
+use Drupal\file_mdm\FileMetadataManagerInterface;
+
+/*
+ * Implement hook_help.
+ * Test code is written to help page
+ */
+function club_test_help($route_name, RouteMatchInterface $route_match) {
+
+  if ($route_name == 'help.page.club_test') {
+
+    // theme_get_setting() is deprecated as of Drupal 11.3
+
+    $logo = theme_get_setting('logo.url', 'bikeclub_solo');
+    $callout_color = theme_get_setting('settings_bikeclub___callout_br', 'bikeclub_solo');
+    
+    $theme_name = \Drupal::config('system.theme')->get('default');
+    $config = \Drupal::configFactory()->getEditable("{$theme_name}.settings");
+
+    kint($config);
+    kint($logo);
+    kint($callout_color);
+
+    /* Test this after update to 11.3.2 - using the service is mandatory with Drupal 12 
+  
+    $themeSettingsProvider = \Drupal::service('Drupal\Core\Extension\ThemeSettingsProvider');
+    $logo = $themeSettingsProvider->getSetting('logo.url', 'bikeclub_solo');
+
+    // To get the value of the 'logo' setting for the 'seven' theme
+    $logo_setting = $theme_settings_provider->getSettings('bikeclub_solo')['logo'];
+
+    kint($logo);
+    */
+    die;
+  }
+}

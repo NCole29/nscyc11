@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+name: Statistic
+type: statistic
+description: 'Statistics for annual membership and the total number of rides scheduled (and not cancelled) are generated automatically at year-end. Other statistics can be entered manually.'
+help: null
+new_revision: false
+preview_mode: 1
+display_submitted: false

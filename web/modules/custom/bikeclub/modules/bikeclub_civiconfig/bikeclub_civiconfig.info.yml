@@ -1,0 +1,7 @@
+name: 'Bikeclub civiconfig'
+type: module
+description: 'Provides CiviCRM configuration.'
+package: Bikeclub
+core_version_requirement: ^9.0 || ^10 || ^11
+dependencies:
+  - civicrm_entity:civicrm_entity

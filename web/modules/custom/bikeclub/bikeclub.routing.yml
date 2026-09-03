@@ -1,0 +1,51 @@
+# ------------------------------------------
+# Bikeclub entities under Admin > Structure
+# ------------------------------------------
+bikeclub.custom_entities:
+  path: '/admin/structure/custom_entities'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Custom entities'
+  requirements:
+    _permission: 'access toolbar'
+
+# --------------------------------------------
+# Bikeclub config under Admin > Configuration
+# --------------------------------------------
+bikeclub.custom_config:
+  path: '/admin/configuration/custom_config'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Bikeclub configuration'
+  requirements:
+    _permission: 'access toolbar'
+
+# Custom webform submission delete.
+entity.bikeclub.user.submission.delete:
+  path: '/webform/{webform}/submissions/{webform_submission}/delete'
+  defaults:
+    _entity_form: 'custom_submission.delete'
+    _title: 'Delete webform submission'
+  requirements:
+    _entity_access: 'webform_submission.delete'
+
+entity.webform_submission.delete_form:
+  path: '/admin/structure/webform/manage/{webform}/submission/{webform_submission}/delete'
+  defaults:
+    _entity_form: 'custom_submission.delete'
+    _title: 'Delete webform submission'
+  requirements:
+    _entity_access: 'webform_submission.delete'
+
+# Display "entity = user.default" in "front-page" theme for Members
+# Rename "route = entity.user.edit_form" to entity.user.edit_myform
+# Rename "path='/user/{user}/edit'" to '/user/{user}/edit-me'
+entity.user.edit_myform:
+  path: '/user/{user}/edit-me'
+  defaults:
+    _entity_form: user.default
+    _title: 'Edit User'
+  requirements:
+    _permission: 'edit my contact'
+  options:
+    _admin_route: FALSE

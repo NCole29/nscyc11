@@ -1,0 +1,29 @@
+uuid: 649d51df-8cb4-4c79-ac2c-b3a010e28625
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.club-reports
+  module:
+    - system
+  theme:
+    - solo
+id: solo_clubreports
+theme: solo
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:club-reports'
+settings:
+  id: 'system_menu_block:club-reports'
+  label: 'Club Reports'
+  label_display: visible
+  provider: system
+  level: 1
+  depth: null
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/report/*'

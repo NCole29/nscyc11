@@ -1,0 +1,13 @@
+name: 'Bikeclub History'
+type: module
+description: 'Process historical CiviCRM membership records to obtain annual membership counts.'
+package: Bikeclub
+core_version_requirement: ^9 || ^10 || ^11
+dependencies:
+  - civicrm:cvicrm
+  - civicrm_entity:cvicrm_entity
+  - drupal:datetime
+  - drupal:node
+  - drupal:options
+  - bikeclub:bikeclub_reports
+  

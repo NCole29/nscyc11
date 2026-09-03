@@ -1,0 +1,34 @@
+# -------------------------------
+# File uploads on the Admin menu
+# -------------------------------
+bikeclub_reports.file_uploads:
+  title: 'File uploads'
+  description: 'Upload meeting minutes and club reports'
+  route_name: bikeclub_reports.file_uploads
+  parent: system.admin
+  enabled: 1
+  weight: -9
+  menu_name: admin
+  options:
+    query:
+      uid: 1
+    attributes:
+      class:
+        - toolbar-icon
+        - toolbar-icon-system-admin-content
+
+bikeclub_reports.board_minutes:
+  title: 'Board meeting minutes'
+  description: 'Upload permission is set in Webform > Settings > Access.'
+  route_name: bikeclub_reports.board_minutes
+  parent: bikeclub_reports.file_uploads
+  enabled: 1
+  menu_name: admin
+
+bikeclub_reports.club_reports:
+  title: 'Club reports & minutes of member meetings'
+  description: 'Upload permission is set in Webform > Settings > Access.'
+  route_name: bikeclub_reports.club_reports
+  parent: bikeclub_reports.file_uploads
+  enabled: 1
+  menu_name: admin

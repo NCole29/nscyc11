@@ -1,0 +1,8 @@
+# Configuration > Bikeclub config
+bikeclub_history.old_fees:
+  title: 'Old Member Fees'
+  description: 'Enter expired membership fees and membership term (years) for calculating annual membership.'
+  url: 'internal:/form/old-membership-fees'
+  parent: bikeclub.custom_config  
+  menu_name: admin
+  enabled: 1

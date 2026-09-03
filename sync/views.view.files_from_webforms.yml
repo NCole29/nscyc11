@@ -9,8 +9,8 @@ dependencies:
     - webform.webform.board_meeting_minutes
     - webform.webform.club_reports
   module:
-    - smart_date
     - user
+    - views_year_filter
     - webform
     - webform_views
 id: files_from_webforms
@@ -858,7 +858,7 @@ display:
           precision: 0
           decimal: .
           separator: ','
-          format_plural: 0
+          format_plural: false
           format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
           suffix: ''
@@ -919,7 +919,7 @@ display:
           precision: 0
           decimal: .
           separator: ','
-          format_plural: 0
+          format_plural: false
           format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
           suffix: ''

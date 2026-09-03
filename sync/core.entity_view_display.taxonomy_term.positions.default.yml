@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.positions.field_disabled
     - field.field.taxonomy_term.positions.field_position_category
-    - field.field.taxonomy_term.positions.field_website_role
     - taxonomy.vocabulary.positions
   module:
     - options
@@ -21,14 +21,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
-    region: content
-  field_website_role:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: false
-    third_party_settings: {  }
-    weight: 2
     region: content
 hidden:
   description: true

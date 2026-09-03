@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - block_content.type.basic
-    - field.field.block_content.basic.body
+    - field.field.block_content.basic.field_body
   module:
     - text
 _core:
@@ -14,9 +14,9 @@ targetEntityType: block_content
 bundle: basic
 mode: default
 content:
-  body:
+  field_body:
     type: text_textarea_with_summary
-    weight: -4
+    weight: 26
     region: content
     settings:
       rows: 9

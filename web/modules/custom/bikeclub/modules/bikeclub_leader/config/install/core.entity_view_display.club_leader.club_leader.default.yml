@@ -1,0 +1,57 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - taxonomy
+    - bikeclub_leader
+id: club_leader.club_leader.default
+targetEntityType: club_leader
+bundle: club_leader
+mode: default
+content:
+  leader:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  end_date:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  name:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  position:
+    type: entity_reference_rss_category
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  start_date:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 4
+    region: content
+hidden:
+  feeds_item: true
+  leader: true
+  year: true

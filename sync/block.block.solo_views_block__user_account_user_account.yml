@@ -1,0 +1,38 @@
+uuid: e1c2f6ce-8c43-4a7b-a089-eb65f194d8ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.user_account
+  module:
+    - system
+    - user
+    - views
+  theme:
+    - solo
+id: solo_views_block__user_account_user_account
+theme: solo
+region: sidebar_first
+weight: -15
+provider: null
+plugin: 'views_block:user_account-user_account'
+settings:
+  id: 'views_block:user_account-user_account'
+  label: ''
+  label_display: '0'
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: '3'
+visibility:
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      authenticated: authenticated
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/user/*'

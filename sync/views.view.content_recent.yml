@@ -6,8 +6,8 @@ dependencies:
     - user.role.administrator
   module:
     - node
-    - smart_date
     - user
+    - views_year_filter
 _core:
   default_config_hash: YqZN5rc7XDQcFcInc8wkzuaHJmC5YvirhTmDcrarT6M
 id: content_recent
@@ -284,6 +284,7 @@ display:
           empty_table: false
           caption: ''
           description: ''
+          class: ''
       row:
         type: fields
         options:

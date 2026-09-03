@@ -3,15 +3,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.announcement.field_contact_form
     - field.field.node.announcement.field_contact_person
+    - field.field.node.announcement.field_contact_us
     - field.field.node.announcement.field_summary
-    - field.field.node.announcement.field_text
     - node.type.announcement
   module:
+    - club_temp
     - layout_builder
     - layout_builder_restrictions
-    - text
     - user
 third_party_settings:
   layout_builder:
@@ -36,27 +35,12 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  field_contact_form:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 2
-    region: content
   field_contact_person:
     type: user_contact_link
     label: above
     settings: {  }
     third_party_settings: {  }
     weight: 3
-    region: content
-  field_text:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
     region: content
   links:
     settings: {  }

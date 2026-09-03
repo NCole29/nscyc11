@@ -21,26 +21,11 @@ module:
   civicrmtheme: 0
   ckeditor5: 0
   ckeditor_accordion: 0
-  club: 0
-  club_announcement: 0
-  club_civicrm: 0
-  club_event: 0
-  club_help: 0
-  club_leader: 0
-  club_location: 0
-  club_media: 0
-  club_page: 0
-  club_paragraph: 0
-  club_report: 0
-  club_ride: 0
-  club_schedule: 0
-  club_user: 0
+  club_temp: 0
   comment: 0
   conditional_fields: 0
   config: 0
   config_split: 0
-  contact: 0
-  contact_storage: 0
   content_moderation: 0
   content_moderation_notifications: 0
   contextual: 0
@@ -96,6 +81,7 @@ module:
   menu_link_attributes: 0
   menu_link_content: 0
   menu_ui: 0
+  minimal: 0
   multiple_fields_remove_button: 0
   mysql: 0
   node: 0
@@ -115,6 +101,7 @@ module:
   shortcut: 0
   smart_date: 0
   smart_date_recur: 0
+  solo_copy_blocks: 0
   svg_image: 0
   svg_image_responsive: 0
   symfony_mailer: 0
@@ -153,6 +140,7 @@ module:
   tac_lite: 100
 theme:
   claro: 0
-  drupal8_w3css_theme: 0
-  clubtheme: 0
-profile: club
+  stark: 0
+  solo: 0
+  nsctheme: 0
+profile: minimal

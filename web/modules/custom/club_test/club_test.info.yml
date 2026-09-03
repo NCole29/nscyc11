@@ -1,0 +1,5 @@
+name: Club Test
+type: module
+description: 'For testing code by clicking module name on Drupal Help page.'
+package: Club
+core_version_requirement: ^9 || ^10 || ^11

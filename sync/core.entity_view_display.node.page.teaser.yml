@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.page.banner_image
     - field.field.node.page.field_comment
     - field.field.node.page.field_components
-    - field.field.node.page.field_contact_form
     - field.field.node.page.field_contact_person
     - field.field.node.page.field_contact_us
     - field.field.node.page.field_padding
@@ -43,7 +42,6 @@ hidden:
   banner_image: true
   field_comment: true
   field_components: true
-  field_contact_form: true
   field_contact_person: true
   field_contact_us: true
   field_padding: true

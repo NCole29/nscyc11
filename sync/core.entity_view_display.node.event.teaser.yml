@@ -6,7 +6,6 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.event.banner_image
     - field.field.node.event.field_components
-    - field.field.node.event.field_contact_form
     - field.field.node.event.field_contact_person
     - field.field.node.event.field_contact_us
     - field.field.node.event.field_date
@@ -119,7 +118,6 @@ content:
 hidden:
   banner_image: true
   field_components: true
-  field_contact_form: true
   field_contact_person: true
   field_contact_us: true
   field_padding: true

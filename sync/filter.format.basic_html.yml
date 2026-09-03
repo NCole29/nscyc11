@@ -8,7 +8,7 @@ dependencies:
     - core.entity_view_mode.media.small
     - core.entity_view_mode.media.window_popup
   module:
-    - club
+    - club_temp
     - editor
     - media
 name: 'Basic HTML'
@@ -71,18 +71,6 @@ filters:
     provider: filter
     status: true
     weight: -42
-    settings: {  }
-  filter_maplink:
-    id: filter_maplink
-    provider: club
-    status: true
-    weight: -49
-    settings: {  }
-  filter_table:
-    id: filter_table
-    provider: club
-    status: true
-    weight: -48
     settings: {  }
   filter_url:
     id: filter_url

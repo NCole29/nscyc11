@@ -1,0 +1,38 @@
+uuid: e66f0e89-b256-4a6b-949d-d9d042c33ec5
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:ceeaaac8-be4f-440d-ad4c-76bc21a04632'
+  module:
+    - block_content
+    - system
+    - user
+  theme:
+    - solo
+id: solo_emaillistmoderators
+theme: solo
+region: content
+weight: -8
+provider: null
+plugin: 'block_content:ceeaaac8-be4f-440d-ad4c-76bc21a04632'
+settings:
+  id: 'block_content:ceeaaac8-be4f-440d-ad4c-76bc21a04632'
+  label: 'Email list moderators'
+  label_display: '0'
+  provider: block_content
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /contact
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      administrator: administrator
+      ride_leader: ride_leader
+      rides_coordinator: rides_coordinator

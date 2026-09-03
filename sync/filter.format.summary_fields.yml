@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
-    - club
+    - club_temp
     - editor
     - media
 _core:
@@ -36,7 +36,7 @@ filters:
     status: true
     weight: -10
     settings:
-      allowed_html: '<br> <p class="light-button dark-button light-centered dark-centered text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <strong> <em> <blockquote> <a href data-entity-type data-entity-uuid data-entity-substitution> <ul> <ol reversed start> <li> <drupal-media data-entity-type data-entity-uuid alt data-align>'
+      allowed_html: '<br> <p class="light-button dark-button light-centered dark-centered text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <strong> <em> <blockquote> <a href> <ul> <ol reversed start> <li> <drupal-media data-entity-type data-entity-uuid alt data-align>'
       filter_html_help: true
       filter_html_nofollow: false
   filter_html_image_secure:
@@ -56,12 +56,6 @@ filters:
     provider: filter
     status: true
     weight: 1
-    settings: {  }
-  filter_maplink:
-    id: filter_maplink
-    provider: club
-    status: true
-    weight: 0
     settings: {  }
   filter_url:
     id: filter_url

@@ -1,0 +1,24 @@
+uuid: 228cc2a0-3b38-4ef4-a9c0-2447c2450746
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - nsctheme
+id: nsctheme_page_title
+theme: nsctheme
+region: page_title
+weight: 0
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: /calendar

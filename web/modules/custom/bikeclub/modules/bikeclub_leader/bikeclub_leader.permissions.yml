@@ -1,0 +1,14 @@
+'delete club_leader entity':
+  title: Delete club leader
+
+'add club_leader entity':
+  title: Add club leader
+
+'view club_leader entity':
+  title: View club leaders
+
+'edit club_leader entity':
+  title: Edit club leader
+
+'administer club_leader entity':
+  title: Administer club leader settings

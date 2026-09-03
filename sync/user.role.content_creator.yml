@@ -6,8 +6,6 @@ dependencies:
     - block_content.type.basic
     - block_content.type.paragraphs_block
     - filter.format.basic_html
-    - filter.format.summary_fields
-    - filter.format.webform_default
     - media.type.gallery
     - media.type.image
     - media.type.image_crop_16_9
@@ -123,8 +121,6 @@ permissions:
   - 'use editorial transition finalize_draft'
   - 'use editorial transition publish'
   - 'use text format basic_html'
-  - 'use text format summary_fields'
-  - 'use text format webform_default'
   - 'view all revisions'
   - 'view announcement revisions'
   - 'view any basic block content history'

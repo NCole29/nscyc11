@@ -1,0 +1,29 @@
+uuid: 05d4381d-0e9a-4e17-854b-b9d31635795b
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.files_from_webforms
+  module:
+    - system
+    - views
+  theme:
+    - solo
+id: solo_views_block__files_from_webforms_recent_files
+theme: solo
+region: content
+weight: -9
+provider: null
+plugin: 'views_block:files_from_webforms-recent_files'
+settings:
+  id: 'views_block:files_from_webforms-recent_files'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: null
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

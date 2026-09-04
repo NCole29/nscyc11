@@ -1,0 +1,4 @@
+services:
+  Drupal\club_leader\Hook\LeaderForms:
+    class: Drupal\club_leader\Hook\LeaderForms
+    autowire: true

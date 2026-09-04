@@ -1,0 +1,34 @@
+services:
+  club.route_subscriber:
+    class: Drupal\club\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
+
+  club.rwgpsClient:
+    class: Drupal\club\Controller\RWGPSClient
+    arguments: ['@config.factory','@entity_type.manager','@http_client_factory','@messenger']
+
+  Drupal\club\Controller\RWGPSClient: '@club.rwgpsClient'
+
+  club.update_recur_dates:
+    class: Drupal\club\Controller\UpdateRecurDates
+    arguments: ['@entity_type.manager']
+
+  club.renameImages:
+    class: Drupal\club\Controller\RenameImages
+    arguments: ['@entity_type.manager']
+
+  Drupal\club\Controller\RenameImages: '@club.renameImages'
+      
+  # Hooks
+  Drupal\club\Hook\ClubForms:
+    class: Drupal\club\Hook\ClubForms
+    autowire: true
+
+  Drupal\club\Hook\ClubMenus:
+    class: Drupal\club\Hook\ClubMenus
+    autowire: true
+
+  Drupal\club\Hook\ClubNodes:
+    class: Drupal\club\Hook\ClubNodes
+    autowire: true

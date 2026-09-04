@@ -3,10 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
-    - club_temp
     - media
-_core:
-  default_config_hash: d_k2zD9d2hX7sCoC2O9Op1pshgqdSGrgHHGngMKJOTY
 name: 'Ride page'
 format: ride_page
 weight: 0

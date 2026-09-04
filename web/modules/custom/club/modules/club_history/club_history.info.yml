@@ -1,0 +1,13 @@
+name: 'Club History'
+type: module
+description: 'Process historical CiviCRM membership records to obtain annual membership counts.'
+package: Club
+core_version_requirement: ^9 || ^10 || ^11
+dependencies:
+  - civicrm:civicrm
+  - civicrm_entity:civicrm_entity
+  - drupal:datetime
+  - drupal:node
+  - drupal:options
+  - club:club_reports
+  

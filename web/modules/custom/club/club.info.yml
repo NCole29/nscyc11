@@ -1,0 +1,10 @@
+name: 'Club'
+type: module
+description: 'Provides Drupal hooks for Club content types.'
+package: Club
+core_version_requirement: ^10.1 || ^11
+dependencies:
+  - drupal:field_ui
+  - drupal:taxonomy
+  - drupal:node
+  - drupal:user

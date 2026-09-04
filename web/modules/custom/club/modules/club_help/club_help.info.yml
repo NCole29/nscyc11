@@ -1,0 +1,5 @@
+name: 'Club Help'
+type: module
+description: 'Provides link to Club help documents.'
+package: Club
+core_version_requirement: ^9 || ^10 || ^11

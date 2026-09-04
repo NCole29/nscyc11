@@ -1,0 +1,13 @@
+club_styles:
+  version: 1.x
+  css:
+    theme:
+      css/accordion.css: { }    
+      css/club.css: { }
+      css/club-calendar.css: { }
+      css/club-tables.css: { }
+      css/gin-custom.css: { }
+olivero_calendar:
+  css:
+    theme:
+      css/olivero_calendar.css: { }  

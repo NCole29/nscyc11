@@ -1,0 +1,20 @@
+# Link for users to delete webform submissions
+entity.club.user.submission.delete:
+  title: 'Delete'
+  route_name: entity.club.user.submission.delete
+  base_route: entity.club.user.submission.delete
+  weight: 0
+
+# Edit link for own user info; don't use admin theme
+user.edit_myform:
+  route_name: user.edit_myform
+  base_route: user.default
+  title: Edit
+  weight: 2
+
+# Edit link for contact info in CiviCRM
+user.edit_myprofile:
+  route_name: user.edit_myprofile
+  base_route: civicrm.user_profile
+  title: 'Edit profile'
+  weight: 2

@@ -1,0 +1,34 @@
+# -------------------------------
+# File uploads on the Admin menu
+# -------------------------------
+club_reports.file_uploads:
+  title: 'File uploads'
+  description: 'Upload meeting minutes and club reports'
+  route_name: club_reports.file_uploads
+  parent: system.admin
+  enabled: 1
+  weight: -9
+  menu_name: admin
+  options:
+    query:
+      uid: 1
+    attributes:
+      class:
+        - toolbar-icon
+        - toolbar-icon-system-admin-content
+
+club_reports.board_minutes:
+  title: 'Board meeting minutes'
+  description: 'Upload permission is set in Webform > Settings > Access.'
+  route_name: club_reports.board_minutes
+  parent: club_reports.file_uploads
+  enabled: 1
+  menu_name: admin
+
+club_reports.club_reports:
+  title: 'Club reports & minutes of member meetings'
+  description: 'Upload permission is set in Webform > Settings > Access.'
+  route_name: club_reports.club_reports
+  parent: club_reports.file_uploads
+  enabled: 1
+  menu_name: admin

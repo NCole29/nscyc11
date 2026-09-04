@@ -1,0 +1,45 @@
+# ------------------------------
+# Admin menu > Content
+# ------------------------------
+club.add_content:
+  title: 'Add content'
+  route_name: node.add_page
+  parent: system.admin_content
+  weight: -10
+
+club.rides:
+  title: 'Rides'
+  route_name: view.rides.rides
+  parent: system.admin_content
+  weight: 0
+
+# -------------------------------------
+# Admin > Structure > Club entities
+#  - menu items are added by submodules
+# -------------------------------------
+club.custom_entities:
+  title: 'Club entities'
+  description: 'Manage custom entities.'
+  route_name: club.custom_entities
+  parent: 'system.admin_structure'
+
+# --------------------------------------
+# Admin > Configuration > Club config
+#  - menu items are added by submodules
+# --------------------------------------
+club.custom_config:
+  title: 'Club config'
+  description: 'Manage custom configuration.'
+  route_name: club.custom_config
+  parent: 'system.admin_config'
+  weight: -15  
+ 
+# ----------------------------- 
+# Admin menu > People 
+# -----------------------------
+club_civiconfig.civigroups:
+  title: 'CiviGroup Roles Sync'
+  description: 'Synch CiviCRM Ride Leader GROUP with Drupal Ride Leader ROLE'
+  route_name: civicrm_group_roles.admin_config_civicrm.civicrm_group_roles_manual_sync
+  parent: entity.user.collection
+  weight: 100

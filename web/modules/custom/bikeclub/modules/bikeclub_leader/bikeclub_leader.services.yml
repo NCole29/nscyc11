@@ -1,4 +1,0 @@
-services:
-  Drupal\bikeclub_leader\Hook\LeaderForms:
-    class: Drupal\bikeclub_leader\Hook\LeaderForms
-    autowire: true

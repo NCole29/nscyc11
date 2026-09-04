@@ -7,7 +7,6 @@ dependencies:
     - block_content.type.paragraphs_block
     - core.entity_view_display.node.event.default
     - core.entity_view_display.node.page.default
-    - filter.format.basic_html
     - media.type.gallery
     - media.type.image
     - media.type.image_crop_16_9
@@ -35,7 +34,6 @@ dependencies:
     - field_ui
     - file
     - file_delete
-    - filter
     - help
     - layout_builder
     - media
@@ -201,7 +199,6 @@ permissions:
   - 'use rides transition finalize_draft'
   - 'use rides transition publish'
   - 'use rides transition publish_notify'
-  - 'use text format basic_html'
   - 'view all activities'
   - 'view all contacts'
   - 'view all media revisions'

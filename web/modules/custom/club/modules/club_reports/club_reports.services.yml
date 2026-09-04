@@ -1,0 +1,4 @@
+services:
+  club_reports.annual_stats:
+    class: Drupal\club_reports\Controller\AnnualStatistics
+    arguments: ['@database','entity_type.manager','logger.factory']

@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - filter.format.basic_html
     - node.type.announcement
     - node.type.event
     - node.type.page
@@ -16,7 +15,6 @@ dependencies:
     - contextual
     - file
     - file_delete
-    - filter
     - help
     - media
     - node
@@ -98,7 +96,6 @@ permissions:
   - 'skip comment approval'
   - 'use editorial transition create_new_draft'
   - 'use editorial transition finalize_draft'
-  - 'use text format basic_html'
   - 'view all activities'
   - 'view all contacts'
   - 'view all notes'

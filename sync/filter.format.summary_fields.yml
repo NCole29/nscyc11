@@ -3,11 +3,8 @@ langcode: en
 status: true
 dependencies:
   module:
-    - club_temp
     - editor
     - media
-_core:
-  default_config_hash: 2qm7SX9uOhAtb1Ad6nWSbUx2T1vzNZ86c_IE9kj2uaU
 name: 'Summary fields'
 format: summary_fields
 weight: 0

@@ -8,7 +8,6 @@ dependencies:
     - core.entity_view_mode.media.small
     - core.entity_view_mode.media.window_popup
   module:
-    - club_temp
     - editor
     - media
 name: 'Basic HTML'

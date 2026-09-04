@@ -143,9 +143,9 @@
     "drupal/config_single_export": "^1.4",
     "drupal/config_split": "^2.0",
     "drupal/content_moderation_notifications": "^3.9",
-    "drupal/core-composer-scaffold": "11.4.5",
-    "drupal/core-project-message": "11.4.5",
-    "drupal/core-recommended": "11.4.5",
+    "drupal/core-composer-scaffold": "11.4.6",
+    "drupal/core-project-message": "11.4.6",
+    "drupal/core-recommended": "11.4.6",
     "drupal/crop": "^2.6",
     "drupal/css_editor": "^2.0",
     "drupal/csv_serialization": "^4.0",
@@ -313,6 +313,9 @@
       },
       "enable-patching": "true",
       "patches": {
+        "drupal/core": {
+            "Fix Drupal 11.4 circular reference on CLI logger commands": "https://www.drupal.org/files/issues/2026-07-08/core--block-manager-logger-circular-ref-11.4.patch"
+        },
         "drupal/smart_date": {
             "D10.2 Smart date list item must pass as array": "https://www.drupal.org/files/issues/2023-12-18/3409287.patch"
         }

@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Club positions'
+vid: positions
+description: 'Club leadership positions and associated website roles.'
+weight: 0
+new_revision: false

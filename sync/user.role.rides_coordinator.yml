@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - filter.format.basic_html
     - node.type.location
     - node.type.recurring_ride
     - node.type.ride
@@ -15,7 +14,6 @@ dependencies:
     - content_moderation
     - contextual
     - file
-    - filter
     - help
     - layout_builder
     - media
@@ -83,7 +81,6 @@ permissions:
   - 'use rides transition finalize_draft'
   - 'use rides transition publish'
   - 'use rides transition publish_notify'
-  - 'use text format basic_html'
   - 'view all contacts'
   - 'view all revisions'
   - 'view any unpublished content'

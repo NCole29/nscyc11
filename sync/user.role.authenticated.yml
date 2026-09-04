@@ -2,10 +2,16 @@ uuid: 3d8fd5b3-7344-4831-ac10-dabed70f9b38
 langcode: en
 status: true
 dependencies:
+  config:
+    - filter.format.basic_html
+    - filter.format.email_html
+    - filter.format.ride_page
+    - filter.format.summary_fields
   module:
     - civicrm
     - file
     - file_delete
+    - filter
     - media
     - system
     - webform
@@ -30,6 +36,10 @@ permissions:
   - 'profile edit'
   - 'profile view'
   - 'register for events'
+  - 'use text format basic_html'
+  - 'use text format email_html'
+  - 'use text format ride_page'
+  - 'use text format summary_fields'
   - 'view event info'
   - 'view event participants'
   - 'view media'

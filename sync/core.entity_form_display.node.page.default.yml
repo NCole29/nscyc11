@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.page.banner_image
     - field.field.node.page.field_comment
     - field.field.node.page.field_components
+    - field.field.node.page.field_contact_us
     - field.field.node.page.field_contact_person
     - field.field.node.page.field_contact_us
     - field.field.node.page.field_padding
@@ -17,6 +18,7 @@ dependencies:
     - node.type.page
     - workflows.workflow.editorial
   module:
+    - allowed_formats
     - comment
     - conditional_fields
     - content_moderation
@@ -99,7 +101,6 @@ third_party_settings:
     group_contact_link:
       children:
         - field_contact_us
-        - field_contact_form
         - field_contact_person
       label: 'Contact link'
       region: content
@@ -203,7 +204,7 @@ content:
         94ec0e2c-a52e-4e53-b73f-ba211dd459b5:
           entity_type: node
           bundle: page
-          dependee: field_contact_form
+          dependee: field_contact_us
           settings:
             state: visible
             reset: false
@@ -220,7 +221,7 @@ content:
             selector: ''
   field_contact_us:
     type: options_select
-    weight: 17
+    weight: 18
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -265,12 +266,34 @@ content:
             selector: ''
   field_text:
     type: text_textarea
-    weight: 26
+    weight: 5
     region: content
     settings:
       rows: 5
       placeholder: ''
-    third_party_settings: {  }
+    third_party_settings:
+      allowed_formats:
+        hide_help: '1'
+        hide_guidelines: '1'
+      conditional_fields:
+        8a8538ad-4cd7-4086-83b0-5781deccc315:
+          entity_type: node
+          bundle: page
+          dependee: field_type_of_page
+          settings:
+            state: visible
+            reset: false
+            condition: value
+            grouping: AND
+            values_set: 2
+            value: ''
+            values: '1'
+            value_form:
+              -
+                value: '1'
+            effect: show
+            effect_options: {  }
+            selector: ''
   field_type_of_page:
     type: options_buttons
     weight: 4
@@ -279,13 +302,13 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 6
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -337,11 +360,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 7
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_contact_us: true
   layout_builder__layout: true
   publish_on: true
   uid: true

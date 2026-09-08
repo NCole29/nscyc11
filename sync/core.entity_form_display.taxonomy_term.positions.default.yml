@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.taxonomy_term.positions.field_disabled
     - field.field.taxonomy_term.positions.field_position_category
+    - field.field.taxonomy_term.positions.field_website_role
     - taxonomy.vocabulary.positions
 _core:
   default_config_hash: Zts1aZc84nSMLUS13BHfZmrdM8QjOHDsm7Q7g4aRXzI
@@ -25,6 +26,16 @@ content:
     weight: 1
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_website_role:
+    type: entity_reference_autocomplete
+    weight: 26
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   name:
     type: string_textfield

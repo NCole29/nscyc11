@@ -4,6 +4,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 
 //use Drupal\user\Entity\Role;
+use Drupal\node\Entity\Node;
 use Drupal\user\Entity\User;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -22,28 +23,39 @@ function club_test_help($route_name, RouteMatchInterface $route_match) {
 
   if ($route_name == 'help.page.club_test') {
 
-    // theme_get_setting() is deprecated as of Drupal 11.3
 
-    $logo = theme_get_setting('logo.url', 'bikeclub_solo');
-    $callout_color = theme_get_setting('settings_bikeclub___callout_br', 'bikeclub_solo');
-    
-    $theme_name = \Drupal::config('system.theme')->get('default');
-    $config = \Drupal::configFactory()->getEditable("{$theme_name}.settings");
+    // 1. Find all node IDs with field_text
+    $nids = \Drupal::entityQuery('node')
+      ->condition('field_text', NULL, 'IS NOT NULL')
+      ->accessCheck(FALSE) // Required in Drupal 10/11
+      ->execute();
 
-    kint($config);
-    kint($logo);
-    kint($callout_color);
+    if (!empty($nids)) {
+      // 2. Load the entities in chunks to prevent memory exhaustion
+      $chunks = array_chunk($nids, 50);
+      $storage = \Drupal::entityTypeManager()->getStorage('node');
 
-    /* Test this after update to 11.3.2 - using the service is mandatory with Drupal 12 
-  
-    $themeSettingsProvider = \Drupal::service('Drupal\Core\Extension\ThemeSettingsProvider');
-    $logo = $themeSettingsProvider->getSetting('logo.url', 'bikeclub_solo');
+      foreach ($chunks as $chunk) {
+        $nodes = $storage->loadMultiple($chunk);
+        
+        foreach ($nodes as $node) {
+            
+          // 4. Update the format property of the field
+          $node->field_text->format = 'basic_html';
+          
+          // 5. Save the entity
+          $node->save();
+        }
+        
+        // Clear memory cache after processing a batch
+        $storage->resetCache($chunk);
+      }
+      
+      \Drupal::messenger()->addMessage(t('Updated @count nodes.', ['@count' => count($nids)]));
+    } else {
+      \Drupal::messenger()->addMessage(t('No nodes found matching the criteria.'));
+    }
 
-    // To get the value of the 'logo' setting for the 'seven' theme
-    $logo_setting = $theme_settings_provider->getSettings('bikeclub_solo')['logo'];
-
-    kint($logo);
-    */
     die;
   }
 }

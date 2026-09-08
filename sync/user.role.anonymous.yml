@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - civicrm
+    - club_ride_tools
     - media
     - system
 _core:
@@ -23,6 +24,7 @@ permissions:
   - 'profile edit'
   - 'profile view'
   - 'register for events'
+  - 'view club_route entity'
   - 'view event info'
   - 'view event participants'
   - 'view media'

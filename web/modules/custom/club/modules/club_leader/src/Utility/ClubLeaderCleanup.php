@@ -127,7 +127,7 @@ class ClubLeaderCleanup implements ContainerInjectionInterface {
    * @return string
    */
   public function setRoleLabel($role) {
-    $roleEntity = $this->entityTypeManager->getStorage('user_role')->load($role);
+    $roleEntity = $this->entityTypeManager()->getStorage('user_role')->load($role);
     return $roleEntity->label();
   }
 
@@ -158,7 +158,7 @@ class ClubLeaderCleanup implements ContainerInjectionInterface {
    * Remove roles from user account.
    */  
   public function removeRoles($id, $roles) {
-    $user = $this->entityTypeManager->getStorage('user')->load($id);   
+    $user = $this->entityTypeManager()->getStorage('user')->load($id);   
     $roles_removed = []; // Initialize for each user.
 
     foreach($roles as $role) {

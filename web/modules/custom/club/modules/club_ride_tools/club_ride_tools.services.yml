@@ -1,0 +1,6 @@
+services:
+  club.rwgpsClient:
+    class: Drupal\club_ride_tools\Utility\RWGPSClient
+    arguments: ['@config.factory','@entity_type.manager','@http_client_factory','@messenger']
+
+  Drupal\club_ride_tools\Utility\RWGPSClient: '@club.rwgpsClient'

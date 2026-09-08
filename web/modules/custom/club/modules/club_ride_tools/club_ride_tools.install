@@ -1,6 +1,5 @@
 <?php
 
-use Drupal\club_ride_tools\Utility\LoadSchedule;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\user\Entity\User;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -57,8 +56,6 @@ function club_ride_tools_install() {
     }
   }
 
-  // Load three years of calendar dates in club_schedule table.    
-  LoadSchedule::loadSchedule(0);
   drupal_flush_all_caches();
 }
 

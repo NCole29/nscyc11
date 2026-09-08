@@ -41,6 +41,29 @@ function club_test_help($route_name, RouteMatchInterface $route_match) {
 
   if ($route_name == 'help.page.club_test') {
 
+        // theme_get_setting() is deprecated as of Drupal 11.3
+
+    $logo = theme_get_setting('logo.url', 'bikeclub_solo');
+    $callout_color = theme_get_setting('settings_bikeclub___callout_br', 'bikeclub_solo');
+    
+    $theme_name = \Drupal::config('system.theme')->get('default');
+    $config = \Drupal::configFactory()->getEditable("{$theme_name}.settings");
+
+    kint($config);
+    kint($logo);
+    kint($callout_color);
+
+    /* Test this after update to 11.3.2 - using the service is mandatory with Drupal 12 
+  
+    $themeSettingsProvider = \Drupal::service('Drupal\Core\Extension\ThemeSettingsProvider');
+    $logo = $themeSettingsProvider->getSetting('logo.url', 'bikeclub_solo');
+
+    // To get the value of the 'logo' setting for the 'seven' theme
+    $logo_setting = $theme_settings_provider->getSettings('bikeclub_solo')['logo'];
+
+    kint($logo);
+    */
+    
     // Print UUIDs for exporting default content.
     // Add UUIDs to modules/custom/export_content/export_content.info.yml and enable module.
 	  /*

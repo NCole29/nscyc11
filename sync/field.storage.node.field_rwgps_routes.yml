@@ -1,0 +1,20 @@
+uuid: fd39d209-c1aa-4207-ad3e-eadf20b8240f
+langcode: en
+status: true
+dependencies:
+  module:
+    - club_ride_tools
+    - node
+id: node.field_rwgps_routes
+field_name: field_rwgps_routes
+entity_type: node
+type: entity_reference
+settings:
+  target_type: club_route
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

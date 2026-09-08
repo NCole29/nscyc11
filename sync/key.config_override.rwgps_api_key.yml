@@ -1,0 +1,14 @@
+uuid: 5dcd7e42-9508-4a87-9515-80e9b078e478
+langcode: en
+status: true
+dependencies:
+  config:
+    - club.adminsettings
+    - key.key.rwgps
+id: rwgps_api_key
+label: 'RWGPS API key'
+config_type: system.simple
+config_prefix: ''
+config_name: club.adminsettings
+config_item: rwgps_api
+key_id: rwgps

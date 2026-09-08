@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.recurring_ride.field_multiple_times
     - field.field.node.recurring_ride.field_ride_leader
     - field.field.node.recurring_ride.field_ride_picture
+    - field.field.node.recurring_ride.field_rwgps_routes
     - field.field.node.recurring_ride.field_show_and_go
     - field.field.node.recurring_ride.field_time
     - node.type.recurring_ride
@@ -230,6 +231,7 @@ hidden:
   field_master: true
   field_multiple_times: true
   field_ride_picture: true
+  field_rwgps_routes: true
   field_show_and_go: true
   field_time: true
   links: true

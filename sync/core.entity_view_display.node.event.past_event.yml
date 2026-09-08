@@ -6,8 +6,8 @@ dependencies:
     - core.entity_view_mode.node.past_event
     - field.field.node.event.banner_image
     - field.field.node.event.field_components
-    - field.field.node.event.field_contact_person
     - field.field.node.event.field_contact_us
+    - field.field.node.event.field_contact_person
     - field.field.node.event.field_date
     - field.field.node.event.field_location
     - field.field.node.event.field_padding

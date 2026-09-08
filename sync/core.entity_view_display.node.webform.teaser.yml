@@ -7,12 +7,12 @@ dependencies:
     - field.field.node.webform.banner_image
     - field.field.node.webform.body
     - field.field.node.webform.field_components
-    - field.field.node.webform.field_contact_form
-    - field.field.node.webform.field_contact_person
     - field.field.node.webform.field_contact_us
+    - field.field.node.webform.field_contact_person
     - field.field.node.webform.field_padding
     - field.field.node.webform.field_page_access
     - field.field.node.webform.field_summary
+    - field.field.node.webform.field_text
     - field.field.node.webform.field_type_of_page
     - field.field.node.webform.webform
     - node.type.webform
@@ -53,7 +53,6 @@ hidden:
   banner_image: true
   body: true
   field_components: true
-  field_contact_form: true
   field_contact_person: true
   field_contact_us: true
   field_padding: true

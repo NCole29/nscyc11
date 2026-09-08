@@ -8,6 +8,7 @@ dependencies:
     - node.type.ride
     - workflows.workflow.rides
   module:
+    - club_ride_tools
     - comment
     - content_moderation
     - media
@@ -25,6 +26,7 @@ permissions:
   - 'access comments'
   - 'access content overview'
   - 'access toolbar'
+  - 'add club_route entity'
   - 'cancel smart date recur instances'
   - 'change own username'
   - 'clone recurring_ride content'
@@ -39,12 +41,14 @@ permissions:
   - 'edit own location content'
   - 'edit own recurring_ride content'
   - 'edit own ride content'
+  - 'enter waivers'
   - 'make smart dates recur'
   - 'post comments'
   - 'reschedule smart date recur instances'
   - 'skip comment approval'
   - 'use rides transition create_new_draft'
   - 'use rides transition finalize_draft'
+  - 'view club_schedule entity'
   - 'view latest version'
   - 'view location revisions'
   - 'view own unpublished content'

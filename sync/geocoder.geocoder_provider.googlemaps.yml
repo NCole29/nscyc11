@@ -9,5 +9,7 @@ configuration:
   throttle:
     period: null
     limit: null
+  geocoder:
+    locale: ''
   apiKey: null
   region: ''

@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   module:
-    - bikeclub_leader
+    - club_leader
 id: club_leader.club_leader.default
 targetEntityType: club_leader
 bundle: club_leader

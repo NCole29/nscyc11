@@ -1,0 +1,68 @@
+uuid: 22f5e0d9-1b82-4498-9174-321688917009
+langcode: en
+status: true
+dependencies:
+  module:
+    - club_leader
+    - datetime
+    - taxonomy
+_core:
+  default_config_hash: keNY5f7A6C77jalYmeKDV2oReRkSUxEKKaxEj_5dICA
+id: club_leader.club_leader.default
+targetEntityType: club_leader
+bundle: club_leader
+mode: default
+content:
+  end_date:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  leader:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  name:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  position:
+    type: entity_reference_rss_category
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  start_date:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  uid:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: -3
+    region: content
+hidden:
+  feeds_item: true
+  leader: true
+  year: true

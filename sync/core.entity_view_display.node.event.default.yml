@@ -5,8 +5,8 @@ dependencies:
   config:
     - field.field.node.event.banner_image
     - field.field.node.event.field_components
-    - field.field.node.event.field_contact_person
     - field.field.node.event.field_contact_us
+    - field.field.node.event.field_contact_person
     - field.field.node.event.field_date
     - field.field.node.event.field_location
     - field.field.node.event.field_padding
@@ -62,6 +62,21 @@ third_party_settings:
                   view_mode: default
                 third_party_settings: {  }
             weight: 6
+            additional: {  }
+          0b8359a9-e219-4902-9816-fb35e92731c9:
+            uuid: 0b8359a9-e219-4902-9816-fb35e92731c9
+            region: second
+            configuration:
+              id: 'field_block:node:event:field_text'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 5
             additional: {  }
           5d544eb0-e696-4a14-840c-2af05001d303:
             uuid: 5d544eb0-e696-4a14-840c-2af05001d303
@@ -216,6 +231,25 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 5
             additional: {  }
+          307c4c86-7efc-466b-a148-49b9d3ca3e1e:
+            uuid: 307c4c86-7efc-466b-a148-49b9d3ca3e1e
+            region: second
+            configuration:
+              id: 'field_block:node:event:field_contact_us'
+              label: Contact
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_label
+                label: above
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 7
+            additional: {  }
           944e82e4-5b24-4c90-a3a4-66a0dc361baf:
             uuid: 944e82e4-5b24-4c90-a3a4-66a0dc361baf
             region: second
@@ -233,21 +267,6 @@ third_party_settings:
                 settings: {  }
                 third_party_settings: {  }
             weight: 8
-            additional: {  }
-          2f6a104f-f86b-4bbd-821e-c58fb3f9047d:
-            uuid: 2f6a104f-f86b-4bbd-821e-c58fb3f9047d
-            region: first
-            configuration:
-              id: 'field_block:node:event:field_text'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: text_default
-                label: above
-                settings: {  }
-                third_party_settings: {  }
-            weight: 9
             additional: {  }
         third_party_settings: {  }
       -
@@ -393,11 +412,11 @@ content:
     region: first
   field_text:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 20
-    region: first
+    weight: 4
+    region: content
   field_type_of_page:
     type: list_default
     label: above
@@ -412,6 +431,7 @@ content:
     region: content
 hidden:
   field_contact_person: true
+  field_contact_us: true
   field_registration_free_form: true
   field_registration_link: true
   layout_builder__layout: true

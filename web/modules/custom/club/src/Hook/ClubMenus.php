@@ -29,7 +29,7 @@ class ClubMenus {
     protected CurrentPathStack $currentPath,
     protected AccountProxyInterface $currentUser,
     protected MessengerInterface $messenger,
-	protected ModuleHandlerInterface $moduleHandler,
+	  protected ModuleHandlerInterface $moduleHandler,
     protected RouteMatchInterface $routeMatch
   ) {
   }
@@ -46,8 +46,8 @@ class ClubMenus {
         $variables['text'] = t('<i class="fa fa-home fa-lg" aria-hidden="true"></i>');
       }
     }
-  }   
-
+  }  
+  
   /**
    * Implements hook_local_tasks_alter().
    */

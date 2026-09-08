@@ -139,7 +139,6 @@
     "drupal/coffee": "^2.0",
     "drupal/comment_notify": "^1.4",
     "drupal/conditional_fields": "^4.0@alpha",
-    "drupal/config_delete": "^2.0",
     "drupal/config_single_export": "^1.4",
     "drupal/config_split": "^2.0",
     "drupal/content_moderation_notifications": "^3.9",

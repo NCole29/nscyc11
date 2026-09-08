@@ -7,7 +7,7 @@ dependencies:
     - image.style.thumbnail
     - taxonomy.vocabulary.positions
   module:
-    - bikeclub_leader
+    - club_leader
     - options
     - smart_date
     - svg_image

@@ -1,0 +1,23 @@
+uuid: 3ada87e9-2eb3-4593-b287-0c04bce5d8b4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_website_role
+    - taxonomy.vocabulary.positions
+id: taxonomy_term.positions.field_website_role
+field_name: field_website_role
+entity_type: taxonomy_term
+bundle: positions
+label: 'Website role'
+description: 'Default Drupal role providing access permissions.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user_role'
+  handler_settings:
+    target_bundles:
+      page: page
+field_type: entity_reference

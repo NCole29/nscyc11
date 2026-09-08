@@ -19,7 +19,7 @@ use Drupal\club_ride_tools\ClubInterface;
  *
  * @ContentEntityType(
  *   id = "club_schedule",
- *   label = @Translation("Club Schedule dates - for join with Ride dates"),
+ *   label = @Translation("Club Schedule dates"),
  *   base_table = "club_schedule",
  *   entity_keys = {
  *     "id" = "schedule_id",
@@ -30,7 +30,7 @@ use Drupal\club_ride_tools\ClubInterface;
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\club_ride_tools\ClubScheduleListBuilder",
- *     "views_data" = "Drupal\club_ride_tools\ClubScheduleViews",
+ *     "views_data" = "Drupal\views\EntityViewsData",
  *     "form" = {
  *       "default" = "Drupal\club_ride_tools\Form\ClubScheduleForm",
  *     },
@@ -128,11 +128,9 @@ class ClubSchedule extends ContentEntityBase implements ClubInterface {
         'settings' => [
           'format_type' => 'medium',
         ],
-        'weight' => 0,
       ])
       ->setDisplayOptions('form', [
         'type' => 'datetime_default',
-        'weight' => 0,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);

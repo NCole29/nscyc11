@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.taxonomy_term.positions.field_disabled
     - field.field.taxonomy_term.positions.field_position_category
+    - field.field.taxonomy_term.positions.field_website_role
     - taxonomy.vocabulary.positions
   module:
     - options
@@ -15,13 +16,30 @@ targetEntityType: taxonomy_term
 bundle: positions
 mode: default
 content:
+  field_disabled:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
   field_position_category:
     type: list_default
     label: inline
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
+  field_website_role:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
     weight: 1
     region: content
 hidden:
   description: true
-  field_disabled: true

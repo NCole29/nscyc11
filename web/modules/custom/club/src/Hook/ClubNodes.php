@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\club\Hook;
 
 use Drupal\club\Controller\RenameImages;
-use Drupal\club\Controller\RWGPSClient;
 use Drupal\club\Controller\UpdateRecurDates;
+use Drupal\club_ride_tools\Utility\RWGPSClient;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Datetime\DateHelper;

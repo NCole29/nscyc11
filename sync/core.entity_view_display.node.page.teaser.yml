@@ -7,8 +7,8 @@ dependencies:
     - field.field.node.page.banner_image
     - field.field.node.page.field_comment
     - field.field.node.page.field_components
-    - field.field.node.page.field_contact_person
     - field.field.node.page.field_contact_us
+    - field.field.node.page.field_contact_person
     - field.field.node.page.field_padding
     - field.field.node.page.field_page_access
     - field.field.node.page.field_summary

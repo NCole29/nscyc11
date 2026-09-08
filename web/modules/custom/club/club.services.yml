@@ -4,12 +4,6 @@ services:
     tags:
       - { name: event_subscriber }
 
-  club.rwgpsClient:
-    class: Drupal\club\Controller\RWGPSClient
-    arguments: ['@config.factory','@entity_type.manager','@http_client_factory','@messenger']
-
-  Drupal\club\Controller\RWGPSClient: '@club.rwgpsClient'
-
   club.update_recur_dates:
     class: Drupal\club\Controller\UpdateRecurDates
     arguments: ['@entity_type.manager']

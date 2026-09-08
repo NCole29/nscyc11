@@ -9,6 +9,7 @@ dependencies:
     - filter.format.summary_fields
   module:
     - civicrm
+    - club_ride_tools
     - file
     - file_delete
     - filter
@@ -40,6 +41,7 @@ permissions:
   - 'use text format email_html'
   - 'use text format ride_page'
   - 'use text format summary_fields'
+  - 'view club_route entity'
   - 'view event info'
   - 'view event participants'
   - 'view media'

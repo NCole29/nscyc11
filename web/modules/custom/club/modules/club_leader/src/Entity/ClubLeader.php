@@ -203,7 +203,7 @@ class ClubLeader extends ContentEntityBase implements ClubLeaderInterface {
       ->setSetting('handler', 'views')
       ->setSetting('handler_settings', [
         'view' => [
-          'view_name' => 'club_leaders_positions',
+          'view_name' => 'club_leader_positions',
           'display_name' => 'not_eliminated',
           'arguments' => [],
         ]
@@ -312,7 +312,7 @@ class ClubLeader extends ContentEntityBase implements ClubLeaderInterface {
     if ($this->original) {
       if ($this->position->target_id <> $this->original->position->target_id) {
 
-        $user = $this->entityTypeManager->getStorage('user')->load($this->original->leader->target_id);
+        $user = $this->entityTypeManager()->getStorage('user')->load($this->original->leader->target_id);
         $orig_role = $this->getRole($this->original->position->target_id);
         $new_role = $this->getRole($this->position->target_id);
     
@@ -341,8 +341,8 @@ class ClubLeader extends ContentEntityBase implements ClubLeaderInterface {
     // If leader is Drupal user, assign or remove website ROLE associated with position (see taxonomy).
     if ( !empty($this->leader) & !is_null($this->position)) {
 	    $position_role = $this->getRole($this->position->target_id);
-      $user = $this->entityTypeManager->getStorage('user')->load($this->leader->target_id);
 
+      $user = $this->entityTypeManager()->getStorage('user')->load($this->leader->target_id);
       $today = strtotime(date('d-m-Y'));
       $isCurrent = ($this->end_date->value > $today);
 
@@ -354,8 +354,8 @@ class ClubLeader extends ContentEntityBase implements ClubLeaderInterface {
       } 
       $user->save();
       parent::save();
-      $cleanup = new ClubLeaderCleanup;
-      $cleanup->roleCleanup();
+      //$cleanup = new ClubLeaderCleanup;
+      //$cleanup->roleCleanup();
     }
   }  
 }

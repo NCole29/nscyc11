@@ -1,0 +1,19 @@
+uuid: 3145df75-829a-4c93-b472-6746dd2b2d1e
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_schedule_date
+field_name: field_schedule_date
+entity_type: node
+type: entity_reference
+settings:
+  target_type: club_schedule
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -10,6 +10,7 @@ dependencies:
   module:
     - civicrm
     - civicrm_group_roles
+    - club_ride_tools
     - comment
     - content_moderation
     - contextual
@@ -45,6 +46,7 @@ permissions:
   - 'access media overview'
   - 'access shortcuts'
   - 'access toolbar'
+  - 'add club_route entity'
   - 'administer Reports'
   - 'cancel smart date recur instances'
   - 'clone recurring_ride content'
@@ -57,6 +59,7 @@ permissions:
   - 'delete any location content'
   - 'delete any recurring_ride content'
   - 'delete any ride content'
+  - 'delete club_route entity'
   - 'delete in CiviMail'
   - 'delete location revisions'
   - 'delete media'
@@ -66,8 +69,11 @@ permissions:
   - 'edit any location content'
   - 'edit any recurring_ride content'
   - 'edit any ride content'
+  - 'edit club_route entity'
+  - 'edit club_schedule entity'
   - 'edit groups'
   - 'edit message templates'
+  - 'enter waivers'
   - 'make smart dates recur'
   - 'post comments'
   - 'reschedule smart date recur instances'
@@ -84,6 +90,7 @@ permissions:
   - 'view all contacts'
   - 'view all revisions'
   - 'view any unpublished content'
+  - 'view club_schedule entity'
   - 'view latest version'
   - 'view media'
   - 'view own unpublished content'

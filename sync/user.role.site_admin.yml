@@ -29,6 +29,7 @@ dependencies:
     - block_content
     - civicrm
     - civicrm_group_roles
+    - club_ride_tools
     - content_moderation
     - contextual
     - field_ui
@@ -80,6 +81,7 @@ permissions:
   - 'access user profiles'
   - 'access webform help'
   - 'access webform overview'
+  - 'add club_route entity'
   - 'add contact notes'
   - 'add contacts'
   - 'administer CiviCRM'
@@ -94,6 +96,7 @@ permissions:
   - 'administer main menu items'
   - 'administer nodes'
   - 'administer payment processors'
+  - 'administer rwgps_api_form'
   - 'administer users'
   - 'administer webform element access'
   - 'assign content_creator role'
@@ -137,6 +140,7 @@ permissions:
   - 'delete any recurring_ride content'
   - 'delete any ride content'
   - 'delete any webform content'
+  - 'delete club_route entity'
   - 'delete contacts'
   - 'delete files immediately'
   - 'delete files override usage'
@@ -166,6 +170,8 @@ permissions:
   - 'edit any restricted_file media'
   - 'edit any ride content'
   - 'edit any webform content'
+  - 'edit club_route entity'
+  - 'edit club_schedule entity'
   - 'edit contributions'
   - 'edit event participants'
   - 'edit groups'
@@ -176,6 +182,7 @@ permissions:
   - 'edit own webform'
   - 'edit system workflow message templates'
   - 'edit user-driven message templates'
+  - 'enter waivers'
   - 'make smart dates recur'
   - 'manage event profiles'
   - 'manage tags'
@@ -207,6 +214,7 @@ permissions:
   - 'view any unpublished banner content'
   - 'view any unpublished content'
   - 'view banner revisions'
+  - 'view club_schedule entity'
   - 'view latest version'
   - 'view media'
   - 'view own unpublished content'

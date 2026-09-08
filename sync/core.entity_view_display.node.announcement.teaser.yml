@@ -4,9 +4,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.announcement.field_contact_person
-    - field.field.node.announcement.field_contact_us
     - field.field.node.announcement.field_summary
+    - field.field.node.announcement.field_text
     - node.type.announcement
   module:
     - layout_builder
@@ -46,4 +45,5 @@ content:
 hidden:
   field_contact_person: true
   field_contact_us: true
+  field_text: true
   links: true

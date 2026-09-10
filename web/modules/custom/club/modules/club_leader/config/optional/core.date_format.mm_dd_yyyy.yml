@@ -1,0 +1,10 @@
+uuid: 2ec32b13-ae55-4633-a49b-0f94fff9a2bd
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: YzLnEv182Of5lUsBNoKpmXfvzENeebieHR8auAfrfh8
+id: mm_dd_yyyy
+label: MM-DD-YYYY
+locked: false
+pattern: m/d/Y

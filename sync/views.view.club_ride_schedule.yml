@@ -2,9 +2,23 @@ uuid: bdc5494c-b42a-4f0d-9e3f-5eddd3f80f7c
 langcode: en
 status: true
 dependencies:
+  config:
+    - field.storage.node.field_activity
+    - field.storage.node.field_location
+    - field.storage.node.field_ride_leader
+    - user.role.administrator
+    - user.role.authenticated
+    - user.role.board
+    - user.role.events_coordinator
+    - user.role.ride_leader
+    - user.role.rides_coordinator
+    - user.role.site_admin
   module:
     - club_ride_tools
     - datetime
+    - node
+    - smart_date
+    - user
 id: club_ride_schedule
 label: 'Club ride schedule'
 module: views
@@ -342,7 +356,7 @@ display:
         options:
           offset: 0
           pagination_heading_level: h4
-          items_per_page: 20
+          items_per_page: 30
           total_pages: null
           id: 0
           tags:
@@ -410,18 +424,800 @@ display:
         - 'languages:language_interface'
         - url.query_args
       tags: {  }
-  page_1:
-    id: page_1
-    display_title: Page
+  ride_schedule:
+    id: ride_schedule
+    display_title: 'Ride schedules'
     display_plugin: page
     position: 1
     display_options:
+      fields:
+        schedule_id:
+          id: schedule_id
+          table: club_schedule
+          field: schedule_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: club_schedule
+          entity_field: schedule_id
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        schedule_date:
+          id: schedule_date
+          table: club_schedule
+          field: schedule_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: club_schedule
+          entity_field: schedule_date
+          plugin_id: field
+          label: 'Schedule date'
+          exclude: false
+          alter:
+            alter_text: true
+            text: '<a href="/admin/club_schedule/{{ schedule_id }}/edit?destination=/ride_schedule">{{ field_schedule_date }}</a>'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: datetime_plain
+          settings:
+            timezone_override: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        ride_leader:
+          id: ride_leader
+          table: club_schedule
+          field: ride_leader
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: club_schedule
+          entity_field: ride_leader
+          plugin_id: field
+          label: 'Assigned ride leader'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: reverse__node__field_schedule_date
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: field
+          label: 'Ride name'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: true
+            link_rel: canonical
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_ride_leader:
+          id: field_ride_leader
+          table: node__field_ride_leader
+          field: field_ride_leader
+          relationship: reverse__node__field_schedule_date
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Leader(s)
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_activity:
+          id: field_activity
+          table: node__field_activity
+          field: field_activity
+          relationship: reverse__node__field_schedule_date
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Ride type'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_location:
+          id: field_location
+          table: node__field_location
+          field: field_location
+          relationship: reverse__node__field_schedule_date
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Starting location'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          relationship: reverse__node__field_schedule_date
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: status
+          plugin_id: field
+          label: Published
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: boolean
+          settings:
+            format: unicode-yes-no
+            format_custom_false: ''
+            format_custom_true: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+      access:
+        type: role
+        options:
+          role:
+            administrator: administrator
+            events_coordinator: events_coordinator
+            ride_leader: ride_leader
+            rides_coordinator: rides_coordinator
+            site_admin: site_admin
+            board: board
+      filters:
+        weekday:
+          id: weekday
+          table: club_schedule
+          field: weekday
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: club_schedule
+          entity_field: weekday
+          plugin_id: string
+          operator: '='
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: weekday_op
+            label: Weekday
+            description: null
+            use_operator: false
+            operator: weekday_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: weekday
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: null
+          is_grouped: true
+          group_info:
+            label: Weekday
+            description: ''
+            identifier: weekday
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: Sunday
+                operator: '='
+                value: Sunday
+              2:
+                title: Monday
+                operator: '='
+                value: Monday
+              3:
+                title: Tuesday
+                operator: '='
+                value: Tuesday
+              4:
+                title: Wednesday
+                operator: '='
+                value: Wednesday
+              5:
+                title: Thursday
+                operator: '='
+                value: Thursday
+              6:
+                title: Friday
+                operator: '='
+                value: Friday
+              7:
+                title: Saturday
+                operator: '='
+                value: Saturday
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      defaults:
+        access: false
+        relationships: false
+        fields: false
+        filters: false
+        filter_groups: false
+        header: false
+      relationships:
+        reverse__node__field_schedule_date:
+          id: reverse__node__field_schedule_date
+          table: club_schedule
+          field: reverse__node__field_schedule_date
+          relationship: none
+          group_type: group
+          admin_label: field_schedule_date
+          entity_type: club_schedule
+          plugin_id: entity_reverse
+          required: false
+      display_description: ''
+      header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text_custom
+          empty: false
+          content: "<strong>Administrators:</strong> Click the <strong>Schedule date</strong> to add a ride leader to the schedule. Click the <strong>Ride name</strong> to view the ride page. Click <strong>Operations</strong> to edit or clone a ride page.<br>\r\nColumns after <em>Assigned ride leader</em> are from ride pages. For planning, you can create a ride page with partial information (which will appear here) but don't publish it. Review this page to see which pages need completion/publication. <br>"
+          tokenize: false
       display_extenders: {  }
-      path: club-ride-schedule
+      path: ride-schedule
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
+        - user.roles
+      tags:
+        - 'config:field.storage.node.field_activity'
+        - 'config:field.storage.node.field_location'
+        - 'config:field.storage.node.field_ride_leader'
+  schedule_dates:
+    id: schedule_dates
+    display_title: 'Entity Reference'
+    display_plugin: entity_reference
+    position: 2
+    display_options:
+      fields:
+        schedule_date:
+          id: schedule_date
+          table: club_schedule
+          field: schedule_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: club_schedule
+          entity_field: schedule_date
+          plugin_id: field
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: smartdate_default
+          settings:
+            timezone_override: ''
+            format: date_only
+            force_chronological: false
+            add_classes: false
+            time_wrapper: false
+            localize: false
+            parts:
+              start: start
+              end: end
+              duration: '0'
+            duration:
+              separator: ' | '
+              unit: ''
+              decimals: 2
+              suffix: h
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+      access:
+        type: role
+        options:
+          role:
+            authenticated: authenticated
+      sorts:
+        schedule_date:
+          id: schedule_date
+          table: club_schedule
+          field: schedule_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: club_schedule
+          entity_field: schedule_date
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
+      filters: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      style:
+        type: entity_reference
+        options:
+          search_fields:
+            schedule_date: schedule_date
+            club_schedule_bulk_form: '0'
+            schedule_id: '0'
+            ride_leader: '0'
+            weekday: '0'
+      row:
+        type: entity_reference
+        options:
+          default_field_elements: true
+          inline:
+            schedule_date: schedule_date
+          separator: '-'
+          hide_empty: false
+      defaults:
+        access: false
+        fields: false
+        sorts: false
+        filters: false
+        filter_groups: false
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - user.roles
       tags: {  }

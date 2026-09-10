@@ -2,6 +2,8 @@
 
 namespace Drupal\club_leader\Entity;
 
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItem;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
@@ -164,37 +166,6 @@ class ClubLeader extends ContentEntityBase implements ClubLeaderInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-	$fields['start_date'] = BaseFieldDefinition::create('timestamp')
-	  ->setLabel(t('Start date'))
-	  ->setDescription('Start of term.')
-	  ->setRequired(TRUE)
-	  ->setDisplayOptions('view', [
-		  'label' => 'inline',
-		  'type' => 'timestamp',
-		  'weight' => -2, 
-	  ])  
-	  ->setDisplayOptions('form', [
-		  'type' => 'datetime_timestamp',
-		  'weight' => -2, 
-	  ])
-    ->setDisplayConfigurable('view', TRUE)
-    ->setDisplayConfigurable('form', TRUE);
-
-	$fields['end_date'] = BaseFieldDefinition::create('timestamp')
-	  ->setLabel(t('End date'))
-	  ->setDescription('End of term.')
-    ->setDisplayOptions('view', [
-		  'label' => 'inline',
-		  'type' => 'timestamp',
-		  'weight' => -1, 
-	  ])  
-	  ->setDisplayOptions('form', [
-		  'type' => 'datetime_timestamp',
-		  'weight' => -2, 
-	  ])
-    ->setDisplayConfigurable('view', TRUE)
-    ->setDisplayConfigurable('form', TRUE);
-
     // Club position taxonomy term.
     $fields['position'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Club position'))
@@ -330,7 +301,7 @@ class ClubLeader extends ContentEntityBase implements ClubLeaderInterface {
    */
   public function save() {
     // Fill Year of Start date.
-    $year = date("Y", $this->start_date->value);
+    $year = $this->start_date->date->format('Y'); 
     $this->set('year', $year);
 
     // Fill name if leader is Drupal user and name field is empty (don't overwrite contents).

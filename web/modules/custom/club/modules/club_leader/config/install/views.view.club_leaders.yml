@@ -812,7 +812,7 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: target_id
-          type: user_contact_link
+          type: user_2_contactform
           settings: {  }
           group_column: target_id
           group_columns: {  }

@@ -2,22 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
+    - club_leader
     - datetime
     - taxonomy
-    - club_leader
 id: club_leader.club_leader.default
 targetEntityType: club_leader
 bundle: club_leader
 mode: default
 content:
-  leader:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 0
-    region: content
   end_date:
     type: datetime_default
     label: inline
@@ -26,6 +18,14 @@ content:
       format_type: medium
     third_party_settings: {  }
     weight: 5
+    region: content
+  leader:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
     region: content
   name:
     type: string
@@ -50,6 +50,14 @@ content:
       format_type: medium
     third_party_settings: {  }
     weight: 4
+    region: content
+  uid:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: -3
     region: content
 hidden:
   feeds_item: true

@@ -34,10 +34,10 @@ club_ride_tools.nonmember_waiver:
   enabled: 1
   menu_name: admin
 
-club_ride_tools.view_ride_schedule:
+club_ride_tools.view_club_ride_schedule:
   title: 'View ride schedule'
-  description: 'View Scheduled rides for a list of dates with rides and to find dates with no scheduled ride.'
-  route_name: view.ride_schedule.ride_schedule
+  description: 'View Scheduled rides and empty calendar dates.'
+  route_name: view.club_ride_schedule.ride_schedule
   parent: club_ride_tools.ride_tools
   enabled: 1
   menu_name: admin

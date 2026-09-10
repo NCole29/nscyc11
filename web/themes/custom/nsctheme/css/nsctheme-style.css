@@ -67,3 +67,7 @@ body {
 .w3-table-all td:first-child {
   padding-inline-start: 16px;
 }
+/* MAPS: inline-block. Class is applied in View > Unformatted list > Settings */
+.w3-maps {
+  display: inline-block!important;
+}

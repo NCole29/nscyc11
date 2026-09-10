@@ -1,24 +1,26 @@
 langcode: en
 status: true
 dependencies:
+  config:
+    - field.field.club_leader.club_leader.field_end_date
+    - field.field.club_leader.club_leader.field_start_date
   module:
     - club_leader
+    - datetime
 id: club_leader.club_leader.default
 targetEntityType: club_leader
 bundle: club_leader
 mode: default
 content:
-  board_term:
-    type: string_textfield
-    weight: 2
+  field_end_date:
+    type: datetime_default
+    weight: 4
     region: content
-    settings:
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-  end_date:
-    type: datetime_timestamp
-    weight: 5
+  field_start_date:
+    type: datetime_default
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -46,13 +48,5 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  start_date:
-    type: datetime_timestamp
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
-  eliminated: true
-  feeds_item: true
   year: true

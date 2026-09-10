@@ -2,14 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.club_leader.field_end_date
+    - field.storage.club_leader.field_start_date
     - field.storage.taxonomy_term.field_position_category
     - field.storage.user.user_picture
     - image.style.thumbnail
     - taxonomy.vocabulary.positions
   module:
+    - club
     - club_leader
+    - datetime
     - options
-    - smart_date
     - svg_image
     - taxonomy
     - user
@@ -215,160 +218,6 @@ display:
           type: string
           settings:
             link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        start_date:
-          id: start_date
-          table: club_leader
-          field: start_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: club_leader
-          entity_field: start_date
-          plugin_id: field
-          label: 'Start date'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: timestamp
-          settings:
-            date_format: short
-            custom_date_format: ''
-            timezone: ''
-            tooltip:
-              date_format: ''
-              custom_date_format: ''
-            time_diff:
-              enabled: false
-              future_format: '@interval hence'
-              past_format: '@interval ago'
-              granularity: 2
-              refresh: 60
-              description: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        end_date:
-          id: end_date
-          table: club_leader
-          field: end_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: club_leader
-          entity_field: end_date
-          plugin_id: field
-          label: 'End date'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: timestamp
-          settings:
-            date_format: short
-            custom_date_format: ''
-            timezone: ''
-            tooltip:
-              date_format: long
-              custom_date_format: ''
-            time_diff:
-              enabled: false
-              future_format: '@interval hence'
-              past_format: '@interval ago'
-              granularity: 2
-              refresh: 60
-              description: ''
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -626,70 +475,58 @@ display:
       style:
         type: table
         options:
-          grouping: {  }
+          grouping:
+            -
+              field: year
+              rendered: true
+              rendered_strip: false
           row_class: ''
           default_row_class: true
           columns:
-            year: year
-            position: position
             name_1: name_1
-            start_date: start_date
-            end_date: end_date
-            name: name
-            roles_target_id: roles_target_id
-            edit_club_leader: edit_club_leader
+            position: position
+            year: year
+            field_position_category: field_position_category
+            field_start_date: field_start_date
+            field_end_date: field_end_date
           default: '-1'
           info:
-            year:
-              sortable: true
+            name_1:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             position:
-              sortable: true
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            name_1:
-              sortable: true
+            year:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            start_date:
-              sortable: true
+            field_position_category:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            end_date:
-              sortable: true
+            field_start_date:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            name:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            roles_target_id:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            edit_club_leader:
+            field_end_date:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -751,7 +588,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - url.query_args
       tags: {  }
   current_leaders:
     id: current_leaders
@@ -951,15 +787,13 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        start_date:
-          id: start_date
-          table: club_leader
-          field: start_date
+        field_start_date:
+          id: field_start_date
+          table: club_leader__field_start_date
+          field: field_start_date
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: club_leader
-          entity_field: start_date
           plugin_id: field
           label: 'Start date'
           exclude: false
@@ -1003,21 +837,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: timestamp
+          type: datetime_default
           settings:
-            date_format: short
-            custom_date_format: ''
-            timezone: ''
-            tooltip:
-              date_format: long
-              custom_date_format: ''
-            time_diff:
-              enabled: false
-              future_format: '@interval hence'
-              past_format: '@interval ago'
-              granularity: 2
-              refresh: 60
-              description: ''
+            timezone_override: ''
+            format_type: mm_dd_yyyy
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -1028,15 +851,13 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        end_date:
-          id: end_date
-          table: club_leader
-          field: end_date
+        field_end_date:
+          id: field_end_date
+          table: club_leader__field_end_date
+          field: field_end_date
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: club_leader
-          entity_field: end_date
           plugin_id: field
           label: 'End date'
           exclude: false
@@ -1080,21 +901,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: timestamp
+          type: datetime_default
           settings:
-            date_format: short
-            custom_date_format: ''
-            timezone: ''
-            tooltip:
-              date_format: long
-              custom_date_format: ''
-            time_diff:
-              enabled: false
-              future_format: '@interval hence'
-              past_format: '@interval ago'
-              granularity: 2
-              refresh: 60
-              description: ''
+            timezone_override: ''
+            format_type: mm_dd_yyyy
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -1137,22 +947,20 @@ display:
             field_identifier: ''
           exposed: false
       filters:
-        start_date:
-          id: start_date
-          table: club_leader
-          field: start_date
+        field_start_date_value:
+          id: field_start_date_value
+          table: club_leader__field_start_date
+          field: field_start_date_value
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: club_leader
-          entity_field: start_date
-          plugin_id: date
+          plugin_id: datetime
           operator: '<='
           value:
             min: ''
             max: ''
             value: now
-            type: offset
+            type: date
           group: 1
           exposed: false
           expose:
@@ -1184,22 +992,20 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        end_date:
-          id: end_date
-          table: club_leader
-          field: end_date
+        field_end_date_value_1:
+          id: field_end_date_value_1
+          table: club_leader__field_end_date
+          field: field_end_date_value
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: club_leader
-          entity_field: end_date
-          plugin_id: date
-          operator: '>='
+          plugin_id: datetime
+          operator: empty
           value:
             min: ''
             max: ''
-            value: now
-            type: offset
+            value: ''
+            type: date
           group: 2
           exposed: false
           expose:
@@ -1231,21 +1037,19 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        end_date_1:
-          id: end_date_1
-          table: club_leader
-          field: end_date
+        field_end_date_value:
+          id: field_end_date_value
+          table: club_leader__field_end_date
+          field: field_end_date_value
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: club_leader
-          entity_field: end_date
-          plugin_id: date
-          operator: empty
+          plugin_id: datetime
+          operator: '>='
           value:
             min: ''
             max: ''
-            value: ''
+            value: now
             type: date
           group: 2
           exposed: false
@@ -1303,7 +1107,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<h4>Have rides questions? Membership questions? Website questions?<br>Click the name of the relevant Board member or coordinator to send a message.</h4>'
+            value: '<strong>Have questions?</strong> Please use the links on the <strong><a href="/contact">Contact Us</a></strong> page to get the quickest response.'
             format: basic_html
           tokenize: false
       display_extenders: {  }
@@ -1327,8 +1131,9 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url.query_args
       tags:
+        - 'config:field.storage.club_leader.field_end_date'
+        - 'config:field.storage.club_leader.field_start_date'
         - 'config:field.storage.taxonomy_term.field_position_category'
   edit:
     id: edit
@@ -1665,160 +1470,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        start_date:
-          id: start_date
-          table: club_leader
-          field: start_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: club_leader
-          entity_field: start_date
-          plugin_id: field
-          label: 'Start date'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: timestamp
-          settings:
-            date_format: custom
-            custom_date_format: m/d/Y
-            timezone: ''
-            tooltip:
-              date_format: ''
-              custom_date_format: ''
-            time_diff:
-              enabled: false
-              future_format: '@interval hence'
-              past_format: '@interval ago'
-              granularity: 2
-              refresh: 60
-              description: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        end_date:
-          id: end_date
-          table: club_leader
-          field: end_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: club_leader
-          entity_field: end_date
-          plugin_id: field
-          label: 'End date'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: timestamp
-          settings:
-            date_format: custom
-            custom_date_format: m/d/Y
-            timezone: ''
-            tooltip:
-              date_format: long
-              custom_date_format: ''
-            time_diff:
-              enabled: false
-              future_format: '@interval hence'
-              past_format: '@interval ago'
-              granularity: 2
-              refresh: 60
-              description: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         roles_target_id:
           id: roles_target_id
           table: user__roles
@@ -1938,6 +1589,134 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_start_date:
+          id: field_start_date
+          table: club_leader__field_start_date
+          field: field_start_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Start date'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: datetime_default
+          settings:
+            timezone_override: ''
+            format_type: mm_dd_yyyy
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_end_date:
+          id: field_end_date
+          table: club_leader__field_end_date
+          field: field_end_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'End date'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: datetime_default
+          settings:
+            timezone_override: ''
+            format_type: mm_dd_yyyy
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         edit_club_leader:
           id: edit_club_leader
           table: club_leader
@@ -2014,38 +1793,21 @@ display:
             offset_label: Offset
           quantity: 9
       sorts:
-        end_date:
-          id: end_date
+        year:
+          id: year
           table: club_leader
-          field: end_date
+          field: year
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: club_leader
-          entity_field: end_date
-          plugin_id: date
+          entity_field: year
+          plugin_id: standard
           order: DESC
           expose:
             label: ''
             field_identifier: ''
           exposed: false
-          granularity: day
-        start_date:
-          id: start_date
-          table: club_leader
-          field: start_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: club_leader
-          entity_field: start_date
-          plugin_id: date
-          order: ASC
-          expose:
-            label: ''
-            field_identifier: ''
-          exposed: false
-          granularity: day
         weight:
           id: weight
           table: taxonomy_term_field_data
@@ -2243,7 +2005,9 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-      tags: {  }
+      tags:
+        - 'config:field.storage.club_leader.field_end_date'
+        - 'config:field.storage.club_leader.field_start_date'
   grid:
     id: grid
     display_title: 'Current grid'
@@ -2824,9 +2588,9 @@ display:
         - 'languages:language_interface'
       tags:
         - 'config:field.storage.user.user_picture'
-  past_leaders:
-    id: past_leaders
-    display_title: 'Past leaders'
+  page_1:
+    id: page_1
+    display_title: 'Past coordinators'
     display_plugin: page
     position: 1
     display_options:
@@ -2953,160 +2717,6 @@ display:
           settings:
             link: false
           group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        start_date:
-          id: start_date
-          table: club_leader
-          field: start_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: club_leader
-          entity_field: start_date
-          plugin_id: field
-          label: 'Start date'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: timestamp
-          settings:
-            date_format: short
-            custom_date_format: ''
-            timezone: ''
-            tooltip:
-              date_format: long
-              custom_date_format: ''
-            time_diff:
-              enabled: false
-              future_format: '@interval hence'
-              past_format: '@interval ago'
-              granularity: 2
-              refresh: 60
-              description: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        end_date:
-          id: end_date
-          table: club_leader
-          field: end_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: club_leader
-          entity_field: end_date
-          plugin_id: field
-          label: 'End date'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: timestamp
-          settings:
-            date_format: short
-            custom_date_format: ''
-            timezone: ''
-            tooltip:
-              date_format: long
-              custom_date_format: ''
-            time_diff:
-              enabled: false
-              future_format: '@interval hence'
-              past_format: '@interval ago'
-              granularity: 2
-              refresh: 60
-              description: ''
-          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -3244,6 +2854,134 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_start_date:
+          id: field_start_date
+          table: club_leader__field_start_date
+          field: field_start_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Start date'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: datetime_default
+          settings:
+            timezone_override: ''
+            format_type: mm_dd_yyyy
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_end_date:
+          id: field_end_date
+          table: club_leader__field_end_date
+          field: field_end_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'End date'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: datetime_default
+          settings:
+            timezone_override: ''
+            format_type: mm_dd_yyyy
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
       pager:
         type: full
         options:
@@ -3297,16 +3035,14 @@ display:
             label: ''
             field_identifier: ''
           exposed: false
-        start_date:
-          id: start_date
-          table: club_leader
-          field: start_date
+        field_start_date_value:
+          id: field_start_date_value
+          table: club_leader__field_start_date
+          field: field_start_date_value
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: club_leader
-          entity_field: start_date
-          plugin_id: date
+          plugin_id: datetime
           order: ASC
           expose:
             label: ''
@@ -3314,6 +3050,51 @@ display:
           exposed: false
           granularity: day
       filters:
+        field_end_date_value:
+          id: field_end_date_value
+          table: club_leader__field_end_date
+          field: field_end_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: datetime
+          operator: '<'
+          value:
+            min: ''
+            max: ''
+            value: now
+            type: date
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         name:
           id: name
           table: club_leader
@@ -3355,16 +3136,14 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        start_date:
-          id: start_date
-          table: club_leader
-          field: start_date
+        field_start_date_value:
+          id: field_start_date_value
+          table: club_leader__field_start_date
+          field: field_start_date_value
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: club_leader
-          entity_field: start_date
-          plugin_id: date
+          plugin_id: datetime
           operator: '='
           value:
             min: ''
@@ -3374,14 +3153,14 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: start_date_op
+            operator_id: field_start_date_value_op
             label: Year
             description: ''
             use_operator: false
-            operator: start_date_op
+            operator: field_start_date_value_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: start_date
+            identifier: field_start_date_value
             required: false
             remember: false
             multiple: false
@@ -3402,22 +3181,583 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        end_date:
-          id: end_date
+        field_position_category_value:
+          id: field_position_category_value
+          table: taxonomy_term__field_position_category
+          field: field_position_category_value
+          relationship: position
+          group_type: group
+          admin_label: ''
+          plugin_id: list_field
+          operator: or
+          value:
+            Coordinators: Coordinators
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+      filter_groups:
+        operator: AND
+        groups: {  }
+      defaults:
+        title: false
+        css_class: false
+        pager: false
+        fields: false
+        sorts: false
+        filters: false
+        filter_groups: false
+        header: false
+      css_class: leader-table
+      display_description: ''
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: ''
+            format: basic_html
+          tokenize: false
+      display_extenders: {  }
+      path: club-leaders/past_coordinators
+      menu:
+        type: tab
+        title: 'Past coordinators'
+        description: ''
+        weight: 4
+        expanded: true
+        menu_name: main
+        parent: ''
+        context: '0'
+        as_local_task: false
+        local_task_link_title: ''
+        local_task_parent: 'views_view:view.block_content.page_1'
+        local_task_weight: 0
+        local_task_custom_parent_route: ''
+      tab_options:
+        type: none
+        title: ''
+        description: ''
+        weight: 0
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+      tags:
+        - 'config:field.storage.club_leader.field_end_date'
+        - 'config:field.storage.club_leader.field_start_date'
+        - 'config:field.storage.taxonomy_term.field_position_category'
+  past_leaders:
+    id: past_leaders
+    display_title: 'Past board members'
+    display_plugin: page
+    position: 1
+    display_options:
+      title: 'Past club leaders'
+      fields:
+        name_1:
+          id: name_1
           table: club_leader
-          field: end_date
+          field: name
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: club_leader
-          entity_field: end_date
-          plugin_id: date
+          entity_field: name
+          plugin_id: field
+          label: Name
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        position:
+          id: position
+          table: club_leader
+          field: position
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: club_leader
+          entity_field: position
+          plugin_id: field
+          label: 'Club position'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        year:
+          id: year
+          table: club_leader
+          field: year
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: club_leader
+          entity_field: year
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: true
+            text: '<h2>{{ year }}</h2>'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_position_category:
+          id: field_position_category
+          table: taxonomy_term__field_position_category
+          field: field_position_category
+          relationship: position
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: true
+            text: '<h3>{{ field_position_category }}</h3>'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_start_date:
+          id: field_start_date
+          table: club_leader__field_start_date
+          field: field_start_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Start date'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: datetime_default
+          settings:
+            timezone_override: ''
+            format_type: mm_dd_yyyy
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_end_date:
+          id: field_end_date
+          table: club_leader__field_end_date
+          field: field_end_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'End date'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: datetime_default
+          settings:
+            timezone_override: ''
+            format_type: mm_dd_yyyy
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+      pager:
+        type: full
+        options:
+          offset: 0
+          pagination_heading_level: h4
+          items_per_page: 30
+          total_pages: null
+          id: 0
+          tags:
+            next: 'Next ›'
+            previous: '‹ Previous'
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
+      sorts:
+        year:
+          id: year
+          table: club_leader
+          field: year
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: club_leader
+          entity_field: year
+          plugin_id: standard
+          order: DESC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
+        weight:
+          id: weight
+          table: taxonomy_term_field_data
+          field: weight
+          relationship: position
+          group_type: group
+          admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: weight
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
+        field_start_date_value:
+          id: field_start_date_value
+          table: club_leader__field_start_date
+          field: field_start_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: datetime
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
+          granularity: day
+      filters:
+        field_end_date_value:
+          id: field_end_date_value
+          table: club_leader__field_end_date
+          field: field_end_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: datetime
           operator: '<'
           value:
             min: ''
             max: ''
             value: now
-            type: offset
+            type: date
           group: 1
           exposed: false
           expose:
@@ -3449,10 +3789,137 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        name:
+          id: name
+          table: club_leader
+          field: name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: club_leader
+          entity_field: name
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: name_op
+            label: Name
+            description: ''
+            use_operator: false
+            operator: name_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: name
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_start_date_value:
+          id: field_start_date_value
+          table: club_leader__field_start_date
+          field: field_start_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: datetime
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date_year
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_start_date_value_op
+            label: Year
+            description: ''
+            use_operator: false
+            operator: field_start_date_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_start_date_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_position_category_value:
+          id: field_position_category_value
+          table: taxonomy_term__field_position_category
+          field: field_position_category_value
+          relationship: position
+          group_type: group
+          admin_label: ''
+          plugin_id: list_field
+          operator: or
+          value:
+            'Board members': 'Board members'
+            Officers: Officers
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
       filter_groups:
         operator: AND
-        groups:
-          1: AND
+        groups: {  }
       defaults:
         title: false
         css_class: false
@@ -3475,20 +3942,25 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<h4>Have rides questions? Membership questions? Website questions?<br>Click the name of the relevant Board member or coordinator to send a message.</h4>'
+            value: ''
             format: basic_html
           tokenize: false
       display_extenders: {  }
-      path: club-leaders/past
+      path: club-leaders/past_board
       menu:
         type: tab
-        title: 'Past club leaders'
+        title: 'Past board members'
         description: ''
         weight: 3
         expanded: true
         menu_name: main
         parent: ''
         context: '0'
+        as_local_task: false
+        local_task_link_title: ''
+        local_task_parent: 'views_view:view.block_content.page_1'
+        local_task_weight: 0
+        local_task_custom_parent_route: ''
       tab_options:
         type: none
         title: ''
@@ -3502,4 +3974,6 @@ display:
         - url
         - url.query_args
       tags:
+        - 'config:field.storage.club_leader.field_end_date'
+        - 'config:field.storage.club_leader.field_start_date'
         - 'config:field.storage.taxonomy_term.field_position_category'

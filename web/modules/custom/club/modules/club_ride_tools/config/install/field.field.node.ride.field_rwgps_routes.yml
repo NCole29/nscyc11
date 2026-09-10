@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_rwgps_routes
+    - node.type.ride
+  module:
+    - club_ride_tools
+id: node.ride.field_rwgps_routes
+field_name: field_rwgps_routes
+entity_type: node
+bundle: ride
+label: 'RWGPS routes'
+description: "This is an autocomplete field that accepts new values.<br>\r\nEnter the RWGPS route number found at the end of the URL in the address bar of the RWGPS route page.<br>\r\nFor example, double-click on 12210845 to copy/paste from this URL:  https://ridewithgps.com/routes/<strong>12210845</strong>"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:club_route'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: true
+field_type: entity_reference

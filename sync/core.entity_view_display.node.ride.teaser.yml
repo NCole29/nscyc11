@@ -204,14 +204,6 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
-  field_rwgps_routes:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: false
-    third_party_settings: {  }
-    weight: 9
-    region: content
   field_show_and_go:
     type: boolean
     label: hidden
@@ -236,5 +228,6 @@ hidden:
   field_gravel_category: true
   field_multiple_times: true
   field_ride_picture: true
+  field_rwgps_routes: true
   field_schedule_date: true
   links: true

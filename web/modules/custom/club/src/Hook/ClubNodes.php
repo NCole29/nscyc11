@@ -6,7 +6,6 @@ namespace Drupal\club\Hook;
 
 use Drupal\club\Controller\RenameImages;
 use Drupal\club\Controller\UpdateRecurDates;
-use Drupal\club_ride_tools\Utility\RWGPSClient;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Datetime\DateHelper;
@@ -25,8 +24,7 @@ class ClubNodes {
     protected ConfigFactoryInterface $config,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected MessengerInterface $messenger,
-    protected RenameImages $renameImages,
-    protected RwgpsClient $rwgpsClient
+    protected RenameImages $renameImages
   ) {
   }
   
@@ -231,9 +229,12 @@ class ClubNodes {
             \Drupal::messenger()->addStatus('A RWGPS route number has non-numeric characters and was not saved');
             unset($routeId->target_id);
           } 
+          /*
+          ** TODO: IF club_ride_tools is installed, call a utilit in that module.
           if (is_numeric($routeId->target_id)) {
             $this->rwgpsClient->getRouteInfo($routeId->target_id, $ride_start);
           }
+            */
         }
       }
     }  

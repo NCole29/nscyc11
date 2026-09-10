@@ -23,39 +23,7 @@ function club_test_help($route_name, RouteMatchInterface $route_match) {
 
   if ($route_name == 'help.page.club_test') {
 
-
-    // 1. Find all node IDs with field_text
-    $nids = \Drupal::entityQuery('node')
-      ->condition('field_text', NULL, 'IS NOT NULL')
-      ->accessCheck(FALSE) // Required in Drupal 10/11
-      ->execute();
-
-    if (!empty($nids)) {
-      // 2. Load the entities in chunks to prevent memory exhaustion
-      $chunks = array_chunk($nids, 50);
-      $storage = \Drupal::entityTypeManager()->getStorage('node');
-
-      foreach ($chunks as $chunk) {
-        $nodes = $storage->loadMultiple($chunk);
-        
-        foreach ($nodes as $node) {
-            
-          // 4. Update the format property of the field
-          $node->field_text->format = 'basic_html';
-          
-          // 5. Save the entity
-          $node->save();
-        }
-        
-        // Clear memory cache after processing a batch
-        $storage->resetCache($chunk);
-      }
-      
-      \Drupal::messenger()->addMessage(t('Updated @count nodes.', ['@count' => count($nids)]));
-    } else {
-      \Drupal::messenger()->addMessage(t('No nodes found matching the criteria.'));
-    }
-
-    die;
+    
+ 
   }
 }

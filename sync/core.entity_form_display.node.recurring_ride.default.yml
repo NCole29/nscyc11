@@ -371,16 +371,6 @@ content:
     settings:
       media_types: {  }
     third_party_settings: {  }
-  field_rwgps_routes:
-    type: entity_reference_autocomplete
-    weight: 27
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   field_time:
     type: string_textfield
     weight: 11
@@ -453,6 +443,7 @@ hidden:
   created: true
   field_day: true
   field_dayofweek: true
+  field_rwgps_routes: true
   field_show_and_go: true
   promote: true
   publish_on: true

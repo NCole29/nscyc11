@@ -1,9 +1,12 @@
-uuid: 3145df75-829a-4c93-b472-6746dd2b2d1e
+uuid: 5a8b0a5e-987d-4582-b532-189aad43803c
 langcode: en
 status: true
 dependencies:
   module:
+    - club_ride_tools
     - node
+_core:
+  default_config_hash: 8uQE0NVnlibKtwUtzF3A5KWMmpEJ3KXqmYNV-FbrcK4
 id: node.field_schedule_date
 field_name: field_schedule_date
 entity_type: node

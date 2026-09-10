@@ -1,0 +1,23 @@
+uuid: e86645b9-8c73-4f1b-805a-0c9db36c2e15
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.club_schedule.field_schedule_date
+  module:
+    - club_ride_tools
+    - datetime
+_core:
+  default_config_hash: CdEzMAmuDOXK5-q7xiZcYjCNFYVUmH6vOVnjszUG7Ew
+id: club_schedule.club_schedule.field_schedule_date
+field_name: field_schedule_date
+entity_type: club_schedule
+bundle: club_schedule
+label: 'Schedule date'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

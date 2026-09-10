@@ -1,5 +1,5 @@
 name: Club Test
 type: module
-description: 'For testing code by clicking module name on Drupal Help page.'
+description: "USE IN DEV ONLY. Run test code placed in club_test.module by clicking 'Club Test' on the Drupal Help page."
 package: Club
 core_version_requirement: ^9 || ^10 || ^11

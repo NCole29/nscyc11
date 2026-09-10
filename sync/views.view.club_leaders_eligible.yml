@@ -1,10 +1,11 @@
-uuid: ea858345-7532-4f28-960d-1e0cd4e3d2ad
+uuid: 3092a1d6-b1dc-4d95-aafb-9c31d62c93bd
 langcode: en
 status: true
 dependencies:
   module:
     - user
-    - club_leader
+_core:
+  default_config_hash: 4lr-z3hpiigN-KTYj68vw79dE03EXq8fPEG4mTrB0h4
 id: club_leaders_eligible
 label: 'Club leaders eligible'
 module: views

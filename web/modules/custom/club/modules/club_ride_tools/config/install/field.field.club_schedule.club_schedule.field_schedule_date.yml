@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.club_schedule.field_schedule_date
+  module:
+    - club_ride_tools
+    - datetime
+id: club_schedule.club_schedule.field_schedule_date
+field_name: field_schedule_date
+entity_type: club_schedule
+bundle: club_schedule
+label: 'Schedule date'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

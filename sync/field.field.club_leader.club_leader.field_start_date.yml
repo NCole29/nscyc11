@@ -1,0 +1,23 @@
+uuid: 318c82ed-1d5b-4684-b468-a1cb3bb5ee85
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.club_leader.field_start_date
+  module:
+    - club_leader
+    - datetime
+_core:
+  default_config_hash: 1ur7BTIYfE8B11y0BTyVHWnGFO17OVJnqcbmHzGjyzM
+id: club_leader.club_leader.field_start_date
+field_name: field_start_date
+entity_type: club_leader
+bundle: club_leader
+label: 'Start date'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

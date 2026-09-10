@@ -1,0 +1,23 @@
+uuid: 8303b0e9-af53-4758-8c48-9a87c5f82fd5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.club_leader.field_end_date
+  module:
+    - club_leader
+    - datetime
+_core:
+  default_config_hash: HzmRKyEU4lTm2hxQcQFUHTNOgR-_lQH5X1aZoD8cAwU
+id: club_leader.club_leader.field_end_date
+field_name: field_end_date
+entity_type: club_leader
+bundle: club_leader
+label: 'End date'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

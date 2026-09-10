@@ -12,7 +12,7 @@ dependencies:
     - user.role.rides_coordinator
     - user.role.site_admin
   module:
-    - bikeclub_ride_tools
+    - club_ride_tools
     - node
     - smart_date
     - user

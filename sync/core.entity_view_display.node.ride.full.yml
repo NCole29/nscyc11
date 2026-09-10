@@ -25,12 +25,10 @@ dependencies:
     - field.field.node.ride.field_results_access
     - field.field.node.ride.field_ride_leader
     - field.field.node.ride.field_ride_picture
-    - field.field.node.ride.field_rwgps_routes
-    - field.field.node.ride.field_schedule_date
     - field.field.node.ride.field_show_and_go
     - field.field.node.ride.field_time
     - node.type.ride
-    - views.view.club_rides
+    - views.view.ride_routes
   module:
     - layout_builder
     - layout_builder_restrictions
@@ -194,19 +192,6 @@ third_party_settings:
                 settings: {  }
                 third_party_settings: {  }
             weight: 1
-            additional: {  }
-          08200c51-f1ad-46de-98d0-c60f7bad6424:
-            uuid: 08200c51-f1ad-46de-98d0-c60f7bad6424
-            region: second
-            configuration:
-              id: 'views_block:club_rides-route_block'
-              label: ''
-              label_display: visible
-              provider: views
-              context_mapping: {  }
-              views_label: ''
-              items_per_page: 10
-            weight: 14
             additional: {  }
           043652b9-24c9-48bc-a0b3-0e8267f527d4:
             uuid: 043652b9-24c9-48bc-a0b3-0e8267f527d4
@@ -372,24 +357,37 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 5
             additional: {  }
+          e3fde796-ca26-45d3-a32e-21777df9cb8b:
+            uuid: e3fde796-ca26-45d3-a32e-21777df9cb8b
+            region: second
+            configuration:
+              id: 'views_block:ride_routes-route_list'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: null
+            weight: 14
+            additional: {  }
         third_party_settings: {  }
       -
         layout_id: layout_onecol
         layout_settings:
           label: ''
         components:
-          41b52e4f-3345-4093-a10e-5b7fdb3f59ea:
-            uuid: 41b52e4f-3345-4093-a10e-5b7fdb3f59ea
+          80172145-8235-4422-a937-4328a8fdbf3f:
+            uuid: 80172145-8235-4422-a937-4328a8fdbf3f
             region: content
             configuration:
-              id: 'views_block:club_rides-route_maps'
+              id: 'views_block:ride_routes-route_maps'
               label: ''
               label_display: visible
               provider: views
               context_mapping: {  }
               views_label: ''
-              items_per_page: 10
-            weight: 1
+              items_per_page: null
+            weight: 0
             additional: {  }
         third_party_settings: {  }
   layout_builder_restrictions:
@@ -459,14 +457,6 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
-  field_rwgps_routes:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: false
-    third_party_settings: {  }
-    weight: 9
-    region: content
   field_show_and_go:
     type: boolean
     label: hidden
@@ -504,5 +494,4 @@ hidden:
   field_registration_link: true
   field_results_access: true
   field_ride_picture: true
-  field_schedule_date: true
   links: true

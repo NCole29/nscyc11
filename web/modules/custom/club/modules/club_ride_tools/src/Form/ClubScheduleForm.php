@@ -29,7 +29,7 @@ class ClubScheduleForm extends ContentEntityForm {
       '#markup' => $this->t('<h3>Add ride leader to the schedule.</h3>'),
     ];  
 
-    $form['schedule_date']['#disabled'] = TRUE;
+    $form['field_schedule_date']['#disabled'] = TRUE;
     $form['weekday']['#type'] = 'hidden';
     return $form;
   }

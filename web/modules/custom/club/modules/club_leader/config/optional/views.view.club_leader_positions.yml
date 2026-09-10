@@ -5,6 +5,7 @@ dependencies:
     - taxonomy.vocabulary.mailboxes
     - taxonomy.vocabulary.positions
   module:
+    - club_leader
     - taxonomy
     - user
 id: club_leader_positions

@@ -58,7 +58,7 @@ class LeaderForms {
 
   #[Hook('form_taxonomy_overview_terms_alter')]
   function positionsFormAlter(array &$form, FormStateInterface &$form_state, $form_id) {
-  
+
     // Display fields on "positions" taxonomy term listing.
     $path = $this->requestStack->getCurrentRequest()->getPathInfo();
 
@@ -82,6 +82,7 @@ class LeaderForms {
             '#markup' => $term['#term']->get('field_position_category')->value,
             '#type' => 'item',
           ];
+
           $role['Drupal role'] = [
             '#markup' => ($term['#term']->get('field_website_role')->getValue()) ? $term['#term']->get('field_website_role')->entity->label(): NULL,
             '#type' => 'item',

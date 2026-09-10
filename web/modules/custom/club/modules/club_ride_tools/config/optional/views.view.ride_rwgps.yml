@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_location
   module:
-    - bikeclub_ride_tools
+    - club_ride_tools
     - node
     - user
     - views_bulk_operations

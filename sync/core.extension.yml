@@ -3,7 +3,6 @@ _core:
 module:
   auto_entitylabel: -100
   address: 0
-  admin_toolbar_tools: 0
   allowed_formats: 0
   automated_cron: 0
   big_pipe: 0
@@ -86,6 +85,7 @@ module:
   multiple_fields_remove_button: 0
   mysql: 0
   navigation: 0
+  navigation_extra_tools: 0
   node: 0
   node_revision_delete: 0
   options: 0

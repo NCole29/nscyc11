@@ -1,0 +1,22 @@
+uuid: b0fa5f55-f6b9-4a95-bbce-15318ffe7704
+langcode: en
+status: true
+dependencies:
+  module:
+    - club_leader
+    - datetime
+_core:
+  default_config_hash: kp0hH56SkU3K5a-kYNwzFvGAVZngXd-A06PobStJUGw
+id: club_leader.field_end_date
+field_name: field_end_date
+entity_type: club_leader
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

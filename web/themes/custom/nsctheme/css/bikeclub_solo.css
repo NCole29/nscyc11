@@ -100,9 +100,6 @@ label, .field__label {
 /* Remove bottom margins to reduce white space.
    Barely noticeable on desktop but helps on phone. 
  */
-.region-inner {
-  padding-top: 0!important;
-}
 
 .main-container-inner {
   padding-top: 0!important;

@@ -15,7 +15,7 @@ use Drupal\club_ride_tools\ClubInterface;
 /**
  * Defines the 'club_schedule' entity type.
  * club_schedule date is not included here because the views_year_filter does
- *  not recognize the Drupal date in a custom entity.
+ *  not recognize the Drupal date in a custom entity so its created with field config.
  *
  * @ContentEntityType(
  *   id = "club_schedule",
@@ -52,13 +52,13 @@ class ClubSchedule extends ContentEntityBase implements ClubInterface {
   /**
    * {@inheritdoc}
    *
-   * When a new entity instance is added, set the user_id entity reference to
+   * When a new entity instance is added, set the uid entity reference to
    * the current user as the creator of the instance.
    */
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
     $values += [
-      'user_id' => \Drupal::currentUser()->id(),
+      'uid' => \Drupal::currentUser()->id(),
     ];
   }
 
@@ -66,21 +66,21 @@ class ClubSchedule extends ContentEntityBase implements ClubInterface {
    * {@inheritdoc}
    */
   public function getOwner() {
-    return $this->get('user_id')->entity;
+    return $this->get('uid')->entity;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getOwnerId() {
-    return $this->get('user_id')->target_id;
+    return $this->get('uid')->target_id;
   }
 
   /**
    * {@inheritdoc}
    */
   public function setOwnerId($uid) {
-    $this->set('user_id', $uid);
+    $this->set('uid', $uid);
     return $this;
   }
 
@@ -88,7 +88,7 @@ class ClubSchedule extends ContentEntityBase implements ClubInterface {
    * {@inheritdoc}
    */
   public function setOwner(UserInterface $account) {
-    $this->set('user_id', $account->id());
+    $this->set('uid', $account->id());
     return $this;
   }
 
@@ -115,25 +115,6 @@ class ClubSchedule extends ContentEntityBase implements ClubInterface {
       ->setLabel(t('UUID'))
       ->setDescription(t('The UUID of the route entity.'))
       ->setReadOnly(TRUE);
-
-    $fields['schedule_date'] = BaseFieldDefinition::create('datetime')
-      ->setLabel(t('Schedule date'))
-      ->setDescription(t('Schedule date'))
-      ->setSettings([
-        'datetime_type' => 'date',
-      ])
-      ->setDisplayOptions('view', [
-        'label' => 'inline',
-        'type' => 'datetime_default',
-        'settings' => [
-          'format_type' => 'medium',
-        ],
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'datetime_default',
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
 
     $fields['weekday'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Weekday'))
@@ -177,7 +158,7 @@ class ClubSchedule extends ContentEntityBase implements ClubInterface {
       ->setDisplayConfigurable('view', TRUE);
 
     // Owner field of the contact.
-    $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
+    $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Author'))
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default')

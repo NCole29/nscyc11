@@ -192,7 +192,6 @@ class ClubLeader extends ContentEntityBase implements ClubLeaderInterface {
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
 
-    // Year of start date
     $fields['year'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Year'))
       ->setDescription(t('Year of start date.'))
@@ -301,7 +300,7 @@ class ClubLeader extends ContentEntityBase implements ClubLeaderInterface {
    */
   public function save() {
     // Fill Year of Start date.
-    $year = $this->start_date->date->format('Y'); 
+    $year = $this->field_start_date->date->format('Y'); 
     $this->set('year', $year);
 
     // Fill name if leader is Drupal user and name field is empty (don't overwrite contents).
@@ -315,7 +314,7 @@ class ClubLeader extends ContentEntityBase implements ClubLeaderInterface {
 
       $user = $this->entityTypeManager()->getStorage('user')->load($this->leader->target_id);
       $today = strtotime(date('d-m-Y'));
-      $isCurrent = ($this->end_date->value > $today);
+      $isCurrent = ($this->field_end_date->value > $today);
 
       // Add or delete role depending on isCurrent.
       if ($isCurrent & !$user->hasRole($position_role)) {

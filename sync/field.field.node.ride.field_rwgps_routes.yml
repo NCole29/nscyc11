@@ -1,10 +1,12 @@
-uuid: ee42dc33-65ac-4482-a0a2-2a6ae6534f4c
+uuid: 51b82808-33ac-4712-ae82-ac8b42200d96
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_rwgps_routes
     - node.type.ride
+_core:
+  default_config_hash: kWRuf0YUkLVSDiMlFnpueLudZWLscljL6rZSOFk5Cfw
 id: node.ride.field_rwgps_routes
 field_name: field_rwgps_routes
 entity_type: node
@@ -22,5 +24,5 @@ settings:
     sort:
       field: _none
       direction: ASC
-    auto_create: false
+    auto_create: true
 field_type: entity_reference

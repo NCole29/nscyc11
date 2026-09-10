@@ -115,7 +115,7 @@ class ClubLeaderCleanup implements ContainerInjectionInterface {
   public function getLeaders($gtorlt) {
     $query = $this->database()->select('club_leader', 'c')
       ->condition('c.leader', 0, '>')
-      ->condition('c.end_date', $this->today(), $gtorlt)
+      ->condition('c.field_end_date', $this->today(), $gtorlt)
       ->fields('c', ['leader'])
       ->orderBy('c.leader');
     return $query->distinct()->execute()->fetchCol();
@@ -141,7 +141,7 @@ class ClubLeaderCleanup implements ContainerInjectionInterface {
     $query = $this->database()->select('club_leader','c')
       ->fields('c', ['position'])
       ->condition('leader', $id)
-      ->condition('end_date', $this->today(), '>=');
+      ->condition('field_end_date', $this->today(), '>=');
     $current_positions = $query->execute()->fetchCol();
 
     $current_roles=[];

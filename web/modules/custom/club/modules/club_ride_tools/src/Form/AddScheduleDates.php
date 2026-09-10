@@ -63,8 +63,8 @@ class AddScheduleDates extends FormBase {
     $query = $this->schedule_storage->getAggregateQuery();
     $query
       ->accessCheck(FALSE)
-      ->aggregate('schedule_date', 'MIN', NULL)
-      ->aggregate('schedule_date', 'MAX', NULL);
+      ->aggregate('field_schedule_date', 'MIN', NULL)
+      ->aggregate('field_schedule_date', 'MAX', NULL);
     $minmax = $query->execute();
     
     return $minmax;
@@ -74,12 +74,12 @@ class AddScheduleDates extends FormBase {
     // Get range of dates in the club_schedule table.
     $minmax = $this->getDates();
 
-    if (!is_null($minmax[0]["schedule_date_min"])) {
+    if (!is_null($minmax[0]["field_schedule_date_min"])) {
 
       $this->loadType = 1; // Not an initial load.
 
-      $min = $minmax[0]["schedule_date_min"];
-      $max = $minmax[0]["schedule_date_max"];
+      $min = $minmax[0]["field_schedule_date_min"];
+      $max = $minmax[0]["field_schedule_date_max"];
 
       // Create DrupalDateTime objects.
       $min_datetime = new DrupalDateTime($min); 
@@ -126,9 +126,9 @@ class AddScheduleDates extends FormBase {
       $query = $this->schedule_storage->getAggregateQuery();
       $maxdate = $query
         ->accessCheck(FALSE)
-        ->aggregate('schedule_date', 'MAX', NULL)
+        ->aggregate('field_schedule_date', 'MAX', NULL)
         ->execute();
-      $startYr = substr($maxdate[0]['schedule_date_max'],0,4) + 1;
+      $startYr = substr($maxdate[0]['field_schedule_date_max'],0,4) + 1;
     }
     for ($year = $startYr; $year < ($startYr + 3); $year++) {         
       $jan1 = strtotime("First day Of January $year");
@@ -141,7 +141,7 @@ class AddScheduleDates extends FormBase {
 
         $newDate = $this->schedule_storage->create([
           'weekday' => $weekday,
-          'schedule_date' => $date,
+          'field_schedule_date' => $date,
           'created' => $now,
           'changed' => $now,
           'langcode' => "en",

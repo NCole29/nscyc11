@@ -1,10 +1,12 @@
-uuid: fd39d209-c1aa-4207-ad3e-eadf20b8240f
+uuid: 791b083a-454c-490b-8fea-26ebe5528f88
 langcode: en
 status: true
 dependencies:
   module:
     - club_ride_tools
     - node
+_core:
+  default_config_hash: AbNMgVL9oWUTSYqT_s4hz3XFUdRrHY5anWyxbXEFaNg
 id: node.field_rwgps_routes
 field_name: field_rwgps_routes
 entity_type: node

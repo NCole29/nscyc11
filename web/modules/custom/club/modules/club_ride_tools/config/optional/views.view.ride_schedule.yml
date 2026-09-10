@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_location
     - field.storage.node.field_ride_leader
   module:
-    - bikeclub_ride_tools
+    - club_ride_tools
     - datetime
     - node
     - user

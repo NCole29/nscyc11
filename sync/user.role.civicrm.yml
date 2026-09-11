@@ -17,6 +17,7 @@ dependencies:
     - file_delete
     - help
     - media
+    - navigation
     - node
     - quick_node_clone
     - scheduler
@@ -44,6 +45,7 @@ permissions:
   - 'access deleted contacts'
   - 'access help pages'
   - 'access media overview'
+  - 'access navigation'
   - 'access toolbar'
   - 'access user profiles'
   - 'add contact notes'

@@ -39,6 +39,7 @@ dependencies:
     - layout_builder
     - media
     - menu_admin_per_menu
+    - navigation
     - node
     - paragraphs
     - path
@@ -75,6 +76,7 @@ permissions:
   - 'access files overview'
   - 'access help pages'
   - 'access media overview'
+  - 'access navigation'
   - 'access shortcuts'
   - 'access taxonomy overview'
   - 'access toolbar'
@@ -93,7 +95,6 @@ permissions:
   - 'administer block_content display'
   - 'administer dedupe rules'
   - 'administer footer menu items'
-  - 'administer main menu items'
   - 'administer nodes'
   - 'administer payment processors'
   - 'administer rwgps_api_form'

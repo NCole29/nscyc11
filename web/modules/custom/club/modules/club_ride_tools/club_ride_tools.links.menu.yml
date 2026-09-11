@@ -4,18 +4,17 @@
 club_ride_tools.ride_tools:
   title: 'Ride tools'
   description: 'Ride tools'
-  route_name: club_ride_tools.ride_tools
   parent: system.admin
+  route_name: club_ride_tools.ride_tools
   enabled: 1
   weight: -9
   menu_name: admin
   options:
-    query:
-      uid: 1
-    attributes:
-      class:
-        - toolbar-icon
-        - toolbar-icon-system-admin-config
+    icon:
+      pack_id: 'navigation'
+      icon_id: 'pencil' 
+      settings:
+        class: 'toolbar-button__icon'
 
 # Ride tool menu items.
 club_ride_tools.cancel_ride:

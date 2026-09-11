@@ -12,7 +12,7 @@ definitions:
     parent: ''
     weight: -50
     expanded: false
-    enabled: false
+    enabled: true
   club_contacts__admin__structure__settings:
     menu_name: admin
     parent: 'menu_link_content:5b3136d9-da74-4285-836c-74a92ef5022a'

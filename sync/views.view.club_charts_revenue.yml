@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - system.menu.club-reports
-    - system.menu.main
     - user.role.administrator
     - user.role.events_coordinator
     - user.role.site_admin
@@ -559,7 +558,7 @@ display:
     display_plugin: block
     position: 5
     display_options:
-      enabled: false
+      enabled: true
       title: 'Century revenue'
       fields:
         title:
@@ -971,7 +970,7 @@ display:
     display_plugin: block
     position: 5
     display_options:
-      title: 'Century table'
+      title: 'Century statistics'
       fields:
         title:
           id: title
@@ -1378,6 +1377,7 @@ display:
           empty_table: false
           caption: ''
           description: ''
+          class: ''
       row:
         type: fields
         options: {  }
@@ -2131,6 +2131,7 @@ display:
           empty_table: false
           caption: ''
           description: ''
+          class: ''
       row:
         type: fields
         options: {  }
@@ -2913,6 +2914,7 @@ display:
           empty_table: false
           caption: ''
           description: ''
+          class: ''
       row:
         type: fields
         options: {  }
@@ -3740,6 +3742,7 @@ display:
           empty_table: false
           caption: ''
           description: ''
+          class: ''
       row:
         type: fields
         options: {  }

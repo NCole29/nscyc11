@@ -452,6 +452,69 @@ display:
     position: 2
     display_options:
       fields:
+        field_coordinates:
+          id: field_coordinates
+          table: node__field_coordinates
+          field: field_coordinates
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Link to map'
+          exclude: true
+          alter:
+            alter_text: false
+            text: 'Google map'
+            make_link: false
+            path: 'http://www.google.com/maps/place/{{ field_coordinates }}'
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: _blank
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: false
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: geofield_latlon
+          settings:
+            output_format: decimal
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         title:
           id: title
           table: node_field_data
@@ -462,13 +525,13 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-          label: 'Place name'
+          label: 'Place (click for Google map)'
           exclude: false
           alter:
             alter_text: false
             text: ''
-            make_link: false
-            path: ''
+            make_link: true
+            path: 'http://www.google.com/maps/place/{{ field_coordinates }}'
             absolute: false
             external: false
             replace_spaces: false
@@ -506,7 +569,8 @@ display:
           click_sort_column: value
           type: string
           settings:
-            link_to_entity: true
+            link_to_entity: false
+            link_rel: canonical
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -580,6 +644,155 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_address_address_line1:
+          id: field_address_address_line1
+          table: node__field_address
+          field: field_address_address_line1
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: standard
+          label: Address
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+        field_address_locality:
+          id: field_address_locality
+          table: node__field_address
+          field: field_address_locality
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: subdivision
+          label: City/Town
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          display_name: true
+        field_address_administrative_area:
+          id: field_address_administrative_area
+          table: node__field_address
+          field: field_address_administrative_area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: subdivision
+          label: State
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          display_name: true
         field_restrooms:
           id: field_restrooms
           table: node__field_restrooms
@@ -632,132 +845,6 @@ display:
           click_sort_column: value
           type: list_key
           settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_address:
-          id: field_address
-          table: node__field_address
-          field: field_address
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: Address
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: locality
-          type: address_default
-          settings: {  }
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_coordinates:
-          id: field_coordinates
-          table: node__field_coordinates
-          field: field_coordinates
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Link to map'
-          exclude: false
-          alter:
-            alter_text: true
-            text: 'Google map'
-            make_link: true
-            path: 'http://www.google.com/maps/place/{{ field_coordinates }}'
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: _blank
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: false
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: geofield_latlon
-          settings:
-            output_format: decimal
-            output_escape: false
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -1080,13 +1167,45 @@ display:
           default_row_class: true
           columns:
             title: title
+            field_location_type: field_location_type
+            field_address_address_line1: field_address_address_line1
+            field_address_locality: field_address_locality
+            field_address_administrative_area: field_address_administrative_area
             field_restrooms: field_restrooms
-            field_address: field_address
             field_coordinates: field_coordinates
+            status: status
             operations: operations
           default: '-1'
           info:
             title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_location_type:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_address_address_line1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_address_locality:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_address_administrative_area:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -1100,15 +1219,15 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_address:
-              sortable: false
+            field_coordinates:
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_coordinates:
-              sortable: true
+            status:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1176,7 +1295,6 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_address'
         - 'config:field.storage.node.field_coordinates'
         - 'config:field.storage.node.field_location_type'
         - 'config:field.storage.node.field_restrooms'
@@ -3431,10 +3549,11 @@ display:
           columns:
             nid: nid
             title: title
-            field_address_address_line1: field_address_address_line1
-            field_address_locality: field_address_locality
-            field_address_administrative_area: field_address_administrative_area
+            field_address: field_address
             field_coordinates: field_coordinates
+            field_address_address_line1: field_address_address_line1
+            field_address_administrative_area: field_address_administrative_area
+            field_address_locality: field_address_locality
           default: title
           info:
             nid:
@@ -3451,14 +3570,21 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_address_address_line1:
-              sortable: true
+            field_address:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_address_locality:
+            field_coordinates:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_address_address_line1:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -3472,8 +3598,8 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_coordinates:
-              sortable: false
+            field_address_locality:
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''

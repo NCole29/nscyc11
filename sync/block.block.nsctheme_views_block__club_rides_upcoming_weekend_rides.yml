@@ -1,0 +1,29 @@
+uuid: 29ca8397-2f02-4719-bf2a-fec1eff8e8de
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.club_rides_upcoming
+  module:
+    - system
+    - views
+  theme:
+    - nsctheme
+id: nsctheme_views_block__club_rides_upcoming_weekend_rides
+theme: nsctheme
+region: top_second
+weight: 0
+provider: null
+plugin: 'views_block:club_rides_upcoming-weekend_rides'
+settings:
+  id: 'views_block:club_rides_upcoming-weekend_rides'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: null
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

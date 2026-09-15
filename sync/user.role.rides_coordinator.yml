@@ -26,7 +26,6 @@ dependencies:
     - shortcut
     - smart_date_recur
     - system
-    - toolbar
 id: rides_coordinator
 label: 'Rides coordinator'
 weight: -3
@@ -47,7 +46,6 @@ permissions:
   - 'access media overview'
   - 'access navigation'
   - 'access shortcuts'
-  - 'access toolbar'
   - 'add club_route entity'
   - 'administer Reports'
   - 'cancel smart date recur instances'

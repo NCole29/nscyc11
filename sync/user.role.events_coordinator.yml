@@ -19,7 +19,6 @@ dependencies:
     - paragraphs
     - quick_node_clone
     - system
-    - toolbar
     - webform
 id: events_coordinator
 label: 'Events coordinator'
@@ -31,7 +30,6 @@ permissions:
   - 'access help pages'
   - 'access navigation'
   - 'access own webform configuration'
-  - 'access toolbar'
   - 'access webform help'
   - 'access webform overview'
   - 'clone announcement content'

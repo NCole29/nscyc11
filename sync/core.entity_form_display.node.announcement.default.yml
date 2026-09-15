@@ -3,12 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.announcement.field_contact_us
     - field.field.node.announcement.field_contact_person
+    - field.field.node.announcement.field_contact_us
     - field.field.node.announcement.field_summary
     - field.field.node.announcement.field_text
     - node.type.announcement
-    - workflows.workflow.editorial
   module:
     - allowed_formats
     - conditional_fields
@@ -151,7 +150,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_contact_us: true
   path: true
   status: true
   uid: true

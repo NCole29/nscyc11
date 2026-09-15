@@ -82,13 +82,8 @@ class ClubMenus {
     switch($route_name) {
       // Hide "Test" tab and rename "Results" to "Registrations".
       case 'entity.node.canonical':
-        unset($data['tabs'][0]['entity.node.webform.test_form']);
+        //unset($data['tabs'][0]['entity.node.webform.test_form']);
         $data['tabs'][0]['entity.node.webform.results']['#link']['title'] = t('Registrations');
-      break;
-
-      // Remove tabs from the personal contact form page.
-      case 'entity.user.contact_form':
-        unset($data['tabs'][0]);
       break;
 
       // Remove tabs from the user account page.
@@ -102,11 +97,11 @@ class ClubMenus {
         unset($data['tabs'][0]['views_view:view.scheduler_scheduled_media.user_page']);
 		
         // Check membership status and display message if not current.
-		if ($this->moduleHandler->moduleExists('civicrm')) {
-			$current_user = $this->currentUser->getAccount();
-			$user_id = $current_user->id();
-			$this->checkMembership($user_id);
-		}
+        if ($this->moduleHandler->moduleExists('civicrm')) {
+          $current_user = $this->currentUser->getAccount();
+          $user_id = $current_user->id();
+          $this->checkMembership($user_id);
+        }
       break;
 
       // Change tab title on the "My Accounts" page.

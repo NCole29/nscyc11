@@ -50,7 +50,6 @@ dependencies:
     - smart_date_recur
     - system
     - taxonomy
-    - toolbar
     - view_unpublished
     - webform
 id: site_admin
@@ -79,7 +78,6 @@ permissions:
   - 'access navigation'
   - 'access shortcuts'
   - 'access taxonomy overview'
-  - 'access toolbar'
   - 'access user profiles'
   - 'access webform help'
   - 'access webform overview'
@@ -95,6 +93,7 @@ permissions:
   - 'administer block_content display'
   - 'administer dedupe rules'
   - 'administer footer menu items'
+  - 'administer main menu items'
   - 'administer nodes'
   - 'administer payment processors'
   - 'administer rwgps_api_form'

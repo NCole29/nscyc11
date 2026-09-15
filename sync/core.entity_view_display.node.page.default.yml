@@ -7,8 +7,8 @@ dependencies:
     - field.field.node.page.banner_image
     - field.field.node.page.field_comment
     - field.field.node.page.field_components
-    - field.field.node.page.field_contact_us
     - field.field.node.page.field_contact_person
+    - field.field.node.page.field_contact_us
     - field.field.node.page.field_padding
     - field.field.node.page.field_page_access
     - field.field.node.page.field_summary
@@ -40,12 +40,15 @@ third_party_settings:
             region: content
             configuration:
               id: 'field_block:node:page:field_text'
+              label: Text
               label_display: '0'
+              provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
+                view_mode: view_mode
               formatter:
                 type: text_default
-                label: hidden
+                label: visually_hidden
                 settings: {  }
                 third_party_settings: {  }
             weight: 3

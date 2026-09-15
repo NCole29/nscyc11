@@ -85,7 +85,6 @@ module:
   multiple_fields_remove_button: 0
   mysql: 0
   navigation: 0
-  navigation_extra_tools: 0
   node: 0
   node_revision_delete: 0
   options: 0
@@ -113,7 +112,6 @@ module:
   taxonomy: 0
   text: 0
   token: 0
-  toolbar: 0
   tooltip_taxonomy: 0
   typed_data: 0
   update: 0

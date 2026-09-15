@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - node.type.announcement
     - node.type.banner
     - node.type.event
     - node.type.page
@@ -85,7 +84,6 @@ type_settings:
       weight: 0
   entity_types:
     node:
-      - announcement
       - banner
       - event
       - page

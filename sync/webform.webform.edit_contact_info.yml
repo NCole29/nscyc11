@@ -165,34 +165,6 @@ elements: |-
         width: 20
       '#parent': civicrm_1_contact_1_cg1_fieldset
       '#title': Phone
-    civicrm_1_contact_1_phone_location_type_id:
-      '#type': civicrm_options
-      '#access': false
-      '#default_value':
-        - '1'
-      '#form_key': civicrm_1_contact_1_phone_location_type_id
-      '#options':
-        5: Billing
-      '#extra':
-        items: 5|Billing
-        aslist: false
-      '#parent': civicrm_1_contact_1_fieldset_fieldset
-      '#title': 'Phone Location'
-      '#civicrm_live_options': 0
-    civicrm_1_contact_1_email_location_type_id:
-      '#type': civicrm_options
-      '#access': false
-      '#default_value':
-        - '1'
-      '#form_key': civicrm_1_contact_1_email_location_type_id
-      '#options':
-        5: Billing
-      '#extra':
-        items: 5|Billing
-        aslist: false
-      '#parent': civicrm_1_contact_1_fieldset_fieldset
-      '#title': 'Email Location'
-      '#civicrm_live_options': 0
 css: ''
 javascript: ''
 settings:
@@ -386,6 +358,7 @@ handlers:
     conditions: {  }
     weight: null
     settings:
+      disable: 'Leave Fields and Save Settings'
       nid: 1
       number_of_contacts: '1'
       1_contact_type: individual
@@ -439,12 +412,16 @@ handlers:
       civicrm_1_contact_1_phone_phone: create_civicrm_webform_element
       civicrm_1_contact_1_phone_phone_ext: 0
       civicrm_1_contact_1_phone_phone_type_id: '1'
-      civicrm_1_contact_1_phone_location_type_id: create_civicrm_webform_element
+      civicrm_1_contact_1_phone_location_type_id: '5'
       civicrm_1_contact_1_phone_is_primary: '1'
-      contact_1_number_of_email: '1'
-      civicrm_1_contact_1_email_email: 0
-      civicrm_1_contact_1_email_location_type_id: create_civicrm_webform_element
+      contact_1_number_of_email: '3'
+      civicrm_1_contact_1_email_email: create_civicrm_webform_element
+      civicrm_1_contact_1_email_location_type_id: '5'
       civicrm_1_contact_1_email_is_primary: '1'
+      civicrm_1_contact_2_email_email: create_civicrm_webform_element
+      civicrm_1_contact_2_email_location_type_id: '5'
+      civicrm_1_contact_3_email_email: create_civicrm_webform_element
+      civicrm_1_contact_3_email_location_type_id: '5'
       contact_1_number_of_website: '0'
       contact_1_number_of_im: '0'
       contact_1_number_of_cg6: '0'
@@ -492,7 +469,7 @@ handlers:
             number_of_other: '0'
             number_of_address: '1'
             number_of_phone: '1'
-            number_of_email: '1'
+            number_of_email: '3'
             number_of_website: '0'
             number_of_im: '0'
             number_of_cg6: '0'
@@ -503,10 +480,16 @@ handlers:
             phone:
               1:
                 phone_type_id: '1'
+                location_type_id: '5'
                 is_primary: '1'
             email:
               1:
+                location_type_id: '5'
                 is_primary: '1'
+              2:
+                location_type_id: '5'
+              3:
+                location_type_id: '5'
         activity:
           number_of_activity: '0'
         membership:

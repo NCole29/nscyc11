@@ -13,7 +13,7 @@ dependencies:
 id: nsctheme_bscmemberdiscount
 theme: nsctheme
 region: content
-weight: -12
+weight: -9
 provider: null
 plugin: 'block_content:18665b8a-56c0-44bb-86cb-da0384ec1dd9'
 settings:

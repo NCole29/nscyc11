@@ -8,7 +8,7 @@ slogan: 'The Best Cycling North of Boston'
 page:
   403: /node/280
   404: ''
-  front: /node
+  front: /node/10669
 admin_compact_mode: false
 weight_select_max: 100
 default_langcode: en

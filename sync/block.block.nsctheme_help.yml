@@ -9,7 +9,7 @@ dependencies:
 id: nsctheme_help
 theme: nsctheme
 region: content
-weight: -30
+weight: -14
 provider: null
 plugin: help_block
 settings:

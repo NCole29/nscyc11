@@ -1,0 +1,29 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: bikeclub_card
+description: Cards arranged vertically.
+props:
+  type: object
+  properties:
+    heading:
+      type: string
+      title: Heading
+    url:
+      type: string
+      title: URL
+    # Configure view mode for content types: hide label, format thumbnail, select image_style  
+    imgSrc:
+      type: string
+      title: Image URL
+    imgAlt:
+      type: string
+      title: Image Alt Text
+    date:
+      type: string
+      label: Date
+    location:
+      type: string
+      title: URL
+slots:
+  content:
+    title: Content
+  media_image: {}

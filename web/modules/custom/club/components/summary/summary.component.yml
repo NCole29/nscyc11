@@ -1,0 +1,24 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: summary
+description: Teasers arranged in rows.
+props:
+  type: object
+  properties:
+    heading:
+      type: string
+      title: Heading
+    url:
+      type: string
+      title: URL
+    image:
+      type: string
+      label: The image URL or data.
+    date:
+      type: string
+      label: Date
+    location:
+      type: string
+      title: URL
+slots:
+  content:
+    title: Content

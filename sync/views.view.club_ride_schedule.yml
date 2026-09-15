@@ -1,4 +1,4 @@
-uuid: 5f81615c-d989-4fe0-81e6-b9f1c2595692
+uuid: 18340ac7-63d9-4e97-acde-1e69f0d44017
 langcode: en
 status: true
 dependencies:
@@ -23,6 +23,8 @@ dependencies:
     - smart_date
     - taxonomy
     - user
+_core:
+  default_config_hash: mrD3CEJE2zC0YpAS9TQLgAnrx0o89rghg0MZuofNU9E
 id: club_ride_schedule
 label: 'Club ride schedule'
 module: views

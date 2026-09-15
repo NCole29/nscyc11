@@ -13,7 +13,7 @@ dependencies:
 id: nsctheme_emaillistmoderators
 theme: nsctheme
 region: content
-weight: -8
+weight: -5
 provider: null
 plugin: 'block_content:ceeaaac8-be4f-440d-ad4c-76bc21a04632'
 settings:

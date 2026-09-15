@@ -12,7 +12,7 @@ dependencies:
 id: nsctheme_views_block__files_from_webforms_recent_files
 theme: nsctheme
 region: content
-weight: -9
+weight: -6
 provider: null
 plugin: 'views_block:files_from_webforms-recent_files'
 settings:

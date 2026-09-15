@@ -1,0 +1,62 @@
+.card-rcontainer {
+    justify-content: space-around; /* Distributes items with space around them */
+    gap: 0; /* Adds a gap between flex items */
+}
+.card-row {
+  background: #fafafa;
+  border: 1px solid #808080;
+  border-radius: 5px;
+  box-shadow: 1px 1px 0 0 #808080;
+  height: auto;
+  /*margin: 0.5rem;*/
+  margin: 0.5rem 0.5rem 0.5rem 0; 
+  position: relative;
+  width: auto;
+}
+.card-row .card-title {
+  text-align: left;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  line-height: 1.75rem;
+  margin: 1rem 0;
+}
+.card-row .card-image {
+  float: left;
+  margin-right: 10px;
+}
+.card-row .card-content {
+  padding: 0 1rem 0 1rem;
+}
+.card-row .card-content p {
+  line-height: 1.4;
+}
+.card-row .card-content .field {
+  margin-block-end: 0;
+}
+img {
+  margin-bottom: -.7rem!important;
+}
+
+@media(max-width: 767px) {
+  .card-container {
+    display: inline-block; 
+  }
+  .card-row .card-title {
+    letter-spacing: 0;
+    line-height: 1.2rem;
+    padding: 0.75rem 0 0 0rem;
+    margin: 0 0 0.5rem 0; 
+  }
+  .card-row .card-content {
+    font-size: .9rem!important;
+    padding: 0 0.5rem;
+  }
+  .card-row .card-image {
+    float: none;
+    display: inline-block;
+  }
+  img {
+   margin-bottom: -0.5rem!important;
+  }
+}

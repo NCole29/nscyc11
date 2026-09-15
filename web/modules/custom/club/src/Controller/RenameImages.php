@@ -59,12 +59,13 @@ class RenameImages {
    */
   public function fixPmedia($node) { 
     $paragraphs = $node->get('field_components')->referencedEntities();
+ 
     $paragraphStorage = $this->entityTypeManager->getStorage('paragraph');
   
     foreach ($paragraphs as $key => $entity) {
       $paragraph = $paragraphStorage->load($entity->id());
   
-      if ($paragraph->hasField('field_image')) {
+      if ($paragraph->hasField('field_image') && !empty($paragraph->field_image->target_id)) {
         $this->setImageName($paragraph->field_image->target_id);
       }
     }

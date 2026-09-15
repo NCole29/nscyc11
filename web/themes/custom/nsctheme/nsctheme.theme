@@ -8,10 +8,9 @@
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
-function nsctheme_theme_suggestions_block_alter(&$suggestions, $variables) {
-  
-  // Load theme suggestions for blocks from parent theme.
-  foreach ($suggestions as &$suggestion) {
-    $suggestion = str_replace('solo_', 'nsctheme_', $suggestion);
+function nsctheme_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  foreach ($suggestions as $key => $suggestion) {
+    $suggestions[$key] = str_replace('solo_', 'nsctheme_', $suggestion);
   }
 }
+

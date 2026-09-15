@@ -22,7 +22,6 @@ dependencies:
     - quick_node_clone
     - scheduler
     - system
-    - toolbar
 _core:
   default_config_hash: AU6dwrPfeFfnexgy42Cxb7DcSM_MOSnq_usp2-r_AMg
 id: civicrm
@@ -46,7 +45,6 @@ permissions:
   - 'access help pages'
   - 'access media overview'
   - 'access navigation'
-  - 'access toolbar'
   - 'access user profiles'
   - 'add contact notes'
   - 'add contacts'

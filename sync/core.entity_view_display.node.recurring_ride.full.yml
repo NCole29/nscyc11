@@ -24,7 +24,7 @@ dependencies:
     - field.field.node.recurring_ride.field_time
     - image.style.medium_16_9
     - node.type.recurring_ride
-    - views.view.ride_routes
+    - views.view.club_route_blocks
   module:
     - layout_builder
     - layout_builder_restrictions
@@ -276,11 +276,11 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 5
             additional: {  }
-          76e12ee5-c2cb-4c89-90ee-c988f47eafea:
-            uuid: 76e12ee5-c2cb-4c89-90ee-c988f47eafea
+          7c1dc6e0-7337-4f06-a200-458ca033814c:
+            uuid: 7c1dc6e0-7337-4f06-a200-458ca033814c
             region: second
             configuration:
-              id: 'views_block:ride_routes-route_list'
+              id: 'views_block:club_route_blocks-route_list'
               label: ''
               label_display: visible
               provider: views
@@ -295,11 +295,11 @@ third_party_settings:
         layout_settings:
           label: ''
         components:
-          e9eb16cb-caf9-43fd-90fa-bd41a326a65c:
-            uuid: e9eb16cb-caf9-43fd-90fa-bd41a326a65c
+          e05ae887-cfef-46d1-b914-5181001e2ee6:
+            uuid: e05ae887-cfef-46d1-b914-5181001e2ee6
             region: content
             configuration:
-              id: 'views_block:ride_routes-route_maps'
+              id: 'views_block:club_route_blocks-route_maps'
               label: ''
               label_display: visible
               provider: views

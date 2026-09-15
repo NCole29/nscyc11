@@ -1,0 +1,53 @@
+.bikeclub-card{
+/*  word-wrap:break-word;*/
+  padding:.5rem;
+  font-size:1rem;
+  line-height:1.5;
+  border-bottom: 1px solid #cccccc;/*#155295;*/
+  display:flex;
+  flex-direction:column
+}
+.bikeclub-card__image{
+  display:inline-block;
+  padding-right: 1rem;
+}
+.bikeclub-card__date{
+  display:inline-block;
+  width: 50%;
+  vertical-align: top;
+}
+
+@media (max-width:768px){
+ .bikeclub-card__date{
+  width: 100%;
+  padding: 0;
+}
+}
+.bikeclub-card__body .bikeclub-card__title{
+  font-size:1.5rem!important;
+  font-weight:400;
+  margin:0 0;
+}
+.bikeclub-card__body .bikeclub-card__description{
+  margin:0
+}
+.bikeclub-card__body .bikeclub-card__link{
+  margin-top:1rem;
+  text-decoration:none;
+  font-weight:700;
+  color:#00598c;
+  display:inline-block;
+}
+.bikeclub-card__body .bikeclub-card__link:hover{
+  color:#0079bf;
+}
+.bikeclub-card__body .bikeclub-card__link:active{
+  color:#003b5c;
+}
+.bikeclub-card__body .bikeclub-card__link+.bikeclub-card__link{
+  margin-left:.75rem;
+}
+.bikeclub-card__body .bikeclub-btn{
+  margin-top:1rem;
+}
+

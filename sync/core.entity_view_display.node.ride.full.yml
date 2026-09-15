@@ -25,10 +25,12 @@ dependencies:
     - field.field.node.ride.field_results_access
     - field.field.node.ride.field_ride_leader
     - field.field.node.ride.field_ride_picture
+    - field.field.node.ride.field_rwgps_routes
+    - field.field.node.ride.field_schedule_date
     - field.field.node.ride.field_show_and_go
     - field.field.node.ride.field_time
     - node.type.ride
-    - views.view.ride_routes
+    - views.view.club_route_blocks
   module:
     - layout_builder
     - layout_builder_restrictions
@@ -357,11 +359,11 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 5
             additional: {  }
-          e3fde796-ca26-45d3-a32e-21777df9cb8b:
-            uuid: e3fde796-ca26-45d3-a32e-21777df9cb8b
+          023a86c8-6145-4f39-bd20-20ca6c99734d:
+            uuid: 023a86c8-6145-4f39-bd20-20ca6c99734d
             region: second
             configuration:
-              id: 'views_block:ride_routes-route_list'
+              id: 'views_block:club_route_blocks-route_list'
               label: ''
               label_display: visible
               provider: views
@@ -376,11 +378,11 @@ third_party_settings:
         layout_settings:
           label: ''
         components:
-          80172145-8235-4422-a937-4328a8fdbf3f:
-            uuid: 80172145-8235-4422-a937-4328a8fdbf3f
+          ac57f2f3-4c76-40f9-9856-bc310557d0fd:
+            uuid: ac57f2f3-4c76-40f9-9856-bc310557d0fd
             region: content
             configuration:
-              id: 'views_block:ride_routes-route_maps'
+              id: 'views_block:club_route_blocks-route_maps'
               label: ''
               label_display: visible
               provider: views
@@ -494,4 +496,6 @@ hidden:
   field_registration_link: true
   field_results_access: true
   field_ride_picture: true
+  field_rwgps_routes: true
+  field_schedule_date: true
   links: true

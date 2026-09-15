@@ -169,9 +169,8 @@ class ClubNodes {
    * Applies to Announcement, Basic page, Event, Webform node.
    */
   public function fixImage($node) {
-        
     // Replace image name with Alt text.
-    if ($node->hasField('field_text') & isset($node->field_text)) {
+    if ($node->hasField('field_text') && !$node->get('field_text')->isEmpty()) {
       $this->renameImages->fixMedia($node);
     }
     if ($node->hasField('field_components') & isset($node->field_components->target_id)) {
@@ -188,7 +187,7 @@ class ClubNodes {
    */
   public function clearContact($node) {
     // Clear personal contact form if selection has changed.
-    if (isset($node->field_contact_person) && $node->field_contact_form->target_id <> 'personal') {
+    if (isset($node->field_contact_person) && $node->field_contact_us->target_id <> 'personal') {
       unset($node->field_contact_person);
     }    
   }

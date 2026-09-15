@@ -1,0 +1,32 @@
+{#
+/**
+ * Overrides block.html.twig for Routes table displayed in block.
+ * Display title as <h3> instead of <h2> to match field labels.
+ */
+#}
+
+{%
+  set classes = [
+    'solo-clear',
+    'solo-block',
+    'w3-maps',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+  ]
+%}
+{%
+  set title_classes = [
+    'field__label',
+    label_display == 'visually_hidden' ? 'visually-hidden',
+  ]
+%}
+<section{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if label %}
+    <h3>{{ label }}</h3>   
+  {% endif %}
+  {{ title_suffix }}
+  {% block content %}
+    {{ content }}
+  {% endblock %}
+</section>

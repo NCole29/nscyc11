@@ -10,7 +10,7 @@ id: node.announcement.field_contact_us
 field_name: field_contact_us
 entity_type: node
 bundle: announcement
-label: 'Contact taxonomy'
+label: Contact
 description: ''
 required: false
 translatable: false

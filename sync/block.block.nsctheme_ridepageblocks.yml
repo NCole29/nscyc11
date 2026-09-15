@@ -12,7 +12,7 @@ dependencies:
 id: nsctheme_ridepageblocks
 theme: nsctheme
 region: content
-weight: -10
+weight: -7
 provider: null
 plugin: 'block_content:caafdc56-4fa6-4ca5-8d5b-c2e1f2b29bea'
 settings:

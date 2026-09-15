@@ -4,8 +4,6 @@ status: true
 dependencies:
   module:
     - civicrm
-    - navigation
-    - toolbar
 _core:
   default_config_hash: 4J6HbHdjOdEoLyEPR2K8og_BYqyesu51KiGqqM6fCaA
 id: board
@@ -13,6 +11,4 @@ label: Board
 weight: 1
 is_admin: null
 permissions:
-  - 'access navigation'
-  - 'access toolbar'
   - 'view public CiviMail content'

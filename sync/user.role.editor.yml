@@ -32,6 +32,7 @@ dependencies:
     - help
     - layout_builder
     - media
+    - menu_admin_per_menu
     - navigation
     - node
     - paragraphs
@@ -40,7 +41,6 @@ dependencies:
     - shortcut
     - system
     - taxonomy
-    - toolbar
     - view_unpublished
     - webform
     - webform_node
@@ -60,10 +60,10 @@ permissions:
   - 'access own webform configuration'
   - 'access shortcuts'
   - 'access taxonomy overview'
-  - 'access toolbar'
   - 'access webform help'
   - 'access webform overview'
   - 'administer blocks'
+  - 'administer main menu items'
   - 'clone announcement content'
   - 'clone event content'
   - 'clone page content'

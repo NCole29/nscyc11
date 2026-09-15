@@ -1,4 +1,4 @@
-name: NSC theme
+name: NSC SOLO subtheme
 type: theme
 base theme: solo
 core_version_requirement: ^10 || ^11

@@ -42,7 +42,7 @@ class ClubForms {
           if($this->pastDate($entity) == 1) {
             $form['custom_message'] = [
               '#type' => 'markup',
-              '#markup' => '<div class="messages messages--status">' . 
+              '#markup' => '<div class="messages messages--error">' . 
                 t('<h5>You are editing an event that has already occurred. Please exit the form and CLONE the event.</h5>') .
                 '</div>',
               '#weight' => -10, 
@@ -72,7 +72,7 @@ class ClubForms {
           if ($operation == 'edit' & $this->pastDate($entity) == 1) {
             $form['custom_message'] = [
               '#type' => 'markup',
-              '#markup' => '<div class="messages messages--status">' . 
+              '#markup' => '<div class="messages messages--error">' . 
                 t('<h5>You are editing a ride that has already occurred. Please exit the form and CLONE the ride.</h5>') .
                 '</div>',
               '#weight' => -10, // Adjust weight to position it

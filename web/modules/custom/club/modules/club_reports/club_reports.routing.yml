@@ -31,7 +31,7 @@ club_reports.club_reports:
 club_reports.multiple_memberships:
   path: '/report/multiple-memberships'
   defaults:
-    _controller: '\Drupal\club_reports\Controller\MultipleMemberships::getMultiples'
+    _controller: '\Drupal\club_reports\Plugin\Block\MultipleMemberships::build'
     _title: 'Persons with Multiple Membership records'
   requirements:
     _permission: 'view club reports'

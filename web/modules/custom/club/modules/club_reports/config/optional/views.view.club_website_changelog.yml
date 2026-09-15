@@ -3,13 +3,18 @@ status: true
 dependencies:
   config:
     - system.menu.club-reports
+    - user.role.administrator
+    - user.role.board
+    - user.role.civicrm
+    - user.role.rides_coordinator
+    - user.role.site_admin
     - webform.webform.change_log
   module:
     - user
     - webform
     - webform_views
-id: club_website_changes
-label: 'Club website changes'
+id: club_website_changelog
+label: 'Club website changelog'
 module: views
 description: ''
 tag: ''
@@ -22,7 +27,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Website change log'
+      title: 'Change log'
       fields:
         webform_submission_value:
           id: webform_submission_value
@@ -377,8 +382,9 @@ display:
           role:
             administrator: administrator
             board: board
-            membership: membership
+            civicrm: civicrm
             rides_coordinator: rides_coordinator
+            site_admin: site_admin
       cache:
         type: tag
         options: {  }
@@ -514,7 +520,6 @@ display:
           empty_table: false
           caption: ''
           description: ''
-          class: ''
       row:
         type: fields
       query:
@@ -527,12 +532,7 @@ display:
           query_tags: {  }
       relationships: {  }
       css_class: 'w3-table-all w3-small'
-      header:
-        area_text_custom:
-          id: area_text_custom
-          table: views
-          field: area_text_custom
-          plugin_id: text_custom
+      header: {  }
       footer: {  }
       display_extenders: {  }
     cache_metadata:
@@ -550,20 +550,6 @@ display:
     display_plugin: page
     position: 1
     display_options:
-      defaults:
-        header: false
-      header:
-        area_text_custom:
-          id: area_text_custom
-          table: views
-          field: area_text_custom
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: text_custom
-          empty: false
-          content: '<a href="/form/change-log" class="blue-button">Add an entry</a>'
-          tokenize: false
       display_extenders: {  }
       path: report/change-log
       menu:
@@ -577,8 +563,9 @@ display:
         context: '0'
         as_local_task: false
         local_task_link_title: ''
-        local_task_parent: 'views_view:view.calendar.page_2'
+        local_task_parent: 'views_view:view.block_content.page_1'
         local_task_weight: 0
+        local_task_custom_parent_route: ''
     cache_metadata:
       max-age: -1
       contexts:

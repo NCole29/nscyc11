@@ -1,16 +1,47 @@
 <?php
 
-namespace Drupal\club_reports\Controller;
+namespace Drupal\club_reports\Plugin\Block;
+
+use Drupal\Core\Block\Attribute\Block;
+use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Database\Connection;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a page listing contacts with multiple membership records.
- *
+ * Provides a block with list of contacts with multiple memberships.
  */
-class MultipleMemberships {
+#[Block(
+  id: "multiple_memberships",
+  admin_label: new TranslatableMarkup("Multiple Memberships"),
+  category: new TranslatableMarkup("Custom")
+)]
+class MultipleMemberships extends BlockBase implements ContainerFactoryPluginInterface {
 
-  public function getMultiples() {   
+  protected $database;
 
-    $db = \Drupal::database();
+  /**
+   * Constructs a new DatabaseStatsBlock instance.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, Connection $database) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->database = $database;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('database')
+    );
+  }
+
+   public function build() {   
 
     // Array of status codes and names for lookup.
     $mem_status = [
@@ -24,7 +55,7 @@ class MultipleMemberships {
     ];
    
     // Get list of contacts with more than one membership records and convert object to array.
-    $contact_list = $db->query("SELECT contact_id FROM {civicrm_membership} GROUP BY contact_id HAVING COUNT(contact_id) > 1")
+    $contact_list = $this->database->query("SELECT contact_id FROM {civicrm_membership} GROUP BY contact_id HAVING COUNT(contact_id) > 1")
     ->fetchALL();
     $contacts = json_decode(json_encode($contact_list), true);
 
@@ -36,12 +67,12 @@ class MultipleMemberships {
       $contact_id = reset($contact); // Convert to string.
 
       // Retrieve contact info and convert object to array.
-			$contact_obj = $db->query("SELECT id, display_name FROM {civicrm_contact} WHERE id = :contact", [':contact' => $contact_id, ])
+			$contact_obj = $this->database->query("SELECT id, display_name FROM {civicrm_contact} WHERE id = :contact", [':contact' => $contact_id, ])
 			->fetch();
 			$contact_info = json_decode(json_encode($contact_obj), true);
 
 			// Retrieve membership records and convert object to array.
-			$member_obj = $db->query("SELECT id, join_date, start_date, end_date, status_id FROM {civicrm_membership} WHERE contact_id = :contact", [':contact' => $contact_id, ])
+			$member_obj = $this->database->query("SELECT id, join_date, start_date, end_date, status_id FROM {civicrm_membership} WHERE contact_id = :contact", [':contact' => $contact_id, ])
 			->fetchAll();
 			$memberships = json_decode(json_encode($member_obj), true);
 

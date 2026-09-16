@@ -46,7 +46,7 @@ class RenameImages {
         if ($alt) {
           $media->set('name',$alt)->save();
         }
-        if ($image_cat) {
+        if ($media->hasField('field_image_category') && !empty($image_cat)) {
           $media->set('field_image_category',$image_cat)->save();
         }
       }

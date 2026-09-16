@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.user.user.field_disable_contact_form
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
@@ -14,6 +15,7 @@ third_party_settings:
     group_edit_me:
       children:
         - account
+        - field_disable_contact_form
         - user_picture
       label: 'Enter current password to make changes. To change password, enter new password twice below your email address.'
       region: content
@@ -43,6 +45,13 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_disable_contact_form:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   google_analytics:
     weight: 1
     region: content
@@ -50,7 +59,7 @@ content:
     third_party_settings: {  }
   user_picture:
     type: image_image
-    weight: 4
+    weight: 5
     region: content
     settings:
       progress_indicator: throbber

@@ -21,6 +21,7 @@ module:
   ckeditor_accordion: 0
   club: 0
   club_leader: 0
+  club_reports: 0
   club_ride_tools: 0
   comment: 0
   conditional_fields: 0
@@ -72,6 +73,7 @@ module:
   leaflet_markercluster: 0
   leaflet_views: 0
   link: 0
+  linkit: 0
   magnific_popup: 0
   mail_login: 0
   mailer_transport: 0
@@ -85,6 +87,7 @@ module:
   multiple_fields_remove_button: 0
   mysql: 0
   navigation: 0
+  navigation_extra_tools: 0
   node: 0
   node_revision_delete: 0
   options: 0

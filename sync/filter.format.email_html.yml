@@ -1,7 +1,9 @@
 uuid: 8f7b6d0b-ee89-4b2e-a56b-7b3257c66102
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - linkit
 name: 'Email HTML'
 format: email_html
 weight: 10
@@ -15,3 +17,11 @@ filters:
       allowed_html: ''
       filter_html_help: true
       filter_html_nofollow: false
+  linkit:
+    id: linkit
+    provider: linkit
+    status: true
+    weight: 0
+    settings:
+      title: true
+      media_substitution: metadata

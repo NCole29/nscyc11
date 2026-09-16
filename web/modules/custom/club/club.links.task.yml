@@ -18,3 +18,9 @@ user.edit_myprofile:
   base_route: civicrm.user_profile
   title: 'Edit profile'
   weight: 2
+
+# Archived content
+content.archived:
+  title: 'Archived'
+  route_name: view.content.archived
+  parent_id: system.admin_content

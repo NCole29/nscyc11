@@ -14,6 +14,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\taxonomy\Entity\Term;
 
 class ClubNodes {
 
@@ -187,9 +188,19 @@ class ClubNodes {
    */
   public function clearContact($node) {
     // Clear personal contact form if selection has changed.
-    if (isset($node->field_contact_person) && $node->field_contact_us->target_id <> 'personal') {
-      unset($node->field_contact_person);
-    }    
+    $target_id = $node->get('field_contact_us')->target_id;
+
+    if (!empty($target_id)) {
+      $term = Term::load($target_id);
+
+      if ($term) {
+        $label = $term->label(); 
+      }
+
+      if (isset($node->field_contact_person) && $label <> 'Personal contact form') {
+        unset($node->field_contact_person);
+      }
+    }  
   }
 
   /**

@@ -5,8 +5,8 @@ dependencies:
   config:
     - field.field.node.event.banner_image
     - field.field.node.event.field_components
-    - field.field.node.event.field_contact_us
     - field.field.node.event.field_contact_person
+    - field.field.node.event.field_contact_us
     - field.field.node.event.field_date
     - field.field.node.event.field_location
     - field.field.node.event.field_padding
@@ -243,10 +243,9 @@ third_party_settings:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: entity_reference_label
+                type: contact_admin_mailbox
                 label: above
-                settings:
-                  link: true
+                settings: {  }
                 third_party_settings: {  }
             weight: 7
             additional: {  }
@@ -262,7 +261,7 @@ third_party_settings:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: user_contact_link
+                type: contact_person
                 label: above
                 settings: {  }
                 third_party_settings: {  }

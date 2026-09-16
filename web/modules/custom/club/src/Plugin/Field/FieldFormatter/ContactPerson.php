@@ -15,15 +15,15 @@ use Drupal\Core\Link;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Plugin implementation for link to the user contact form.
+ * Plugin implementation for link to the user webform contact form.
  */
 #[FieldFormatter(
-  id: "user_link_2_webform",
-  label: new TranslatableMarkup("Link to contact webform"),
+  id: "contact_person",
+  label: new TranslatableMarkup("Link to person contact form"),
   field_types: ["entity_reference"]
 )]
 
-class UserLink2ContactForm extends EntityReferenceFormatterBase implements ContainerFactoryPluginInterface {
+class ContactPerson extends EntityReferenceFormatterBase implements ContainerFactoryPluginInterface {
 
   /**
    * The user data service.
@@ -69,9 +69,9 @@ class UserLink2ContactForm extends EntityReferenceFormatterBase implements Conta
       $contact_id = $entity->id();
 
       // Is personal contact form enabled? If no, display plain text.
-      $enabled = $this->userData->get('contact', $contact_id, 'enabled');
+      $disabled = $entity->field_disable_contact_form->value ? $entity->field_disable_contact_form->value:0;
 
-      if ( !$enabled ) {
+      if ( $disabled == 1 ) {
         $elements[$delta] = [
           '#plain_text' => $entity->label(),
           '#cache' => [

@@ -3,12 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.announcement.field_contact_us
     - field.field.node.announcement.field_contact_person
+    - field.field.node.announcement.field_contact_us
     - field.field.node.announcement.field_summary
     - field.field.node.announcement.field_text
     - node.type.announcement
   module:
+    - club
     - layout_builder
     - layout_builder_restrictions
     - text
@@ -37,17 +38,16 @@ content:
     weight: 0
     region: content
   field_contact_person:
-    type: user_contact_link
+    type: contact_person
     label: above
     settings: {  }
     third_party_settings: {  }
     weight: 3
     region: content
   field_contact_us:
-    type: entity_reference_label
+    type: contact_admin_mailbox
     label: above
-    settings:
-      link: true
+    settings: {  }
     third_party_settings: {  }
     weight: 2
     region: content
@@ -64,5 +64,4 @@ content:
     weight: 4
     region: content
 hidden:
-  field_contact_us: true
   field_summary: true

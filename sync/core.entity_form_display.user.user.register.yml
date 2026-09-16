@@ -4,6 +4,7 @@ status: false
 dependencies:
   config:
     - core.entity_form_mode.user.register
+    - field.field.user.user.field_disable_contact_form
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
@@ -43,5 +44,6 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
 hidden:
+  field_disable_contact_form: true
   language: true
   path: true

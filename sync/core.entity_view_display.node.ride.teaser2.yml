@@ -100,7 +100,7 @@ third_party_settings:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: user_contact_link
+                type: contact_person
                 label: inline
                 settings: {  }
                 third_party_settings: {  }

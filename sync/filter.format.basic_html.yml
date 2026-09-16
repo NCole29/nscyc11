@@ -9,6 +9,7 @@ dependencies:
     - core.entity_view_mode.media.window_popup
   module:
     - editor
+    - linkit
     - media
 name: 'Basic HTML'
 format: basic_html
@@ -44,7 +45,7 @@ filters:
     status: true
     weight: -50
     settings:
-      allowed_html: '<br> <p class="small medium regular light-button dark-button light-centered dark-centered text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <strong> <em> <blockquote> <a href> <ul> <ol reversed start> <li> <table> <tr> <td rowspan colspan> <th rowspan colspan> <thead> <tbody> <tfoot> <caption> <drupal-media data-entity-type data-entity-uuid alt data-view-mode data-align> <dl class> <dt> <dd>'
+      allowed_html: '<br> <p class="small medium regular light-button dark-button light-centered dark-centered text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <strong> <em> <blockquote> <a href data-entity-type data-entity-uuid data-entity-substitution> <ul> <ol reversed start> <li> <table> <tr> <td rowspan colspan> <th rowspan colspan> <thead> <tbody> <tfoot> <caption> <drupal-media data-entity-type data-entity-uuid alt data-view-mode data-align> <dl class> <dt> <dd>'
       filter_html_help: true
       filter_html_nofollow: false
   filter_html_escape:
@@ -78,6 +79,14 @@ filters:
     weight: -46
     settings:
       filter_url_length: 72
+  linkit:
+    id: linkit
+    provider: linkit
+    status: true
+    weight: 0
+    settings:
+      title: true
+      media_substitution: metadata
   media_embed:
     id: media_embed
     provider: media

@@ -10,6 +10,7 @@ use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Hook implementations for forms.
@@ -22,7 +23,8 @@ class ClubForms {
   public function __construct(
     protected ConfigFactoryInterface $config,
     protected AccountProxyInterface $currentUser,
-    protected RouteMatchInterface $routeMatch
+    protected RouteMatchInterface $routeMatch,
+    protected RequestStack $requestStack
   ) {
   }
 
@@ -126,5 +128,46 @@ class ClubForms {
     $pastDate = (!is_null($date->format('Y-m-d')) and $date->format('Y-m-d') < $now->format('Y-m-d')) ;
 
     return $pastDate;
+  }
+
+  #[Hook('form_taxonomy_overview_terms_alter')]
+  function positionsFormAlter(array &$form, FormStateInterface &$form_state, $form_id) {
+
+    // Display fields on "positions" taxonomy term listing.
+    $path = $this->requestStack->getCurrentRequest()->getPathInfo();
+
+    $arg = explode('/', $path);  // Get vocabulary name from path. 
+
+    // Mailboxes
+    if ($arg[5] == "mailboxes") {
+      $form['terms']['#header'] = array_merge(array_slice($form['terms']['#header'], 0, 1, TRUE),
+        [t('Mailbox')],
+        [t('Disabled')],
+        array_slice($form['terms']['#header'], 1, NULL, TRUE)
+      );
+
+      foreach ($form['terms'] as &$term) {
+        if (is_array($term) && !empty($term['#term'])) {
+
+          $disabled = ($term['#term']->get('field_disabled')->value == 1 ) ? "yes" : "-";
+
+          $mailbox['Mailbox'] = [
+            '#markup' => $term['#term']->get('field_mailbox')->value,
+            '#type' => 'item',
+          ];
+
+          $dropped['Disabled'] = [
+            '#markup' => $disabled,
+            '#type' => 'item',
+          ];
+        
+          $term = array_merge(
+            array_slice($term, 0, 1, TRUE),
+            $mailbox, $dropped,
+            array_slice($term, 1, NULL, TRUE),
+          );
+        }
+      }
+    }
   }
 }

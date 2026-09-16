@@ -172,6 +172,7 @@
     "drupal/layout_builder_restrictions": "^3.0",
     "drupal/layout_paragraphs": "^2.1",
     "drupal/leaflet": "^10.4",
+    "drupal/linkit": "^7.0",
     "drupal/magnific_popup": "^2.1",
     "drupal/mail_login": "^4.0",
     "drupal/masquerade": "^2.2",

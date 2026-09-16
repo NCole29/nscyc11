@@ -15,7 +15,7 @@ third_party_settings:
     publish_enable: true
     publish_past_date: publish
     publish_past_date_created: false
-    publish_required: true
+    publish_required: false
     publish_revision: false
     publish_touch: false
     show_message_after_update: true
@@ -27,7 +27,7 @@ _core:
 name: Announcement
 type: announcement
 description: '<em>Announcements</em> are displayed on the home page for a <strong>scheduled period of time</strong>. '
-help: '<em>Announcements</em> are published for a <strong>scheduled period of time</strong>.  Leave the pre-populated "Publish on" date/time as is to publish immediately.'
+help: '<em>Announcements</em> are published for a <strong>scheduled period of time</strong>.  To publish immediately, do not fill the "Publish on" date/time. '
 new_revision: true
 preview_mode: 1
 display_submitted: false

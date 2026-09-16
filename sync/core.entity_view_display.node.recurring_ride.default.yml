@@ -24,6 +24,7 @@ dependencies:
     - image.style.medium_16_9
     - node.type.recurring_ride
   module:
+    - club
     - layout_builder
     - layout_builder_restrictions
     - media
@@ -88,10 +89,19 @@ content:
       add_classes: false
       time_wrapper: true
       localize: false
+      parts:
+        - start
+        - end
+      duration:
+        separator: ' | '
+        unit: ''
+        decimals: 2
+        suffix: h
       past_display: 0
       upcoming_display: 1
       show_next: false
       current_upcoming: false
+      filter_parameter_key: date
     third_party_settings: {  }
     weight: 2
     region: content
@@ -138,10 +148,9 @@ content:
     weight: 12
     region: content
   field_ride_leader:
-    type: entity_reference_label
+    type: contact_person
     label: above
-    settings:
-      link: false
+    settings: {  }
     third_party_settings: {  }
     weight: 4
     region: content
@@ -171,6 +180,7 @@ content:
     label: above
     settings:
       link_to_entity: false
+      link_rel: canonical
     third_party_settings: {  }
     weight: 3
     region: content

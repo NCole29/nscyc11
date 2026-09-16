@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.user.full
+    - field.field.user.user.field_disable_contact_form
     - field.field.user.user.user_picture
   content:
     - 'block_content:basic:member_info_block'
@@ -31,10 +32,10 @@ third_party_settings:
               label: 'Member Info'
               label_display: '0'
               provider: block_content
+              context_mapping: {  }
               status: true
               info: ''
               view_mode: full
-              context_mapping: {  }
             weight: 0
             additional: {  }
           9156f4d6-ccd7-4e15-a520-100eba5e4ae1:
@@ -64,5 +65,6 @@ hidden:
   civicrm_dashboard: true
   civicrm_profiles: true
   civicrm_record: true
+  field_disable_contact_form: true
   member_for: true
   user_picture: true

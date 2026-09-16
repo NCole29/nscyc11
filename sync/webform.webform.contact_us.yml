@@ -1,12 +1,10 @@
-uuid: e4b1cb9c-3f09-45ac-bd40-a41243d68e8e
+uuid: f21780c7-bc4f-408d-813f-649d2e6f8fca
 langcode: en
 status: open
 dependencies:
   enforced:
     module:
       - webform
-_core:
-  default_config_hash: Q4QShRpLvlheaOjtXj4lKYXCOGMiuBopVI6GYCCWRK8
 weight: 0
 open: null
 close: null
@@ -15,7 +13,7 @@ template: false
 archive: false
 id: contact_us
 title: 'Contact Us'
-description: '<p>Send mail to site administrator mailboxes.</p>'
+description: '<p>Send mail to nscyc.org mailboxes.</p>'
 categories:
   - User
 elements: |-
@@ -40,36 +38,47 @@ elements: |-
   to:
     '#type': webform_entity_select
     '#title': To
+    '#required': true
     '#default_value': '[current-page:query:mail_to]'
+    '#attributes':
+      style: 'border: 1px solid #C0C0C0;'
     '#target_type': taxonomy_term
     '#selection_handler': views
     '#selection_settings':
       view:
-        view_name: club_positions
+        view_name: club_taxonomies
         display_name: mailboxes
-        arguments: {  }
-    '#required': true
+        arguments:
+          - '[current-page:query:mail_to]'
   name:
     '#type': textfield
     '#title': 'Your name'
     '#size': 25
     '#required': true
     '#default_value': '[current-user:display-name]'
+    '#attributes':
+      style: 'background-color: #edf4fc;border: 1px solid #C0C0C0;'
   email:
     '#type': email
     '#title': 'Your email'
     '#size': 30
     '#required': true
     '#default_value': '[current-user:mail]'
+    '#attributes':
+      style: 'background-color: #edf4fc;border: 1px solid #C0C0C0;'
   subject:
     '#type': textfield
     '#title': Subject
     '#required': true
+    '#attributes':
+      style: 'background-color: #edf4fc;border: 1px solid #C0C0C0;'
     '#test': 'Testing contact webform from [site:name]'
   message:
-    '#title': Message
     '#type': textarea
+    '#title': Message
     '#required': true
+    '#attributes':
+      style: 'background-color: #edf4fc;border: thin solid #C0C0C0;'
     '#test': 'Please ignore this email.'
   actions:
     '#type': webform_actions

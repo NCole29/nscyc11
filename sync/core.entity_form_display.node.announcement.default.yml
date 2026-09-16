@@ -52,7 +52,7 @@ content:
       placeholder: ''
     third_party_settings:
       conditional_fields:
-        428e5252-d7a4-4f43-ba64-a6ff2b2875dc:
+        b38b96b8-9fd6-4818-ba31-4e4aa237de29:
           entity_type: node
           bundle: announcement
           dependee: field_contact_us
@@ -66,7 +66,7 @@ content:
             values: {  }
             value_form:
               -
-                target_id: personal
+                target_id: '56'
             effect: show
             effect_options: {  }
             selector: ''
@@ -113,14 +113,21 @@ content:
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 6
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 5
+    weight: 4
     region: content
     settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
@@ -139,7 +146,7 @@ content:
     third_party_settings: {  }
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 7
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -151,5 +158,4 @@ content:
 hidden:
   created: true
   path: true
-  status: true
   uid: true

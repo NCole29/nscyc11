@@ -1,0 +1,22 @@
+uuid: ab034c6f-e713-49aa-82c5-7fb2a6a8975b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_disable_contact_form
+  module:
+    - user
+id: user.user.field_disable_contact_form
+field_name: field_disable_contact_form
+entity_type: user
+bundle: user
+label: 'Disable contact form'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

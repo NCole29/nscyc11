@@ -174,7 +174,7 @@ class ClubLeader extends ContentEntityBase implements ClubLeaderInterface {
       ->setSetting('handler', 'views')
       ->setSetting('handler_settings', [
         'view' => [
-          'view_name' => 'club_leader_positions',
+          'view_name' => 'club_taxonomies',
           'display_name' => 'not_eliminated',
           'arguments' => [],
         ]

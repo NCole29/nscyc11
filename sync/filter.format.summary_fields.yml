@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - editor
+    - linkit
     - media
 name: 'Summary fields'
 format: summary_fields
@@ -33,7 +34,7 @@ filters:
     status: true
     weight: -10
     settings:
-      allowed_html: '<br> <p class="light-button dark-button light-centered dark-centered text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <strong> <em> <blockquote> <a href> <ul> <ol reversed start> <li> <drupal-media data-entity-type data-entity-uuid alt data-align>'
+      allowed_html: '<br> <p class="light-button dark-button light-centered dark-centered text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <strong> <em> <blockquote> <a href data-entity-type data-entity-uuid data-entity-substitution> <ul> <ol reversed start> <li> <drupal-media data-entity-type data-entity-uuid alt data-align>'
       filter_html_help: true
       filter_html_nofollow: false
   filter_html_image_secure:
@@ -61,6 +62,14 @@ filters:
     weight: 0
     settings:
       filter_url_length: 72
+  linkit:
+    id: linkit
+    provider: linkit
+    status: true
+    weight: 0
+    settings:
+      title: true
+      media_substitution: metadata
   media_embed:
     id: media_embed
     provider: media

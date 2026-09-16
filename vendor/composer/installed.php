@@ -3,7 +3,7 @@
         'name' => 'drupal/recommended-project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '41f6e7b44cd615000ff777809d02713958b6c64f',
+        'reference' => '19d91b1cdb8a2e9532a3bef08ece948d6496dbd5',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -1018,6 +1018,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/linkit' => array(
+            'pretty_version' => '7.0.16',
+            'version' => '7.0.16.0',
+            'reference' => '7.0.16',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../web/modules/contrib/linkit',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/magnific_popup' => array(
             'pretty_version' => '2.1.0',
             'version' => '2.1.0.0',
@@ -1147,7 +1156,7 @@
         'drupal/recommended-project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '41f6e7b44cd615000ff777809d02713958b6c64f',
+            'reference' => '19d91b1cdb8a2e9532a3bef08ece948d6496dbd5',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

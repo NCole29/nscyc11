@@ -13,13 +13,13 @@ use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceFormatterBase;
  * Plugin implementation of the 'entity reference taxonomy term' formatter.(new link to webform).
  */
 #[FieldFormatter(
-  id: 'entity_reference_mailboxes',
-  label: new TranslatableMarkup('Link to contact_us webform'),
+  id: 'contact_admin_mailbox',
+  label: new TranslatableMarkup('Link to admin mailbox contact form'),
   field_types: [
     'entity_reference',
   ],
 )]
-class Taxonomy2ContactUs extends EntityReferenceFormatterBase {
+class ContactAdminMailbox extends EntityReferenceFormatterBase {
 
   /**
    * {@inheritdoc}

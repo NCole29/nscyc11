@@ -18,6 +18,12 @@
   display: inline-block!important;
 }
 
+/* Style the modal container */
+.ui-dialog .ui-dialog-titlebar {
+	background-color: #0b294a!important;
+  color:#ffffff;
+}
+
 .w3-dark-button,
 .w3-dark-button a:link,
 .w3-dark-button a:visited {
@@ -29,13 +35,13 @@
   overflow: hidden;
   text-decoration: none;
   text-align: center;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /*box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
 }
 .w3-dark-button a:hover,
 .w3-dark-button a:active {
   background-color: #edf4fc!important;
   color:black!important;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /*box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
 }
 
 .field--name-field-registration-close-date {

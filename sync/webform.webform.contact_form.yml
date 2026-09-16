@@ -1,12 +1,12 @@
-uuid: 78e688b5-9296-40f8-adf8-8f4962cf9581
+uuid: fe97a783-c7ce-485d-81b1-0bbb57b4335a
 langcode: en
 status: open
 dependencies:
+  module:
+    - club
   enforced:
     module:
       - webform
-_core:
-  default_config_hash: Q4QShRpLvlheaOjtXj4lKYXCOGMiuBopVI6GYCCWRK8
 weight: 0
 open: null
 close: null
@@ -31,33 +31,43 @@ elements: |-
     '#title': To
     '#readonly': true
     '#default_value': '[current-page:query:username]'
+    '#attributes':
+      style: 'border: 1px solid #C0C0C0;'
   name:
     '#type': textfield
     '#title': 'Your name'
     '#size': 25
     '#required': true
     '#default_value': '[current-user:display-name]'
+    '#attributes':
+      style: 'background-color: #edf4fc;border: 1px solid #C0C0C0;'
   email:
     '#type': email
     '#title': 'Your email'
     '#size': 30
     '#required': true
     '#default_value': '[current-user:mail]'
+    '#attributes':
+      style: 'background-color: #edf4fc;border: 1px solid #C0C0C0;'
   subject:
     '#type': textfield
     '#title': Subject
     '#required': true
+    '#attributes':
+      style: 'background-color: #edf4fc;border: 1px solid #C0C0C0;'
     '#test': 'Testing contact webform from [site:name]'
   message:
-    '#title': Message
     '#type': textarea
+    '#title': Message
     '#required': true
+    '#attributes':
+      style: 'background-color: #edf4fc;border: 1px solid #C0C0C0;'
     '#test': 'Please ignore this email.'
   actions:
     '#type': webform_actions
     '#title': 'Submit button(s)'
     '#submit__label': 'Send message'
-css: ''
+css: '.webform-input,.webform-textarea'
 javascript: ''
 settings:
   ajax: false
@@ -69,7 +79,7 @@ settings:
   page_submit_path: /contact-form
   page_confirm_path: ''
   page_theme_name: ''
-  form_title: source_entity_webform
+  form_title: webform
   form_submit_once: true
   form_open_message: ''
   form_close_message: ''

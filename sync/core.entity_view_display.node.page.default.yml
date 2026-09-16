@@ -119,7 +119,7 @@ third_party_settings:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: user_link_2_contactform
+                type: contact_person
                 label: above
                 settings: {  }
                 third_party_settings: {  }
@@ -137,7 +137,7 @@ third_party_settings:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: entity_reference_mailboxes
+                type: contact_admin_mailbox
                 label: above
                 settings: {  }
                 third_party_settings: {  }

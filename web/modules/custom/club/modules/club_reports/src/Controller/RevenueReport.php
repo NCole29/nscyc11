@@ -140,7 +140,7 @@ class RevenueReport implements ContainerInjectionInterface {
     // Build table.
     $title = "<h3'>Revenue by Year and Source</h3>";
     $footer = t("<p class='footer'>Table sums all completed contributions. Results may differ from CiviCRM contribution reports which exclude contributions from contacts that have been deleted.
-    </p><small>Note: This report is not created by Views. Table is produced by club_reports/src/RevenueReport.php.</small><p><hr></p>");
+    </p><small>Note: This report is not created by Views. Table is produced by club_reports/src/Controller/RevenueReport.php.</small><p><hr></p>");
 
     $build['table'] = [
       '#type' => 'table',

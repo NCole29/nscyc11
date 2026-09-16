@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.user.user.field_disable_contact_form
     - field.field.user.user.user_picture
   module:
     - user
@@ -13,6 +14,16 @@ targetEntityType: user
 bundle: user
 mode: default
 content:
+  field_disable_contact_form:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 51
+    region: content
   masquerade:
     settings: {  }
     third_party_settings: {  }

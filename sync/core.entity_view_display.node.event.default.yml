@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.event.field_contact_us
     - field.field.node.event.field_date
     - field.field.node.event.field_location
-    - field.field.node.event.field_padding
     - field.field.node.event.field_page_access
     - field.field.node.event.field_registration
     - field.field.node.event.field_registration_close_date
@@ -338,16 +337,6 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  field_padding:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 15
-    region: first
   field_page_access:
     type: entity_reference_label
     label: above

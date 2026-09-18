@@ -40,7 +40,15 @@ class ClubForms {
   
     switch ($nodeType) {
       case 'event':
-        if ($operation == 'edit') {
+      case 'page':
+      case 'webform':
+
+        // Change the label on 'Page is visible to' from "- None -" to "- All -"
+        if (isset($form['field_page_access']['widget']['#options']['_none'])) {
+          $form['field_page_access']['widget']['#options']['_none'] = "- All -";
+        }
+
+        if ($nodeType == 'event' && $operation == 'edit') {
           if($this->pastDate($entity) == 1) {
             $form['custom_message'] = [
               '#type' => 'markup',

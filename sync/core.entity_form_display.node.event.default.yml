@@ -5,12 +5,10 @@ dependencies:
   config:
     - field.field.node.event.banner_image
     - field.field.node.event.field_components
-    - field.field.node.event.field_contact_us
     - field.field.node.event.field_contact_person
     - field.field.node.event.field_contact_us
     - field.field.node.event.field_date
     - field.field.node.event.field_location
-    - field.field.node.event.field_padding
     - field.field.node.event.field_page_access
     - field.field.node.event.field_registration
     - field.field.node.event.field_registration_close_date
@@ -243,13 +241,6 @@ content:
       match_limit: 10
       size: 60
       placeholder: 'Enter place name'
-    third_party_settings: {  }
-  field_padding:
-    type: boolean_checkbox
-    weight: 16
-    region: content
-    settings:
-      display_label: true
     third_party_settings: {  }
   field_page_access:
     type: options_select

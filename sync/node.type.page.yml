@@ -28,7 +28,7 @@ _core:
   default_config_hash: gsNXHyuB9TzMGeWMA8xlZ8Di3qu9lkM1I5-LECM88OY
 name: 'Basic page'
 type: page
-description: "<em>Basic pages</em> may be simple text or complex layouts using sections, callouts, cards, and images. You can optionally include a banner or gallery of images above the page title, or limit page access to Members or Administrators. Since these pages are not linked automatically, you must add them to a menu or link to them from another page.\r\n"
+description: "<em>Basic pages</em> may be simple text or complex layouts using sections, callouts, cards, and images. You can optionally include a banner or gallery of images above the page title, or restrict access to Members or Administrators. Because these pages are not automatically linked, you must manually add them to a menu or link to them from another page.\r\n<p>Note that basic pages lack a \"Summary for Home page\" field; you should use blocks to place permanent content on the home page.</p>\r\n"
 help: "<em>Basic pages</em> display permanent website content. Click <strong>Menu settings</strong> to provide a menu link to the page, or link to this page from other content.<p><p>\r\n"
 new_revision: true
 preview_mode: 1

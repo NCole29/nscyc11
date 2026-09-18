@@ -12,7 +12,7 @@ dependencies:
 id: nsctheme_views_block__club_locations_ride_starts
 theme: nsctheme
 region: full_width_blocks
-weight: -13
+weight: -17
 provider: null
 plugin: 'views_block:club_locations-ride_starts'
 settings:

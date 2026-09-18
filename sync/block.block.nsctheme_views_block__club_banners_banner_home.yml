@@ -11,8 +11,8 @@ dependencies:
     - nsctheme
 id: nsctheme_views_block__club_banners_banner_home
 theme: nsctheme
-region: welcome_text
-weight: 0
+region: banner_pictures
+weight: -15
 provider: null
 plugin: 'views_block:club_banners-banner_home'
 settings:

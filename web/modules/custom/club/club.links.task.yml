@@ -21,6 +21,7 @@ user.edit_myprofile:
 
 # Archived content
 content.archived:
-  title: 'Archived'
+  title: 'Archived content'
   route_name: view.content.archived
   parent_id: system.admin_content
+  weight: 9

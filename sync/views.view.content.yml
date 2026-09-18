@@ -1437,7 +1437,7 @@ display:
     display_plugin: page
     position: 1
     display_options:
-      title: Archived
+      title: 'Archived content'
       fields:
         node_bulk_form:
           id: node_bulk_form
@@ -2176,17 +2176,17 @@ display:
       path: admin/content/archived
       menu:
         type: none
-        title: Content
+        title: Archived
         description: ''
         weight: -10
         expanded: false
         menu_name: admin
-        parent: ''
+        parent: system.admin_content
         context: '0'
-        as_local_task: false
-        local_task_link_title: ''
-        local_task_parent: 'views_view:view.civicrm_mail.page_1'
-        local_task_weight: 0
+        as_local_task: true
+        local_task_link_title: Archived
+        local_task_parent: 'views_view:view.content.admin'
+        local_task_weight: 1
         local_task_custom_parent_route: ''
       tab_options:
         type: normal

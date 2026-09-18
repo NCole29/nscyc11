@@ -24,6 +24,16 @@
   color:#ffffff;
 }
 
+h1.page-title-text span {
+  color: #ffffff;
+  display: inline-flex;
+}
+
+.page-wrapper .site-slogan,
+.page-wrapper .site-name-link {
+  color: #ffffff;
+}
+
 .w3-dark-button,
 .w3-dark-button a:link,
 .w3-dark-button a:visited {
@@ -64,7 +74,7 @@ ul.settings-message {
   background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 3%, #ffffff 100%) !important;
 }
 
-/* Eliminate padding (fixes Calendar & Login menu */
+/* Eliminate padding (fixes Calendar, Login menu) */
 .header-inner {
   padding-top:0!important;
 }
@@ -159,6 +169,7 @@ label, .field__label {
 .active-bottom-1 > .solo-inner,
 .active-footer-1 > .solo-inner) {
   padding-bottom: 0!important;
+  padding-top: 1px!important;
 }
 
 /* Upcoming rides and events blocks on the home page.

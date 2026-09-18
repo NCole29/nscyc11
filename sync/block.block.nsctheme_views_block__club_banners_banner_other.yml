@@ -1,0 +1,25 @@
+uuid: 15b13e4e-9d95-43dc-a8a6-8513935c9060
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.club_banners
+  module:
+    - views
+  theme:
+    - nsctheme
+id: nsctheme_views_block__club_banners_banner_other
+theme: nsctheme
+region: banner_pictures
+weight: -16
+provider: null
+plugin: 'views_block:club_banners-banner_other'
+settings:
+  id: 'views_block:club_banners-banner_other'
+  label: ''
+  label_display: '0'
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: null
+visibility: {  }

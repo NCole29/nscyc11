@@ -54,10 +54,10 @@ class ClubNodes {
         $this->fixImage($node);
         $this->clearContact($node);
 
-        $regType = $node->get('field_registration_type')->value;
-        if ($regType <> 1) {       // 1 = webform
+        $regType = $node->get('field_registration')->value;
+        if ($regType == 0 or $regType ==3) {  // 1 = free webform, 2 = paid webform
           unset($node->field_webform);
-        } elseif ($regType <> 2) {   // 2 = link
+        } elseif ($regType <> 3) {   // 3 = link
           unset($node->field_registration_link);
         }
         $this->clearWebformFields($node);

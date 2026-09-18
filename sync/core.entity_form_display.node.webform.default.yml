@@ -6,9 +6,8 @@ dependencies:
     - field.field.node.webform.banner_image
     - field.field.node.webform.body
     - field.field.node.webform.field_components
-    - field.field.node.webform.field_contact_us
     - field.field.node.webform.field_contact_person
-    - field.field.node.webform.field_padding
+    - field.field.node.webform.field_contact_us
     - field.field.node.webform.field_page_access
     - field.field.node.webform.field_summary
     - field.field.node.webform.field_text
@@ -191,13 +190,6 @@ content:
     weight: 7
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_padding:
-    type: boolean_checkbox
-    weight: 13
-    region: content
-    settings:
-      display_label: true
     third_party_settings: {  }
   field_page_access:
     type: options_select

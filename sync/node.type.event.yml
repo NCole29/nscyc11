@@ -45,7 +45,7 @@ _core:
   default_config_hash: IT2w0M8R-akIPHuSW86ktF-x6AbKEApzviiE9jWU-A0
 name: Event
 type: event
-description: '<em>Events</em> can be free (with optional registration) or paid. They appear on the calendar, the "Events" page, and the homepage (if "Summary for home page" is filled). They remain on the home page until their scheduled date passes. Page visibility can be set to Public, Members, or Administrators.'
+description: '<em>Events</em> may optionally include registration (free or paid). They appear on the calendar and the "Events" page. If "Summary for home page" is filled) the event appears on the home page through the scheduled event date. You can customize each page by optionally adding a top banner or image gallery above the title, or by restricting access to Members or Administrators.'
 help: '<em>Events</em> are listed on the calendar and "Events" page. To display an event on the homepage through its scheduled date, fill out the "Summary for home page" section.'
 new_revision: true
 preview_mode: 1

@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Utility\LinkGeneratorInterface;
 use Drupal\geocoder\DumperPluginManager;
@@ -178,11 +179,11 @@ abstract class GeoPhpGeocodeFormatter extends FileGeocodeFormatter {
       if (array_key_exists($adapter, $adapters)) {
         foreach ($items as $delta => $item) {
           /** @var \Geometry $collection */
-          if ($collection = $this->geocoder->geocode($item->value, $providers)) {
+          if ($collection = $this->geocoder->geocode($item->getValue()['value'] ?? NULL, $providers)) {
             $elements[$delta] = [
               '#type' => 'html_tag',
               '#tag' => 'code',
-              '#value' => \Drupal\Core\Render\Markup::create(
+              '#value' => Markup::create(
                 htmlspecialchars($collection->out($adapter), ENT_QUOTES | ENT_XML1, 'UTF-8')
               ),
             ];

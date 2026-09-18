@@ -12,7 +12,7 @@ dependencies:
 id: nsctheme_welcometonorthshorecyclists
 theme: nsctheme
 region: welcome_text
-weight: 0
+weight: -13
 provider: null
 plugin: 'block_content:919346a2-34ae-4869-afc6-41eee36622fb'
 settings:

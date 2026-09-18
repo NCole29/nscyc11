@@ -7,7 +7,7 @@ configure: layout_builder_restrictions.restriction_plugin_config_form
 dependencies:
   - drupal:layout_builder
 
-# Information added by Drupal.org packaging script on 2026-07-23
-version: '3.0.5'
+# Information added by Drupal.org packaging script on 2026-08-17
+version: '3.0.6'
 project: 'layout_builder_restrictions'
-datestamp: 1784821412
+datestamp: 1786979084

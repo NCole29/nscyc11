@@ -12,7 +12,7 @@ dependencies:
 id: nsctheme_homepageicons
 theme: nsctheme
 region: full_width_blocks
-weight: -12
+weight: -16
 provider: null
 plugin: 'block_content:072779c4-7fc3-4862-852b-91deb3d4c469'
 settings:

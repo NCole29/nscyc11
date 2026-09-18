@@ -107,6 +107,16 @@
   {% include '@solo/partials/_primary-menu.html.twig' %}
   {% endif %}
 
+  {% if site_flip_header_menu %}
+    {% include '@nsctheme/partials/_banners.html.twig' %}
+  {% endif %}
+
+  {% if page.banner_pictures %}
+    <div id="page-banner" class="w3-col w3-clear">
+      {{ page.banner_pictures }}
+    </div>
+  {% endif %}
+  
   {% if site_regions_welcome_disable == 0 %}
   {% include '@solo/partials/_welcome-text.html.twig' %}
   {% endif %}
@@ -129,11 +139,6 @@
 
   {% include '@solo/partials/_system-messages.html.twig' %}
 
-  {% if page.banner_pictures %}
-    <div id="page-banner" class="w3-col w3-clear">
-      {{ page.banner_pictures }}
-    </div>
-  {% endif %}
 
   {% include '@solo/partials/_page-title.html.twig' %}
 

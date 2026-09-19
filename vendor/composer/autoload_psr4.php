@@ -128,7 +128,6 @@ return array(
     'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
     'Egulias\\EmailValidator\\' => array($vendorDir . '/egulias/email-validator/src'),
     'Drush\\' => array($vendorDir . '/drush/drush/src'),
-    'Drupal\\solo_copy_blocks\\' => array($baseDir . '/web/modules/contrib/solo_copy_blocks/src'),
     'Drupal\\rat\\' => array($vendorDir . '/drupal/rat/src'),
     'Drupal\\Core\\' => array($baseDir . '/web/core/lib/Drupal/Core'),
     'Drupal\\Composer\\Plugin\\Scaffold\\' => array($vendorDir . '/drupal/core-composer-scaffold'),

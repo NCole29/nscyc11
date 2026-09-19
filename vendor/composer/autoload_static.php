@@ -322,7 +322,6 @@ class ComposerStaticInitff6226cee62d5ae76e391017291157ee
         'D' =>
         array (
             'Drush\\' => 6,
-            'Drupal\\solo_copy_blocks\\' => 24,
             'Drupal\\rat\\' => 11,
             'Drupal\\Core\\' => 12,
             'Drupal\\Composer\\Plugin\\Scaffold\\' => 32,
@@ -862,10 +861,6 @@ class ComposerStaticInitff6226cee62d5ae76e391017291157ee
         'Drush\\' =>
         array (
             0 => __DIR__ . '/..' . '/drush/drush/src',
-        ),
-        'Drupal\\solo_copy_blocks\\' =>
-        array (
-            0 => __DIR__ . '/../..' . '/web/modules/contrib/solo_copy_blocks/src',
         ),
         'Drupal\\rat\\' =>
         array (

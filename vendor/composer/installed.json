@@ -8261,60 +8261,6 @@
             "install-path": "../../web/themes/contrib/solo"
         },
         {
-            "name": "drupal/solo_copy_blocks",
-            "version": "1.0.2",
-            "version_normalized": "1.0.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/solo_copy_blocks.git",
-                "reference": "1.0.2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/solo_copy_blocks-1.0.2.zip",
-                "reference": "1.0.2",
-                "shasum": "6e192d7d3219a3e35f7dfbff520e6b0c30446179"
-            },
-            "require": {
-                "drupal/core": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "1.0.2",
-                    "datestamp": "1737397046",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Drupal\\solo_copy_blocks\\": "src/"
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Alaa Haddad (alaahaddad.com)",
-                    "homepage": "https://www.drupal.org/u/flashwebcenter",
-                    "role": "Maintainer"
-                }
-            ],
-            "description": "A custom module to copy blocks and config from W3CSS Theme or any sub-theme to Solo Theme.",
-            "homepage": "https://drupal.org/project/solo_copy_blocks",
-            "support": {
-                "source": "https://git.drupalcode.org/project/solo_copy_blocks",
-                "issues": "https://drupal.org/project/issues/solo_copy_blocks"
-            },
-            "install-path": "../../web/modules/contrib/solo_copy_blocks"
-        },
-        {
             "name": "drupal/svg_image",
             "version": "3.2.4",
             "version_normalized": "3.2.4.0",
@@ -8745,58 +8691,6 @@
             "install-path": "../../web/modules/contrib/tooltip_taxonomy"
         },
         {
-            "name": "drupal/typed_data",
-            "version": "2.1.1",
-            "version_normalized": "2.1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/typed_data.git",
-                "reference": "2.1.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/typed_data-2.1.1.zip",
-                "reference": "2.1.1",
-                "shasum": "600cb9527dd93b200355f57ad4da71172ee5f6dc"
-            },
-            "require": {
-                "drupal/core": "^10.3 | ^11"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "2.1.1",
-                    "datestamp": "1728332112",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "installation-source": "dist",
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "fago",
-                    "homepage": "https://www.drupal.org/user/16747"
-                },
-                {
-                    "name": "tr",
-                    "homepage": "https://www.drupal.org/user/202830"
-                }
-            ],
-            "description": "Extends the core Typed Data API with new APIs and features.",
-            "homepage": "https://www.drupal.org/project/typed_data",
-            "support": {
-                "source": "https://git.drupalcode.org/project/typed_data",
-                "issues": "https://www.drupal.org/project/issues/typed_data"
-            },
-            "install-path": "../../web/modules/contrib/typed_data"
-        },
-        {
             "name": "drupal/upgrade_status",
             "version": "4.3.10",
             "version_normalized": "4.3.10.0",
@@ -9062,53 +8956,6 @@
                 "source": "https://git.drupalcode.org/project/views_data_export"
             },
             "install-path": "../../web/modules/contrib/views_data_export"
-        },
-        {
-            "name": "drupal/views_local_tasks",
-            "version": "1.0.2",
-            "version_normalized": "1.0.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/views_local_tasks.git",
-                "reference": "1.0.2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/views_local_tasks-1.0.2.zip",
-                "reference": "1.0.2",
-                "shasum": "82e1d57eb954323cbb3153a88d240e908030bc36"
-            },
-            "require": {
-                "drupal/core": "^8 || ^9 || ^10 || ^11"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "1.0.2",
-                    "datestamp": "1718137037",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "installation-source": "dist",
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "kaszarobert",
-                    "homepage": "https://www.drupal.org/user/3578328"
-                }
-            ],
-            "description": "Create 2nd level menu tabs (local tasks) with views without writing YAML code.",
-            "homepage": "https://www.drupal.org/project/views_local_tasks",
-            "support": {
-                "source": "https://git.drupalcode.org/project/views_local_tasks"
-            },
-            "install-path": "../../web/modules/contrib/views_local_tasks"
         },
         {
             "name": "drupal/views_slideshow",

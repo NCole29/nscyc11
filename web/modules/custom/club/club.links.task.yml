@@ -19,9 +19,46 @@ user.edit_myprofile:
   title: 'Edit profile'
   weight: 2
 
-# Archived content
+# --------------------------------------
+# Add 2nd-level tabs on Content pages
+# --------------------------------------
+
+# Archived content - under Content
 content.archived:
   title: 'Archived content'
   route_name: view.content.archived
   parent_id: system.admin_content
   weight: 9
+
+# Usage - under Media
+media.usage:
+  title: 'Media Usage'
+  route_name: view.media_usage.usage
+  parent_id: entity.media.collection
+  weight: 99
+
+# Define the primary Rides tab before adding 2nd-level tabs
+club.main_rides_tab:
+  title: 'Rides'
+  route_name: view.content_rides.rides
+  base_route: system.admin_content
+  weight: 1
+
+# 2nd-level tabs under Rides
+club.rides_tab:
+  title: 'Rides'
+  route_name: view.content_rides.rides
+  parent_id: club.main_rides_tab
+  weight: 1
+
+club.recurring_rides_tab:
+  title: 'Recurring Rides'
+  route_name: view.content_rides.recurring_rides
+  parent_id: club.main_rides_tab
+  weight: 2
+
+club.moderated_rides_tab:
+  title: 'Moderated rides'
+  route_name: view.moderated_content.moderated_rides
+  parent_id: club.main_rides_tab
+  weight: 3

@@ -132,7 +132,13 @@ class ClubForms {
     //$now = \Drupal::service('date.formatter')->format(time(), 'custom', 'Y-m-d');
     $date = $entity->get('field_date')->date;
     $now = new DrupalDateTime('now');
-    
+    /*
+    d($date);
+    d($now);
+    d($date->format('Y-m-d'));
+    d($now->format('Y-m-d'));
+    die;
+    */
     $pastDate = (!is_null($date->format('Y-m-d')) and $date->format('Y-m-d') < $now->format('Y-m-d')) ;
 
     return $pastDate;

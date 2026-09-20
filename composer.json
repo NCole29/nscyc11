@@ -175,6 +175,7 @@
     "drupal/linkit": "^7.0",
     "drupal/magnific_popup": "^2.1",
     "drupal/mail_login": "^4.0",
+    "drupal/markup": "^2.0",
     "drupal/masquerade": "^2.2",
     "drupal/menu_admin_per_menu": "^1.5",
     "drupal/menu_link_attributes": "^1.7",

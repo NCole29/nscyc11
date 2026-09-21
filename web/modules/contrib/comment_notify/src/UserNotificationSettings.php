@@ -29,7 +29,8 @@ class UserNotificationSettings {
    *
    * @param \Drupal\user\UserDataInterface $userData
    *   The user data service.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory;
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The configuration factory.
    */
   public function __construct(UserDataInterface $userData, ConfigFactoryInterface $configFactory) {
     $this->userData = $userData;
@@ -46,7 +47,7 @@ class UserNotificationSettings {
    *   array if found, else NULL
    */
   public function getSettings($uid) {
-    //$users = &drupal_static(__FUNCTION__);
+    // $users = &drupal_static(__FUNCTION__);
     if (!isset($users[$uid])) {
       if (is_null($uid)) {
         throw new \Exception('Cannot get user preference, uid missing');
@@ -58,7 +59,7 @@ class UserNotificationSettings {
       }
       else {
         $settings = $this->userData->get('comment_notify', $uid);
-        $users[$uid] = empty($settings) ? NULL : $settings;
+        $users[$uid] = empty($settings) ? NULL : $settings + $this->getDefaultSettings();
       }
     }
     return $users[$uid];
@@ -88,11 +89,14 @@ class UserNotificationSettings {
   /**
    * Get a user's default preference.
    *
-   * @param $uid
-   * @param $setting
-   *   Possible values: 'comment_notify', 'entity_notify'
+   * @param int $uid
+   *   The user ID.
+   * @param string $setting
+   *   The setting name. Possible values are 'comment_notify' and
+   *   'entity_notify'.
    *
    * @return string
+   *   The saved setting value.
    */
   public function getSetting($uid, $setting) {
     $settings = $this->getSettings($uid);
@@ -112,7 +116,7 @@ class UserNotificationSettings {
    * @param int $comment_notification
    *   The comment notification value.
    */
-  function saveSettings($uid, $entity_notification = NULL, $comment_notification = NULL) {
+  public function saveSettings($uid, $entity_notification = NULL, $comment_notification = NULL) {
     if (!$uid) {
       throw new \Exception('Cannot set user preference, uid missing');
     }

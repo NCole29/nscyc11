@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.recurring_ride.field_about_recurring_dates
     - field.field.node.recurring_ride.field_about_ride_images
     - field.field.node.recurring_ride.field_activity
     - field.field.node.recurring_ride.field_additional_information
@@ -33,6 +34,7 @@ dependencies:
     - content_moderation
     - datetimehideseconds
     - field_group
+    - markup
     - media_library
     - path
     - smart_date
@@ -44,6 +46,7 @@ third_party_settings:
       children:
         - title
         - field_multiple_times
+        - field_datetime
         - field_time
         - group_master_ride_or_variation_
         - group_date
@@ -62,12 +65,13 @@ third_party_settings:
     group_location_and_routes:
       children:
         - field_location
+        - field_lunch_same
+        - field_lunch_place
         - field_rwgps_routes
-        - group_lunch
       label: 'Location and routes'
       region: content
       parent_name: group_tab_container
-      weight: 4
+      weight: 3
       format_type: tab
       format_settings:
         classes: ''
@@ -79,14 +83,14 @@ third_party_settings:
       children:
         - field_activity
         - field_gravel_category
-        - field_description
-        - field_additional_information
         - group_ride_picture
+        - field_ride_picture
+        - group_ride_info
         - field_developed_by
       label: Description
       region: content
       parent_name: group_tab_container
-      weight: 5
+      weight: 4
       format_type: tab
       format_settings:
         classes: ''
@@ -94,7 +98,7 @@ third_party_settings:
         id: ''
         label_as_html: false
         formatter: closed
-        description: "<big>Use the <strong>Description</strong> field to describe the routes.\r\nUse the <strong>Additional information</strong> field for items such as directions, parking information, details about planned cookouts, and road conditions.</big>"
+        description: ''
         required_fields: true
     group_ride_leader_s_:
       children:
@@ -102,7 +106,7 @@ third_party_settings:
       label: 'Ride leader(s)'
       region: content
       parent_name: group_tab_container
-      weight: 1
+      weight: 2
       format_type: tab
       format_settings:
         classes: ''
@@ -130,40 +134,22 @@ third_party_settings:
         width_breakpoint: 320
     group_date:
       children:
-        - field_datetime
-      label: Date
+        - field_about_recurring_dates
+      label: 'HOW TO ADD AND EDIT RECURRING DATES'
       region: hidden
       parent_name: group_date_and_time
-      weight: 10
+      weight: 19
       format_type: details
       format_settings:
-        classes: ''
+        classes: info-details
         show_empty_fields: false
         id: ''
         label_as_html: false
-        open: true
-        description: "<details class=\"info-details\">\r\n<summary>HOW TO ADD AND EDIT RECURRING DATES</summary>\r\n<p><strong>Start date/time:</strong> The ride page displays the start date and time. The end time is hidden unless changed to differ from the start.</p>\r\n<p><strong>Assigning different start times to different dates?</strong> Save the ride to generate the series of dates in the database. Then edit the ride and click <strong>MANAGE INSTANCES</strong> to \"Override\" and change the time for specific dates.</p>\r\n<p><strong>Excluding specific dates from the series?</strong> After saving and editing the ride, click <strong>MANAGE INSTANCES</strong> to \"Override\" and \"Remove instance\" for specific dates. </p>\r\n\r\n<em>A second date field appears after the page is saved and edited. Leave the second date field empty unless there is a significant gap between dates in the series.</em>\r\n</details>"
-        required_fields: false
-    group_lunch:
-      children:
-        - field_lunch_same
-        - field_lunch_place
-      label: Lunch
-      region: hidden
-      parent_name: group_location_and_routes
-      weight: 15
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
         open: false
         description: ''
-        required_fields: true
+        required_fields: false
     group_master_ride_or_variation_:
-      children:
-        - field_master
-        - field_based_on
+      children: {  }
       label: 'Master ride or variation?'
       region: hidden
       parent_name: group_date_and_time
@@ -178,8 +164,25 @@ third_party_settings:
         required_fields: true
     group_ride_picture:
       children:
-        - field_ride_picture
-      label: 'Ride picture'
+        - field_about_ride_images
+      label: 'HOW TO ADD A RIDE PICTURE'
+      region: content
+      parent_name: group_description
+      weight: 10
+      format_type: details
+      format_settings:
+        classes: info-details
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: true
+    group_ride_info:
+      children:
+        - field_description
+        - field_additional_information
+      label: 'Ride info'
       region: content
       parent_name: group_description
       weight: 12
@@ -190,8 +193,8 @@ third_party_settings:
         id: ''
         label_as_html: false
         open: true
-        description: "<details class=\"info-details\">\r\n<summary>HOW TO ADD A RIDE PICTURE</summary>\r\nClick <strong>Add media</strong> and search for an existing image or upload a new one. \r\n<p>\r\nWhen uploading images:<br>\r\n1) <strong>File size:</strong> Images are capped at 2MB and auto-optimized for display, making larger files unnecessary. If needed, resize images to \"Large\" (max 1920x1080) using Apple Preview (Mac) or <a href=\"https://learn.microsoft.com/en-us/windows/powertoys/image-resizer\">Microsoft PowerToys</a> (Windows).</p\r\n<p>\r\n2)  <strong>Alternative text:</strong> Add a description to make images searchable and easy to re-use.</p>\r\n<p>\r\n3) <strong>Crop:</strong> Click <strong>Crop image</strong> and adjust the frame to ensure a consistent, standard look across all ride pages. </p>\r\n</details>"
-        required_fields: true
+        description: 'Use the <strong>Description</strong> field to describe the routes. Use <strong>Additional information</strong> for items such as directions, parking information, details about planned cookouts, and road conditions.'
+        required_fields: false
 _core:
   default_config_hash: gZ7PlGeTKO0WnadK4hHIzSWn5Z5ElqnPW1BFxvdPQKI
 id: node.recurring_ride.default
@@ -199,6 +202,18 @@ targetEntityType: node
 bundle: recurring_ride
 mode: default
 content:
+  field_about_recurring_dates:
+    type: markup
+    weight: 20
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_about_ride_images:
+    type: markup
+    weight: 13
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_activity:
     type: options_select
     weight: 7
@@ -207,7 +222,7 @@ content:
     third_party_settings: {  }
   field_additional_information:
     type: text_textarea
-    weight: 10
+    weight: 16
     region: content
     settings:
       rows: 5
@@ -216,19 +231,9 @@ content:
       allowed_formats:
         hide_help: '1'
         hide_guidelines: '1'
-  field_based_on:
-    type: entity_reference_autocomplete
-    weight: 13
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   field_datetime:
     type: smartdate_default
-    weight: 10
+    weight: 20
     region: content
     settings:
       modal: false
@@ -259,7 +264,7 @@ content:
           YEARLY: '0'
   field_description:
     type: text_textarea
-    weight: 9
+    weight: 15
     region: content
     settings:
       rows: 5
@@ -313,7 +318,7 @@ content:
     third_party_settings: {  }
   field_lunch_place:
     type: entity_reference_autocomplete
-    weight: 14
+    weight: 16
     region: content
     settings:
       match_operator: CONTAINS
@@ -342,19 +347,13 @@ content:
             selector: ''
   field_lunch_same:
     type: options_select
-    weight: 13
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_master:
-    type: options_buttons
-    weight: 11
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
   field_multiple_times:
     type: boolean_checkbox
-    weight: 9
+    weight: 19
     region: content
     settings:
       display_label: true
@@ -371,14 +370,14 @@ content:
     third_party_settings: {  }
   field_ride_picture:
     type: media_library_widget
-    weight: 12
+    weight: 11
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_rwgps_routes:
     type: entity_reference_autocomplete
-    weight: 15
+    weight: 18
     region: content
     settings:
       match_operator: CONTAINS
@@ -388,7 +387,7 @@ content:
     third_party_settings: {  }
   field_time:
     type: string_textfield
-    weight: 11
+    weight: 21
     region: content
     settings:
       size: 60
@@ -433,7 +432,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 7
+    weight: 18
     region: content
     settings:
       size: 60
@@ -456,9 +455,10 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_about_ride_images: true
+  field_based_on: true
   field_day: true
   field_dayofweek: true
+  field_master: true
   field_registration_required: true
   field_show_and_go: true
   field_webform: true

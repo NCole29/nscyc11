@@ -10,6 +10,8 @@ dependencies:
     - field.field.node.page.field_contact_person
     - field.field.node.page.field_contact_us
     - field.field.node.page.field_page_access
+    - field.field.node.page.field_resize_banner_image
+    - field.field.node.page.field_resize_text_image
     - field.field.node.page.field_text
     - field.field.node.page.field_type_of_page
     - field.field.node.page.layout_builder__layout
@@ -35,6 +37,8 @@ hidden:
   field_contact_person: true
   field_contact_us: true
   field_page_access: true
+  field_resize_banner_image: true
+  field_resize_text_image: true
   field_text: true
   field_type_of_page: true
   layout_builder__layout: true

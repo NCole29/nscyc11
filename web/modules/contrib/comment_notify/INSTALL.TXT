@@ -36,12 +36,12 @@ TEMPLATE TRANSLATION
 --------------------
 
 Notification templates are passed through t() before being added to the
-email's body. Therefore, for you to translate them to other languates you
+email's body. Therefore, for you to translate them to other languages you
 need to:
 
 1. Enable the Locale module.
 
-2. Choose a node in which you are not the auther and has comments and comment
+2. Choose a node in which you are not the author and has comments and comment
 on it. This will send an email to the author and other commenters.
 
 3. Open the Translation Interface, located at
@@ -70,4 +70,3 @@ appear to be duplicates and confuse your site visitors.
 The suggested configuration in these instances is to separate Comment Notify and
 whatever other mail module you have installed. Common ways to separate them are
 by content type or user permissions.
-

@@ -47,10 +47,9 @@ class CommentNotifyTokenReplaceTest extends TokenReplaceKernelTestBase {
   public function testNodeTokenReplacement() {
     // Create a user, a node and a comment.
     $account = $this->createUser();
-    /* @var $node \Drupal\node\NodeInterface */
+    /** @var \Drupal\node\NodeInterface $node */
     $node = Node::create([
       'type' => 'article',
-      'tnid' => 0,
       'uid' => $account->id(),
       'title' => 'test',
     ]);

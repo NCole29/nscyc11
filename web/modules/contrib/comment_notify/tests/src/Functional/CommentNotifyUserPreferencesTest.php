@@ -43,8 +43,9 @@ class CommentNotifyUserPreferencesTest extends CommentNotifyTestBase {
    * It should display different options depending the permissions of the user.
    */
   public function testUserCommentNotifyBox() {
-    // The user hasn't the subscribe to comments permission nor the 'administer
-    // nodes' permission, nor has permission to create content, so it shouldn't
+    // The user does not have the subscribe to comments permission nor the
+    // 'administer nodes' permission, nor permission to create content, so they
+    // should not
     // see any Comment notify settings in the profile page.
     $this->authenticatedUser = $this->drupalCreateUser(
       [
@@ -57,7 +58,7 @@ class CommentNotifyUserPreferencesTest extends CommentNotifyTestBase {
     $this->assertFalse($this->getSession()->getPage()->hasContent(t('Comment follow-up notification settings')));
     $this->drupalLogout();
 
-    // The user only has the 'subscribe to comments' permission, he should be
+    // The user only has the 'subscribe to comments' permission, so they should
     // able to see the Comment Notify settings box but the 'Receive content
     // follow-up notification emails' checkbox shouldn't appear.
     $this->authenticatedUser = $this->drupalCreateUser([
@@ -72,7 +73,7 @@ class CommentNotifyUserPreferencesTest extends CommentNotifyTestBase {
     $this->assertFalse($this->getSession()->getPage()->hasContent(t('Receive content follow-up notification emails')));
     $this->drupalLogout();
 
-    // The user only has the 'administer nodes' permission, he should be
+    // The user only has the 'administer nodes' permission, so they should be
     // able to see the Comment Notify settings box but the 'Comment follow-up
     // notification settings' dropdown shouldn't appear.
     $this->authenticatedUser = $this->drupalCreateUser([
@@ -87,9 +88,9 @@ class CommentNotifyUserPreferencesTest extends CommentNotifyTestBase {
     $this->assertTrue($this->getSession()->getPage()->hasContent(t('Receive content follow-up notification emails')));
     $this->drupalLogout();
 
-    // The user only hasn't the 'administer nodes' permission nor the 'subscribe
-    // to comments' permission but he can create nodes of the type article, so
-    // he should be able to see the Comment Notify settings box with the
+    // The user has neither the 'administer nodes' permission nor the 'subscribe
+    // to comments' permission but can create article nodes, so they should be
+    // able to see the Comment Notify settings box with the
     // 'Receive content follow-up notification emails' checkbox.
     $this->authenticatedUser = $this->drupalCreateUser([
       'post comments',
@@ -103,8 +104,8 @@ class CommentNotifyUserPreferencesTest extends CommentNotifyTestBase {
     $this->assertTrue($this->getSession()->getPage()->hasContent(t('Receive content follow-up notification emails')));
     $this->drupalLogout();
 
-    // The has all the permissions, so he should be able to see all the Comment
-    // notify settings.
+    // The user has all the permissions, so they should be able to see all the
+    // Comment Notify settings.
     $this->authenticatedUser = $this->drupalCreateUser([
       'post comments',
       'skip comment approval',
@@ -151,16 +152,16 @@ class CommentNotifyUserPreferencesTest extends CommentNotifyTestBase {
     $this->getSession()->getPage()->selectFieldOption('comment_notify', COMMENT_NOTIFY_ENTITY);
     $this->getSession()->getPage()->pressButton(t('Save'));
     $this->drupalGet($node->toUrl()->toString());
-    $this->assertTrue($this->getSession()->getPage()->hascheckedField('Notify me when new comments are posted'));
-    $this->assertTrue($this->getSession()->getPage()->hascheckedField('All comments'));
+    $this->assertTrue($this->getSession()->getPage()->hasCheckedField('Notify me when new comments are posted'));
+    $this->assertTrue($this->getSession()->getPage()->hasCheckedField('All comments'));
 
     // Tests the "Replies to my comments" option.
     $this->drupalGet($this->authenticatedUser->toUrl('edit-form')->toString());
     $this->getSession()->getPage()->selectFieldOption('comment_notify', COMMENT_NOTIFY_COMMENT);
     $this->getSession()->getPage()->pressButton(t('Save'));
     $this->drupalGet($node->toUrl()->toString());
-    $this->assertTrue($this->getSession()->getPage()->hascheckedField('Notify me when new comments are posted'));
-    $this->assertTrue($this->getSession()->getPage()->hascheckedField('Replies to my comment'));
+    $this->assertTrue($this->getSession()->getPage()->hasCheckedField('Notify me when new comments are posted'));
+    $this->assertTrue($this->getSession()->getPage()->hasCheckedField('Replies to my comment'));
 
     $this->drupalLogout();
 
@@ -249,6 +250,23 @@ class CommentNotifyUserPreferencesTest extends CommentNotifyTestBase {
     $captured_emails = $this->container->get('state')->get('system.test_mail_collector');
     $this->assertEmpty($captured_emails, 'No notifications has been sent.');
 
+  }
+
+  /**
+   * Tests that missing individual preferences use the configured default.
+   */
+  public function testMissingPreferenceUsesDefault() {
+    $user_settings = $this->container->get('comment_notify.user_settings');
+    $user_settings->saveSettings($this->authenticatedUser->id(), COMMENT_NOTIFY_ENTITY);
+
+    $this->assertSame(
+      $user_settings->getDefaultSettings()['comment_notify'],
+      $user_settings->getSettings($this->authenticatedUser->id())['comment_notify']
+    );
+    $this->assertSame(
+      $user_settings->getDefaultSettings()['comment_notify'],
+      $user_settings->getSetting($this->authenticatedUser->id(), 'comment_notify')
+    );
   }
 
   /**

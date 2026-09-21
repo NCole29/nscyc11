@@ -293,8 +293,10 @@ function _geocoder_field_process(EntityInterface $entity, array $fields): bool {
           Drupal::service('module_handler')->alter('geocode_entity_field_address_string', $value['value'], $field);
 
           // Perform a Geocode operation (and define an error message) only in
-          // case of value to geocode.
-          if (isset($value['value'])) {
+          // case of a non-empty value to geocode. An empty address string
+          // (e.g. a preprocessor that intentionally skips a value) must not
+          // trigger a geocode request.
+          if (isset($value['value']) && trim((string) $value['value']) !== '') {
             $geo_collection = \Drupal::service('geocoder')->geocode($value['value'], $providers);
             $failure_status_message = t("Unable to geocode '@text'.", ['@text' => $value['value'] ?? '']);
           }

@@ -37,7 +37,7 @@ function comment_notify_install() {
  */
 function comment_notify_schema() {
   $schema['comment_notify'] = [
-    'description' => 'Stores information about which commenters on the site have subscriped to followup emails.',
+    'description' => 'Stores information about which commenters on the site have subscribed to follow-up emails.',
     'fields' => [
       'cid' => [
         'type' => 'int',

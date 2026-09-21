@@ -22,11 +22,10 @@ use Symfony\Component\Config\Exception\LogicException;
 abstract class Loader implements LoaderInterface
 {
     protected ?LoaderResolverInterface $resolver = null;
-    protected ?string $env;
 
-    public function __construct(?string $env = null)
-    {
-        $this->env = $env;
+    public function __construct(
+        protected ?string $env = null,
+    ) {
     }
 
     public function getResolver(): LoaderResolverInterface

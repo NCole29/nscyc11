@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.storage.node.field_webform
     - node.type.ride
-    - webform.webform.ride_registration
   module:
     - webform
 id: node.ride.field_webform
@@ -16,13 +15,7 @@ label: 'Registration form'
 description: ''
 required: false
 translatable: false
-default_value:
-  -
-    target_uuid: 617afa87-8967-4a23-a094-938d077b014d
-    default_data: null
-    status: open
-    open: ''
-    close: ''
+default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:webform'

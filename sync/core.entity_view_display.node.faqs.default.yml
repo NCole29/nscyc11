@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.faqs.field_contact_us
     - field.field.node.faqs.field_contact_person
+    - field.field.node.faqs.field_contact_us
     - field.field.node.faqs.field_faq
     - field.field.node.faqs.field_page_access
     - field.field.node.faqs.field_resize_text_image
@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.faqs.field_text_below_faqs
     - node.type.faqs
   module:
+    - club
     - faqfield
     - text
     - user
@@ -21,17 +22,16 @@ bundle: faqs
 mode: default
 content:
   field_contact_person:
-    type: user_contact_link
+    type: contact_person
     label: above
     settings: {  }
     third_party_settings: {  }
     weight: 5
     region: content
   field_contact_us:
-    type: entity_reference_label
+    type: contact_admin_mailbox
     label: above
-    settings:
-      link: true
+    settings: {  }
     third_party_settings: {  }
     weight: 4
     region: content
@@ -39,6 +39,7 @@ content:
     type: faqfield_accordion
     label: visually_hidden
     settings:
+      question_tag: h3
       active: null
       heightStyle: auto
       collapsible: true

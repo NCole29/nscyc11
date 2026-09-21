@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\comment_notify\Functional;
 
-use Drupal\comment\CommentInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\field\Entity\FieldConfig;
 
@@ -52,7 +51,7 @@ class CommentNotifyConfigPageTest extends CommentNotifyTestBase {
     $this->assertSession()->responseContains('The configuration options have been saved.');
     $this->drupalGet("admin/config/people/comment_notify");
     $this->assertTrue($this->getSession()->getPage()->hasUncheckedField('available_alerts[1]'));
-    $this->assertTrue($this->getSession()->getPage()->hascheckedField('available_alerts[2]'));
+    $this->assertTrue($this->getSession()->getPage()->hasCheckedField('available_alerts[2]'));
     // The default state select must hide the option as well.
     $field = $this->getSession()->getPage()->findField('Default state for the notification selection box');
     $this->assertStringNotContainsString('All Comments', $field->getHtml());
@@ -63,7 +62,7 @@ class CommentNotifyConfigPageTest extends CommentNotifyTestBase {
     $this->assertSession()->responseContains('The configuration options have been saved.');
     $this->drupalGet("admin/config/people/comment_notify");
     $this->assertTrue($this->getSession()->getPage()->hasUncheckedField('available_alerts[2]'));
-    $this->assertTrue($this->getSession()->getPage()->hascheckedField('available_alerts[1]'));
+    $this->assertTrue($this->getSession()->getPage()->hasCheckedField('available_alerts[1]'));
     // The default state select must hide the option as well.
     $field = $this->getSession()->getPage()->findField('Default state for the notification selection box');
     $this->assertStringContainsString('All comments', $field->getHtml());
@@ -74,8 +73,8 @@ class CommentNotifyConfigPageTest extends CommentNotifyTestBase {
     $this->submitForm([], 'Save configuration');
     $this->assertSession()->responseContains('The configuration options have been saved.');
     $this->drupalGet("admin/config/people/comment_notify");
-    $this->assertTrue($this->getSession()->getPage()->hascheckedField('available_alerts[1]'));
-    $this->assertTrue($this->getSession()->getPage()->hascheckedField('available_alerts[2]'));
+    $this->assertTrue($this->getSession()->getPage()->hasCheckedField('available_alerts[1]'));
+    $this->assertTrue($this->getSession()->getPage()->hasCheckedField('available_alerts[2]'));
     $field = $this->getSession()->getPage()->findField('Default state for the notification selection box');
     $this->assertStringContainsString('All comments', $field->getHtml());
     $this->assertStringContainsString('Replies to my comment', $field->getHtml());
@@ -168,7 +167,10 @@ class CommentNotifyConfigPageTest extends CommentNotifyTestBase {
     // Tests that a warning error is displayed when anonymous users haven't
     // permission to leave their contact information.
     $comment_field = FieldConfig::loadByName('node', 'article', 'comment');
-    $comment_field->setSetting('anonymous', CommentInterface::ANONYMOUS_MAYNOT_CONTACT);
+    // Drupal 11.4 provides AnonymousContact::Forbidden->value. Use it after
+    // support for Drupal 9 and 10 is dropped.
+    $contact_forbidden = 0;
+    $comment_field->setSetting('anonymous', $contact_forbidden);
     $comment_field->save();
     $this->drupalGet("admin/config/people/comment_notify");
     $this->assertSession()->responseContains('Anonymous commenters have the permission to subscribe to comments but they need to be allowed to:');
@@ -234,7 +236,6 @@ class CommentNotifyConfigPageTest extends CommentNotifyTestBase {
     $result = comment_notify_get_notification_type($comment['id']);
     $this->assertEquals($result, COMMENT_NOTIFY_DISABLED, 'The mail was unsubscribed as expected');
 
-
     // Unsubscribe an email that have several notifications.
     $anonymous_mail2 = $this->getRandomEmailAddress();
     $comment1 = $this->postComment(
@@ -295,6 +296,5 @@ class CommentNotifyConfigPageTest extends CommentNotifyTestBase {
     $result = comment_notify_get_notification_type($comment['id']);
     $this->assertEquals($result, COMMENT_NOTIFY_DISABLED, 'The mail was unsubscribed as expected');
   }
-
 
 }

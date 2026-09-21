@@ -34,9 +34,9 @@ function comment_notify_add_notification($cid, $notify, $notify_hash, $notified)
   if ($results) {
     return (bool) \Drupal::database()->update('comment_notify')
       ->fields([
-        'notify' => $notify === NULL ? 0 : $notify,
+        'notify' => $notify ?? 0,
         'notify_hash' => $notify_hash,
-        'notified' => $notified === NULL ? 0 : $notified,
+        'notified' => $notified ?? 0,
       ])
       ->condition('cid', $cid)
       ->execute();
@@ -47,9 +47,9 @@ function comment_notify_add_notification($cid, $notify, $notify_hash, $notified)
     return (bool) \Drupal::database()->insert('comment_notify')
       ->fields([
         'cid' => $cid,
-        'notify' => $notify === NULL ? 0 : $notify,
+        'notify' => $notify ?? 0,
         'notify_hash' => $notify_hash,
-        'notified' => $notified === NULL ? 0 : $notified,
+        'notified' => $notified ?? 0,
       ])
       ->execute();
   }
@@ -84,7 +84,7 @@ function comment_notify_remove_all_notifications($cid) {
 function comment_notify_update_notification($cid, $notify) {
   return (bool) \Drupal::database()->update('comment_notify')
     ->fields([
-      'notify' => $notify === NULL ? 0 : $notify,
+      'notify' => $notify ?? 0,
     ])
     ->condition('cid', $cid)
     ->execute();
@@ -165,7 +165,10 @@ function comment_notify_mark_comment_as_notified($comment) {
 function comment_notify_unsubscribe_by_email($mail) {
   $comment_query = \Drupal::entityQuery('comment')
     ->accessCheck(TRUE);
-  if ($user = user_load_by_mail($mail)) {
+  $users = \Drupal::entityTypeManager()
+    ->getStorage('user')
+    ->loadByProperties(['mail' => $mail]);
+  if ($user = reset($users)) {
     $comment_query->condition('uid', $user->id());
   }
   else {

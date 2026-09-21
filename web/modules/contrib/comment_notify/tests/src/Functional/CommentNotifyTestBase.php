@@ -3,7 +3,6 @@
 namespace Drupal\Tests\comment_notify\Functional;
 
 use Drupal\comment\Tests\CommentTestTrait;
-use Drupal\comment\CommentInterface;
 use Drupal\Core\Test\AssertMailTrait;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\Tests\BrowserTestBase;
@@ -62,7 +61,10 @@ abstract class CommentNotifyTestBase extends BrowserTestBase {
     ]);
     $this->addDefaultCommentField('node', 'article');
     $comment_field = FieldConfig::loadByName('node', 'article', 'comment');
-    $comment_field->setSetting('anonymous', CommentInterface::ANONYMOUS_MAY_CONTACT);
+    // Drupal 11.4 provides AnonymousContact::Allowed->value. Use it after
+    // support for Drupal 9 and 10 is dropped.
+    $contact_allowed = 1;
+    $comment_field->setSetting('anonymous', $contact_allowed);
     $comment_field->save();
   }
 

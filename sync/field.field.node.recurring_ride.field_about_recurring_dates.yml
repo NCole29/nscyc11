@@ -1,0 +1,24 @@
+uuid: 7b4f02e8-25d3-4940-9e9c-ecdec0307a3a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_about_recurring_dates
+    - node.type.recurring_ride
+  module:
+    - markup
+id: node.recurring_ride.field_about_recurring_dates
+field_name: field_about_recurring_dates
+entity_type: node
+bundle: recurring_ride
+label: 'About recurring dates'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: '<p><strong>Start date/time:</strong> The ride page displays the start date and time. The end time is hidden unless changed to differ from the start.</p><p><strong>Assigning different start times to different dates?&nbsp;</strong> Save the ride to generate the series of dates in the database. Then edit the ride and click &lt;strong&gt;MANAGE INSTANCES&lt;/strong&gt; to "Override" and change the time for specific dates.</p><p><strong>Excluding specific dates from the series?&nbsp;</strong> After saving and editing the ride, click <strong>MANAGE INSTANCES</strong> to "Override" and "Remove instance" for specific dates.&nbsp;</p><p>Note: A second date field appears after the page is saved and edited. Do not use this field unless there is a significant gap between dates in the series.</p>'
+    format: basic_html
+field_type: markup

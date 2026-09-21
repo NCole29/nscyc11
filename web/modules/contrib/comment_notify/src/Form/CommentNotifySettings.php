@@ -2,7 +2,6 @@
 
 namespace Drupal\comment_notify\Form;
 
-use Drupal\comment\CommentInterface;
 use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\EntityInterface;
@@ -73,6 +72,8 @@ class CommentNotifySettings extends ConfigFormBase {
    *   The entity field manager.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler service.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger service.
    * @param \Drupal\Core\Config\TypedConfigManagerInterface|null $typed_config_manager
    *   The typed config manager.
    */
@@ -105,7 +106,10 @@ class CommentNotifySettings extends ConfigFormBase {
       $entity_types[$entity_type][] = $comment_field_identifier;
       $comment_field = FieldConfig::loadByName($entity_type, $entity_bundle, $field_name);
 
-      if (in_array($entity_type . '--' . $entity_bundle . '--' . $field_name, $enabled_bundles) && $comment_field && $comment_field->getSetting('anonymous') == CommentInterface::ANONYMOUS_MAYNOT_CONTACT) {
+      // Drupal 11.4 provides AnonymousContact::Forbidden->value. Use it after
+      // support for Drupal 9 and 10 is dropped.
+      $contact_forbidden = 0;
+      if (in_array($entity_type . '--' . $entity_bundle . '--' . $field_name, $enabled_bundles) && $comment_field && $comment_field->getSetting('anonymous') == $contact_forbidden) {
         if (User::getAnonymousUser()->hasPermission('subscribe to comments')) {
           // Provide a link if the field_ui module is installed.
           if ($this->moduleHandler->moduleExists('field_ui')) {
@@ -200,11 +204,11 @@ class CommentNotifySettings extends ConfigFormBase {
       // The #states logic is rather messy. It needs to allow any of the
       // checkboxes for a specific entity type to make the email fields visible
       // so each checkbox has to be part of a jQuery OR selector.
-      $checkboxeses = [];
+      $checkbox_selectors = [];
       foreach ($checkboxes as $checkbox) {
-        $checkboxeses[] = ':input[name="bundle_types[' . $checkbox . ']"]';
+        $checkbox_selectors[] = ':input[name="bundle_types[' . $checkbox . ']"]';
       }
-      $checkboxeses = implode(',', $checkboxeses);
+      $checkbox_selectors = implode(',', $checkbox_selectors);
 
       $form['mail_templates']['watcher'][$entity_type] = [
         '#type' => 'container',
@@ -220,7 +224,7 @@ class CommentNotifySettings extends ConfigFormBase {
         '#element_validate' => ['token_element_validate'],
         '#states' => [
           'visible' => [
-            $checkboxeses => [
+            $checkbox_selectors => [
               'checked' => TRUE,
             ],
           ],
@@ -242,7 +246,7 @@ class CommentNotifySettings extends ConfigFormBase {
         '#element_validate' => ['token_element_validate'],
         '#states' => [
           'visible' => [
-            $checkboxeses => [
+            $checkbox_selectors => [
               'checked' => TRUE,
             ],
           ],
@@ -263,7 +267,7 @@ class CommentNotifySettings extends ConfigFormBase {
         '#element_validate' => ['token_element_validate'],
         '#states' => [
           'visible' => [
-            $checkboxeses => [
+            $checkbox_selectors => [
               'checked' => TRUE,
             ],
           ],
@@ -277,7 +281,7 @@ class CommentNotifySettings extends ConfigFormBase {
         '#default_value' => $config->get('mail_templates.entity_author.' . $entity_type . '.body'),
         '#cols' => 80,
         '#rows' => 15,
-        // @todo: Change token from 'node' to 'entity'
+        // @todo Change token from 'node' to 'entity'.
         // See Issue #1061750 on Drupal.org
         '#token_types' => [
           'comment', $entity_type, 'user',
@@ -285,7 +289,7 @@ class CommentNotifySettings extends ConfigFormBase {
         '#element_validate' => ['token_element_validate'],
         '#states' => [
           'visible' => [
-            $checkboxeses => [
+            $checkbox_selectors => [
               'checked' => TRUE,
             ],
           ],

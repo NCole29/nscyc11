@@ -12,7 +12,7 @@ field_name: field_multiple_times
 entity_type: node
 bundle: recurring_ride
 label: 'Multiple start times?'
-description: "Check to make <em>Time</em> field visible. Enter earliest time in date field and all times/conditions in <em>Time</em> field. \r\n<br>Multiple times may depend on time of year, route distance, or other condition.\r\n<br><strong>You must MANAGE INSTANCES in the Date field to set time corresponding with the information in this field.</strong>"
+description: "Check to make <em>Time</em> field visible under Date. Enter earliest time in date field and all times/conditions in <em>Time</em> field. Multiple times may depend on route distance, or other condition.\r\n<br>See HOW TO ADD AND EDIT RECURRING DATES to set different times by time of year."
 required: false
 translatable: false
 default_value:

@@ -2,3 +2,6 @@ services:
   comment_notify.user_settings:
     class: Drupal\comment_notify\UserNotificationSettings
     arguments: ['@user.data', '@config.factory']
+  Drupal\comment_notify\Hook\CommentNotifyHooks:
+    class: Drupal\comment_notify\Hook\CommentNotifyHooks
+    autowire: true

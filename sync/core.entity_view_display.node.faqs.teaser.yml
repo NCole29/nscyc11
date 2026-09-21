@@ -4,8 +4,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.faqs.field_contact_us
     - field.field.node.faqs.field_contact_person
+    - field.field.node.faqs.field_contact_us
     - field.field.node.faqs.field_faq
     - field.field.node.faqs.field_page_access
     - field.field.node.faqs.field_resize_text_image

@@ -64,7 +64,7 @@ class CommentNotifyAnonymousTest extends CommentNotifyTestBase {
     $this->assertEquals($result, $subscribe['notify_type'], 'All Comments option was saved properly.');
 
     // Tests that the user receives the email if a new comment is posted.
-    $this->postComment(
+    $notifying_comment = $this->postComment(
       $node->toUrl()->toString(),
       $this->randomMachineName(),
       $this->randomMachineName(),
@@ -72,9 +72,10 @@ class CommentNotifyAnonymousTest extends CommentNotifyTestBase {
       ['name' => $this->randomMachineName(), 'mail' => $this->getRandomEmailAddress()]
     );
     $this->assertMail('to', $contact['mail'], t('Message was sent to the anonymous user.'));
+    $mails = $this->getMails();
+    $this->assertSame($notifying_comment['id'], $mails[0]['params']['cid']);
 
     // Test the unsubscribe link.
-    $mails = $this->getMails();
     preg_match("/\/comment_notify\/disable\/.+/", $mails[0]['body'], $output);
     $this->drupalGet($output[0]);
     $this->assertTrue($this->getSession()->getPage()->hasContent("Your comment follow-up notification for this post was disabled. Thanks."));

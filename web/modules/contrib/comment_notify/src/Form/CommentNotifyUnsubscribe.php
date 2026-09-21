@@ -42,6 +42,8 @@ class CommentNotifyUnsubscribe extends FormBase {
    *
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   Messenger service.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler service.
    */
   public function __construct(MessengerInterface $messenger, ModuleHandlerInterface $module_handler) {
     $this->messenger = $messenger;

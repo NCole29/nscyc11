@@ -146,4 +146,5 @@ theme:
   solo: 0
   nsctheme: 0
   default_admin: 0
+  claro: 0
 profile: minimal

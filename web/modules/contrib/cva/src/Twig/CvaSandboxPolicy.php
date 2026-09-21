@@ -23,4 +23,3 @@ final class CvaSandboxPolicy extends TwigSandboxPolicy {
   }
 
 }
-

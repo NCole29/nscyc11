@@ -107,10 +107,10 @@ bottom_3col: solo-col-1-1-1
 bottom_4col: solo-col-1-1-1-1
 footer_2col: solo-col-1-1
 footer_3col: solo-col-1-1-1
-count_main: 2
-count_top: 3
+count_main: 3
+count_top: 0
 count_bottom: 0
-count_footer: 3
+count_footer: 2
 classes_page_wrapper: ''
 opacity_page_wrapper: false
 classes_header: ''

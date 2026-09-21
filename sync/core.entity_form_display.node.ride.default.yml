@@ -43,6 +43,7 @@ dependencies:
     - datetimehideseconds
     - field_group
     - link
+    - markup
     - media_library
     - path
     - text
@@ -56,11 +57,10 @@ third_party_settings:
         - field_date
         - field_time
         - field_cancel
-        - group_master_ride_or_variation_
       label: 'Basic info'
       region: content
       parent_name: group_ta
-      weight: 39
+      weight: 17
       format_type: tab
       format_settings:
         classes: ''
@@ -72,15 +72,12 @@ third_party_settings:
     group_location_and_routes:
       children:
         - field_location
-        - field_lunch_same
-        - field_lunch_place
         - field_rwgps_routes
-        - field_rwgps
         - group_lunch
       label: 'Location and routes'
       region: content
       parent_name: group_ta
-      weight: 41
+      weight: 19
       format_type: tab
       format_settings:
         classes: ''
@@ -91,8 +88,8 @@ third_party_settings:
         required_fields: true
     group_description:
       children:
-        - field_ride_picture
         - field_activity
+        - field_ride_picture
         - field_gravel_category
         - field_description
         - field_additional_information
@@ -101,7 +98,7 @@ third_party_settings:
       label: Description
       region: content
       parent_name: group_ta
-      weight: 42
+      weight: 20
       format_type: tab
       format_settings:
         classes: ''
@@ -117,7 +114,7 @@ third_party_settings:
       label: 'Ride leader(s)'
       region: content
       parent_name: group_ta
-      weight: 40
+      weight: 18
       format_type: tab
       format_settings:
         classes: ''
@@ -133,6 +130,7 @@ third_party_settings:
         - group_location_and_routes
         - group_description
         - group_registration
+        - group_register
       label: 'Tab container'
       region: content
       parent_name: ''
@@ -149,12 +147,12 @@ third_party_settings:
         - field_registration
         - field_registration_free_form
         - field_registration_form
-        - field_registration_link
         - field_results_access
+        - field_registration_link
       label: Registration
       region: content
       parent_name: group_ta
-      weight: 43
+      weight: 21
       format_type: tab
       format_settings:
         classes: ''
@@ -164,7 +162,9 @@ third_party_settings:
         description: ''
         required_fields: true
     group_lunch:
-      children: {  }
+      children:
+        - field_lunch_same
+        - field_lunch_place
       label: Lunch
       region: hidden
       parent_name: group_location_and_routes
@@ -180,9 +180,9 @@ third_party_settings:
     group_master_ride_or_variation_:
       children: {  }
       label: 'Master ride or variation?'
-      region: hidden
-      parent_name: group_date_and_time
-      weight: 4
+      region: content
+      parent_name: ''
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -193,19 +193,38 @@ third_party_settings:
         description: "Help keep the Master ride list clean of duplicates!<br>\r\nIf adding a new ride (not cloning a ride), please code if its a \"master ride\" or variation of an existing ride.<br>Variations have slightly different routes, or they start from a different place along the route."
         required_fields: true
     group_ride_picture:
-      children: {  }
-      label: 'Ride picture'
+      children:
+        - field_about_ride_images
+      label: 'HOW TO ADD A RIDE PICTURE'
       region: hidden
       parent_name: group_description
-      weight: 52
+      weight: 63
       format_type: details
+      format_settings:
+        classes: info-details
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: false
+    group_register:
+      children:
+        - field_registration_required
+        - field_webform
+        - field_webform_limit
+      label: Registration
+      region: content
+      parent_name: group_ta
+      weight: 22
+      format_type: tab
       format_settings:
         classes: ''
         show_empty_fields: false
         id: ''
         label_as_html: false
-        open: true
-        description: "<details class=\"info-details\">\r\n<summary>HOW TO ADD A RIDE PICTURE</summary>\r\nClick <strong>Add media</strong> and search for an existing image or upload a new one. \r\n<p>\r\nWhen uploading images:<br>\r\n1) <strong>File size:</strong> Images are capped at 2MB and auto-optimized for display, making larger files unnecessary. If needed, resize images to \"Large\" (max 1920x1080) using Apple Preview (Mac) or <a href=\"https://learn.microsoft.com/en-us/windows/powertoys/image-resizer\">Microsoft PowerToys</a> (Windows).</p\r\n<p>\r\n2)  <strong>Alternative text:</strong> Add a description to make images searchable and easy to re-use.</p>\r\n<p>\r\n3) <strong>Crop:</strong> Click <strong>Crop image</strong> and adjust the frame to ensure a consistent, standard look across all ride pages. </p>\r\n</details>"
+        formatter: closed
+        description: ''
         required_fields: false
 _core:
   default_config_hash: dehOIVUVbvF3zUiSvBPcL5EgwlPj95Thwp9Q7xA4aro
@@ -214,15 +233,21 @@ targetEntityType: node
 bundle: ride
 mode: default
 content:
+  field_about_ride_images:
+    type: markup
+    weight: 64
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_activity:
     type: options_select
-    weight: 54
+    weight: 62
     region: content
     settings: {  }
     third_party_settings: {  }
   field_additional_information:
     type: text_textarea
-    weight: 58
+    weight: 68
     region: content
     settings:
       rows: 5
@@ -248,7 +273,7 @@ content:
         hide: true
   field_description:
     type: text_textarea
-    weight: 57
+    weight: 67
     region: content
     settings:
       rows: 5
@@ -259,7 +284,7 @@ content:
         hide_guidelines: '1'
   field_developed_by:
     type: string_textfield
-    weight: 59
+    weight: 69
     region: content
     settings:
       size: 60
@@ -267,7 +292,7 @@ content:
     third_party_settings: {  }
   field_gravel_category:
     type: options_select
-    weight: 55
+    weight: 66
     region: content
     settings: {  }
     third_party_settings:
@@ -302,7 +327,7 @@ content:
     third_party_settings: {  }
   field_lunch_place:
     type: entity_reference_autocomplete
-    weight: 49
+    weight: 50
     region: content
     settings:
       match_operator: CONTAINS
@@ -331,7 +356,7 @@ content:
             selector: ''
   field_lunch_same:
     type: options_select
-    weight: 48
+    weight: 49
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -344,94 +369,47 @@ content:
     third_party_settings: {  }
   field_registration:
     type: options_buttons
-    weight: 5
+    weight: 20
     region: content
     settings: {  }
     third_party_settings: {  }
   field_registration_form:
     type: webform_entity_reference_select
-    weight: 7
+    weight: 22
     region: content
     settings:
       default_data: true
       webforms: {  }
     third_party_settings:
-      conditional_fields:
-        324fc9ea-e6dd-4018-b402-20094b047c8d:
-          entity_type: node
-          bundle: ride
-          dependee: field_registration
-          settings:
-            state: visible
-            reset: false
-            condition: value
-            grouping: AND
-            values_set: 1
-            value: ''
-            values: {  }
-            value_form:
-              -
-                value: '2'
-            effect: show
-            effect_options: {  }
-            selector: ''
+      conditional_fields: {  }
   field_registration_free_form:
     type: webform_entity_reference_select
-    weight: 6
+    weight: 21
     region: content
     settings:
       default_data: true
       webforms: {  }
     third_party_settings:
-      conditional_fields:
-        e29d42aa-8ebc-47f3-a092-03e2d63e2714:
-          entity_type: node
-          bundle: ride
-          dependee: field_registration
-          settings:
-            state: visible
-            reset: false
-            condition: value
-            grouping: AND
-            values_set: 1
-            value: ''
-            values: {  }
-            value_form:
-              -
-                value: '1'
-            effect: show
-            effect_options: {  }
-            selector: ''
+      conditional_fields: {  }
   field_registration_link:
     type: link_default
-    weight: 9
+    weight: 24
     region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings:
-      conditional_fields:
-        b2dd96dc-fa99-48f0-9636-029e9d137a69:
-          entity_type: node
-          bundle: ride
-          dependee: field_registration
-          settings:
-            state: visible
-            reset: false
-            condition: value
-            grouping: AND
-            values_set: 1
-            value: ''
-            values: {  }
-            value_form:
-              -
-                value: '3'
-            effect: show
-            effect_options: {  }
-            selector: ''
+      conditional_fields: {  }
+  field_registration_required:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_results_access:
     type: entity_reference_autocomplete
-    weight: 10
+    weight: 23
     region: content
     settings:
       match_operator: CONTAINS
@@ -439,25 +417,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings:
-      conditional_fields:
-        d215ea03-348d-40e1-aca1-9e9d63599567:
-          entity_type: node
-          bundle: ride
-          dependee: field_registration
-          settings:
-            state: visible
-            reset: false
-            condition: value
-            grouping: AND
-            values_set: 5
-            value: ''
-            values: "0\r\n3"
-            value_form:
-              -
-                value: '0'
-            effect: show
-            effect_options: {  }
-            selector: ''
+      conditional_fields: {  }
   field_ride_leader:
     type: entity_reference_autocomplete
     weight: 53
@@ -470,14 +430,14 @@ content:
     third_party_settings: {  }
   field_ride_picture:
     type: media_library_widget
-    weight: 53
+    weight: 65
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_rwgps_routes:
     type: entity_reference_autocomplete
-    weight: 50
+    weight: 49
     region: content
     settings:
       match_operator: CONTAINS
@@ -494,25 +454,62 @@ content:
       placeholder: 'Enter time and condition. E.g., 9 am for long ride'
     third_party_settings:
       conditional_fields:
-        71bfeacd-3358-4599-a9b6-f12ceddb4229:
+        00444e01-539f-49ee-a1a9-a906ce7142d3:
           entity_type: node
           bundle: ride
           dependee: field_multiple_times
           settings:
             state: visible
-            condition: value
+            reset: false
+            condition: checked
             grouping: AND
             values_set: 1
             value: ''
             values: {  }
-            value_form: {  }
+            value_form:
+              value: false
             effect: show
             effect_options: {  }
             selector: ''
-        00444e01-539f-49ee-a1a9-a906ce7142d3:
+  field_webform:
+    type: webform_entity_reference_select
+    weight: 8
+    region: content
+    settings:
+      default_data: true
+      webforms:
+        - ride_registration
+    third_party_settings:
+      conditional_fields:
+        12b1f9e9-efc3-4846-8cb0-6f5eda38c6ca:
           entity_type: node
           bundle: ride
-          dependee: field_multiple_times
+          dependee: field_registration_required
+          settings:
+            state: visible
+            reset: false
+            condition: checked
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              value: false
+            effect: show
+            effect_options: {  }
+            selector: ''
+  field_webform_limit:
+    type: number
+    weight: 9
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings:
+      conditional_fields:
+        34b41a2b-ce47-409f-9e83-9bb7b868f04f:
+          entity_type: node
+          bundle: ride
+          dependee: field_registration_required
           settings:
             state: visible
             reset: false
@@ -570,17 +567,13 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_about_ride_images: true
   field_based_on: true
   field_day: true
   field_dayofweek: true
   field_master: true
-  field_registration_required: true
   field_schedule_date: true
   field_show_and_go: true
-  field_webform: true
   field_webform_closing: true
-  field_webform_limit: true
   promote: true
   publish_on: true
   sticky: true

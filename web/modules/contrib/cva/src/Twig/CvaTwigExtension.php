@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\cva\Twig;
 
-use Twig\Extra\Html\HtmlExtension;
 use Twig\Extension\AbstractExtension;
+use Twig\Extra\Html\HtmlExtension;
 
 /**
  * Twig extension that exposes the html_cva function from Twig's HtmlExtension.
@@ -14,6 +14,9 @@ use Twig\Extension\AbstractExtension;
  */
 final class CvaTwigExtension extends AbstractExtension {
 
+  /**
+   * The upstream Twig HTML extension that provides html_cva().
+   */
   private readonly HtmlExtension $htmlExtension;
 
   public function __construct() {
@@ -33,4 +36,3 @@ final class CvaTwigExtension extends AbstractExtension {
   }
 
 }
-

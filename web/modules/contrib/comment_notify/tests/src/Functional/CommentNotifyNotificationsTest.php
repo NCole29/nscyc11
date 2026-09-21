@@ -2,18 +2,18 @@
 
 namespace Drupal\Tests\comment_notify\Functional;
 
-use Drupal\comment\CommentInterface;
 use Drupal\comment\Entity\Comment;
-use Drupal\comment\Plugin\Field\FieldType\CommentItemInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\Tests\taxonomy\Traits\TaxonomyTestTrait;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests that all the notifications are sent as expected.
  *
  * @group comment_notify
  */
+#[RunTestsInSeparateProcesses]
 class CommentNotifyNotificationsTest extends CommentNotifyTestBase {
 
   use TaxonomyTestTrait;
@@ -68,6 +68,8 @@ class CommentNotifyNotificationsTest extends CommentNotifyTestBase {
     );
     // Test that the notification was sent.
     $this->assertMail('to', $user1->getEmail(), t('Message was sent to the user.'));
+    $mails = $this->getMails();
+    $this->assertSame($comment['id'], $mails[0]['params']['cid']);
     $this->container->get('state')->set('system.test_mail_collector', []);
 
     // Edit the comment, no notification must be sent.
@@ -81,11 +83,45 @@ class CommentNotifyNotificationsTest extends CommentNotifyTestBase {
   }
 
   /**
+   * Tests that subscribers without an email address are skipped.
+   */
+  public function testSubscriberWithoutEmailAddress() {
+    $subscriber = $this->drupalCreateUser($this->permissions);
+    $subscriber->setEmail(NULL);
+    $subscriber->save();
+    $commenter = $this->drupalCreateUser($this->permissions);
+    $node = $this->drupalCreateNode(['type' => 'article']);
+
+    $this->drupalLogin($subscriber);
+    $comment = $this->postComment(
+      $node->toUrl()->toString(),
+      $this->randomMachineName(),
+      $this->randomMachineName(),
+      ['notify' => TRUE, 'notify_type' => COMMENT_NOTIFY_COMMENT]
+    );
+    $this->drupalLogout();
+
+    $this->drupalLogin($commenter);
+    $reply = $this->postComment(
+      "/comment/reply/node/{$node->id()}/comment/{$comment['id']}",
+      $this->randomMachineName(),
+      $this->randomMachineName(),
+      ['notify' => FALSE, 'notify_type' => COMMENT_NOTIFY_COMMENT]
+    );
+
+    $this->assertNotFalse($reply);
+    $this->assertEmpty($this->getMails());
+  }
+
+  /**
    * Tests the notifications are sent correctly with multiple comment types.
    */
   public function testCommentTypeNotification() {
     // Add a second comment type.
-    $this->addDefaultCommentField('node', 'article', 'field_comment', CommentItemInterface::OPEN, 'comment_type_2');
+    // Drupal 11.4 provides CommentingStatus::Open->value. Use it after support
+    // for Drupal 9 and 10 is dropped.
+    $comments_open = 2;
+    $this->addDefaultCommentField('node', 'article', 'field_comment', $comments_open, 'comment_type_2');
     /** @var \Drupal\Core\Config\Config $config */
     $config = $this->container->get('config.factory')->getEditable('comment_notify.settings');
     $config->set('bundle_types', ['node--article--comment', 'node--article--field_comment']);
@@ -174,9 +210,15 @@ class CommentNotifyNotificationsTest extends CommentNotifyTestBase {
   public function testEntityNotification() {
     /** @var \Drupal\taxonomy\Entity\Vocabulary $vocabulary */
     $vocabulary = $this->createVocabulary();
-    $this->addDefaultCommentField('taxonomy_term', $vocabulary->id(), 'field_comment_taxonomy', CommentItemInterface::OPEN, 'comment_type_2');
+    // Drupal 11.4 provides CommentingStatus::Open->value. Use it after support
+    // for Drupal 9 and 10 is dropped.
+    $comments_open = 2;
+    $this->addDefaultCommentField('taxonomy_term', $vocabulary->id(), 'field_comment_taxonomy', $comments_open, 'comment_type_2');
     $comment_field = FieldConfig::loadByName('taxonomy_term', $vocabulary->id(), 'field_comment_taxonomy');
-    $comment_field->setSetting('anonymous', CommentInterface::ANONYMOUS_MAY_CONTACT);
+    // Drupal 11.4 provides AnonymousContact::Allowed->value. Use it after
+    // support for Drupal 9 and 10 is dropped.
+    $contact_allowed = 1;
+    $comment_field->setSetting('anonymous', $contact_allowed);
     $comment_field->save();
 
     /** @var \Drupal\Core\Config\Config $config */

@@ -70,6 +70,13 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t($geocoder_config_schema['queue']['description']),
       '#default_value' => $config->get('queue'),
     ];
+
+    $form['geocode_country_only_address'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t($geocoder_config_schema['geocode_country_only_address']['label']),
+      '#description' => $this->t($geocoder_config_schema['geocode_country_only_address']['description']),
+      '#default_value' => $config->get('geocode_country_only_address') ?? TRUE,
+    ];
     // phpcs:enable Drupal.Semantics.FunctionT.NotLiteralString
 
     return parent::buildForm($form, $form_state);
@@ -91,6 +98,7 @@ class SettingsForm extends ConfigFormBase {
     $config->set('geocoder_presave_disabled', $form_state_values['geocoder_presave_disabled']);
     $config->set('cache', $form_state_values['cache']);
     $config->set('queue', $form_state_values['queue']);
+    $config->set('geocode_country_only_address', $form_state_values['geocode_country_only_address']);
     $config->save();
 
     parent::submitForm($form, $form_state);

@@ -1,14 +1,13 @@
 (function ($, Drupal) {
-  "use strict";
-
   Drupal.behaviors.commentNotify = {
-    attach: function (context) {
+    attach(context) {
       $("#edit-notify, [id^='edit-notify--']", context)
-        .bind("change", function () {
-          $("#edit-notify-type, [id^='edit-notify-type--']", context)
-            [this.checked ? "show" : "hide"]()
+        .on('change', function () {
+          $("#edit-notify-type, [id^='edit-notify-type--']", context)[
+            this.checked ? 'show' : 'hide'
+          ]();
         })
-        .trigger("change");
+        .trigger('change');
     },
   };
 })(jQuery, Drupal);

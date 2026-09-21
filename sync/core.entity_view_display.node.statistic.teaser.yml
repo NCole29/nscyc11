@@ -1,6 +1,6 @@
 uuid: 2bff18b5-a79f-4bd4-b90d-3ce69b69a573
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
@@ -15,12 +15,19 @@ targetEntityType: node
 bundle: statistic
 mode: teaser
 content:
+  field_category:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden:
-  field_category: true
   field_number: true
   field_year: true

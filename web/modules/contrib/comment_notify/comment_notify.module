@@ -13,11 +13,13 @@ use Drupal\comment_notify\Form\CommentNotifySettings;
 use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Hook\Attribute\LegacyHook;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\user\Entity\User;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\comment_notify\Hook\CommentNotifyHooks;
 
 define('COMMENT_NOTIFY_DISABLED', 0);
 define('COMMENT_NOTIFY_ENTITY', 1);
@@ -173,7 +175,7 @@ function _comment_notify_submit_comment_form(array &$form, FormStateInterface $f
     // identifier. It is stored and referenced, we really just need something
     // unique/unguessable. See comment_notify_unsubscribe_by_hash().
     // @todo make the comment_notify_add_notification() generate the hash.
-    $hostname = !$comment->getHostname() ? $comment->getHostname() : (isset($user->hostname) ? $user->hostname : '');
+    $hostname = !$comment->getHostname() ? $comment->getHostname() : ($user->hostname ?? '');
     $notify_hash = \Drupal::csrfToken()->get($hostname . $comment->id());
     comment_notify_add_notification($comment->id(), $status, $notify_hash, $comment->notified);
   }
@@ -265,7 +267,7 @@ function comment_notify_form_user_form_alter(&$form, FormStateInterface &$form_s
     $form['comment_notify_settings']['entity_notify'] = [
       '#type' => 'checkbox',
       '#title' => t('Receive content follow-up notification emails'),
-      '#default_value' => isset($notify_settings['entity_notify']) ? $notify_settings['entity_notify'] : NULL,
+      '#default_value' => $notify_settings['entity_notify'] ?? NULL,
       '#description' => t('Check this box to receive email notifications for comments on your <strong>content</strong> (e.g. an article authored by you). You cannot disable notifications for individual threads.'),
     ];
   }
@@ -282,9 +284,9 @@ function comment_notify_form_user_form_alter(&$form, FormStateInterface &$form_s
     $form['comment_notify_settings']['comment_notify'] = [
       '#type' => 'select',
       '#title' => t('Receive comment follow-up notification emails'),
-      '#default_value' => isset($notify_settings['comment_notify']) ? $notify_settings['comment_notify'] : NULL,
+      '#default_value' => $notify_settings['comment_notify'] ?? NULL,
       '#options' => $available_options,
-      '#description' => t("Choose whether, by default, to subscribe to email notifications for replies to your own <strong>comments</strong>. Your site administrator may have customised the options available. You can change this setting on a per-comment basis, and later unsubscribe from individual posts."),
+      '#description' => t("Choose whether, by default, to subscribe to email notifications for replies to your own <strong>comments</strong>. Your site administrator may have customized the options available. You can change this setting on a per-comment basis, and later unsubscribe from individual posts."),
     ];
   }
   else {
@@ -402,7 +404,10 @@ function _comment_notify_mailalert(CommentInterface $comment) {
 
   if (empty($comment->getAuthorEmail())) {
     /** @var \Drupal\user\UserInterface $comment_account */
-    if ($comment_account = user_load_by_name($comment->getAuthorName())) {
+    $comment_accounts = \Drupal::entityTypeManager()
+      ->getStorage('user')
+      ->loadByProperties(['name' => $comment->getAuthorName()]);
+    if ($comment_account = reset($comment_accounts)) {
       $comment_mail = $comment_account->getEmail() ?: '';
     }
     else {
@@ -455,6 +460,7 @@ function _comment_notify_mailalert(CommentInterface $comment) {
         }
         $message['subject'] = PlainTextOutput::renderFromHtml(\Drupal::token()->replace($raw_values['subject'], $token_data));
         $message['body'] = \Drupal::token()->replace($raw_values['body'], $token_data);
+        $message['cid'] = $comment->id();
 
         $language = $author->getPreferredLangcode();
         \Drupal::service('plugin.manager.mail')->mail('comment_notify', 'comment_notify_mail', $author->getEmail(), $language, $message);
@@ -473,9 +479,14 @@ function _comment_notify_mailalert(CommentInterface $comment) {
 
   foreach ($watchers as $alert) {
     // If the user is not anonymous, always load the current email address
-    // from his or her user account instead of trusting $comment->mail.
+    // from their user account instead of trusting $comment->mail.
     $recipient_user = $alert->getOwner();
     $mail = !empty($recipient_user->getEmail()) ? $recipient_user->getEmail() : $alert->getAuthorEmail();
+    // A registered subscriber may have no email address on their account. The
+    // mail manager requires a string recipient, so skip such subscribers.
+    if (empty($mail)) {
+      continue;
+    }
     // Trim the trailing / off the thread, if present.
     $alert_thread = rtrim((string) $alert->getThread(), '/');
 
@@ -503,6 +514,7 @@ function _comment_notify_mailalert(CommentInterface $comment) {
       }
       $message['subject'] = PlainTextOutput::renderFromHtml(\Drupal::token()->replace($raw_values['subject'], $token_data));
       $message['body'] = \Drupal::token()->replace($raw_values['body'], $token_data);
+      $message['cid'] = $comment->id();
 
       $language = !empty($alert->uid) ? $recipient_user->getPreferredLangcode() : LanguageInterface::LANGCODE_DEFAULT;
       \Drupal::service('plugin.manager.mail')
@@ -595,21 +607,7 @@ function comment_notify_entity_extra_field_info() {
 /**
  * Implements hook_help().
  */
+#[LegacyHook]
 function comment_notify_help($route_name, RouteMatchInterface $route_match) {
-  switch ($route_name) {
-    case 'help.page.comment_notify':
-      $text = file_get_contents(dirname(__FILE__) . '/README.md');
-      if (!\Drupal::moduleHandler()->moduleExists('markdown')) {
-        return '<pre>' . $text . '</pre>';
-      }
-      else {
-        // Use the Markdown filter to render the README.
-        $filter_manager = \Drupal::service('plugin.manager.filter');
-        $settings = \Drupal::configFactory()->get('markdown.settings')->getRawData();
-        $config = ['settings' => $settings];
-        $filter = $filter_manager->createInstance('markdown', $config);
-        return $filter->process($text, 'en');
-      }
-  }
-  return NULL;
+  return \Drupal::service(CommentNotifyHooks::class)->help($route_name, $route_match);
 }

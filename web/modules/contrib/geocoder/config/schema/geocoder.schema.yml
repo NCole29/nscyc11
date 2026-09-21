@@ -16,6 +16,10 @@ geocoder.settings:
       type: boolean
       label: 'Should we Queue the Geocode processes?'
       description: 'Enable this to use Queue Worker ("Geocoder Field Queue Process") & Cron to process the geocoder data to reduce delays while saving the entity.'
+    geocode_country_only_address:
+      type: boolean
+      label: "Geocode country-only addresses"
+      description: "When an address carries only a country (no street, locality, etc.), geocode it to the country name. Disable to treat such a value as empty, so no country-centroid result is produced (e.g. for optional address fields with a pre-selected country)."
 
 geocoder.geocoder_provider.*:
   type: config_entity

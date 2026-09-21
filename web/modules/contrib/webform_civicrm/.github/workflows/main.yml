@@ -23,21 +23,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - drupal: '10.5.*'
-            civicrm: '6.10.*'
-            php: '8.3'
-          - drupal: '10.5.*'
-            civicrm: '6.12.x'
-            php: '8.3'
           - drupal: '10.6.*'
-            civicrm: 'dev-master'
+            civicrm: '6.16.x'
             php: '8.3'
-          - drupal: '11.2.*'
-            civicrm: '6.13.x-dev'
+          - drupal: '11.4.*'
+            civicrm: '6.18.x-dev'
             php: '8.3'
           - drupal: '11.x-dev'
             civicrm: 'dev-master'
-            php: '8.3'
+            php: '8.4'
     name: Drupal ${{ matrix.drupal }} | CiviCRM ${{ matrix.civicrm }}
     services:
       mysql:
@@ -49,7 +43,7 @@ jobs:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: shivammathur/setup-php@v2
         with:
             php-version: ${{ matrix.php }}
@@ -59,7 +53,7 @@ jobs:
       - name: Get composer cache directory
         id: composercache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
             path: ${{ steps.composercache.outputs.dir }}
             key: ${{ runner.os }}-${{ matrix.drupal }}-composer-${{ hashFiles('**/composer.json') }}
@@ -173,13 +167,25 @@ jobs:
           # [Temporary]: we need stripe master - it has an unreleased fix for a Brick deprecation
           # /home/runner/civicrm-cv/cv api3 Extension.download install=1 key=com.drastikbydesign.stripe
           git clone https://lab.civicrm.org/extensions/stripe.git com.drastikbydesign.stripe
-          /home/runner/civicrm-cv/cv api3 Extension.download install=1 key=com.donordepot.authnetecheck
+          # [Temporary]: try authorize master
+          # /home/runner/civicrm-cv/cv api3 Extension.download install=1 key=com.donordepot.authnetecheck
+          git clone https://lab.civicrm.org/extensions/authnet.git com.donordepot.authnetecheck
           /home/runner/civicrm-cv/cv api3 Extension.download install=0 key=com.iatspayments.civicrm
           # For uscounties, it hasn't had a release in a few years so no longer appears in the ext feed, so just download directly. If it ever does need an update, would need to update here.
           # /home/runner/civicrm-cv/cv api3 Extension.download install=0 key=com.aghstrategies.uscounties
           curl -L -O https://github.com/agh1/com.aghstrategies.uscounties/archive/2.1.zip
           unzip 2.1.zip
-      - uses: nanasess/setup-chromedriver@master
+          # temp patch for php 8.4
+          cd com.aghstrategies.uscounties-2.1
+          curl -L -O https://github.com/agh1/com.aghstrategies.uscounties/pull/13.patch
+          git apply 13.patch
+      - name: Temp patch authnet sdk
+        run: |
+          cd ~/drupal/web/sites/default/files/civicrm/ext/com.donordepot.authnetecheck/vendor/authorizenet/authorizenet
+          sed -i -e 's/\$this->apiRequest->setClientId/\/\/\$this->apiRequest->setClientId/' lib/net/authorize/api/controller/base/ApiOperationBase.php
+          grep setClientId lib/net/authorize/api/controller/base/ApiOperationBase.php
+          cat lib/net/authorize/api/controller/base/ApiOperationBase.php
+      - uses: nanasess/setup-chromedriver@v3
       - name: Run chromedriver
         run: chromedriver --port=9515 &
       - name: Run php built-in server
@@ -198,7 +204,7 @@ jobs:
           SYMFONY_DEPRECATIONS_HELPER: 999999
           SIMPLETEST_DB: mysql://root:@127.0.0.1:${{ job.services.mysql.ports[3306] }}/db
           SIMPLETEST_BASE_URL: http://127.0.0.1:8080
-          MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","goog:chromeOptions":{"args":["--disable-gpu", "--no-sandbox", "--headless"]}}, "http://127.0.0.1:9515"]'
+          MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","goog:chromeOptions":{"args":["--disable-gpu", "--disable-dev-shm-usage", "--disable-background-networking", "--no-sandbox", "--headless"]}}, "http://127.0.0.1:9515"]'
           BROWSERTEST_OUTPUT_FILE: 'true'
           BROWSERTEST_OUTPUT_VERBOSE: 'false'
           BROWSERTEST_OUTPUT_DIRECTORY: '/home/runner/drupal/web/sites/simpletest/browser_output'
@@ -212,7 +218,7 @@ jobs:
           echo '${{ matrix.drupal }}_${{ matrix.civicrm }}_${{ matrix.php }}' > upload_helper.txt
           sed -i -e 's/[^0-9a-zA-Z_.\-]//g' upload_helper.txt
           echo "UPLOADNAME=$(cat upload_helper.txt)" >> $GITHUB_ENV
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: ${{ failure() || success() }}
         with:
           name: screenshots.${{ env.UPLOADNAME }}

@@ -12,14 +12,20 @@ dependencies:
     - field.field.node.event.field_location
     - field.field.node.event.field_page_access
     - field.field.node.event.field_registration
-    - field.field.node.event.field_registration_close_date
     - field.field.node.event.field_registration_form
     - field.field.node.event.field_registration_free_form
     - field.field.node.event.field_registration_link
+    - field.field.node.event.field_registration_type
+    - field.field.node.event.field_resize_banner_image
+    - field.field.node.event.field_resize_text_image
     - field.field.node.event.field_results_access
     - field.field.node.event.field_summary
     - field.field.node.event.field_text
     - field.field.node.event.field_type_of_page
+    - field.field.node.event.field_webform
+    - field.field.node.event.field_webform_closing
+    - field.field.node.event.field_webform_limit
+    - field.field.node.event.field_webform_results
     - field.field.node.event.layout_builder__layout
     - node.type.event
   module:
@@ -175,10 +181,16 @@ hidden:
   field_date: true
   field_page_access: true
   field_registration: true
-  field_registration_close_date: true
   field_registration_free_form: true
+  field_registration_type: true
+  field_resize_banner_image: true
+  field_resize_text_image: true
   field_results_access: true
   field_text: true
   field_type_of_page: true
+  field_webform: true
+  field_webform_closing: true
+  field_webform_limit: true
+  field_webform_results: true
   layout_builder__layout: true
   links: true

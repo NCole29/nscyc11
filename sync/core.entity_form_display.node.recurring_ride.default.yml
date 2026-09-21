@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.recurring_ride.field_about_ride_images
     - field.field.node.recurring_ride.field_activity
     - field.field.node.recurring_ride.field_additional_information
     - field.field.node.recurring_ride.field_based_on
@@ -16,11 +17,15 @@ dependencies:
     - field.field.node.recurring_ride.field_lunch_same
     - field.field.node.recurring_ride.field_master
     - field.field.node.recurring_ride.field_multiple_times
+    - field.field.node.recurring_ride.field_registration_required
     - field.field.node.recurring_ride.field_ride_leader
     - field.field.node.recurring_ride.field_ride_picture
     - field.field.node.recurring_ride.field_rwgps_routes
     - field.field.node.recurring_ride.field_show_and_go
     - field.field.node.recurring_ride.field_time
+    - field.field.node.recurring_ride.field_webform
+    - field.field.node.recurring_ride.field_webform_closing
+    - field.field.node.recurring_ride.field_webform_limit
     - node.type.recurring_ride
     - workflows.workflow.rides
   module:
@@ -177,7 +182,7 @@ third_party_settings:
       label: 'Ride picture'
       region: content
       parent_name: group_description
-      weight: 11
+      weight: 12
       format_type: details
       format_settings:
         classes: ''
@@ -371,6 +376,16 @@ content:
     settings:
       media_types: {  }
     third_party_settings: {  }
+  field_rwgps_routes:
+    type: entity_reference_autocomplete
+    weight: 15
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_time:
     type: string_textfield
     weight: 11
@@ -441,10 +456,14 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_about_ride_images: true
   field_day: true
   field_dayofweek: true
-  field_rwgps_routes: true
+  field_registration_required: true
   field_show_and_go: true
+  field_webform: true
+  field_webform_closing: true
+  field_webform_limit: true
   promote: true
   publish_on: true
   sticky: true

@@ -1,0 +1,13 @@
+name: 'FAQ Field'
+type: module
+description: 'Provides a field for frequently asked questions.'
+package: Field types
+core_version_requirement: ^8 || ^9 || ^10 || ^11
+dependencies:
+  - drupal:field
+  - jquery_ui_accordion:jquery_ui_accordion
+
+# Information added by Drupal.org packaging script on 2026-01-01
+version: '8.0.1'
+project: 'faqfield'
+datestamp: 1767285979

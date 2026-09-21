@@ -1,0 +1,32 @@
+uuid: b83b11a9-cb2a-44f4-9a93-d09cabec86f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_webform
+    - node.type.recurring_ride
+    - webform.webform.ride_registration
+  module:
+    - webform
+id: node.recurring_ride.field_webform
+field_name: field_webform
+entity_type: node
+bundle: recurring_ride
+label: 'Registration form'
+description: '<br><strong><big>Do not alter "Registration form settings" for recurring rides.</strong><br>Scheduling or closing the webform will close the form for all ride dates.</big>'
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: 617afa87-8967-4a23-a094-938d077b014d
+    default_data: null
+    status: open
+    open: ''
+    close: ''
+default_value_callback: ''
+settings:
+  handler: 'default:webform'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: webform

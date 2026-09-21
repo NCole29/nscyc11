@@ -1,0 +1,24 @@
+uuid: ac8ab9a6-fd8a-4efc-8971-bbbc67a70ad2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_text_below_faqs
+    - filter.format.basic_html
+    - node.type.faqs
+  module:
+    - text
+id: node.faqs.field_text_below_faqs
+field_name: field_text_below_faqs
+entity_type: node
+bundle: faqs
+label: 'Text below FAQs (optional)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - basic_html
+field_type: text_long

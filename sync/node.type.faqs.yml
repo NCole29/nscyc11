@@ -1,0 +1,32 @@
+uuid: 3c01caa4-384f-4ed2-bd68-3ae05283a583
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - scheduler
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+  scheduler:
+    expand_fieldset: when_required
+    fields_display_mode: vertical_tab
+    publish_enable: false
+    publish_past_date: error
+    publish_past_date_created: false
+    publish_required: false
+    publish_revision: false
+    publish_touch: false
+    show_message_after_update: true
+    unpublish_enable: false
+    unpublish_required: false
+    unpublish_revision: false
+name: 'FAQ page'
+type: faqs
+description: '<em>FAQs</em> feature a question-and-answer format using collapsible fields, with options for additional text above or below. Because they are not automatically linked, you must add them to a menu or manually link to them from another page. Page visibility can be set to Public, Members, or Administrators.'
+help: 'FAQs display permanent website content. Click "Menu settings" at left to provide a menu link to the page, or link to this page from another page or block.'
+new_revision: true
+preview_mode: 1
+display_submitted: false

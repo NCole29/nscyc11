@@ -1,0 +1,23 @@
+uuid: e5ee2a2e-7998-4030-963b-6ac43570d1ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_registration_required
+    - node.type.recurring_ride
+id: node.recurring_ride.field_registration_required
+field_name: field_registration_required
+entity_type: node
+bundle: recurring_ride
+label: 'Registration required'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

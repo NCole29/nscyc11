@@ -2027,15 +2027,15 @@ display:
       display_extenders: {  }
       path: admin/content/rides/moderated
       menu:
-        type: tab
+        type: none
         title: 'Moderated rides'
         description: ''
         weight: 0
         expanded: false
-        menu_name: admin
-        parent: club_ride.ride_content
+        menu_name: account
+        parent: ''
         context: '0'
-        as_local_task: true
+        as_local_task: false
         local_task_link_title: 'Moderated rides'
         local_task_parent: 'views_view:view.content_rides.rides'
         local_task_weight: 1

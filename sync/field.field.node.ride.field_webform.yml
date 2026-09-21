@@ -1,0 +1,32 @@
+uuid: 15dc2d2a-445f-4f62-83d8-d60e943e62f5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_webform
+    - node.type.ride
+    - webform.webform.ride_registration
+  module:
+    - webform
+id: node.ride.field_webform
+field_name: field_webform
+entity_type: node
+bundle: ride
+label: 'Registration form'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: 617afa87-8967-4a23-a094-938d077b014d
+    default_data: null
+    status: open
+    open: ''
+    close: ''
+default_value_callback: ''
+settings:
+  handler: 'default:webform'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: webform

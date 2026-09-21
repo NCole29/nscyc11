@@ -1,0 +1,37 @@
+uuid: c6dd5130-3585-4cb0-8731-7ab1b7fff26a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_webform_results
+    - node.type.event
+id: node.event.field_webform_results
+field_name: field_webform_results
+entity_type: node
+bundle: event
+label: 'Registrations are visible to'
+description: "Page author, website coordinator, and club president can view registration results.<br>\r\nEnter names to provide access for additional persons to view registrations for this event.\r\n "
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: name
+      direction: ASC
+    auto_create: false
+    filter:
+      type: role
+      role:
+        member: member
+        events_coordinator: '0'
+        administrator: '0'
+        ride_leader: '0'
+        membership: '0'
+        site_admin: '0'
+        rides_coordinator: '0'
+    include_anonymous: false
+field_type: entity_reference

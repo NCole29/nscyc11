@@ -1,0 +1,23 @@
+uuid: 4269ab6b-4a5e-49a2-b204-ee094611915e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_registration_required
+    - node.type.ride
+id: node.ride.field_registration_required
+field_name: field_registration_required
+entity_type: node
+bundle: ride
+label: 'Registration required'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

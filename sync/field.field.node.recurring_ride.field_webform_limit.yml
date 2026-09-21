@@ -1,0 +1,23 @@
+uuid: f18a6c10-682f-4ca8-afb7-1c7df8cbfca9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_webform_limit
+    - node.type.recurring_ride
+id: node.recurring_ride.field_webform_limit
+field_name: field_webform_limit
+entity_type: node
+bundle: recurring_ride
+label: 'Registration limit'
+description: "A registration limit for a recurring ride will apply to all ride dates. The limit is evaluated separately for each ride date.\r\nFor example, a limit of 25 means that 25 people may register for each date."
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

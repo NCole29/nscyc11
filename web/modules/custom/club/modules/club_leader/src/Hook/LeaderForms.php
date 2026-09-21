@@ -58,46 +58,44 @@ class LeaderForms {
 
   #[Hook('form_taxonomy_overview_terms_alter')]
   function positionsFormAlter(array &$form, FormStateInterface &$form_state, $form_id) {
-
-    // Display fields on "positions" taxonomy term listing.
     $path = $this->requestStack->getCurrentRequest()->getPathInfo();
-
     $arg = explode('/', $path);  // Get vocabulary name from path. 
 
-    // Club positions
-    if ($arg[5] == "positions") {
-      $form['terms']['#header'] = array_merge(array_slice($form['terms']['#header'], 0, 1, TRUE),
-        [t('Category')],
-        [t('Drupal role')],
-        [t('Disabled')],
-        array_slice($form['terms']['#header'], 1, NULL, TRUE)
-      );
+    if ($arg[5] != "positions") {
+      return;
+    }
 
-      foreach ($form['terms'] as &$term) {
-        if (is_array($term) && !empty($term['#term'])) {
+    // Add fields to Club positions taxonomy listing.
+    $form['terms']['#header'] = array_merge(array_slice($form['terms']['#header'], 0, 1, TRUE),
+      [t('Category')],
+      [t('Drupal role')],
+      [t('Disabled')],
+      array_slice($form['terms']['#header'], 1, NULL, TRUE)
+    );
 
-          $disabled = ($term['#term']->get('field_disabled')->value == 1 ) ? "yes" : "-";
+    foreach ($form['terms'] as &$term) {
+      if (is_array($term) && !empty($term['#term'])) {
 
-          $category['Category'] = [
-            '#markup' => $term['#term']->get('field_position_category')->value,
-            '#type' => 'item',
-          ];
+        $disabled = ($term['#term']->get('field_disabled')->value == 1 ) ? "yes" : "-";
 
-          $role['Drupal role'] = [
-            '#markup' => ($term['#term']->get('field_website_role')->getValue()) ? $term['#term']->get('field_website_role')->entity->label(): NULL,
-            '#type' => 'item',
-          ];
-          $dropped['Disabled'] = [
-            '#markup' => $disabled,
-            '#type' => 'item',
-          ];
-        
-          $term = array_merge(
-            array_slice($term, 0, 1, TRUE),
-            $category, $role, $dropped,
-            array_slice($term, 1, NULL, TRUE),
-          );
-        }
+        $category['Category'] = [
+          '#markup' => $term['#term']->get('field_position_category')->value,
+          '#type' => 'item',
+        ];
+        $role['Drupal role'] = [
+          '#markup' => ($term['#term']->get('field_website_role')->getValue()) ? $term['#term']->get('field_website_role')->entity->label(): NULL,
+          '#type' => 'item',
+        ];
+        $dropped['Disabled'] = [
+          '#markup' => $disabled,
+          '#type' => 'item',
+        ];
+      
+        $term = array_merge(
+          array_slice($term, 0, 1, TRUE),
+          $category, $role, $dropped,
+          array_slice($term, 1, NULL, TRUE),
+        );
       }
     }
   }

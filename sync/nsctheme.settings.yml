@@ -170,7 +170,7 @@ site_regions_footer_border: false
 site_regions_footer_animate_border: false
 site_regions_footer_animate_hover: false
 enable_aria_footer: false
-classes_footer_first: ''
+classes_footer_first: footer-site-name
 align_footer_first: region-left
 classes_footer_second: ''
 align_footer_second: region-left
@@ -542,10 +542,10 @@ settings_footer_container___r_bg_bt: ''
 settings_footer_container___r_bg_bt_h: ''
 settings_footer_first___r_bg_fr: ''
 settings_footer_first___r_bg: ''
-settings_footer_first___r_tx: ''
-settings_footer_first___r_h1: ''
-settings_footer_first___r_lk: ''
-settings_footer_first___r_lk_h: ''
+settings_footer_first___r_tx: '#ffffff'
+settings_footer_first___r_h1: '#ffffff'
+settings_footer_first___r_lk: '#ffffff'
+settings_footer_first___r_lk_h: '#ffffff'
 settings_footer_first___r_br: ''
 settings_footer_first___r_tx_lk: ''
 settings_footer_first___r_tx_lk_h: ''

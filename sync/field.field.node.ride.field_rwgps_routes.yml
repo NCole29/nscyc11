@@ -5,14 +5,12 @@ dependencies:
   config:
     - field.storage.node.field_rwgps_routes
     - node.type.ride
-_core:
-  default_config_hash: kWRuf0YUkLVSDiMlFnpueLudZWLscljL6rZSOFk5Cfw
 id: node.ride.field_rwgps_routes
 field_name: field_rwgps_routes
 entity_type: node
 bundle: ride
 label: 'RWGPS routes'
-description: "This is an autocomplete field that accepts new values.<br>\r\nEnter the RWGPS route number found at the end of the URL in the address bar of the RWGPS route page.<br>\r\nFor example, double-click on 12210845 to copy/paste from this URL:  https://ridewithgps.com/routes/<strong>12210845</strong>"
+description: 'Enter the RWGPS route number found at the end of the URL in the address bar of the RWGPS route page - e.g., for this URL:  https://ridewithgps.com/routes/<strong>12210845</strong>, double-click on 12210845 to copy/paste the number. '
 required: false
 translatable: false
 default_value: {  }

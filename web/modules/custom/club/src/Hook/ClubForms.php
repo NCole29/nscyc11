@@ -5,6 +5,8 @@ namespace Drupal\club\Hook;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormInterface; 
 use Drupal\Core\Hook\Attribute\Hook;
@@ -23,33 +25,31 @@ class ClubForms {
   public function __construct(
     protected ConfigFactoryInterface $config,
     protected AccountProxyInterface $currentUser,
+    protected EntityTypeManagerInterface $entityTypeManager,
     protected RouteMatchInterface $routeMatch,
     protected RequestStack $requestStack
   ) {
   }
 
   /**
-   * Implements hook_form_alter().
+   * Implements hook_form_node_form_alter().
    */
   #[Hook('form_node_form_alter')]
   public function nodeFormAlter(&$form, $form_state, $form_id) {
     
-    $entity = $form_state->getFormObject()->getEntity();
+    $node = $form_state->getFormObject()->getEntity();
     $nodeType = $form_state->getFormObject()->getEntity()->getType();
     $operation = $form_state->getFormObject()->getOperation();
   
     switch ($nodeType) {
       case 'event':
-      case 'page':
-      case 'webform':
-
         // Change the label on 'Page is visible to' from "- None -" to "- All -"
         if (isset($form['field_page_access']['widget']['#options']['_none'])) {
           $form['field_page_access']['widget']['#options']['_none'] = "- All -";
         }
 
-        if ($nodeType == 'event' && $operation == 'edit') {
-          if($this->pastDate($entity) == 1) {
+        if ($operation == 'edit') {
+          if($this->pastDate($node) == 1) {
             $form['custom_message'] = [
               '#type' => 'markup',
               '#markup' => '<div class="messages messages--error">' . 
@@ -59,7 +59,66 @@ class ClubForms {
             ];
           }
         }
-        break;
+
+        // Load only free and paid event webforms in array, if enabled and not template.
+        if (isset($form['field_webform'])) {
+          $event_categories = ['Free event', 'Paid event'];
+          
+          $storage = $this->entityTypeManager->getStorage('webform');
+          $webforms_data = [];
+
+          $webform_ids = $storage->getQuery()
+            ->accessCheck(FALSE) 
+            ->execute();
+
+          if (!empty($webform_ids)) {
+            /** @var \Drupal\webform\WebformInterface[] $webforms */
+            $webforms = $storage->loadMultiple($webform_ids);
+
+            foreach ($webforms as $id => $webform) {
+              $category = $webform->get('categories')[0] ?? null; 
+
+              if ($webform->get('template') == FALSE && $webform->status() &&
+                  in_array($category, $event_categories) ) {
+
+                $event_webforms[$id] = [
+                  'title' => $webform->label(),
+                  'category' => $category,
+                ];
+              }
+            }
+
+            // Sort by category.
+            $categ = array_column($event_webforms, 'category');
+            array_multisort($categ, SORT_ASC, $event_webforms);
+    
+            // Build the options list.
+            $options = ['' => t('- Select a form -')];
+            foreach ($event_webforms as $id => $data) {
+              $options[$id] = t('@category - @title', [
+                '@category' => $data['category'],
+                '@title' => $data['title'],
+              ]);
+             }
+
+            // Apply the filtered list to the widget options.
+            if (isset($form['field_webform']['widget']['#options'])) {
+              $form['field_webform']['widget']['#options'] = $options;
+            } elseif (isset($form['field_webform']['widget'][0]['target_id']['#options'])) {
+              // Fallback depending on the chosen form widget type (Options buttons vs Select).
+              $form['field_webform']['widget'][0]['target_id']['#options'] = $options;
+            }
+          }  
+        } // End webform processing.
+      break;
+
+      case 'page':
+      case 'webform':
+        // Change the label on 'Page is visible to' from "- None -" to "- All -"
+        if (isset($form['field_page_access']['widget']['#options']['_none'])) {
+          $form['field_page_access']['widget']['#options']['_none'] = "- All -";
+        }
+      break;
 
       case 'ride':
       case 'recurring_ride':
@@ -79,7 +138,8 @@ class ClubForms {
             $form['field_cancel']['#disabled'] = TRUE;
           }
 
-          if ($operation == 'edit' & $this->pastDate($entity) == 1) {
+          if ($operation == 'edit') {
+            if ($this->pastDate($node) == 1) {
             $form['custom_message'] = [
               '#type' => 'markup',
               '#markup' => '<div class="messages messages--error">' . 
@@ -88,6 +148,7 @@ class ClubForms {
               '#weight' => -10, // Adjust weight to position it
             ];
           } 
+        }
         } elseif ($nodeType == 'recurring_ride') {
            $form['field_datetime']['widget']['add_more']['#value'] = "Add another date";
         }
@@ -128,59 +189,53 @@ class ClubForms {
     }
   }
 
-  public function pastDate($entity) {
+  public function pastDate($node) {
     //$now = \Drupal::service('date.formatter')->format(time(), 'custom', 'Y-m-d');
-    $date = $entity->get('field_date')->date;
+    $date = $node->get('field_date')->date;
     $now = new DrupalDateTime('now');
-    /*
-    d($date);
-    d($now);
-    d($date->format('Y-m-d'));
-    d($now->format('Y-m-d'));
-    die;
-    */
-    $pastDate = (!is_null($date->format('Y-m-d')) and $date->format('Y-m-d') < $now->format('Y-m-d')) ;
 
-    return $pastDate;
+    if(!empty($date)) {
+      $pastDate = (!is_null($date->format('Y-m-d')) and $date->format('Y-m-d') < $now->format('Y-m-d')) ;
+
+      return $pastDate;
+    }
   }
 
   #[Hook('form_taxonomy_overview_terms_alter')]
   function positionsFormAlter(array &$form, FormStateInterface &$form_state, $form_id) {
-
-    // Display fields on "positions" taxonomy term listing.
     $path = $this->requestStack->getCurrentRequest()->getPathInfo();
-
     $arg = explode('/', $path);  // Get vocabulary name from path. 
 
-    // Mailboxes
-    if ($arg[5] == "mailboxes") {
-      $form['terms']['#header'] = array_merge(array_slice($form['terms']['#header'], 0, 1, TRUE),
-        [t('Mailbox')],
-        [t('Disabled')],
-        array_slice($form['terms']['#header'], 1, NULL, TRUE)
-      );
+    if ($arg[5] != "mailboxes") {
+      return;
+    }
 
-      foreach ($form['terms'] as &$term) {
-        if (is_array($term) && !empty($term['#term'])) {
+    // Add fields to Mailboxes taxonomy listing.
+    $form['terms']['#header'] = array_merge(array_slice($form['terms']['#header'], 0, 1, TRUE),
+      [t('Mailbox')],
+      [t('Disabled')],
+      array_slice($form['terms']['#header'], 1, NULL, TRUE)
+    );
 
-          $disabled = ($term['#term']->get('field_disabled')->value == 1 ) ? "yes" : "-";
+    foreach ($form['terms'] as &$term) {
+      if (is_array($term) && !empty($term['#term'])) {
 
-          $mailbox['Mailbox'] = [
-            '#markup' => $term['#term']->get('field_mailbox')->value,
-            '#type' => 'item',
-          ];
+        $disabled = ($term['#term']->get('field_disabled')->value == 1 ) ? "yes" : "-";
 
-          $dropped['Disabled'] = [
-            '#markup' => $disabled,
-            '#type' => 'item',
-          ];
-        
-          $term = array_merge(
-            array_slice($term, 0, 1, TRUE),
-            $mailbox, $dropped,
-            array_slice($term, 1, NULL, TRUE),
-          );
-        }
+        $mailbox['Mailbox'] = [
+          '#markup' => $term['#term']->get('field_mailbox')->value,
+          '#type' => 'item',
+        ];
+        $dropped['Disabled'] = [
+          '#markup' => $disabled,
+          '#type' => 'item',
+        ];
+      
+        $term = array_merge(
+          array_slice($term, 0, 1, TRUE),
+          $mailbox, $dropped,
+          array_slice($term, 1, NULL, TRUE),
+        );
       }
     }
   }

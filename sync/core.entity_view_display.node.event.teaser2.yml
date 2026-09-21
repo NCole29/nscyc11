@@ -12,14 +12,20 @@ dependencies:
     - field.field.node.event.field_location
     - field.field.node.event.field_page_access
     - field.field.node.event.field_registration
-    - field.field.node.event.field_registration_close_date
     - field.field.node.event.field_registration_form
     - field.field.node.event.field_registration_free_form
     - field.field.node.event.field_registration_link
+    - field.field.node.event.field_registration_type
+    - field.field.node.event.field_resize_banner_image
+    - field.field.node.event.field_resize_text_image
     - field.field.node.event.field_results_access
     - field.field.node.event.field_summary
     - field.field.node.event.field_text
     - field.field.node.event.field_type_of_page
+    - field.field.node.event.field_webform
+    - field.field.node.event.field_webform_closing
+    - field.field.node.event.field_webform_limit
+    - field.field.node.event.field_webform_results
     - field.field.node.event.layout_builder__layout
     - node.type.event
   module:
@@ -95,10 +101,10 @@ third_party_settings:
                 label: hidden
                 settings:
                   label: 'Register for event'
-                  dialog: ''
+                  dialog: normal
                   attributes:
                     class:
-                      - w3-dark-button
+                      - button
                 third_party_settings: {  }
             weight: 2
             additional: {  }
@@ -123,7 +129,7 @@ third_party_settings:
                   rel: '0'
                   target: '0'
                 third_party_settings: {  }
-            weight: 3
+            weight: 4
             additional: {  }
           218b9e8d-04d7-4295-92a7-963860dc7990:
             uuid: 218b9e8d-04d7-4295-92a7-963860dc7990
@@ -157,6 +163,29 @@ third_party_settings:
               label_display: '0'
               context_mapping:
                 entity: layout_builder.entity
+            weight: 3
+            additional: {  }
+          391826db-d052-4b7b-9b3e-8b60140e29f8:
+            uuid: 391826db-d052-4b7b-9b3e-8b60140e29f8
+            region: second
+            configuration:
+              id: 'field_block:node:event:field_registration_free_form'
+              label: 'Registration, Free event webform'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: webform_entity_reference_link
+                label: visually_hidden
+                settings:
+                  label: 'Register for event'
+                  dialog: normal
+                  attributes:
+                    class:
+                      - button
+                third_party_settings: {  }
             weight: 3
             additional: {  }
         third_party_settings: {  }
@@ -263,12 +292,19 @@ hidden:
   field_contact_person: true
   field_contact_us: true
   field_date: true
+  field_padding: true
   field_page_access: true
   field_registration: true
-  field_registration_close_date: true
   field_registration_free_form: true
+  field_registration_type: true
+  field_resize_banner_image: true
+  field_resize_text_image: true
   field_results_access: true
   field_text: true
   field_type_of_page: true
+  field_webform: true
+  field_webform_closing: true
+  field_webform_limit: true
+  field_webform_results: true
   layout_builder__layout: true
   links: true

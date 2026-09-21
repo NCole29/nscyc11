@@ -1,0 +1,24 @@
+uuid: 7ef542a1-040a-4119-9840-78294598ea0a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_resize_text_image
+    - node.type.faqs
+  module:
+    - markup
+id: node.faqs.field_resize_text_image
+field_name: field_resize_text_image
+entity_type: node
+bundle: faqs
+label: 'Resize text image'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: '<p>Images can be inserted into the text editors using the <strong>Insert Media</strong> icon. The maximum image file size is <strong>3MB.&nbsp;</strong>Uploading larger files is unnecessary because images are resized automatically for optimal display across various devices.</p><p>Consider the following tools to resize images that are larger than 3MB:</p><ul><li data-list-item-id="eef972feced94af9d8f26f592fcf0cac3"><strong>Mac Users </strong>- Utilize <a href="https://support.apple.com/guide/preview/crop-resize-or-rotate-an-image-prvw2015/mac#:~:text=Reduce%20an%20image&amp;apos;s%20file%20size,value%20in%20the%20Resolution%20field.">Apple''s built-in Preview application</a>.</li><li data-list-item-id="eafac3dcdf21e35c6593a139360b6cc6f"><strong>Windows Users </strong>- Install and use the <a href="https://apps.microsoft.com/detail/xp89dcgq3k6vld?hl=en-US&amp;gl=US">Microsoft PowerToys Image Resizer utility</a> (learn more about it <a href="https://learn.microsoft.com/en-us/windows/powertoys/image-resizer">here)</a>.</li></ul><p>When resizing, the recommended setting is "Large" (fits within 1920 x 1080 pixels).&nbsp;</p><p><strong>After inserting an image</strong></p><ul><li data-list-item-id="e6048cffe52db144177ecea4f0b5c94b9">Click the image to access options for adjusting its size and alignment.</li></ul>'
+    format: basic_html
+field_type: markup

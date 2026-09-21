@@ -1,0 +1,24 @@
+uuid: 7ecc1801-7796-42c0-9094-9d069cfcd701
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_resize_text_image
+    - node.type.webform
+  module:
+    - markup
+id: node.webform.field_resize_text_image
+field_name: field_resize_text_image
+entity_type: node
+bundle: webform
+label: 'Resize text image'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: '<p>Images can be inserted into the text editors using the <strong>Insert Media</strong> icon. The maximum image file size is <strong>3MB.&nbsp;</strong>Uploading larger files is unnecessary because images are resized automatically for optimal display across various devices.</p><p>Consider the following tools to resize images that are larger than 3MB:</p><ul><li data-list-item-id="ea2acc034aeb1360ad8aa5af3a68f0899"><strong>Mac Users </strong>- Utilize <a href="https://support.apple.com/guide/preview/crop-resize-or-rotate-an-image-prvw2015/mac#:~:text=Reduce%20an%20image&amp;apos;s%20file%20size,value%20in%20the%20Resolution%20field.">Apple''s built-in Preview application</a>.</li><li data-list-item-id="e438e59b41ac3ecc7158c3e6839eb802a"><strong>Windows Users </strong>- Install and use the <a href="https://apps.microsoft.com/detail/xp89dcgq3k6vld?hl=en-US&amp;gl=US">Microsoft PowerToys Image Resizer utility</a> (learn more about it <a href="https://learn.microsoft.com/en-us/windows/powertoys/image-resizer">here)</a>.</li></ul><p>When resizing, the recommended setting is "Large" (fits within 1920 x 1080 pixels).&nbsp;</p><p><strong>After inserting an image</strong></p><ul><li data-list-item-id="e25405b5d342b056217d4202d15449de7"><strong>In the text field:</strong> Click the image to access options for adjusting its size and alignment.</li><li data-list-item-id="eccbd233f56de69407a2acbccd69da491"><strong>In "Summary for home page":</strong> Click the image to set its alignment. The size cannot be adjusted.&nbsp;</li></ul><p>&nbsp;</p>'
+    format: basic_html
+field_type: markup

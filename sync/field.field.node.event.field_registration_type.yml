@@ -1,0 +1,21 @@
+uuid: 4c014ce5-2e1c-422e-a9b9-cdb52b3ba4ba
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_registration_type
+    - node.type.event
+  module:
+    - options
+id: node.event.field_registration_type
+field_name: field_registration_type
+entity_type: node
+bundle: event
+label: 'Type of registration form'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

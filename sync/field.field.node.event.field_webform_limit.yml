@@ -1,0 +1,23 @@
+uuid: 276529ff-0fd7-4c56-9243-17af72b5b7b4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_webform_limit
+    - node.type.event
+id: node.event.field_webform_limit
+field_name: field_webform_limit
+entity_type: node
+bundle: event
+label: 'Registration limit'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

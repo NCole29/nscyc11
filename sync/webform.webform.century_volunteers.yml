@@ -128,7 +128,7 @@ settings:
   page: true
   page_submit_path: ''
   page_confirm_path: ''
-  page_theme_name: ''
+  page_theme_name: nsctheme
   form_title: source_entity_webform
   form_submit_once: false
   form_open_message: '<h5><strong>The sign-up form will open on&nbsp;[webform:open:custom:D, M j, Y] at [webform:open:custom:g:ia].</strong></h5>'
@@ -158,6 +158,7 @@ settings:
   form_access_denied_message: ''
   form_access_denied_attributes: {  }
   form_file_limit: ''
+  form_file_limit_message: ''
   form_attributes: {  }
   form_method: ''
   form_action: ''
@@ -376,7 +377,7 @@ handlers:
       html: true
       attachments: false
       twig: true
-      theme_name: clubtheme
+      theme_name: nsctheme
       langcode: ''
       parameters: {  }
       debug: false

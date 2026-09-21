@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser2
+    - field.field.node.ride.field_about_ride_images
     - field.field.node.ride.field_activity
     - field.field.node.ride.field_additional_information
     - field.field.node.ride.field_based_on
@@ -22,6 +23,7 @@ dependencies:
     - field.field.node.ride.field_registration_form
     - field.field.node.ride.field_registration_free_form
     - field.field.node.ride.field_registration_link
+    - field.field.node.ride.field_registration_required
     - field.field.node.ride.field_results_access
     - field.field.node.ride.field_ride_leader
     - field.field.node.ride.field_ride_picture
@@ -29,6 +31,9 @@ dependencies:
     - field.field.node.ride.field_schedule_date
     - field.field.node.ride.field_show_and_go
     - field.field.node.ride.field_time
+    - field.field.node.ride.field_webform
+    - field.field.node.ride.field_webform_closing
+    - field.field.node.ride.field_webform_limit
     - node.type.ride
   module:
     - layout_builder
@@ -228,6 +233,7 @@ content:
     weight: 4
     region: content
 hidden:
+  field_about_ride_images: true
   field_additional_information: true
   field_based_on: true
   field_date: true
@@ -244,10 +250,14 @@ hidden:
   field_registration_form: true
   field_registration_free_form: true
   field_registration_link: true
+  field_registration_required: true
   field_results_access: true
   field_ride_picture: true
   field_rwgps_routes: true
   field_schedule_date: true
   field_show_and_go: true
   field_time: true
+  field_webform: true
+  field_webform_closing: true
+  field_webform_limit: true
   links: true

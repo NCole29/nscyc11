@@ -155,6 +155,7 @@
     "drupal/entity_browser": "^2.17",
     "drupal/entity_reference_revisions": "^1.11",
     "drupal/entity_usage": "^2.3",
+    "drupal/faqfield": "^8.0",
     "drupal/field_group": "^4.0",
     "drupal/file_delete": "^3.0",
     "drupal/fontawesome": "^3.0",

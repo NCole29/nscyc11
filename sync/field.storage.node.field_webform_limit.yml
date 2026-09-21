@@ -1,0 +1,20 @@
+uuid: ece488e5-9842-4832-ba73-3a792b5fdec8
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_webform_limit
+field_name: field_webform_limit
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

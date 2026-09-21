@@ -1,0 +1,29 @@
+uuid: f2b77741-1206-457f-b5b5-156c151e0de0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_contact_us
+    - node.type.faqs
+    - taxonomy.vocabulary.mailboxes
+id: node.faqs.field_contact_us
+field_name: field_contact_us
+entity_type: node
+bundle: faqs
+label: Contact
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      mailboxes: mailboxes
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Default theme implementation of a FAQ Field definition list formatter.
+ *
+ * Available variables:
+ * - items: An array of objects with the following fields.
+ *   - question: Pre-filtered question value by check_plain.
+ *   - answer: Pre-filtered answer value by field setting format.
+ *   - name: String to be used as anchor name.
+ *
+ * @see template_preprocess()
+ * @see template_preprocess_faqfield_anchor_list_formatter()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set tag = question_tag ?: 'h3' %}
+{% apply spaceless %}
+  <div class="faqfield-anchor-list">
+    <{{ list_type }}>
+    {% for item in items %}
+      <li><a href="#{{ item.name }}">{{ item.question }}</a></li>
+    {% endfor %}
+    </{{ list_type }}>
+    {% for item in items %}
+      <{{ tag }} class="faqfield-question">
+        <a href="#{{ item.name }}" name="{{ item.name }}">{{ item.question }}</a>
+      </{{ tag }}>
+      <div class="faqfield-answer">{{ item.answer }}</div>
+    {% endfor %}
+  </div>
+{% endapply %}

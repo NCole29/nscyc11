@@ -16,8 +16,9 @@ template: false
 archive: false
 id: free_event_nologin
 title: 'Free event, login not required'
-description: "Form collects name and email.<br />\r\nSelect this form when creating or editing an Event page, when the event is free but registration is required."
-categories: {  }
+description: '<p>Form collects name and email.<br>Select this form when creating or editing an Event page, when the event is free but registration is required.</p>'
+categories:
+  - 'Free event'
 elements: |-
   civicrm_1_contact_1_fieldset_fieldset:
     '#type': fieldset
@@ -152,6 +153,7 @@ settings:
   form_access_denied_message: ''
   form_access_denied_attributes: {  }
   form_file_limit: ''
+  form_file_limit_message: ''
   form_attributes: {  }
   form_method: ''
   form_action: ''

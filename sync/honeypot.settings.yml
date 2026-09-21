@@ -1,5 +1,3 @@
-_core:
-  default_config_hash: 0rSKMG26c76tav0HpRvFwbM5K4HN0kU4qYspCSo2XEE
 protect_all_forms: false
 unprotected_forms:
   - user_login_form
@@ -14,12 +12,6 @@ expire: 300
 form_settings:
   user_register_form: false
   user_pass: false
-  contact_message_feedback_form: true
-  contact_message_membership_form: false
-  contact_message_moderators_form: false
-  contact_message_nsc_board_form: false
-  contact_message_personal_form: true
-  contact_message_rides_form: false
   node_announcement_form: false
   node_banner_form: false
   node_event_form: false

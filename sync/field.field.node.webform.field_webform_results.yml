@@ -1,0 +1,37 @@
+uuid: 6e187102-6eda-470d-bf46-ff186eb2ae53
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_webform_results
+    - node.type.webform
+id: node.webform.field_webform_results
+field_name: field_webform_results
+entity_type: node
+bundle: webform
+label: 'Webform submissions are visible to'
+description: "Page author, website coordinator, and club president can view webform submissions.<br>\r\nEnter names to provide access for additional persons to view submissions to this web page."
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: name
+      direction: ASC
+    auto_create: false
+    filter:
+      type: role
+      role:
+        member: member
+        events_coordinator: '0'
+        administrator: '0'
+        ride_leader: '0'
+        membership: '0'
+        site_admin: '0'
+        rides_coordinator: '0'
+    include_anonymous: false
+field_type: entity_reference

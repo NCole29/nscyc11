@@ -1,0 +1,24 @@
+uuid: 241064c5-652c-4d68-afb5-bb66db28ea02
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_resize_banner_image
+    - node.type.event
+  module:
+    - markup
+id: node.event.field_resize_banner_image
+field_name: field_resize_banner_image
+entity_type: node
+bundle: event
+label: 'Resize banner image'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: '<p>The maximum image file size is <strong>5MB</strong> for banner images and <strong>2MB</strong> for gallery images. Images are resized automatically for optimal display across various devices, so uploading larger files is unneccessary and wastes server resources.</p><p>Use the following tools to resize your images before uploading:</p><ul><li><strong>Mac Users</strong> - Utilize&nbsp;<a href="https://support.apple.com/guide/preview/crop-resize-or-rotate-an-image-prvw2015/mac#:~:text=Reduce%20an%20image&amp;apos;s%20file%20size,value%20in%20the%20Resolution%20field.">Apple''s built-in Preview application</a>.</li><li><strong>Windows Users&nbsp;</strong>– Install and use the&nbsp;<a href="https://apps.microsoft.com/detail/xp89dcgq3k6vld?hl=en-US&amp;gl=US">Microsoft PowerToys Image Resizer</a>&nbsp;utility (learn more about it&nbsp;<a href="https://learn.microsoft.com/en-us/windows/powertoys/image-resizer">here)</a>.</li></ul><p>When resizing, the recommended settings are:</p><ul><li>Banner images - "For web" (fits within 2500 x 1875 pixels) </li><li>Gallery images - "Large" (fits within 1920 x 1080 pixels)</li></ul>'
+    format: basic_html
+field_type: markup

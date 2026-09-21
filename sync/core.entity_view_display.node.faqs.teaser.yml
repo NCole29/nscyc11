@@ -1,0 +1,46 @@
+uuid: 7423cff3-2db7-4151-bc97-bf0b1e3f2322
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.faqs.field_contact_us
+    - field.field.node.faqs.field_contact_person
+    - field.field.node.faqs.field_faq
+    - field.field.node.faqs.field_page_access
+    - field.field.node.faqs.field_resize_text_image
+    - field.field.node.faqs.field_text_above_faqs
+    - field.field.node.faqs.field_text_below_faqs
+    - node.type.faqs
+  module:
+    - text
+    - user
+id: node.faqs.teaser
+targetEntityType: node
+bundle: faqs
+mode: teaser
+content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
+  field_text_above_faqs:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_contact_person: true
+  field_contact_us: true
+  field_faq: true
+  field_page_access: true
+  field_resize_text_image: true
+  field_text_below_faqs: true

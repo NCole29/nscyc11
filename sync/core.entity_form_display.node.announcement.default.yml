@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.announcement.field_contact_person
     - field.field.node.announcement.field_contact_us
+    - field.field.node.announcement.field_resize_text_image
     - field.field.node.announcement.field_summary
     - field.field.node.announcement.field_text
     - node.type.announcement
@@ -13,6 +14,7 @@ dependencies:
     - conditional_fields
     - content_moderation
     - field_group
+    - markup
     - scheduler
     - text
 third_party_settings:
@@ -24,7 +26,7 @@ third_party_settings:
       label: 'Contact link'
       region: content
       parent_name: ''
-      weight: 3
+      weight: 5
       format_type: details
       format_settings:
         classes: ''
@@ -34,6 +36,22 @@ third_party_settings:
         open: false
         description: "Contact forms allow visitors to email club members without exposing personal email addresses. Choose a form for club officials, or select 'Personal contact form' to list specific club members in the field provided."
         required_fields: true
+    group_group_resize:
+      children:
+        - field_resize_text_image
+      label: 'HOW TO ADD IMAGES IN THE TEXT EDITORS'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        classes: info-details
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: false
 _core:
   default_config_hash: 5ZsYEpBw6wBm_vVx9SV5QSjwXrMvLVr0HKMHagGWKZo
 id: node.announcement.default
@@ -76,9 +94,15 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_resize_text_image:
+    type: markup
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_summary:
     type: text_textarea
-    weight: 1
+    weight: 4
     region: content
     settings:
       rows: 5
@@ -89,7 +113,7 @@ content:
         hide_guidelines: '1'
   field_text:
     type: text_textarea
-    weight: 2
+    weight: 3
     region: content
     settings:
       rows: 5
@@ -100,38 +124,38 @@ content:
         hide_guidelines: '1'
   moderation_state:
     type: moderation_state_default
-    weight: 10
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 8
+    weight: 10
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 5
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 4
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 7
+    weight: 9
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 9
+    weight: 11
     region: content
     settings:
       display_label: true
@@ -146,12 +170,12 @@ content:
     third_party_settings: {  }
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 6
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   url_redirects:
-    weight: 11
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }

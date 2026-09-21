@@ -7,13 +7,11 @@ dependencies:
     - node.type.event
   module:
     - link
-_core:
-  default_config_hash: PALk8f00CnCY0euraE2pJ5c6Bzgy6MzouwuB_OfB_lw
 id: node.event.field_registration_link
 field_name: field_registration_link
 entity_type: node
 bundle: event
-label: 'Registration link to CiviCRM Event page or external site'
+label: 'Registration link to CiviCRM event or external site'
 description: "A <a href=\"/civicrm/event/manage?reset=1\" target=\"_blank\">CiviCRM Event</a> must be setup to obtain a link to the CiviCRM registration page.<br>\r\n"
 required: false
 translatable: false

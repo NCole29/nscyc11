@@ -1,0 +1,19 @@
+uuid: acaa3ae6-13cb-427b-a69e-f1e7680ad0c6
+langcode: en
+status: true
+dependencies:
+  module:
+    - markup
+    - node
+id: node.field_about_ride_images
+field_name: field_about_ride_images
+entity_type: node
+type: markup
+settings: {  }
+module: markup
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -3,6 +3,4 @@ _core:
 default_transport: sendmail
 override:
   update: 3
-  contact_form: 1
   user: 3
-  contact: 2

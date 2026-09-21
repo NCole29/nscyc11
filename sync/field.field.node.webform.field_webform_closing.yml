@@ -1,0 +1,21 @@
+uuid: bc06942e-caf2-43c2-a0a7-2ef4d4500691
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_webform_closing
+    - node.type.webform
+  module:
+    - datetime
+id: node.webform.field_webform_closing
+field_name: field_webform_closing
+entity_type: node
+bundle: webform
+label: 'Webform will close on'
+description: "This field does not appear on the content edit form. It is filled programmatically to be the Scheduled closing date entered on the Registration tab.\r\nThis is because the webform closing date cannot be added to the content type displays. \r\nIt could be added to full page displays via a Views block with a contextual filter, but this block will not work in teasers."
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

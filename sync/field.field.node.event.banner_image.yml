@@ -14,7 +14,7 @@ field_name: banner_image
 entity_type: node
 bundle: event
 label: 'Banner image'
-description: "After adding multiple images, change the order by clicking Show media item weights and edit.<br>\r\nMore than 3 gallery images may be too small on mobile devices."
+description: 'After adding gallery images, change the order by clicking Show media item weights and change the weights.'
 required: false
 translatable: true
 default_value: {  }

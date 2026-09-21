@@ -546,7 +546,7 @@ display:
               empty_column: false
               responsive: ''
             field_date_1:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -572,14 +572,14 @@ display:
               empty_column: false
               responsive: ''
             created:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             changed:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -596,6 +596,7 @@ display:
           empty_table: true
           caption: ''
           description: ''
+          class: ''
       row:
         type: fields
       query:
@@ -4274,9 +4275,9 @@ display:
           empty: false
           content: 'Displaying @start - @end of @total'
       display_extenders: {  }
-      path: admin/content/recurring_rides
+      path: admin/content/rides/recurring
       menu:
-        type: tab
+        type: none
         title: 'Recurring rides'
         description: ''
         weight: -10

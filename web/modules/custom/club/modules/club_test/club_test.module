@@ -23,7 +23,21 @@ function club_test_help($route_name, RouteMatchInterface $route_match) {
 
   if ($route_name == 'help.page.club_test') {
 
-    
- 
+    // Force the Entity Field Manager to refresh its definitions (e.g., routes were not loading on ride pages).
+
+    // Clear field plugin caches to let Drupal see the re-added field completely
+    \Drupal::service('plugin.manager.field.field_type')->clearCachedDefinitions();
+    \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
+
+    // Force a field storage definition update
+    $entity_type_manager = \Drupal::entityTypeManager();
+    $field_storage_configs = $entity_type_manager->getStorage('field_storage_config')->load('node.field_rwgps_routes');
+
+    if ($field_storage_configs) {
+        // Saving the storage configuration triggers a state synchronization
+        $field_storage_configs->save();
+        echo "Field storage re-synchronized successfully.\n";
+    }
+
   }
 }

@@ -12,7 +12,7 @@ field_name: field_rwgps_routes
 entity_type: node
 bundle: recurring_ride
 label: 'RWGPS routes'
-description: "This is an autocomplete field that accepts new values.<br>\r\nEnter the RWGPS route number found at the end of the URL in the address bar of the RWGPS route page.<br>\r\nFor example, double-click on 12210845 to copy/paste from this URL:  https://ridewithgps.com/routes/<strong>12210845</strong>\r\n"
+description: "Enter the RWGPS route number found at the end of the URL in the address bar of the RWGPS route page - e.g., for this URL:  https://ridewithgps.com/routes/<strong>12210845</strong>, double-click on 12210845 to copy/paste the number. \r\n"
 required: false
 translatable: false
 default_value: {  }

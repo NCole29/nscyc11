@@ -1,0 +1,23 @@
+uuid: 60454202-7c82-493a-bd56-939b84f56439
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_webform_limit
+    - node.type.webform
+id: node.webform.field_webform_limit
+field_name: field_webform_limit
+entity_type: node
+bundle: webform
+label: 'Submission limit'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

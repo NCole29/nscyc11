@@ -1,0 +1,32 @@
+uuid: 29d9bdbb-b9a8-4c7c-bd70-6dfe8e6b1d45
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_webform
+    - node.type.event
+    - webform.webform.free_event
+  module:
+    - webform
+id: node.event.field_webform
+field_name: field_webform
+entity_type: node
+bundle: event
+label: 'Registration form'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: 79888192-9e28-4244-a102-2f1602b2fb3d
+    default_data: null
+    status: open
+    open: ''
+    close: ''
+default_value_callback: ''
+settings:
+  handler: 'default:webform'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: webform

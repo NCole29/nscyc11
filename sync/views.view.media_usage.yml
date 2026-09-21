@@ -796,22 +796,22 @@ display:
         - url.query_args
         - user.roles
       tags: {  }
-  page_1:
-    id: page_1
+  usage:
+    id: usage
     display_title: Page
     display_plugin: page
     position: 1
     display_options:
       display_extenders: {  }
-      path: admin/content/media-usage
+      path: admin/content/media/usage
       menu:
-        type: tab
+        type: none
         title: 'Media usage'
         description: ''
         weight: 0
         expanded: false
-        menu_name: admin
-        parent: 'admin_toolbar_tools.extra_links:media_page'
+        menu_name: account
+        parent: ''
         context: '0'
         as_local_task: true
         local_task_link_title: Usage

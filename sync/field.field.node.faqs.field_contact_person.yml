@@ -1,0 +1,40 @@
+uuid: 9b2fda42-836b-4402-81d5-5d95fc4e23a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_contact_person
+    - node.type.faqs
+id: node.faqs.field_contact_person
+field_name: field_contact_person
+entity_type: node
+bundle: faqs
+label: Contact
+description: 'If a member has disabled their personal contact form, their name appears without a link.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: name
+      direction: ASC
+    auto_create: false
+    filter:
+      type: role
+      role:
+        member: member
+        administrator: '0'
+        board: '0'
+        events_coordinator: '0'
+        civicrm: '0'
+        ride_leader: '0'
+        rides_coordinator: '0'
+        content_creator: '0'
+        editor: '0'
+        site_admin: '0'
+    include_anonymous: false
+field_type: entity_reference

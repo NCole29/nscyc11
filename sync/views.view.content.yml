@@ -9,7 +9,6 @@ dependencies:
     - node.type.event
     - node.type.location
     - node.type.page
-    - node.type.recurring_dates
     - node.type.recurring_ride
     - node.type.ride
     - node.type.webform
@@ -1174,12 +1173,13 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
-          operator: 'not in'
+          operator: in
           value:
-            location: location
-            recurring_dates: recurring_dates
-            recurring_ride: recurring_ride
-            ride: ride
+            announcement: announcement
+            page: page
+            event: event
+            banner: banner
+            webform: webform
           group: 1
           exposed: false
           expose:
@@ -1197,6 +1197,52 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            announcement: announcement
+            page: page
+            event: event
+            banner: banner
+            webform: webform
+          group: 1
+          exposed: true
+          expose:
+            operator_id: type_op
+            label: 'Content type'
+            description: ''
+            use_operator: false
+            operator: type_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: type
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: true
           is_grouped: false
           group_info:
             label: ''
@@ -1254,52 +1300,6 @@ display:
           hierarchy: false
           limit: true
           error_message: true
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-          operator: in
-          value:
-            announcement: announcement
-            page: page
-            event: event
-            banner: banner
-            webform: webform
-          group: 1
-          exposed: true
-          expose:
-            operator_id: type_op
-            label: 'Content type'
-            description: ''
-            use_operator: false
-            operator: type_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: type
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: true
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
         status_1:
           id: status_1
           table: node_field_data
@@ -1941,12 +1941,14 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
-          operator: 'not in'
+          operator: in
           value:
+            announcement: announcement
+            page: page
+            event: event
+            banner: banner
             location: location
-            recurring_dates: recurring_dates
-            recurring_ride: recurring_ride
-            ride: ride
+            webform: webform
           group: 1
           exposed: false
           expose:
@@ -1964,6 +1966,52 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            announcement: announcement
+            page: page
+            event: event
+            banner: banner
+            webform: webform
+          group: 1
+          exposed: true
+          expose:
+            operator_id: type_op
+            label: 'Content type'
+            description: ''
+            use_operator: false
+            operator: type_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: type
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: true
           is_grouped: false
           group_info:
             label: ''
@@ -2021,52 +2069,6 @@ display:
           hierarchy: false
           limit: true
           error_message: true
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-          operator: in
-          value:
-            announcement: announcement
-            page: page
-            event: event
-            banner: banner
-            webform: webform
-          group: 1
-          exposed: true
-          expose:
-            operator_id: type_op
-            label: 'Content type'
-            description: ''
-            use_operator: false
-            operator: type_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: type
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: true
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
         status:
           id: status
           table: node_field_data

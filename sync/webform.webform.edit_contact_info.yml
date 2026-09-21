@@ -14,7 +14,7 @@ template: false
 archive: false
 id: edit_contact_info
 title: 'Edit contact info'
-description: 'User form to edit CiviCRM name, address, phone.'
+description: '<p>User form to edit CiviCRM name, address, phone.</p>'
 categories:
   - User
 elements: |-
@@ -176,7 +176,7 @@ settings:
   page: true
   page_submit_path: /user/edit-contact-info
   page_confirm_path: ''
-  page_theme_name: clubtheme
+  page_theme_name: nsctheme
   form_title: both
   form_submit_once: false
   form_open_message: ''
@@ -206,6 +206,7 @@ settings:
   form_access_denied_message: ''
   form_access_denied_attributes: {  }
   form_file_limit: ''
+  form_file_limit_message: ''
   form_attributes: {  }
   form_method: ''
   form_action: ''

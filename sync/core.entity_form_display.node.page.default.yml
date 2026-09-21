@@ -9,18 +9,19 @@ dependencies:
     - field.field.node.page.field_contact_person
     - field.field.node.page.field_contact_us
     - field.field.node.page.field_page_access
+    - field.field.node.page.field_resize_banner_image
+    - field.field.node.page.field_resize_text_image
     - field.field.node.page.field_text
     - field.field.node.page.field_type_of_page
     - field.field.node.page.layout_builder__layout
     - node.type.page
     - workflows.workflow.editorial
   module:
-    - allowed_formats
-    - comment
     - conditional_fields
     - content_moderation
     - field_group
     - layout_paragraphs
+    - markup
     - media_library
     - path
     - text
@@ -28,26 +29,26 @@ third_party_settings:
   field_group:
     group_banner_image:
       children:
+        - group_resize_images
         - banner_image
-        - field_padding
       label: 'Banner image'
       region: content
       parent_name: group_tabs
-      weight: 12
+      weight: 11
       format_type: tab
       format_settings:
         classes: ''
         show_empty_fields: false
         id: ''
+        label_as_html: false
         formatter: closed
-        description: '<em>Banner image</em> displays one or more images across the top of the page. Click <strong>Add media</strong> and select Banner or Gallery.<br> - <strong>Banner</strong> presents a single image or a slideshow of multiple images that span the page width.<br> - <strong>Gallery</strong> fits multiple images within the screen width.'
+        description: "Choose between a single banner image or three gallery images at the top of the page, above the Page Title.  To change the display order of gallery images: Click 'Show media item weights' and then rearrange them."
         required_fields: false
     group_tabs:
       children:
         - group_banner_image
-        - group_contact_link
         - group_page_content
-        - group_place_summary_on_home_page
+        - group_contact_link
       label: Tabs
       region: content
       parent_name: ''
@@ -63,6 +64,7 @@ third_party_settings:
       children:
         - title
         - field_type_of_page
+        - group_resize
         - field_text
         - field_components
         - field_page_access
@@ -83,9 +85,9 @@ third_party_settings:
         - field_contact_us
         - field_contact_person
       label: 'Contact link'
-      region: content
+      region: hidden
       parent_name: group_tabs
-      weight: 13
+      weight: 12
       format_type: tab
       format_settings:
         classes: ''
@@ -95,6 +97,38 @@ third_party_settings:
         formatter: closed
         description: "Contact forms allow visitors to email club members without exposing personal email addresses. Choose a form for club officials, or select 'Personal contact form' to list specific club members in the field provided."
         required_fields: true
+    group_resize_images:
+      children:
+        - field_resize_banner_image
+      label: 'HOW TO PREPARE BANNER IMAGES FOR UPLOAD'
+      region: content
+      parent_name: group_banner_image
+      weight: 7
+      format_type: details
+      format_settings:
+        classes: info-details
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: true
+    group_resize:
+      children:
+        - field_resize_text_image
+      label: 'HOW TO ADD IMAGES IN THE TEXT EDITORS'
+      region: content
+      parent_name: group_page_content
+      weight: 12
+      format_type: details
+      format_settings:
+        classes: info-details
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: true
 id: node.page.default
 targetEntityType: node
 bundle: page
@@ -102,25 +136,31 @@ mode: default
 content:
   banner_image:
     type: media_library_widget
-    weight: 4
+    weight: 8
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_comment:
-    type: comment_default
-    weight: 2
+  field_components:
+    type: layout_paragraphs
+    weight: 14
     region: content
-    settings: {  }
+    settings:
+      view_mode: default
+      preview_view_mode: default
+      form_display_mode: default
+      nesting_depth: 0
+      require_layouts: 0
+      empty_message: ''
     third_party_settings:
       conditional_fields:
-        97e1ec5e-bad9-40c2-a44d-0696ab7153c6:
+        2a4fd602-f41f-4e2a-ac15-1312a7ff8100:
           entity_type: node
           bundle: page
           dependee: field_type_of_page
@@ -138,41 +178,10 @@ content:
             effect: show
             effect_options: {  }
             selector: ''
-  field_components:
-    type: layout_paragraphs
-    weight: 6
-    region: content
-    settings:
-      view_mode: default
-      preview_view_mode: default
-      form_display_mode: default
-      nesting_depth: 0
-      require_layouts: 0
-      empty_message: ''
-    third_party_settings:
-      conditional_fields:
-        4e460df6-b32e-49c6-a69d-1796067126a1:
-          entity_type: node
-          bundle: page
-          dependee: field_type_of_page
-          settings:
-            state: visible
-            reset: false
-            condition: value
-            grouping: AND
-            values_set: 1
-            value: ''
-            values: {  }
-            value_form:
-              -
-                value: '2'
-            effect: show
-            effect_options: {  }
-            selector: ''
     label: hidden
   field_contact_person:
     type: entity_reference_autocomplete
-    weight: 15
+    weight: 14
     region: content
     settings:
       match_operator: CONTAINS
@@ -181,7 +190,7 @@ content:
       placeholder: ''
     third_party_settings:
       conditional_fields:
-        94ec0e2c-a52e-4e53-b73f-ba211dd459b5:
+        26b0dfaf-525c-4406-965e-d356ff5fc85f:
           entity_type: node
           bundle: page
           dependee: field_contact_us
@@ -201,29 +210,45 @@ content:
             selector: ''
   field_contact_us:
     type: options_select
-    weight: 14
+    weight: 13
+    region: content
+    settings: {  }
+    third_party_settings:
+      conditional_fields: {  }
+  field_page_access:
+    type: options_select
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_page_access:
+  field_provide_a_contact:
     type: options_select
-    weight: 7
+    weight: 13
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_resize_banner_image:
+    type: markup
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_resize_text_image:
+    type: markup
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
   field_text:
     type: text_textarea
-    weight: 5
+    weight: 13
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings:
-      allowed_formats:
-        hide_help: '1'
-        hide_guidelines: '1'
       conditional_fields:
-        8a8538ad-4cd7-4086-83b0-5781deccc315:
+        83d99dfe-e884-46ca-8518-08e215afe1db:
           entity_type: node
           bundle: page
           dependee: field_type_of_page
@@ -243,13 +268,13 @@ content:
             selector: ''
   field_type_of_page:
     type: options_buttons
-    weight: 4
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 5
+    weight: 100
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -259,30 +284,61 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  status:
+  promote:
     type: boolean_checkbox
-    weight: 1
+    weight: 10
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 11
+    region: content
+    settings:
+      display_label: true
+    third_party_settings:
+      conditional_fields:
+        a68a3bf8-54d8-40e4-92f8-9f976e8f10f3:
+          entity_type: node
+          bundle: page
+          dependee: promote
+          settings:
+            state: visible
+            reset: false
+            condition: checked
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              value: false
+            effect: show
+            effect_options: {  }
+            selector: ''
   title:
     type: string_textfield
-    weight: 3
+    weight: 10
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 6
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_comment: true
   layout_builder__layout: true
-  promote: true
   publish_on: true
-  sticky: true
   uid: true
   unpublish_on: true

@@ -1,0 +1,24 @@
+uuid: b4b48278-f311-4c39-a192-cf08b1dbe2e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_about_ride_images
+    - node.type.ride
+  module:
+    - markup
+id: node.ride.field_about_ride_images
+field_name: field_about_ride_images
+entity_type: node
+bundle: ride
+label: 'About Ride images'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: '<p>Click "Add media" to select a picture from previously uploaded images or upload a new file.&nbsp;</p><p>When uploading, please include a descriptive <strong>Alternative text</strong>, which is displayed under images in the library and is searchable.</p><p>Click <strong>Crop image</strong> and adjust the frame to ensure a consistent, standard look across all ride pages.&nbsp;</p><p>Please keep files under 2MB; images are automatically optimized for display, making larger files unnecessary. If needed, use Apple Preview (Mac) or <a href="https://learn.microsoft.com/en-us/windows/powertoys/image-resizer">Microsoft PowerToys</a> (Windows) to resize images to "Large" (up to 1920x1080 pixels).</p>'
+    format: basic_html
+field_type: markup

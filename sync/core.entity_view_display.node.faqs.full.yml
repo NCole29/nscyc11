@@ -1,0 +1,79 @@
+uuid: 769d6308-d8c7-4359-842e-2471a4662b6e
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.faqs.field_contact_us
+    - field.field.node.faqs.field_contact_person
+    - field.field.node.faqs.field_faq
+    - field.field.node.faqs.field_page_access
+    - field.field.node.faqs.field_resize_text_image
+    - field.field.node.faqs.field_text_above_faqs
+    - field.field.node.faqs.field_text_below_faqs
+    - node.type.faqs
+  module:
+    - faqfield
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.faqs.full
+targetEntityType: node
+bundle: faqs
+mode: full
+content:
+  field_contact_person:
+    type: user_contact_link
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_contact_us:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_faq:
+    type: faqfield_accordion
+    label: visually_hidden
+    settings:
+      active: null
+      heightStyle: content
+      collapsible: true
+      event: click
+      animate:
+        easing: linear
+        duration: 200
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_text_above_faqs:
+    type: text_default
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_text_below_faqs:
+    type: text_default
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_page_access: true
+  field_resize_text_image: true

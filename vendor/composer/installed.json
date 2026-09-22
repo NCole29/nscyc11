@@ -8422,6 +8422,65 @@
             "install-path": "../../web/modules/contrib/scheduler"
         },
         {
+            "name": "drupal/simple_popup_blocks",
+            "version": "3.5.0",
+            "version_normalized": "3.5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/simple_popup_blocks.git",
+                "reference": "8.x-3.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/simple_popup_blocks-8.x-3.5.zip",
+                "reference": "8.x-3.5",
+                "shasum": "764504ab0e582f2929e6ff0fabf2b062757c1bcf"
+            },
+            "require": {
+                "drupal/core": "^9.4 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-3.5",
+                    "datestamp": "1740485506",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "ameer khan",
+                    "homepage": "https://www.drupal.org/user/3087149"
+                },
+                {
+                    "name": "astonvictor",
+                    "homepage": "https://www.drupal.org/user/3466615"
+                },
+                {
+                    "name": "i-trokhanenko",
+                    "homepage": "https://www.drupal.org/user/3546872"
+                },
+                {
+                    "name": "mattbloomfield",
+                    "homepage": "https://www.drupal.org/user/3620586"
+                }
+            ],
+            "description": "Enable Simple popup blocks to show any block contents, forms or custom div in popup. Now Drupal 8/9 compatible. Originally created by Ameer Khan. This is a stable release of the 2.0 version.",
+            "homepage": "https://www.drupal.org/project/simple_popup_blocks",
+            "support": {
+                "source": "https://git.drupalcode.org/project/simple_popup_blocks"
+            },
+            "install-path": "../../web/modules/contrib/simple_popup_blocks"
+        },
+        {
             "name": "drupal/smart_date",
             "version": "4.3.0",
             "version_normalized": "4.3.0.0",

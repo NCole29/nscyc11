@@ -5,18 +5,34 @@
   ----------------------------------------------------*/
 
 /* Classes used in full-width blocks. Check if view headers are messed up in other places. */
+/*
 .view-header {
   padding: 0 1rem;
 }
+*/
 
+/* Front page header/titles in white on dark background */
 .w3-theme-d5 {
-  color: #fff !important;
+  color: #ffffff !important;
   background-color: #0b294a !important;
 }
 
+/* Front page view headers (Events, Announcements) */
+.view-header h3 {
+  color: #ffffff !important;
+  background-color: #0b294a !important;
+  padding: 0.25rem 1rem;
+  margin: 0 -2rem 0 -2rem;
+}
+
+.map-header {
+  padding: 1rem;
+  font-size: 1.25rem;
+}
 .w3-maps {
   display: inline-block!important;
 }
+
 
 /* Style the modal container */
 .ui-dialog .ui-dialog-titlebar {

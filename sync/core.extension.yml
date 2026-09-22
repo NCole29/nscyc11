@@ -107,6 +107,7 @@ module:
   scheduler: 0
   serialization: 0
   shortcut: 0
+  simple_popup_blocks: 0
   smart_date: 0
   smart_date_recur: 0
   svg_image: 0
@@ -125,6 +126,7 @@ module:
   views_bulk_operations: 0
   views_data_export: 0
   views_slideshow: 0
+  views_slideshow_cycle: 0
   views_ui: 0
   views_year_filter: 0
   webform: 0

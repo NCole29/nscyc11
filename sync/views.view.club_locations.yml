@@ -4021,18 +4021,16 @@ display:
         header: false
       display_description: ''
       header:
-        area:
-          id: area
+        area_text_custom:
+          id: area_text_custom
           table: views
-          field: area
+          field: area_text_custom
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: text
+          plugin_id: text_custom
           empty: false
-          content:
-            value: '<span class="w3-xlarge">Here''s where our rides start</span><br>Click map markers to see place names and links to Google maps and routes from that location.<br>&nbsp;'
-            format: basic_html
+          content: "<div class=\"w3-theme-d5 map-header\">\r\nHere's where our rides start.<br>\r\n<small>Click map markers to see place names and links to Google maps and routes from that location.</small>\r\n</div>"
           tokenize: false
       display_extenders: {  }
       block_description: 'Ride start locations'

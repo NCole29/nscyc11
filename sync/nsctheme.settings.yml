@@ -124,8 +124,8 @@ site_regions_welcome_width: 0
 enable_aria_welcome: false
 classes_top_container: ''
 site_regions_top_disable: '0'
-site_regions_top_rounded: ''
-site_regions_top_border: false
+site_regions_top_rounded: radius-8
+site_regions_top_border: true
 site_regions_top_animate_border: false
 site_regions_top_animate_hover: false
 enable_aria_top: false
@@ -441,7 +441,7 @@ settings_top_container___r_tx: ''
 settings_top_container___r_h1: ''
 settings_top_container___r_lk: ''
 settings_top_container___r_lk_h: ''
-settings_top_container___r_br: ''
+settings_top_container___r_br: '#0b294a'
 settings_top_container___r_tx_lk: ''
 settings_top_container___r_tx_lk_h: ''
 settings_top_container___r_bg_lk: ''
@@ -738,3 +738,12 @@ solo_layout_top_2col_statistic: solo-col-1-1
 solo_layout_top_3col_statistic: solo-col-1-1-1
 solo_layout_top_2col_webform: solo-col-1-1
 solo_layout_top_3col_webform: solo-col-1-1-1
+solo_layout_top_2col_faqs: solo-col-1-1
+solo_layout_top_3col_faqs: solo-col-1-1-1
+solo_layout_main_2col_faqs: solo-col-1-3
+solo_layout_main_3col_faqs: solo-col-1-2-1
+solo_layout_bottom_2col_faqs: solo-col-1-1
+solo_layout_bottom_3col_faqs: solo-col-1-1-1
+solo_layout_bottom_4col_faqs: solo-col-1-1-1-1
+solo_layout_footer_2col_faqs: solo-col-1-1
+solo_layout_footer_3col_faqs: solo-col-1-1-1

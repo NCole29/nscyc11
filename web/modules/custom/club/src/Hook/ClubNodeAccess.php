@@ -10,16 +10,24 @@ use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\node\NodeInterface;
 
-class RideAccess {
+class ClubNodeAccess {
 
   /**
    * Implements hook_ENTITY_TYPE_access().
    * 
-   * Allow edit/delete access for ride leaders.
    */
   #[Hook('node_access')]
   function nodeAccess(NodeInterface $node, $operation, AccountInterface $account): AccessResultInterface {
 
+    // Deny edit access for blank home page (this enables multiple block placement without a frontpage view)
+    $target_nid = 11274; 
+    
+    if ($node->id() == $target_nid && $operation != 'view') {
+      // Deny edit access for everyone 
+      return AccessResult::forbidden()->cachePerPermissions()->cachePerUser();
+    }
+
+    // Allow edit/delete access for ride leaders.
     if (!$node->hasField('field_ride_leader')) {
       return AccessResult::neutral();
     }

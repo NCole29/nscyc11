@@ -11,7 +11,7 @@ dependencies:
 id: nsctheme_clubreports
 theme: nsctheme
 region: sidebar_first
-weight: -12
+weight: -14
 provider: null
 plugin: 'system_menu_block:club-reports'
 settings:

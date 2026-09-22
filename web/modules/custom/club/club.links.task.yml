@@ -3,7 +3,7 @@ entity.club.user.submission.delete:
   title: 'Delete'
   route_name: entity.club.user.submission.delete
   base_route: entity.club.user.submission.delete
-  weight: 0
+  weight: -1
 
 # Edit link for own user info; don't use admin theme
 user.edit_myform:
@@ -42,7 +42,7 @@ club.main_rides_tab:
   title: 'Rides'
   route_name: view.content_rides.rides
   base_route: system.admin_content
-  weight: 1
+  weight: -5
 
 # 2nd-level tabs under Rides
 club.rides_tab:

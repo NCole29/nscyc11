@@ -2017,7 +2017,7 @@ display:
         type: tab
         title: Routes
         description: ''
-        weight: -9
+        weight: -2
         expanded: true
         menu_name: admin
         parent: system.admin_content

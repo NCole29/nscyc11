@@ -190,6 +190,7 @@
     "drupal/redirect": "^1.13",
     "drupal/role_delegation": "^1.2",
     "drupal/scheduler": "^2.3",
+    "drupal/simple_popup_blocks": "^3.5",
     "drupal/smart_date": "^4.3",
     "drupal/solo": "^1.0",
     "drupal/svg_image": "^3.2",

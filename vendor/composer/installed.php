@@ -3,7 +3,7 @@
         'name' => 'drupal/recommended-project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'af3c01b094cbbbcc3bf1712f3d2cf77ba75d1753',
+        'reference' => '1c7c07871b5d31cb6a3d8a8e875bdf5e6e34ddc1',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -1192,7 +1192,7 @@
         'drupal/recommended-project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'af3c01b094cbbbcc3bf1712f3d2cf77ba75d1753',
+            'reference' => '1c7c07871b5d31cb6a3d8a8e875bdf5e6e34ddc1',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -1242,6 +1242,15 @@
             'replaced' => array(
                 0 => '*',
             ),
+        ),
+        'drupal/simple_popup_blocks' => array(
+            'pretty_version' => '3.5.0',
+            'version' => '3.5.0.0',
+            'reference' => '8.x-3.5',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../web/modules/contrib/simple_popup_blocks',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'drupal/smart_date' => array(
             'pretty_version' => '4.3.0',

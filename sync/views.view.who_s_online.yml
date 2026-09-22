@@ -2,6 +2,8 @@ uuid: null
 langcode: en
 status: true
 dependencies:
+  config:
+    - user.role.administrator
   module:
     - user
     - views_year_filter
@@ -71,9 +73,10 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access user profiles'
+          role:
+            administrator: administrator
       cache:
         type: tag
         options: {  }
@@ -135,8 +138,9 @@ display:
           value:
             min: ''
             max: ''
-            value: '-15 minutes'
+            value: '-10 minutes'
             type: offset
+            granularity: second
           group: 1
           exposed: false
           expose:
@@ -153,6 +157,9 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -200,7 +207,23 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - user.permissions
+        - user.roles
+      tags: {  }
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      display_description: 'A list of users that are currently logged in.'
+      display_extenders: {  }
+      path: whos-online
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - user.roles
       tags: {  }
   who_s_online_block:
     id: who_s_online_block
@@ -216,5 +239,5 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - user.permissions
+        - user.roles
       tags: {  }

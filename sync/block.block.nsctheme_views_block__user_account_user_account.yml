@@ -13,7 +13,7 @@ dependencies:
 id: nsctheme_views_block__user_account_user_account
 theme: nsctheme
 region: sidebar_first
-weight: -13
+weight: -17
 provider: null
 plugin: 'views_block:user_account-user_account'
 settings:

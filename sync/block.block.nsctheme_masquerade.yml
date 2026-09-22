@@ -10,8 +10,8 @@ dependencies:
     - nsctheme
 id: nsctheme_masquerade
 theme: nsctheme
-region: sidebar_first
-weight: -8
+region: hidden
+weight: -17
 provider: null
 plugin: masquerade
 settings:

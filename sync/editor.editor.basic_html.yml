@@ -28,6 +28,7 @@ settings:
       - drupalMedia
       - Accordion
       - style
+      - sourceEditing
   plugins:
     ckeditor5_alignment:
       enabled_alignments:
@@ -45,6 +46,8 @@ settings:
         startIndex: true
         styles: false
       multiBlock: true
+    ckeditor5_sourceEditing:
+      allowed_tags: {  }
     ckeditor5_style:
       styles:
         -

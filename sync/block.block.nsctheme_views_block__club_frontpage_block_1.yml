@@ -1,6 +1,6 @@
 uuid: 40de05b9-de3d-4cb4-bd8a-fe9309b480c1
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - views.view.club_frontpage

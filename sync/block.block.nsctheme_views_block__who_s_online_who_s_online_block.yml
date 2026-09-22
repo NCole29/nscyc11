@@ -1,4 +1,4 @@
-uuid: b9c213a2-0bb3-408d-bc9f-3214475689f6
+uuid: 43fa67fb-203c-4d8c-991e-3c182f534e8f
 langcode: en
 status: true
 dependencies:
@@ -6,14 +6,13 @@ dependencies:
     - views.view.who_s_online
   module:
     - system
-    - user
     - views
   theme:
     - nsctheme
 id: nsctheme_views_block__who_s_online_who_s_online_block
 theme: nsctheme
-region: sidebar_first
-weight: -9
+region: hidden
+weight: -16
 provider: null
 plugin: 'views_block:who_s_online-who_s_online_block'
 settings:
@@ -28,10 +27,3 @@ visibility:
     id: request_path
     negate: false
     pages: '<front>'
-  user_role:
-    id: user_role
-    negate: false
-    context_mapping:
-      user: '@user.current_user_context:current_user'
-    roles:
-      administrator: administrator

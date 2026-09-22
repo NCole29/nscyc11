@@ -29,6 +29,7 @@ dependencies:
     - field.field.node.event.layout_builder__layout
     - node.type.event
   module:
+    - datetime
     - link
     - smart_date
     - text
@@ -120,6 +121,33 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
+  field_webform:
+    type: webform_entity_reference_entity_view
+    label: above
+    settings:
+      source_entity: true
+      lazy: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_webform_closing:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_webform_limit:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 9
+    region: content
 hidden:
   banner_image: true
   field_components: true
@@ -133,9 +161,6 @@ hidden:
   field_results_access: true
   field_text: true
   field_type_of_page: true
-  field_webform: true
-  field_webform_closing: true
-  field_webform_limit: true
   field_webform_results: true
   layout_builder__layout: true
   links: true

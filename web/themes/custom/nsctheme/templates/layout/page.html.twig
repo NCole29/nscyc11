@@ -139,8 +139,9 @@
 
   {% include '@solo/partials/_system-messages.html.twig' %}
 
-
+  {% if not is_front %}
   {% include '@solo/partials/_page-title.html.twig' %}
+  {% endif %}
 
   {% include '@solo/partials/_breadcrumb.html.twig' %}
 

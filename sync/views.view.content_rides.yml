@@ -6192,7 +6192,7 @@ display:
       display_extenders: {  }
       path: admin/content/rides
       menu:
-        type: tab
+        type: none
         title: Rides
         description: ''
         weight: -10
@@ -6200,11 +6200,6 @@ display:
         menu_name: admin
         parent: system.admin
         context: '0'
-        as_local_task: false
-        local_task_link_title: Rides
-        local_task_parent: 'views_view:view.content_rides.rides'
-        local_task_weight: -1
-        local_task_custom_parent_route: ''
       tab_options:
         type: normal
         title: Content

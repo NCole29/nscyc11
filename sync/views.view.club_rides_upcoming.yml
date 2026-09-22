@@ -2351,7 +2351,7 @@ display:
           operator: between
           value:
             min: '-3 hours'
-            max: '+7 days'
+            max: '+6 days'
             value: ''
             type: offset
           group: 1

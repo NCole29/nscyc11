@@ -10,14 +10,10 @@ dependencies:
     - field.field.node.event.field_date
     - field.field.node.event.field_location
     - field.field.node.event.field_page_access
-    - field.field.node.event.field_registration
-    - field.field.node.event.field_registration_form
-    - field.field.node.event.field_registration_free_form
     - field.field.node.event.field_registration_link
     - field.field.node.event.field_registration_type
     - field.field.node.event.field_resize_banner_image
     - field.field.node.event.field_resize_text_image
-    - field.field.node.event.field_results_access
     - field.field.node.event.field_summary
     - field.field.node.event.field_text
     - field.field.node.event.field_type_of_page
@@ -36,7 +32,6 @@ dependencies:
     - options
     - text
     - user
-    - webform
 third_party_settings:
   layout_builder:
     enabled: true
@@ -123,29 +118,6 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 6
             additional: {  }
-          e5ac2c91-0a5c-433a-98c2-717cf12db1f4:
-            uuid: e5ac2c91-0a5c-433a-98c2-717cf12db1f4
-            region: first
-            configuration:
-              id: 'field_block:node:event:field_registration_form'
-              label: 'Registration form'
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: webform_entity_reference_link
-                label: visually_hidden
-                settings:
-                  label: 'Register Now'
-                  dialog: ''
-                  attributes:
-                    class:
-                      - button
-                third_party_settings: {  }
-            weight: 4
-            additional: {  }
           bb1f35bd-1016-4ab5-a92f-145402ef2b4f:
             uuid: bb1f35bd-1016-4ab5-a92f-145402ef2b4f
             region: first
@@ -179,29 +151,6 @@ third_party_settings:
               context_mapping:
                 entity: layout_builder.entity
             weight: 7
-            additional: {  }
-          a7eb2bcd-61c7-43f2-8ec2-5b63456e8df4:
-            uuid: a7eb2bcd-61c7-43f2-8ec2-5b63456e8df4
-            region: first
-            configuration:
-              id: 'field_block:node:event:field_registration_free_form'
-              label: 'Registration, Free event webform'
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: webform_entity_reference_link
-                label: visually_hidden
-                settings:
-                  label: 'Register Now'
-                  dialog: narrow
-                  attributes:
-                    class:
-                      - button
-                third_party_settings: {  }
-            weight: 5
             additional: {  }
           307c4c86-7efc-466b-a148-49b9d3ca3e1e:
             uuid: 307c4c86-7efc-466b-a148-49b9d3ca3e1e
@@ -318,33 +267,6 @@ content:
     third_party_settings: {  }
     weight: 12
     region: first
-  field_registration:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 13
-    region: first
-  field_registration_form:
-    type: webform_entity_reference_link
-    label: hidden
-    settings:
-      label: 'Register for event'
-      dialog: narrow
-      attributes:
-        class:
-          - w3-dark-button
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_results_access:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 17
-    region: first
   field_summary:
     type: text_default
     label: above
@@ -374,7 +296,6 @@ content:
 hidden:
   field_contact_person: true
   field_contact_us: true
-  field_registration_free_form: true
   field_registration_link: true
   field_registration_type: true
   field_resize_banner_image: true

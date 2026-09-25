@@ -18,12 +18,7 @@ dependencies:
     - field.field.node.ride.field_lunch_same
     - field.field.node.ride.field_master
     - field.field.node.ride.field_multiple_times
-    - field.field.node.ride.field_registration
-    - field.field.node.ride.field_registration_form
-    - field.field.node.ride.field_registration_free_form
-    - field.field.node.ride.field_registration_link
     - field.field.node.ride.field_registration_required
-    - field.field.node.ride.field_results_access
     - field.field.node.ride.field_ride_leader
     - field.field.node.ride.field_ride_picture
     - field.field.node.ride.field_rwgps_routes
@@ -42,7 +37,6 @@ dependencies:
     - datetime
     - datetimehideseconds
     - field_group
-    - link
     - markup
     - media_library
     - path
@@ -129,7 +123,6 @@ third_party_settings:
         - group_ride_leader_s_
         - group_location_and_routes
         - group_description
-        - group_registration
         - group_register
       label: 'Tab container'
       region: content
@@ -142,25 +135,6 @@ third_party_settings:
         id: ''
         direction: horizontal
         width_breakpoint: 640
-    group_registration:
-      children:
-        - field_registration
-        - field_registration_free_form
-        - field_registration_form
-        - field_results_access
-        - field_registration_link
-      label: Registration
-      region: content
-      parent_name: group_ta
-      weight: 21
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        formatter: closed
-        description: ''
-        required_fields: true
     group_lunch:
       children:
         - field_lunch_same
@@ -212,6 +186,7 @@ third_party_settings:
       children:
         - field_registration_required
         - field_webform
+        - field_registration_link
         - field_webform_limit
       label: Registration
       region: content
@@ -367,39 +342,6 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
-  field_registration:
-    type: options_buttons
-    weight: 20
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_registration_form:
-    type: webform_entity_reference_select
-    weight: 22
-    region: content
-    settings:
-      default_data: true
-      webforms: {  }
-    third_party_settings:
-      conditional_fields: {  }
-  field_registration_free_form:
-    type: webform_entity_reference_select
-    weight: 21
-    region: content
-    settings:
-      default_data: true
-      webforms: {  }
-    third_party_settings:
-      conditional_fields: {  }
-  field_registration_link:
-    type: link_default
-    weight: 24
-    region: content
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings:
-      conditional_fields: {  }
   field_registration_required:
     type: boolean_checkbox
     weight: 7
@@ -407,17 +349,6 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
-  field_results_access:
-    type: entity_reference_autocomplete
-    weight: 23
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings:
-      conditional_fields: {  }
   field_ride_leader:
     type: entity_reference_autocomplete
     weight: 53
@@ -500,7 +431,7 @@ content:
             selector: ''
   field_webform_limit:
     type: number
-    weight: 9
+    weight: 10
     region: content
     settings:
       placeholder: ''

@@ -1,0 +1,32 @@
+uuid: c4ad7573-63da-4a33-8a4c-9b8b7abe2374
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:e8c17fdb-e5b3-4530-b24c-77e30d79acc0'
+  module:
+    - block_content
+    - node
+  theme:
+    - nsctheme
+id: nsctheme_firsttimenscriders
+theme: nsctheme
+region: bottom_second
+weight: 0
+provider: null
+plugin: 'block_content:e8c17fdb-e5b3-4530-b24c-77e30d79acc0'
+settings:
+  id: 'block_content:e8c17fdb-e5b3-4530-b24c-77e30d79acc0'
+  label: 'First Time NSC Riders'
+  label_display: '0'
+  provider: block_content
+  view_mode: full
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      recurring_ride: recurring_ride
+      ride: ride

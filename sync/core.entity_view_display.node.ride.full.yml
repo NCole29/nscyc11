@@ -19,12 +19,7 @@ dependencies:
     - field.field.node.ride.field_lunch_same
     - field.field.node.ride.field_master
     - field.field.node.ride.field_multiple_times
-    - field.field.node.ride.field_registration
-    - field.field.node.ride.field_registration_form
-    - field.field.node.ride.field_registration_free_form
-    - field.field.node.ride.field_registration_link
     - field.field.node.ride.field_registration_required
-    - field.field.node.ride.field_results_access
     - field.field.node.ride.field_ride_leader
     - field.field.node.ride.field_ride_picture
     - field.field.node.ride.field_rwgps_routes
@@ -243,75 +238,6 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 8
             additional: {  }
-          25aa4dd3-a4d8-4dd0-90b1-192a33021dda:
-            uuid: 25aa4dd3-a4d8-4dd0-90b1-192a33021dda
-            region: second
-            configuration:
-              id: 'field_block:node:ride:field_registration_free_form'
-              label: 'Registration, Free event webform'
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: webform_entity_reference_link
-                label: visually_hidden
-                settings:
-                  label: Register
-                  dialog: narrow
-                  attributes:
-                    class:
-                      - w3-dark-button
-                third_party_settings: {  }
-            weight: 5
-            additional: {  }
-          c3658448-fed5-4dc4-8866-30570c42872e:
-            uuid: c3658448-fed5-4dc4-8866-30570c42872e
-            region: second
-            configuration:
-              id: 'field_block:node:ride:field_registration_form'
-              label: 'Registration, Paid'
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: webform_entity_reference_link
-                label: visually_hidden
-                settings:
-                  label: 'Register for [webform:title]'
-                  dialog: ''
-                  attributes:
-                    class:
-                      - w3-dark-button
-                third_party_settings: {  }
-            weight: 6
-            additional: {  }
-          220c43f0-f151-4109-8cf2-ce41ce6a5179:
-            uuid: 220c43f0-f151-4109-8cf2-ce41ce6a5179
-            region: second
-            configuration:
-              id: 'field_block:node:ride:field_registration_link'
-              label: 'Registration link to CiviCRM Event page or external site'
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: link
-                label: visually_hidden
-                settings:
-                  trim_length: 80
-                  url_only: false
-                  url_plain: false
-                  rel: '0'
-                  target: '0'
-                third_party_settings: {  }
-            weight: 7
-            additional: {  }
           3a981a25-2b38-43ac-aa5c-3c4532e0babb:
             uuid: 3a981a25-2b38-43ac-aa5c-3c4532e0babb
             region: second
@@ -520,12 +446,7 @@ hidden:
   field_master: true
   field_multiple_times: true
   field_nonmembers: true
-  field_registration: true
-  field_registration_form: true
-  field_registration_free_form: true
-  field_registration_link: true
   field_registration_required: true
-  field_results_access: true
   field_ride_picture: true
   field_schedule_date: true
   field_webform: true

@@ -1395,7 +1395,7 @@ display:
           entity_field: name
           plugin_id: field
           label: 'Route name'
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -1439,6 +1439,7 @@ display:
           type: string
           settings:
             link_to_entity: false
+            link_rel: canonical
           group_column: value
           group_columns: {  }
           group_rows: true

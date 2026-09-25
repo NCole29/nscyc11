@@ -1,0 +1,32 @@
+uuid: a685e092-6bc1-4db9-89fd-ccad9fdb2af7
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:17d4d0c9-cbbf-40c0-a1e9-2a147791906b'
+  module:
+    - block_content
+    - node
+  theme:
+    - nsctheme
+id: nsctheme_nscridesafetyculture
+theme: nsctheme
+region: bottom_third
+weight: 0
+provider: null
+plugin: 'block_content:17d4d0c9-cbbf-40c0-a1e9-2a147791906b'
+settings:
+  id: 'block_content:17d4d0c9-cbbf-40c0-a1e9-2a147791906b'
+  label: 'NSC Ride Safety Culture'
+  label_display: '0'
+  provider: block_content
+  view_mode: full
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      recurring_ride: recurring_ride
+      ride: ride

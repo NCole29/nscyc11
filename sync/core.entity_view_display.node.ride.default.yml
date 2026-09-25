@@ -19,12 +19,7 @@ dependencies:
     - field.field.node.ride.field_lunch_same
     - field.field.node.ride.field_master
     - field.field.node.ride.field_multiple_times
-    - field.field.node.ride.field_registration
-    - field.field.node.ride.field_registration_form
-    - field.field.node.ride.field_registration_free_form
-    - field.field.node.ride.field_registration_link
     - field.field.node.ride.field_registration_required
-    - field.field.node.ride.field_results_access
     - field.field.node.ride.field_ride_leader
     - field.field.node.ride.field_ride_picture
     - field.field.node.ride.field_rwgps_routes
@@ -40,11 +35,9 @@ dependencies:
     - layout_builder
     - layout_builder_restrictions
     - layout_discovery
-    - link
     - options
     - text
     - user
-    - webform
 third_party_settings:
   layout_builder:
     enabled: true
@@ -230,91 +223,6 @@ third_party_settings:
                   prefix_suffix: true
                 third_party_settings: {  }
             weight: 11
-            additional: {  }
-          171e581e-ef0a-48de-b0ba-cc75ffa38236:
-            uuid: 171e581e-ef0a-48de-b0ba-cc75ffa38236
-            region: content
-            configuration:
-              id: 'field_block:node:ride:field_registration'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: list_default
-                label: above
-                settings: {  }
-                third_party_settings: {  }
-            weight: 12
-            additional: {  }
-          bcc76f9c-8665-46d2-9df0-7107358df437:
-            uuid: bcc76f9c-8665-46d2-9df0-7107358df437
-            region: content
-            configuration:
-              id: 'field_block:node:ride:field_registration_free_form'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: webform_entity_reference_entity_view
-                label: above
-                settings:
-                  source_entity: true
-                  lazy: false
-                third_party_settings: {  }
-            weight: 13
-            additional: {  }
-          05569d15-3af1-4ad9-8c24-4ba7666d80cc:
-            uuid: 05569d15-3af1-4ad9-8c24-4ba7666d80cc
-            region: content
-            configuration:
-              id: 'field_block:node:ride:field_registration_form'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: webform_entity_reference_entity_view
-                label: above
-                settings:
-                  source_entity: true
-                  lazy: false
-                third_party_settings: {  }
-            weight: 14
-            additional: {  }
-          36d8f635-0a99-41cd-a2cd-7b1f0a270ddb:
-            uuid: 36d8f635-0a99-41cd-a2cd-7b1f0a270ddb
-            region: content
-            configuration:
-              id: 'field_block:node:ride:field_registration_link'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: link
-                label: above
-                settings:
-                  trim_length: 80
-                  url_only: false
-                  url_plain: false
-                  rel: ''
-                  target: ''
-                third_party_settings: {  }
-            weight: 15
-            additional: {  }
-          29e36c06-87ca-44b7-944f-3fd05f4d4d19:
-            uuid: 29e36c06-87ca-44b7-944f-3fd05f4d4d19
-            region: content
-            configuration:
-              id: 'field_block:node:ride:field_results_access'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: entity_reference_label
-                label: above
-                settings:
-                  link: true
-                third_party_settings: {  }
-            weight: 16
             additional: {  }
           2cf59147-cca3-490d-9543-196f7ffab820:
             uuid: 2cf59147-cca3-490d-9543-196f7ffab820
@@ -507,51 +415,6 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 19
-    region: content
-  field_registration:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 12
-    region: content
-  field_registration_form:
-    type: webform_entity_reference_entity_view
-    label: above
-    settings:
-      source_entity: true
-      lazy: false
-    third_party_settings: {  }
-    weight: 14
-    region: content
-  field_registration_free_form:
-    type: webform_entity_reference_entity_view
-    label: above
-    settings:
-      source_entity: true
-      lazy: false
-    third_party_settings: {  }
-    weight: 13
-    region: content
-  field_registration_link:
-    type: link
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: 15
-    region: content
-  field_results_access:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 16
     region: content
   field_ride_leader:
     type: entity_reference_label

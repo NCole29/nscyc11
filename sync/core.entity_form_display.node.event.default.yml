@@ -10,14 +10,10 @@ dependencies:
     - field.field.node.event.field_date
     - field.field.node.event.field_location
     - field.field.node.event.field_page_access
-    - field.field.node.event.field_registration
-    - field.field.node.event.field_registration_form
-    - field.field.node.event.field_registration_free_form
     - field.field.node.event.field_registration_link
     - field.field.node.event.field_registration_type
     - field.field.node.event.field_resize_banner_image
     - field.field.node.event.field_resize_text_image
-    - field.field.node.event.field_results_access
     - field.field.node.event.field_summary
     - field.field.node.event.field_text
     - field.field.node.event.field_type_of_page
@@ -82,7 +78,6 @@ third_party_settings:
         - group_page_content
         - group_place_announcement_on_home
         - group_banner_image
-        - group_registration
         - group_register
         - group_contact_link
       label: Tabs
@@ -118,26 +113,6 @@ third_party_settings:
         formatter: open
         description: ''
         required_fields: true
-    group_registration:
-      children:
-        - field_registration
-        - field_registration_free_form
-        - field_registration_form
-        - field_results_access
-        - field_registration_close_date
-      label: 'Registration (old)'
-      region: content
-      parent_name: group_tabs
-      weight: 13
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        formatter: closed
-        description: ''
-        required_fields: false
     group_contact_link:
       children:
         - field_contact_us
@@ -325,32 +300,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_registration:
-    type: options_buttons
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_registration_form:
-    type: webform_entity_reference_select
-    weight: 6
-    region: content
-    settings:
-      default_data: false
-      webforms: {  }
-    third_party_settings:
-      conditional_fields: {  }
-  field_registration_free_form:
-    type: webform_entity_reference_select
-    weight: 5
-    region: content
-    settings:
-      default_data: true
-      webforms:
-        - free_event
-        - free_event_nologin
-    third_party_settings:
-      conditional_fields: {  }
   field_registration_link:
     type: link_default
     weight: 27
@@ -411,17 +360,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_results_access:
-    type: entity_reference_autocomplete
-    weight: 8
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings:
-      conditional_fields: {  }
   field_summary:
     type: text_textarea
     weight: 10

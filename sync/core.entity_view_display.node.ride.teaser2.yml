@@ -19,12 +19,7 @@ dependencies:
     - field.field.node.ride.field_lunch_same
     - field.field.node.ride.field_master
     - field.field.node.ride.field_multiple_times
-    - field.field.node.ride.field_registration
-    - field.field.node.ride.field_registration_form
-    - field.field.node.ride.field_registration_free_form
-    - field.field.node.ride.field_registration_link
     - field.field.node.ride.field_registration_required
-    - field.field.node.ride.field_results_access
     - field.field.node.ride.field_ride_leader
     - field.field.node.ride.field_ride_picture
     - field.field.node.ride.field_rwgps_routes
@@ -246,12 +241,7 @@ hidden:
   field_lunch_same: true
   field_master: true
   field_multiple_times: true
-  field_registration: true
-  field_registration_form: true
-  field_registration_free_form: true
-  field_registration_link: true
   field_registration_required: true
-  field_results_access: true
   field_ride_picture: true
   field_rwgps_routes: true
   field_schedule_date: true

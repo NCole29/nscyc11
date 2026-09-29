@@ -12,6 +12,7 @@ dependencies:
     - field_group
     - markup
     - media_library
+    - path
 third_party_settings:
   field_group:
     group_images:
@@ -56,6 +57,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  path:
+    type: path
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     weight: 3
@@ -71,16 +78,11 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  url_redirects:
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   created: true
-  path: true
   promote: true
   publish_on: true
   sticky: true
   uid: true
   unpublish_on: true
+  url_redirects: true

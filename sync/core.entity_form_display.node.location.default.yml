@@ -10,11 +10,11 @@ dependencies:
     - field.field.node.location.field_location_type
     - field.field.node.location.field_restrooms
     - node.type.location
-    - workflows.workflow.editorial
   module:
     - address
     - allowed_formats
     - content_moderation
+    - path
     - text
 id: node.location.default
 targetEntityType: node
@@ -59,7 +59,13 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 100
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -78,18 +84,13 @@ content:
       size: 60
       placeholder: 'Enter place name'
     third_party_settings: {  }
-  url_redirects:
-    weight: 50
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   created: true
   field_coordinates: true
   field_google_map: true
-  path: true
   promote: true
   publish_on: true
   sticky: true
   uid: true
   unpublish_on: true
+  url_redirects: true

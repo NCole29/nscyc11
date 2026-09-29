@@ -148,7 +148,7 @@ class RevenueReport implements ContainerInjectionInterface {
       '#rows' => $data,
       '#empty' => t('No content has been found.'),
       '#attributes' => array (
-        'class' => ['report-table'],
+        'class' => ['w3-table-all revenue-table number-table w3-medium'],
       ),
       '#cache' => array (
         'max-age' => 0,
@@ -161,7 +161,7 @@ class RevenueReport implements ContainerInjectionInterface {
       '#markup' => $title . $tableHTML . $footer,
       '#attached' => [
         'library' => [
-		  'club/club-style',
+		     'nsctheme/club-tables',
         ],
       ]
     ];

@@ -274,33 +274,33 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 100
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 4
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 10
+    weight: 4
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 3
+    weight: 2
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 11
+    weight: 5
     region: content
     settings:
       display_label: true
@@ -331,14 +331,10 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  url_redirects:
-    weight: 5
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   field_comment: true
   layout_builder__layout: true
   publish_on: true
   uid: true
   unpublish_on: true
+  url_redirects: true

@@ -864,7 +864,7 @@ display:
     display_options:
       defaults:
         css_class: false
-      css_class: 'narrow-table number-table w3-medium '
+      css_class: 'narrow-table w3-medium '
       display_extenders: {  }
       block_description: members_by_year
     cache_metadata:

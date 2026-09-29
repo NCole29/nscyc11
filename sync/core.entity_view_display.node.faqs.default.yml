@@ -41,7 +41,7 @@ content:
     settings:
       question_tag: h3
       active: null
-      heightStyle: auto
+      heightStyle: content
       collapsible: true
       event: click
       animate:

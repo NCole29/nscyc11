@@ -1,99 +1,46 @@
-/*  CUSTOM TABLE STYLES used in Views
-  Plain table - no shading, border on bottom only
-  Leader table - enforce equal column width
-  Report table  - alternate row shading, right align, small font
-  Schedule table - same as report + border between schedule and ride fields
-  --------------------------------------------------------------------------*/
+/* 
+Default table style is solo-table and rows are not shaded.
+
+.w3-table-all - shades alternate rows. Applied to Views via UI.
+  Applied to all tables inserted in the text editor via club/src/Plugin/Filter/TableFilter.php.
+
+.number-table - right align numbers
+.schedule-table - applies a border between the schedule and ride fields
+--------------------------------------------------------------------------*/
+  
+/* w3-table-all - applied to tables inserted in text editor */
+.w3-table-all li {
+  list-style: disc !important;
+} 
+.w3-table-all tr:nth-child(even) {
+  background-color: #f7f7f7 !important;
+}
+.w3-table-all tr:nth-child(odd) {
+  background-color: #ffffff !important;
+}
+
+.w3-table-all th {
+  background-color: #ededed !important;
+}
+
+/* revenue table has two header rows */
+.revenue-table tr:first-child {
+  background-color: #ededed !important;
+  font-weight: bold;
+}
+
+.number-table {
+  width: auto;
+}
+/* Align the 2nd column and all following columns */
+.number-table th:nth-child(n+2), 
+.number-table td:nth-child(n+2) {
+  text-align: right;
+}
+
 .narrow-table {
   width: 50% !important;
-}
-
-.plain-table tr {
-  border-bottom: 1px solid var(--bg-d1)!important;
-}
-.plain-table td,
-.plain-table th {
-  font-size: .8em;
-  padding: 4px 4px;
-  text-align: left;
-  vertical-align: top;
-}
-
-.leader-table,
-.report-table,
-.schedule-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 98%;
-  margin-left: 2em;
-  display: table;
-  font-size:medium;
-}
-.leader-table tr,
-.report-table tr,
-.schedule-table tr {
-  border-bottom: 1px solid #ddd;
-}
-.leader-table   th:first-child,
-.leader-table   td:first-child,
-.report-table   th:first-child,
-.report-table   td:first-child,
-.schedule-table th:first-child,
-.schedule-table td:first-child {
-  padding-left: 16px;
-  text-align: left;
-}
-.leader-table th,
-.leader-table td,
-.report-table th,
-.report-table td,
-.schedule-table th,
-.schedule-table td {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-right: 1em;
-  display: table-cell;
-  vertical-align: top;
-}
-.report-table th,
-.report-table td,
-.schedule-table th,
-.schedule-table td {
-  font-size: .8em!important;
-}
-
-/* Alternate row shading  */
-.leader-table tr:nth-child(odd),
-.report-table tr:nth-child(odd) {
-  background-color: #fff;
-}
-.leader-table tr:nth-child(even),
-.report-table tr:nth-child(even) {
-  background-color: #f1f1f1;
-}
-
-/* Enforce equal column width */
-.leader-table th,
-.leader-table td {
-  width: 20%;
-}
-
-.leader-table th,
-.leader-table td {
-  padding-left: 8px;
-  text-align: left;
-}
-
-/* Right-align */
-.report-table th {
-   text-align: center!important;
-}
-.report-table td {
-   text-align: right!important;
-}
-.schedule-table th,
-.schedule-table td {
-   text-align: left!important;
+  padding-left: 1rem;
 }
 
 /* Vertical border between schedule and ride fields */

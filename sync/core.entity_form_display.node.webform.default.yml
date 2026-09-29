@@ -9,9 +9,15 @@ dependencies:
     - field.field.node.webform.field_contact_person
     - field.field.node.webform.field_contact_us
     - field.field.node.webform.field_page_access
+    - field.field.node.webform.field_resize_banner_image
+    - field.field.node.webform.field_resize_text_image
     - field.field.node.webform.field_summary
     - field.field.node.webform.field_text
     - field.field.node.webform.field_type_of_page
+    - field.field.node.webform.field_webform
+    - field.field.node.webform.field_webform_closing
+    - field.field.node.webform.field_webform_limit
+    - field.field.node.webform.field_webform_results
     - field.field.node.webform.webform
     - node.type.webform
     - workflows.workflow.editorial
@@ -21,6 +27,7 @@ dependencies:
     - field_group
     - layout_paragraphs
     - media_library
+    - path
     - scheduler
     - text
     - webform
@@ -83,7 +90,6 @@ third_party_settings:
     group_banner:
       children:
         - banner_image
-        - field_padding
       label: 'Banner image'
       region: content
       parent_name: group_tabs
@@ -258,7 +264,13 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 5
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -271,18 +283,18 @@ content:
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 52
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 50
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 4
+    weight: 1
     region: content
     settings:
       display_label: true
@@ -322,7 +334,7 @@ content:
     third_party_settings: {  }
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 54
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -337,8 +349,12 @@ content:
 hidden:
   body: true
   created: true
-  field_contact_us: true
+  field_resize_banner_image: true
+  field_resize_text_image: true
+  field_webform: true
+  field_webform_closing: true
+  field_webform_limit: true
+  field_webform_results: true
   layout_builder__layout: true
-  path: true
   uid: true
   url_redirects: true

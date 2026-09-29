@@ -4,7 +4,7 @@ status: true
 dependencies:
   module:
     - charts
-    - charts_billboard
+    - charts_c3
     - civicrm_entity
     - datetime
     - options
@@ -481,7 +481,7 @@ display:
         options:
           grouping: {  }
           chart_settings:
-            library: billboard
+            library: c3
             type: column
             fields:
               label: title
@@ -538,6 +538,20 @@ display:
               suffix: ''
               decimal_count: ''
               labels_rotation: '0'
+            plot_lines:
+              sources:
+                title:
+                  enabled: false
+                  orientation: horizontal
+                  color: '#000000'
+                  label_text: ''
+                  weight: 2
+                contact_id:
+                  enabled: false
+                  orientation: horizontal
+                  color: '#000000'
+                  label_text: ''
+                  weight: 2
             library_configs: {  }
       row:
         type: fields

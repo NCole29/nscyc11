@@ -5,8 +5,10 @@ dependencies:
   config:
     - node.type.announcement
     - node.type.event
+    - node.type.faqs
     - node.type.location
     - node.type.page
+    - node.type.webform
   module:
     - node
 id: content
@@ -22,8 +24,10 @@ selection_criteria:
     bundles:
       announcement: announcement
       event: event
+      faqs: faqs
       location: location
       page: page
+      webform: webform
 selection_logic: and
 weight: -9
 relationships: {  }

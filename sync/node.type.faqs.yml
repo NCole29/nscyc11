@@ -8,6 +8,7 @@ dependencies:
 third_party_settings:
   menu_ui:
     available_menus:
+      - club-reports
       - main
     parent: 'main:'
   scheduler:

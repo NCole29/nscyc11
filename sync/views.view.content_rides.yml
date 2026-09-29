@@ -12,7 +12,6 @@ dependencies:
     - node.type.recurring_dates
     - node.type.recurring_ride
     - node.type.ride
-    - system.menu.admin
     - taxonomy.vocabulary.activities
     - taxonomy.vocabulary.gravel_categories
     - user.role.administrator
@@ -1528,8 +1527,8 @@ display:
       displays:
         rides: rides
         default: '0'
-        page_2: '0'
         ride_list: '0'
+        recurring_dates: recurring_dates
       filename: rides.csv
       automatic_download: true
       export_filesystem: public
@@ -1605,7 +1604,7 @@ display:
           element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
-          element_default_classes: true
+          element_default_classes: false
           empty: ''
           hide_empty: false
           empty_zero: false
@@ -1614,6 +1613,7 @@ display:
           type: string
           settings:
             link_to_entity: true
+            link_rel: canonical
           group_column: value
           group_columns:
             value: value
@@ -2265,8 +2265,8 @@ display:
       tags:
         - 'config:field.storage.node.field_gravel_category'
         - 'config:field.storage.node.field_location'
-  page_2:
-    id: page_2
+  recurring_dates:
+    id: recurring_dates
     display_title: 'Recurring dates'
     display_plugin: page
     position: 1
@@ -3120,7 +3120,7 @@ display:
       display_extenders: {  }
       path: admin/content/recurring_dates
       menu:
-        type: normal
+        type: none
         title: 'Recurring dates'
         description: ''
         weight: 0
@@ -3128,11 +3128,6 @@ display:
         menu_name: admin
         parent: system.admin_content
         context: '0'
-        as_local_task: false
-        local_task_link_title: ''
-        local_task_parent: 'views_view:view.block_content.page_1'
-        local_task_weight: 0
-        local_task_custom_parent_route: ''
       tab_options:
         type: none
         title: Content
@@ -4363,7 +4358,7 @@ display:
           element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
-          element_default_classes: true
+          element_default_classes: false
           empty: ''
           hide_empty: false
           empty_zero: false
@@ -4372,6 +4367,7 @@ display:
           type: string
           settings:
             link_to_entity: true
+            link_rel: canonical
           group_column: value
           group_columns: {  }
           group_rows: true

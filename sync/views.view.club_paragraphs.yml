@@ -408,6 +408,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
+      css_class: w3-medium
       header:
         area:
           id: area

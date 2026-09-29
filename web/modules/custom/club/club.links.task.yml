@@ -57,8 +57,14 @@ club.recurring_rides_tab:
   parent_id: club.main_rides_tab
   weight: 2
 
+club.recurring_dates_tab:
+  title: 'Recurring Dates'
+  route_name: view.content_rides.recurring_dates
+  parent_id: club.main_rides_tab
+  weight: 3
+
 club.moderated_rides_tab:
   title: 'Moderated rides'
   route_name: view.moderated_content.moderated_rides
   parent_id: club.main_rides_tab
-  weight: 3
+  weight: 4

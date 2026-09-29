@@ -17,6 +17,7 @@ dependencies:
     - node.type.announcement
     - node.type.banner
     - node.type.event
+    - node.type.faqs
     - node.type.location
     - node.type.page
     - node.type.webform
@@ -66,6 +67,7 @@ permissions:
   - 'administer main menu items'
   - 'clone announcement content'
   - 'clone event content'
+  - 'clone faqs content'
   - 'clone page content'
   - 'clone webform content'
   - 'configure editable event node layout overrides'
@@ -74,6 +76,7 @@ permissions:
   - 'create announcement content'
   - 'create banner content'
   - 'create event content'
+  - 'create faqs content'
   - 'create gallery media'
   - 'create image_crop_20_7 media'
   - 'create location content'
@@ -86,6 +89,7 @@ permissions:
   - 'delete any announcement content'
   - 'delete any banner content'
   - 'delete any event content'
+  - 'delete any faqs content'
   - 'delete any file'
   - 'delete any location content'
   - 'delete any media'
@@ -93,6 +97,7 @@ permissions:
   - 'delete any webform content'
   - 'delete banner revisions'
   - 'delete event revisions'
+  - 'delete faqs revisions'
   - 'delete files immediately'
   - 'delete files override usage'
   - 'delete in CiviMail'
@@ -106,6 +111,7 @@ permissions:
   - 'edit any banner content'
   - 'edit any basic block content'
   - 'edit any event content'
+  - 'edit any faqs content'
   - 'edit any location content'
   - 'edit any page content'
   - 'edit any paragraphs_block block content'
@@ -120,6 +126,7 @@ permissions:
   - 'edit own webform'
   - 'revert all revisions'
   - 'revert banner revisions'
+  - 'revert faqs revisions'
   - 'schedule publishing of nodes'
   - 'update any media'
   - 'use editorial transition archive'
@@ -130,7 +137,9 @@ permissions:
   - 'view all revisions'
   - 'view any unpublished banner content'
   - 'view any unpublished content'
+  - 'view any unpublished faqs content'
   - 'view banner revisions'
+  - 'view faqs revisions'
   - 'view latest version'
   - 'view own unpublished content'
   - 'view own unpublished media'

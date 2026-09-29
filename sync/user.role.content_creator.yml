@@ -15,6 +15,7 @@ dependencies:
     - node.type.announcement
     - node.type.banner
     - node.type.event
+    - node.type.faqs
     - node.type.location
     - node.type.page
     - node.type.webform
@@ -63,6 +64,7 @@ permissions:
   - 'administer main menu items'
   - 'clone announcement content'
   - 'clone event content'
+  - 'clone faqs content'
   - 'clone location content'
   - 'clone page content'
   - 'clone webform content'
@@ -71,6 +73,7 @@ permissions:
   - 'create banner content'
   - 'create basic block content'
   - 'create event content'
+  - 'create faqs content'
   - 'create gallery media'
   - 'create image_crop_20_7 media'
   - 'create location content'
@@ -88,6 +91,7 @@ permissions:
   - 'delete own announcement content'
   - 'delete own banner content'
   - 'delete own event content'
+  - 'delete own faqs content'
   - 'delete own files'
   - 'delete own image_crop_20_7 media'
   - 'delete own location content'
@@ -103,6 +107,7 @@ permissions:
   - 'edit any page content'
   - 'edit any paragraphs_block block content'
   - 'edit any webform content'
+  - 'edit own faqs content'
   - 'edit own gallery media'
   - 'edit own image media'
   - 'edit own image_crop_16_9 media'
@@ -124,6 +129,7 @@ permissions:
   - 'view any paragraphs_block block content history'
   - 'view any unpublished banner content'
   - 'view any unpublished content'
+  - 'view any unpublished faqs content'
   - 'view banner revisions'
   - 'view event revisions'
   - 'view latest version'

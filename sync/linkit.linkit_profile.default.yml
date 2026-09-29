@@ -18,6 +18,7 @@ matchers:
       bundles:
         announcement: announcement
         event: event
+        faqs: faqs
         location: location
         page: page
         recurring_ride: recurring_ride

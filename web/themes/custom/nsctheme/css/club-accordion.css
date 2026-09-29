@@ -1,0 +1,72 @@
+:root{
+	--activebg: #cccccc;
+	--activefg: #000000;
+
+	--inactivebg:#134a85;
+	--inactivefg: #ffffff;
+
+	--answerBorder:#c5c5c5;
+	--border: #c5c5c5;
+	--hoverbg:#edf4fc;
+	--hoverBorder: #c5c5c5;
+}
+
+/* ------------------------------ 
+  FAQ FIELD ACCORDION
+----------------------------------*/
+.ui-accordion-header-icon,  .ui-icon,
+.ui-state-hover .ui-icon {
+	background-image: url("images/ui-icons_ffffff_256x240.png");
+}
+
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+a.ui-button:active,
+.ui-button:active,
+.ui-button.ui-state-active:hover {
+	border: 1px solid #87b9ee;
+	background: #87b9ee;
+	font-weight: normal;
+	color: #ffffff;
+}
+.ui-icon-background,
+.ui-state-active .ui-icon-background {
+	border: #87b9ee;
+	background-color: #ffffff;
+}
+.ui-state-active a,
+.ui-state-active a:link,
+.ui-state-active a:visited {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+/* CKEDITOR ACCORDION  */
+
+/* Default Question (unopened) */
+.ui-accordion-header-collapsed {
+	background: var(--inactivebg)!important;
+	color: var(--inactivefg)!important;
+}
+
+/* Active Question (opened) */
+.ui-accordion-header-active {
+	color: var(--activefg)!important;
+}
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+a.ui-button:active,
+.ui-button:active,
+.ui-button.ui-state-active:hover {
+	border: 1px solid var(--activebg)!important ;
+	color: var(--activefg);
+}
+
+.ui-state-active a,
+.ui-state-active a:link,
+.ui-state-active a:visited {
+	color: var(--activefg);
+	text-decoration: none;
+}

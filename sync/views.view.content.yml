@@ -7,10 +7,13 @@ dependencies:
     - node.type.announcement
     - node.type.banner
     - node.type.event
+    - node.type.faqs
     - node.type.location
     - node.type.page
+    - node.type.recurring_dates
     - node.type.recurring_ride
     - node.type.ride
+    - node.type.statistic
     - node.type.webform
     - taxonomy.vocabulary.page_access
     - workflows.workflow.editorial
@@ -1173,13 +1176,12 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
-          operator: in
+          operator: 'not in'
           value:
-            announcement: announcement
-            page: page
-            event: event
-            banner: banner
-            webform: webform
+            recurring_dates: recurring_dates
+            recurring_ride: recurring_ride
+            ride: ride
+            statistic: statistic
           group: 1
           exposed: false
           expose:
@@ -1224,6 +1226,7 @@ display:
             announcement: announcement
             page: page
             event: event
+            faqs: faqs
             banner: banner
             webform: webform
           group: 1

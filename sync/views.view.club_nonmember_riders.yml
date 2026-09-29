@@ -411,7 +411,7 @@ display:
           type: datetime_default
           settings:
             timezone_override: ''
-            format_type: day_and_date
+            format_type: day_date
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -435,8 +435,8 @@ display:
           label: 'Membership Start Date'
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: "{% if start_date__value >0 %}\r\n\t{{ start_date }} \r\n{% endif %}\r\n\r\n"
             make_link: false
             path: ''
             absolute: false
@@ -501,8 +501,8 @@ display:
           label: 'Membership Expiration Date'
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: "{% if end_date__value >0 %}\r\n\t{{ end_date }} \r\n{% endif %}"
             make_link: false
             path: ''
             absolute: false

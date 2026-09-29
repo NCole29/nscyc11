@@ -665,7 +665,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      css_class: 'w3-table-all w3-small'
+      css_class: 'w3-table-all w3-medium'
       header:
         result:
           id: result

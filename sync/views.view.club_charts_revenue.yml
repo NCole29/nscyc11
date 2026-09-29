@@ -1047,7 +1047,7 @@ display:
           entity_type: civicrm_participant
           entity_field: contact_id
           plugin_id: field
-          label: 'Number participants'
+          label: '#Participants'
           exclude: false
           alter:
             alter_text: false
@@ -1103,6 +1103,13 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          set_precision: false
+          precision: 0
+          decimal: .
+          format_plural: false
+          format_plural_string: !!binary MQNAY291bnQ=
+          prefix: ''
+          suffix: ''
         fee_amount:
           id: fee_amount
           table: civicrm_participant
@@ -1392,7 +1399,7 @@ display:
         filter_groups: false
         header: false
         footer: false
-      css_class: number-table
+      css_class: 'w3-table-all w3-medium number-table narrow-table'
       display_description: ''
       header:
         area:

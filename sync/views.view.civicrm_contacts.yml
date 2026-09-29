@@ -1802,8 +1802,8 @@ display:
           value:
             min: ''
             max: ''
-            value: '2026'
-            type: date_year
+            value: 'first day of january this year'
+            type: offset
           group: 1
           exposed: false
           expose:
@@ -1880,7 +1880,7 @@ display:
           admin_label: ''
           plugin_id: text_custom
           empty: false
-          content: "<small>New - members in their first month of membership<br>\r\nGrace - extends 30 days past expiration date<br>\r\nExpired - expired this calendar year (ADMIN: view filter must be updated each year)<br>\r\nPending - persons with a pending membership payment</small>"
+          content: "<small>New - members in their first month of membership<br>\r\nGrace - extends 30 days past expiration date<br>\r\nExpired - expired this calendar year<br>\r\nPending - persons with a pending membership payment</small>\r\n"
           tokenize: false
       display_extenders: {  }
       block_description: 'Members by status'
@@ -4330,6 +4330,7 @@ display:
           empty_table: false
           caption: ''
           description: ''
+          class: ''
       row:
         type: fields
         options: {  }

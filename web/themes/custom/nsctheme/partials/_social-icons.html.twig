@@ -1,4 +1,5 @@
 {# to get the three footer containers sized correctly, I placed an empty content block (social icons) in the block layout #}
+{# revised to include RWGPS & Strava in footer_third #}											
 
   {% if sm_show_icons %}
     <!-- Start: Social Media -->
@@ -19,6 +20,10 @@
       'mastodon': {'url': sm_icon_mastodon},
       'drupal': {'url': sm_icon_drupal},
       'threads': {'url': sm_icon_threads},
+
+	  'rwgps': {'url': sm_icon_rwgps},
+	  'strava': {'url': sm_icon_strava},
+		  
       'rss': {'url': sm_icon_rss},
       'email': {'url': sm_icon_email},
       } %}
@@ -30,7 +35,7 @@
             <a href="{{ social.url }}" title="{{ key|capitalize }}" class="solo-clear {{ key }}" target="_blank">
           {% endif %}
             {#<span class="sm-icon">#}
-              {% set svg_icon = "@solo/partials/svg/_svg-" ~  key   ~ ".html.twig" %}
+              {% set svg_icon = "@nsctheme/partials/svg/_svg-" ~  key   ~ ".html.twig" %}
               {% include svg_icon %}
           {#  </span>#}
             </a>

@@ -963,6 +963,14 @@ nsctheme.settings:
       type: string
       label: 'Email'
 
+    sm_icon_rwgps:
+      type: string
+      label: 'RWGPS'
+
+    sm_icon_strava:
+      type: string
+      label: 'Strava'
+
     # ===============================================
     # BLOCK TITLE VISIBILITY
     # ===============================================

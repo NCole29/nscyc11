@@ -12,7 +12,7 @@ dependencies:
 id: nsctheme_views_block__who_s_online_who_s_online_block
 theme: nsctheme
 region: hidden
-weight: -16
+weight: -18
 provider: null
 plugin: 'views_block:who_s_online-who_s_online_block'
 settings:

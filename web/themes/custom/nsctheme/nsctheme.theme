@@ -1,9 +1,6 @@
 <?php
 
-/**
- * @file
- * Add your custom theme override functions here.
- */
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
@@ -12,4 +9,32 @@ function nsctheme_theme_suggestions_block_alter(array &$suggestions, array $vari
   foreach ($suggestions as $key => $suggestion) {
     $suggestions[$key] = str_replace('solo_', 'nsctheme_', $suggestion);
   }
+}
+
+/**
+ * Implements hook_form_system_theme_settings_alter() for nsctheme.
+ */
+function nsctheme_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+  // Check if the social icons settings exist in the form.
+  if (isset($form['solo_settings']['settings_social_icons'])) {
+    // Add or override social icons here.
+    $form['solo_settings']['settings_social_icons']['sm_icon_rwgps'] = [
+      '#type' => 'textfield',
+      '#title' => t('RWGPS'),
+      '#default_value' => theme_get_setting('sm_icon_rwgps'),
+    ];
+    $form['solo_settings']['settings_social_icons']['sm_icon_strava'] = [
+      '#type' => 'textfield',
+      '#title' => t('Strava'),
+      '#default_value' => theme_get_setting('sm_icon_strava'),
+    ];
+  }
+}
+
+/**
+ * Implements hook_preprocess_page()
+ */
+function nsctheme_preprocess_page(&$variables) {
+  $variables['sm_icon_rwgps'] = theme_get_setting('sm_icon_rwgps');
+  $variables['sm_icon_strava'] = theme_get_setting('sm_icon_strava');
 }

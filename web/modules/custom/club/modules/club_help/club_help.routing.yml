@@ -3,4 +3,4 @@ club_help.docs:
   defaults: 
     _title: 'Help pages'
   requirements: 
-    _permission: 'access toolbar'
+    _permission: 'access navigation'

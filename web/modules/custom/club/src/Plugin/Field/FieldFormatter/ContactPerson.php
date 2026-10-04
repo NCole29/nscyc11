@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation for link to the user webform contact form.
+ * field_disabled was removed from the user account settings and removed here.
  */
 #[FieldFormatter(
   id: "contact_person",
@@ -68,18 +69,12 @@ class ContactPerson extends EntityReferenceFormatterBase implements ContainerFac
  
       $contact_id = $entity->id();
 
-      // Is personal contact form enabled? If no, display plain text.
-      $disabled = $entity->field_disable_contact_form->value ? $entity->field_disable_contact_form->value:0;
-
-      if ( $disabled == 1 ) {
         $elements[$delta] = [
           '#plain_text' => $entity->label(),
           '#cache' => [
             'tags' => $entity->getCacheTags(),
           ] 
         ];
-      } 
-      else {
         // 1. Build the URL object with query parameters
         $url = Url::fromRoute('entity.webform.canonical', ['webform' => 'contact_form'], [
           'query' => [
@@ -98,7 +93,6 @@ class ContactPerson extends EntityReferenceFormatterBase implements ContainerFac
             'tags' => $entity->getCacheTags(),
           ]
         ];  
-      }
     }  
 
     return $elements;

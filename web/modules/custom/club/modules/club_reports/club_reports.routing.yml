@@ -7,7 +7,7 @@ club_reports.file_uploads:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
     _title: 'File uploads'
   requirements:
-    _permission: 'access toolbar'
+    _role: 'administrator+board'
 
 club_reports.board_minutes:
   path: '/form/board-meeting-minutes'
@@ -16,7 +16,7 @@ club_reports.board_minutes:
     _title: 'Board Meeting Minutes'
     webform: 'board-meeting-minutes' 
   requirements:
-    _permission: 'access toolbar'
+    _role: 'administrator+board'
 
 club_reports.club_reports:
   path: '/form/club-reports'
@@ -25,7 +25,7 @@ club_reports.club_reports:
     _title: 'Club reports'
     webform: 'club-reports' 
   requirements:
-    _permission: 'access toolbar'
+    _role: 'administrator+board'
 
 # Custom reports.
 club_reports.multiple_memberships:

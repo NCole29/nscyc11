@@ -7,7 +7,7 @@ club_ride_tools.ride_tools:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
     _title: 'Ride tools'
   requirements:
-    _permission: 'access toolbar'
+    _permission: 'access navigation'
 
 # Menu items under Ride tools
 # Link to View schedule is set in the View.

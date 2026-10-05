@@ -13,7 +13,11 @@ services:
     arguments: ['@entity_type.manager']
 
   Drupal\club\Controller\RenameImages: '@club.renameImages'
-      
+
+  club.mysql_view_repository:
+    class: Drupal\club\Repository\MySqlViewRepository
+    arguments: ['@database']
+
   # Hooks
   Drupal\club\Hook\ClubForms:
     class: Drupal\club\Hook\ClubForms
@@ -26,3 +30,4 @@ services:
   Drupal\club\Hook\ClubNodes:
     class: Drupal\club\Hook\ClubNodes
     autowire: true
+

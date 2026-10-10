@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.ride.field_about_ride_images
     - field.field.node.ride.field_activity
     - field.field.node.ride.field_additional_information
-    - field.field.node.ride.field_based_on
     - field.field.node.ride.field_cancel
     - field.field.node.ride.field_date
     - field.field.node.ride.field_dayofweek
@@ -17,7 +16,6 @@ dependencies:
     - field.field.node.ride.field_location
     - field.field.node.ride.field_lunch_place
     - field.field.node.ride.field_lunch_same
-    - field.field.node.ride.field_master
     - field.field.node.ride.field_multiple_times
     - field.field.node.ride.field_registration_required
     - field.field.node.ride.field_ride_leader
@@ -88,7 +86,7 @@ third_party_settings:
                 settings:
                   link: false
                 third_party_settings: {  }
-            weight: 2
+            weight: 3
             additional: {  }
           9339ed92-2b31-4097-870f-43b50e73effc:
             uuid: 9339ed92-2b31-4097-870f-43b50e73effc
@@ -122,7 +120,7 @@ third_party_settings:
                 label: above
                 settings: {  }
                 third_party_settings: {  }
-            weight: 4
+            weight: 5
             additional: {  }
           9d6209e0-63e9-42b9-b09f-5c2a45cf0690:
             uuid: 9d6209e0-63e9-42b9-b09f-5c2a45cf0690
@@ -193,7 +191,7 @@ third_party_settings:
                 label: visually_hidden
                 settings: {  }
                 third_party_settings: {  }
-            weight: 1
+            weight: 2
             additional: {  }
           043652b9-24c9-48bc-a0b3-0e8267f527d4:
             uuid: 043652b9-24c9-48bc-a0b3-0e8267f527d4
@@ -212,7 +210,7 @@ third_party_settings:
                 settings:
                   allowed_html_tags: '<b><i><strong><span><br><a>'
                 third_party_settings: {  }
-            weight: 3
+            weight: 4
             additional: {  }
           0e11bf74-b875-48bb-b684-060152492cfa:
             uuid: 0e11bf74-b875-48bb-b684-060152492cfa
@@ -288,7 +286,7 @@ third_party_settings:
               formatter:
                 settings: {  }
                 third_party_settings: {  }
-            weight: 5
+            weight: 6
             additional: {  }
           023a86c8-6145-4f39-bd20-20ca6c99734d:
             uuid: 023a86c8-6145-4f39-bd20-20ca6c99734d
@@ -434,7 +432,6 @@ content:
     region: content
 hidden:
   field_about_ride_images: true
-  field_based_on: true
   field_date: true
   field_datetime: true
   field_day: true
@@ -443,7 +440,6 @@ hidden:
   field_gravel_category: true
   field_lunch_place: true
   field_lunch_same: true
-  field_master: true
   field_multiple_times: true
   field_nonmembers: true
   field_registration_required: true

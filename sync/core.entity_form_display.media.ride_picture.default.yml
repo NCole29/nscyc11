@@ -1,0 +1,54 @@
+uuid: f04c9974-f39a-4168-931e-f06eb3cdbe95
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.ride_picture.field_image_category
+    - field.field.media.ride_picture.field_media_image_1
+    - image.style.small_16_9
+    - media.type.ride_picture
+  module:
+    - focal_point
+    - imce
+id: media.ride_picture.default
+targetEntityType: media
+bundle: ride_picture
+mode: default
+content:
+  field_image_category:
+    type: entity_reference_autocomplete
+    weight: 2
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_media_image_1:
+    type: image_focal_point
+    weight: 1
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: small_16_9
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings:
+      imce:
+        enabled: true
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  publish_on: true
+  status: true
+  uid: true
+  unpublish_on: true

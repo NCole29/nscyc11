@@ -1,0 +1,23 @@
+uuid: ee4f0fc5-0283-40d1-9ff7-b7a7136c1268
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_inactive
+    - node.type.location
+id: node.location.field_inactive
+field_name: field_inactive
+entity_type: node
+bundle: location
+label: 'Inactive ride start'
+description: 'Cannot be used for future rides.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: '-'
+field_type: boolean

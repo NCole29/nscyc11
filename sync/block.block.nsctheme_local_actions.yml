@@ -7,7 +7,7 @@ dependencies:
 id: nsctheme_local_actions
 theme: nsctheme
 region: content
-weight: -12
+weight: -16
 provider: null
 plugin: local_actions_block
 settings:

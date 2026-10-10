@@ -5,10 +5,11 @@ dependencies:
   config:
     - field.field.media.image_crop_4_3.field_image_category
     - field.field.media.image_crop_4_3.field_media_image
-    - image.style.thumbnail_4_3
+    - image.style.small_4_3
     - media.type.image_crop_4_3
   module:
     - image_widget_crop
+    - imce
 _core:
   default_config_hash: 0HjbB_YkNgTMavwIbFIo3zhTgW3O01SNVa8VTdXYQ9Y
 id: media.image_crop_4_3.default
@@ -24,12 +25,12 @@ content:
     third_party_settings: {  }
   field_media_image:
     type: image_widget_crop
-    weight: 1
+    weight: 26
     region: content
     settings:
       progress_indicator: throbber
-      preview_image_style: thumbnail_4_3
-      crop_preview_image_style: thumbnail_4_3
+      preview_image_style: small_4_3
+      crop_preview_image_style: small_4_3
       crop_list:
         - crop_4_3
       crop_types_required:
@@ -37,7 +38,9 @@ content:
       warn_multiple_usages: true
       show_crop_area: false
       show_default_crop: true
-    third_party_settings: {  }
+    third_party_settings:
+      imce:
+        enabled: false
   name:
     type: string_textfield
     weight: 0

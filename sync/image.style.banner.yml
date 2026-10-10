@@ -2,33 +2,24 @@ uuid: f4efd41c-8dae-48a2-bc73-fcc54fecbc69
 langcode: en
 status: true
 dependencies:
-  config:
-    - crop.type.crop_20_7
   module:
-    - crop
+    - focal_point
 _core:
   default_config_hash: dk4yq78iM7NvrCOgvigtTsfV728DHBTZvtq7UggPQlo
 name: banner
 label: Banner
 effects:
-  fb6f1c0e-02b7-49cc-932d-fa636e7e5d0b:
-    uuid: fb6f1c0e-02b7-49cc-932d-fa636e7e5d0b
-    id: crop_crop
-    weight: 1
-    data:
-      crop_type: crop_20_7
-      automatic_crop_provider: null
-  3ca48c4c-55ed-4733-aaaa-75c1c293bd8d:
-    uuid: 3ca48c4c-55ed-4733-aaaa-75c1c293bd8d
-    id: image_scale
-    weight: 3
-    data:
-      width: 2015
-      height: null
-      upscale: true
   a4afc57c-51e3-4a05-91f1-1152174884b1:
     uuid: a4afc57c-51e3-4a05-91f1-1152174884b1
     id: image_convert
-    weight: 3
+    weight: -9
     data:
       extension: webp
+  7e4c810e-e67a-4327-8cb4-d83ebf902245:
+    uuid: 7e4c810e-e67a-4327-8cb4-d83ebf902245
+    id: focal_point_scale_and_crop
+    weight: -10
+    data:
+      width: 2015
+      height: 705
+      crop_type: focal_point

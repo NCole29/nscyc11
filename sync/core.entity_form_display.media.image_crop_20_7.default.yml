@@ -8,7 +8,8 @@ dependencies:
     - image.style.thumbnail_20_7
     - media.type.image_crop_20_7
   module:
-    - image_widget_crop
+    - focal_point
+    - imce
 _core:
   default_config_hash: qoT7oMQ4YFSQEMlQpxE5YLZlnN9E2n4uFyj8DbM_kfU
 id: media.image_crop_20_7.default
@@ -23,21 +24,17 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_media_image:
-    type: image_widget_crop
-    weight: 1
+    type: image_focal_point
+    weight: 26
     region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail_20_7
-      crop_preview_image_style: thumbnail_20_7
-      crop_list:
-        - crop_20_7
-      crop_types_required:
-        - crop_20_7
-      warn_multiple_usages: true
-      show_crop_area: false
-      show_default_crop: true
-    third_party_settings: {  }
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings:
+      imce:
+        enabled: false
   name:
     type: string_textfield
     weight: 0

@@ -8,7 +8,8 @@ dependencies:
     - image.style.thumbnail
     - media.type.image
   module:
-    - svg_image
+    - focal_point
+    - imce
 _core:
   default_config_hash: Zbmgu5iVG81My70Z3wcMkcTwCJ5xNyBL26FZR_k5Bfg
 id: media.image.default
@@ -23,13 +24,17 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_media_image:
-    type: image_image
+    type: image_focal_point
     weight: 0
     region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
-    third_party_settings: {  }
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings:
+      imce:
+        enabled: false
   status:
     type: boolean_checkbox
     weight: 2

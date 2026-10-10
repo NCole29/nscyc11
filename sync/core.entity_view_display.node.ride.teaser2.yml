@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.ride.field_about_ride_images
     - field.field.node.ride.field_activity
     - field.field.node.ride.field_additional_information
-    - field.field.node.ride.field_based_on
     - field.field.node.ride.field_cancel
     - field.field.node.ride.field_date
     - field.field.node.ride.field_dayofweek
@@ -17,7 +16,6 @@ dependencies:
     - field.field.node.ride.field_location
     - field.field.node.ride.field_lunch_place
     - field.field.node.ride.field_lunch_same
-    - field.field.node.ride.field_master
     - field.field.node.ride.field_multiple_times
     - field.field.node.ride.field_registration_required
     - field.field.node.ride.field_ride_leader
@@ -230,7 +228,6 @@ content:
 hidden:
   field_about_ride_images: true
   field_additional_information: true
-  field_based_on: true
   field_date: true
   field_day: true
   field_dayofweek: true
@@ -239,7 +236,6 @@ hidden:
   field_location: true
   field_lunch_place: true
   field_lunch_same: true
-  field_master: true
   field_multiple_times: true
   field_registration_required: true
   field_ride_picture: true

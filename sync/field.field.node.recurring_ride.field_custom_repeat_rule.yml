@@ -1,0 +1,19 @@
+uuid: 5d7e305f-fb57-426d-a672-247795c3e8cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_custom_repeat_rule
+    - node.type.recurring_ride
+id: node.recurring_ride.field_custom_repeat_rule
+field_name: field_custom_repeat_rule
+entity_type: node
+bundle: recurring_ride
+label: 'Custom repeat rule'
+description: 'Example: Manter is on the 1st and 3rd Friday of each month. To set up the recurring dates, choose "every 2 weeks" and then "Manage instances" to edit dates. Enter "Every 1st and 3rd Friday" as the custom repeat rule.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

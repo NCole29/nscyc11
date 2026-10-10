@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_ride_picture
-    - media.type.image_crop_16_9
+    - media.type.ride_picture
     - node.type.recurring_ride
 _core:
   default_config_hash: ixJV3mY3F9FUybn2LszM6_QN2fYZ2ctMuwGo6SUCFX4
@@ -22,7 +22,7 @@ settings:
   handler: 'default:media'
   handler_settings:
     target_bundles:
-      image_crop_16_9: image_crop_16_9
+      ride_picture: ride_picture
     sort:
       field: _none
       direction: ASC

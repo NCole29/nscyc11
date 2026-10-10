@@ -1,0 +1,18 @@
+{#
+/**
+ * hide_rule is a field in the recurring_ride content type and is added here
+ *  by nsctheme.theme hook_preprocess_smart_date_recurring_text_rule().
+ */
+#}
+{% if days_array %}{% set day = include('smart-date-recurring-comma-list.html.twig', {values: days_array}) %}{% endif %}
+
+{% if custom_rule %}
+{{ custom_rule }}
+{% else %}
+  {% trans %}{{ repeat }}{{ day_separator }}{{ day }}{{ month_separator }}{{ month }}{{ limit_separator }}{{ limit }}{% endtrans %}
+{% endif %}
+
+
+{# Original format includes time, but we change time throughout the season so don't show it
+{% trans %}{{ repeat }}{{ day_separator }}{{ day }}{{ month_separator }}{{ month }}{{ time_separator }}{{ time }}{{ limit_separator }}{{ limit }}{% endtrans %}
+#}

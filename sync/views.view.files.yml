@@ -584,18 +584,41 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-          is_grouped: false
+            placeholder: ''
+          is_grouped: true
           group_info:
-            label: ''
+            label: 'File type'
             description: ''
-            identifier: ''
+            identifier: filemime
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
             default_group_multiple: {  }
-            group_items: {  }
+            group_items:
+              1:
+                title: PDF
+                operator: word
+                value: application/pdf
+              2:
+                title: JPEG
+                operator: word
+                value: image/jpeg
+              3:
+                title: DOC
+                operator: word
+                value: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+              4:
+                title: XLS
+                operator: word
+                value: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+              5:
+                title: GIF
+                operator: word
+                value: image/gif
+              6: {  }
+              7: {  }
         status:
           id: status
           table: file_managed
@@ -822,8 +845,7 @@ display:
           hide_alter_empty: true
           action_title: Action
           include_exclude: exclude
-          selected_actions:
-            - immediate_delete
+          selected_actions: {  }
         fid:
           id: fid
           table: file_managed
@@ -920,17 +942,17 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        filemime:
-          id: filemime
+        uri:
+          id: uri
           table: file_managed
-          field: filemime
+          field: uri
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: file
-          entity_field: filemime
+          entity_field: uri
           plugin_id: field
-          label: 'MIME type'
+          label: URI
           exclude: false
           alter:
             alter_text: false
@@ -963,7 +985,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -971,7 +993,21 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          type: file_filemime
+          click_sort_column: value
+          type: file_uri
+          settings:
+            link_to_file: false
+            file_download_path: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         filesize:
           id: filesize
           table: file_managed
@@ -1339,12 +1375,161 @@ display:
             label: ''
             field_identifier: ''
           exposed: false
+      filters:
+        filename:
+          id: filename
+          table: file_managed
+          field: filename
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: file
+          entity_field: filename
+          plugin_id: string
+          operator: word
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: filemime_op
+            label: Filename
+            description: ''
+            use_operator: false
+            operator: filename_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: filename
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        filemime:
+          id: filemime
+          table: file_managed
+          field: filemime
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: file
+          entity_field: filemime
+          plugin_id: string
+          operator: word
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: filemime_op
+            label: 'MIME type'
+            description: ''
+            use_operator: false
+            operator: filemime_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: filemime
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: ''
+          is_grouped: true
+          group_info:
+            label: 'File type'
+            description: ''
+            identifier: filemime
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: IMAGE
+                operator: contains
+                value: image
+              2:
+                title: PDF
+                operator: contains
+                value: pdf
+              3:
+                title: DOC
+                operator: contains
+                value: officedocument.wordprocessingml.document
+              4:
+                title: XLS
+                operator: contains
+                value: officedocument.spreadsheetml.sheet
+              5:
+                title: CSV
+                operator: contains
+                value: csv
+        status:
+          id: status
+          table: file_managed
+          field: status
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: file
+          entity_field: status
+          plugin_id: file_status
+          operator: in
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: status_op
+            label: Status
+            description: ''
+            use_operator: false
+            operator: status_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: status
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
       defaults:
         access: false
         pager: true
         relationships: false
         fields: false
         sorts: false
+        filters: false
+        filter_groups: false
         header: false
       relationships:
         fid:

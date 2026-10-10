@@ -1178,6 +1178,7 @@ display:
           plugin_id: bundle
           operator: 'not in'
           value:
+            location: location
             recurring_dates: recurring_dates
             recurring_ride: recurring_ride
             ride: ride

@@ -158,6 +158,7 @@
     "drupal/faqfield": "^8.0",
     "drupal/field_group": "^4.0",
     "drupal/file_delete": "^3.0",
+    "drupal/focal_point": "^2.1",
     "drupal/fontawesome": "^3.0",
     "drupal/geocoder": "^4.36",
     "drupal/geofield": "^10.3",

@@ -3,7 +3,7 @@
         'name' => 'drupal/recommended-project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'b5c6a7c2054ffca9eb08548ccf8838215e93b736',
+        'reference' => '76903269d920d8442f8724402b5d87e8586c9c14',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -892,6 +892,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/focal_point' => array(
+            'pretty_version' => '2.1.3',
+            'version' => '2.1.3.0',
+            'reference' => '2.1.3',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../web/modules/contrib/focal_point',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/fontawesome' => array(
             'pretty_version' => '3.0.0',
             'version' => '3.0.0.0',
@@ -1192,7 +1201,7 @@
         'drupal/recommended-project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'b5c6a7c2054ffca9eb08548ccf8838215e93b736',
+            'reference' => '76903269d920d8442f8724402b5d87e8586c9c14',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

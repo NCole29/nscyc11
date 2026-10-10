@@ -660,7 +660,7 @@ display:
             identifier: type
             required: false
             remember: false
-            multiple: false
+            multiple: true
             remember_roles:
               authenticated: authenticated
             reduce: false
@@ -867,10 +867,9 @@ display:
             media_bulk_form: media_bulk_form
             thumbnail__target_id: thumbnail__target_id
             name: name
-            mid: name
-            title: title
-            nid: title
             bundle: bundle
+            mid: name
+            field_media_image: field_media_image
             uid: uid
             status: status
             operations: operations
@@ -895,6 +894,13 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            bundle:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             mid:
               sortable: false
               default_sort_order: asc
@@ -902,21 +908,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            title:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ' '
-              empty_column: false
-              responsive: ''
-            nid:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            bundle:
+            field_media_image:
               sortable: true
               default_sort_order: asc
               align: ''

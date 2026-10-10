@@ -6,7 +6,6 @@ dependencies:
     - field.field.node.ride.field_about_ride_images
     - field.field.node.ride.field_activity
     - field.field.node.ride.field_additional_information
-    - field.field.node.ride.field_based_on
     - field.field.node.ride.field_cancel
     - field.field.node.ride.field_date
     - field.field.node.ride.field_dayofweek
@@ -16,7 +15,6 @@ dependencies:
     - field.field.node.ride.field_location
     - field.field.node.ride.field_lunch_place
     - field.field.node.ride.field_lunch_same
-    - field.field.node.ride.field_master
     - field.field.node.ride.field_multiple_times
     - field.field.node.ride.field_registration_required
     - field.field.node.ride.field_ride_leader
@@ -154,7 +152,7 @@ third_party_settings:
     group_master_ride_or_variation_:
       children: {  }
       label: 'Master ride or variation?'
-      region: content
+      region: hidden
       parent_name: ''
       weight: 7
       format_type: details
@@ -186,7 +184,6 @@ third_party_settings:
       children:
         - field_registration_required
         - field_webform
-        - field_registration_link
         - field_webform_limit
       label: Registration
       region: content
@@ -201,6 +198,22 @@ third_party_settings:
         formatter: closed
         description: ''
         required_fields: false
+    group_content_moderation:
+      children:
+        - moderation_state
+      label: 'Content moderation'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: true
+        description: ''
+        required_fields: true
 _core:
   default_config_hash: dehOIVUVbvF3zUiSvBPcL5EgwlPj95Thwp9Q7xA4aro
 id: node.ride.default
@@ -456,19 +469,19 @@ content:
             selector: ''
   moderation_state:
     type: moderation_state_default
-    weight: 3
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 1
+    weight: 3
     region: content
     settings:
       display_label: true
@@ -483,7 +496,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 4
     region: content
     settings:
       match_operator: CONTAINS
@@ -492,16 +505,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 4
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
-  field_based_on: true
   field_day: true
   field_dayofweek: true
-  field_master: true
   field_schedule_date: true
   field_show_and_go: true
   field_webform_closing: true

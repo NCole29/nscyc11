@@ -862,7 +862,11 @@ display:
     display_plugin: block
     position: 1
     display_options:
+      access:
+        type: none
+        options: {  }
       defaults:
+        access: false
         css_class: false
       css_class: 'narrow-table w3-medium '
       display_extenders: {  }
@@ -873,7 +877,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
-        - user.roles
       tags:
         - 'config:field.storage.node.field_category'
         - 'config:field.storage.node.field_number'

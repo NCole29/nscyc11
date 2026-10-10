@@ -197,9 +197,6 @@ access:
     roles:
       - administrator
       - board
-      - content_creator
-      - editor
-      - site_admin
     users: {  }
     permissions: {  }
   view_any:
@@ -211,15 +208,13 @@ access:
   update_any:
     roles:
       - administrator
-      - editor
-      - site_admin
+      - board
     users: {  }
     permissions: {  }
   delete_any:
     roles:
       - administrator
-      - editor
-      - site_admin
+      - board
     users: {  }
     permissions: {  }
   purge_any:
@@ -231,13 +226,11 @@ access:
     users: {  }
     permissions: {  }
   update_own:
-    roles:
-      - content_creator
+    roles: {  }
     users: {  }
     permissions: {  }
   delete_own:
-    roles:
-      - content_creator
+    roles: {  }
     users: {  }
     permissions: {  }
   administer:

@@ -92,7 +92,7 @@ class ClubNodes {
           $query = $this->entityTypeManager->getStorage('club_schedule')->getQuery();
           $id = $query
             ->accessCheck(FALSE)
-            ->condition('schedule_date', $date, '=')
+            ->condition('field_schedule_date', $date, '=')
             ->execute();
           $id = reset($id);
 
@@ -234,7 +234,7 @@ class ClubNodes {
       $ride_start = $node->field_location->target_id;
 
       foreach ($node->field_rwgps_routes as $routeId) {
-        if (!empty($routeId->target_id)){
+        if (!empty($routeId->target_id) and !(is_int($routeId->target_id))) {
           if (preg_match('/[^0-9()]/', $routeId->target_id)) {
             \Drupal::messenger()->addStatus('A RWGPS route number has non-numeric characters and was not saved');
             unset($routeId->target_id);

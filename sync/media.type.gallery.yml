@@ -1,12 +1,31 @@
 uuid: afa01ae7-044e-4fe2-9792-917594e1baf4
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - crop
+    - scheduler
+third_party_settings:
+  crop:
+    image_field: field_media_image
+  scheduler:
+    expand_fieldset: when_required
+    fields_display_mode: vertical_tab
+    publish_enable: false
+    publish_past_date: error
+    publish_past_date_created: false
+    publish_required: false
+    publish_revision: false
+    publish_touch: false
+    show_message_after_update: true
+    unpublish_enable: false
+    unpublish_required: false
+    unpublish_revision: false
 _core:
   default_config_hash: diz0-MNs2lZqt7tOuK_Xx3z1_Pwld57DvTVKIOJ_7lY
 id: gallery
 label: 'Gallery picture'
-description: 'Use local images with crop for reusable media; 3:2 aspect ratio enforced.'
+description: 'Focal point crop. 3:2 aspect ratio enforced.'
 source: image
 queue_thumbnail_downloads: false
 new_revision: false

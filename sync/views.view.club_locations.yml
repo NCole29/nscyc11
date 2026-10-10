@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_address
     - field.storage.node.field_coordinates
+    - field.storage.node.field_inactive
     - field.storage.node.field_location_type
     - field.storage.node.field_restrooms
     - system.menu.club-reports
@@ -644,6 +645,71 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_inactive:
+          id: field_inactive
+          table: node__field_inactive
+          field: field_inactive
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Inactive ride start'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: boolean
+          settings:
+            format: custom
+            format_custom_false: '-'
+            format_custom_true: Inactive
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         field_address_address_line1:
           id: field_address_address_line1
           table: node__field_address
@@ -1166,17 +1232,25 @@ display:
           row_class: ''
           default_row_class: true
           columns:
+            field_coordinates: field_coordinates
             title: title
             field_location_type: field_location_type
+            field_inactive: field_inactive
             field_address_address_line1: field_address_address_line1
             field_address_locality: field_address_locality
             field_address_administrative_area: field_address_administrative_area
             field_restrooms: field_restrooms
-            field_coordinates: field_coordinates
             status: status
             operations: operations
           default: '-1'
           info:
+            field_coordinates:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             title:
               sortable: true
               default_sort_order: asc
@@ -1185,6 +1259,11 @@ display:
               empty_column: false
               responsive: ''
             field_location_type:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_inactive:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -1192,7 +1271,7 @@ display:
               empty_column: false
               responsive: ''
             field_address_address_line1:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1213,13 +1292,6 @@ display:
               empty_column: false
               responsive: ''
             field_restrooms:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_coordinates:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -1273,7 +1345,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: "<h3>Displaying @start - @end of @total locations.</h3>\r\nNew locations are automatically geocoded when saved to the database."
+          content: "<h3>Displaying @start - @end of @total locations.</h3>\r\nNew locations are automatically geocoded when saved to the database.\r\n<p><strong>Inactive</strong> ride starts cannot be used for future rides. <strong>Do not delete or unpublish them</strong> because they may be listed on past ride pages and may serve as eating places.</p>"
       display_extenders: {  }
       path: admin/content/locations
       menu:
@@ -1296,6 +1368,7 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_coordinates'
+        - 'config:field.storage.node.field_inactive'
         - 'config:field.storage.node.field_location_type'
         - 'config:field.storage.node.field_restrooms'
   entity_reference_1:
@@ -1442,7 +1515,7 @@ display:
         options:
           offset: 0
           pagination_heading_level: h4
-          items_per_page: 20
+          items_per_page: 30
           total_pages: null
           id: 0
           tags:
@@ -1746,7 +1819,7 @@ display:
         options:
           offset: 0
           pagination_heading_level: h4
-          items_per_page: 20
+          items_per_page: 0
           total_pages: null
           id: 0
           tags:
@@ -3566,6 +3639,44 @@ display:
             remember_roles:
               authenticated: authenticated
             placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_disabled_value:
+          id: field_disabled_value
+          table: node__field_disabled
+          field: field_disabled_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: boolean
+          operator: '!='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
           is_grouped: false
           group_info:
             label: ''

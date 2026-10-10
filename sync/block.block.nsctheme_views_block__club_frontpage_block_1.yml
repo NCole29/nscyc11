@@ -12,7 +12,7 @@ dependencies:
 id: nsctheme_views_block__club_frontpage_block_1
 theme: nsctheme
 region: content
-weight: -11
+weight: -10
 provider: null
 plugin: 'views_block:club_frontpage-block_1'
 settings:

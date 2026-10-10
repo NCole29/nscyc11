@@ -38,3 +38,15 @@ function nsctheme_preprocess_page(&$variables) {
   $variables['sm_icon_rwgps'] = theme_get_setting('sm_icon_rwgps');
   $variables['sm_icon_strava'] = theme_get_setting('sm_icon_strava');
 }
+
+/**
+ * Implements hook_preprocess_smart_date_recurring_text_rule().
+ */
+function nsctheme_preprocess_smart_date_recurring_text_rule(&$variables) {
+  // Load the current node/entity from the route:
+  $node = \Drupal::routeMatch()->getParameter('node');
+
+  if ($node && $node->hasField('field_custom_repeat_rule')) {
+    $variables['custom_rule'] = $node->get('field_custom_repeat_rule')->value;
+  }
+}

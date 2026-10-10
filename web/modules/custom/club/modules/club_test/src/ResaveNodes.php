@@ -21,6 +21,7 @@ class ResaveNodes {
 	  $nodes = Node::loadMultiple($nids);
 
 	  foreach ($nodes as $node) {
+			//$node->set('field_inactive', 0); // Updated locations. Changed_date is updated.
 			$node->save();
 	  }
 	}

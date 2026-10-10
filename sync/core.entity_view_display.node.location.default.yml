@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.location.field_address
     - field.field.node.location.field_coordinates
     - field.field.node.location.field_google_map
+    - field.field.node.location.field_inactive
     - field.field.node.location.field_location_info
     - field.field.node.location.field_location_type
     - field.field.node.location.field_restrooms
@@ -15,6 +16,7 @@ dependencies:
     - link
     - options
     - text
+    - user
 _core:
   default_config_hash: OhktCg5ZG8uf09dX9otITTiKyALIoDwPotiV-Jtqc3U
 id: node.location.default
@@ -57,5 +59,6 @@ content:
     region: content
 hidden:
   field_coordinates: true
+  field_inactive: true
   field_location_type: true
   links: true

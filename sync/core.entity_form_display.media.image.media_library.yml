@@ -9,7 +9,7 @@ dependencies:
     - image.style.thumbnail
     - media.type.image
   module:
-    - svg_image
+    - focal_point
 _core:
   default_config_hash: RPpbsRpj4rycEw20FrtnZyacOIVaZV44NOWuMDbr4Wg
 id: media.image.media_library
@@ -24,12 +24,14 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_media_image:
-    type: image_image
+    type: image_focal_point
     weight: 0
     region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
+      preview_link: true
+      offsets: '50,50'
     third_party_settings: {  }
 hidden:
   created: true

@@ -7,7 +7,7 @@ dependencies:
     - field.field.node.recurring_ride.field_about_ride_images
     - field.field.node.recurring_ride.field_activity
     - field.field.node.recurring_ride.field_additional_information
-    - field.field.node.recurring_ride.field_based_on
+    - field.field.node.recurring_ride.field_custom_repeat_rule
     - field.field.node.recurring_ride.field_datetime
     - field.field.node.recurring_ride.field_dayofweek
     - field.field.node.recurring_ride.field_description
@@ -16,7 +16,6 @@ dependencies:
     - field.field.node.recurring_ride.field_location
     - field.field.node.recurring_ride.field_lunch_place
     - field.field.node.recurring_ride.field_lunch_same
-    - field.field.node.recurring_ride.field_master
     - field.field.node.recurring_ride.field_multiple_times
     - field.field.node.recurring_ride.field_registration_required
     - field.field.node.recurring_ride.field_ride_leader
@@ -60,7 +59,7 @@ content:
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: -20
+    weight: 0
     region: content
   field_about_recurring_dates:
     type: markup
@@ -75,7 +74,7 @@ content:
     settings:
       link: false
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
   field_additional_information:
     type: text_default
@@ -83,14 +82,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 9
-    region: content
-  field_based_on:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 13
     region: content
   field_datetime:
     type: smartdate_recurring
@@ -117,7 +108,7 @@ content:
       current_upcoming: false
       filter_parameter_key: date
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   field_dayofweek:
     type: number_integer
@@ -133,7 +124,7 @@ content:
     label: visually_hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   field_location:
     type: entity_reference_entity_view
@@ -142,7 +133,7 @@ content:
       view_mode: default
       link: false
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   field_lunch_same:
     type: list_default
@@ -151,22 +142,12 @@ content:
     third_party_settings: {  }
     weight: 11
     region: content
-  field_master:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 12
-    region: content
   field_ride_leader:
     type: contact_person
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   field_ride_picture:
     type: media_thumbnail
@@ -177,7 +158,7 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 7
+    weight: 8
     region: content
   field_show_and_go:
     type: boolean
@@ -187,7 +168,7 @@ content:
       format_custom_false: ''
       format_custom_true: 'No ride leader'
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   field_time:
     type: string
@@ -196,10 +177,11 @@ content:
       link_to_entity: false
       link_rel: canonical
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
 hidden:
   field_about_ride_images: true
+  field_custom_repeat_rule: true
   field_day: true
   field_developed_by: true
   field_gravel_category: true

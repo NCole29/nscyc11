@@ -9,7 +9,8 @@ dependencies:
     - image.style.thumbnail_3_2
     - media.type.gallery
   module:
-    - image_widget_crop
+    - focal_point
+    - imce
 _core:
   default_config_hash: XdjxqWYKO0iQYJdCDRlzQNan4EL8Mrwxd48hHo3Frhw
 id: media.gallery.media_library
@@ -18,21 +19,17 @@ bundle: gallery
 mode: media_library
 content:
   field_media_image:
-    type: image_widget_crop
-    weight: 0
+    type: image_focal_point
+    weight: 26
     region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail_3_2
-      crop_preview_image_style: thumbnail_3_2
-      crop_list:
-        - crop_3_2
-      crop_types_required:
-        - crop_3_2
-      warn_multiple_usages: true
-      show_crop_area: false
-      show_default_crop: true
-    third_party_settings: {  }
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings:
+      imce:
+        enabled: false
 hidden:
   created: true
   field_image_category: true

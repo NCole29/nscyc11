@@ -7,7 +7,7 @@ dependencies:
     - field.field.node.recurring_ride.field_about_ride_images
     - field.field.node.recurring_ride.field_activity
     - field.field.node.recurring_ride.field_additional_information
-    - field.field.node.recurring_ride.field_based_on
+    - field.field.node.recurring_ride.field_custom_repeat_rule
     - field.field.node.recurring_ride.field_datetime
     - field.field.node.recurring_ride.field_dayofweek
     - field.field.node.recurring_ride.field_description
@@ -16,7 +16,6 @@ dependencies:
     - field.field.node.recurring_ride.field_location
     - field.field.node.recurring_ride.field_lunch_place
     - field.field.node.recurring_ride.field_lunch_same
-    - field.field.node.recurring_ride.field_master
     - field.field.node.recurring_ride.field_multiple_times
     - field.field.node.recurring_ride.field_registration_required
     - field.field.node.recurring_ride.field_ride_leader
@@ -47,6 +46,7 @@ third_party_settings:
         - title
         - field_multiple_times
         - field_datetime
+        - field_custom_repeat_rule
         - field_time
         - group_master_ride_or_variation_
         - group_date
@@ -71,7 +71,7 @@ third_party_settings:
       label: 'Location and routes'
       region: content
       parent_name: group_tab_container
-      weight: 3
+      weight: 2
       format_type: tab
       format_settings:
         classes: ''
@@ -106,7 +106,7 @@ third_party_settings:
       label: 'Ride leader(s)'
       region: content
       parent_name: group_tab_container
-      weight: 2
+      weight: 1
       format_type: tab
       format_settings:
         classes: ''
@@ -168,7 +168,7 @@ third_party_settings:
       label: 'HOW TO ADD A RIDE PICTURE'
       region: content
       parent_name: group_description
-      weight: 10
+      weight: 9
       format_type: details
       format_settings:
         classes: info-details
@@ -195,6 +195,22 @@ third_party_settings:
         open: true
         description: 'Use the <strong>Description</strong> field to describe the routes. Use <strong>Additional information</strong> for items such as directions, parking information, details about planned cookouts, and road conditions.'
         required_fields: false
+    group_content_moderation:
+      children:
+        - moderation_state
+      label: 'Content moderation'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: true
+        description: ''
+        required_fields: true
 _core:
   default_config_hash: gZ7PlGeTKO0WnadK4hHIzSWn5Z5ElqnPW1BFxvdPQKI
 id: node.recurring_ride.default
@@ -222,7 +238,7 @@ content:
     third_party_settings: {  }
   field_additional_information:
     type: text_textarea
-    weight: 16
+    weight: 17
     region: content
     settings:
       rows: 5
@@ -231,6 +247,14 @@ content:
       allowed_formats:
         hide_help: '1'
         hide_guidelines: '1'
+  field_custom_repeat_rule:
+    type: string_textfield
+    weight: 21
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_datetime:
     type: smartdate_default
     weight: 20
@@ -318,7 +342,7 @@ content:
     third_party_settings: {  }
   field_lunch_place:
     type: entity_reference_autocomplete
-    weight: 16
+    weight: 17
     region: content
     settings:
       match_operator: CONTAINS
@@ -347,7 +371,7 @@ content:
             selector: ''
   field_lunch_same:
     type: options_select
-    weight: 15
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -370,7 +394,7 @@ content:
     third_party_settings: {  }
   field_ride_picture:
     type: media_library_widget
-    weight: 11
+    weight: 10
     region: content
     settings:
       media_types: {  }
@@ -387,7 +411,7 @@ content:
     third_party_settings: {  }
   field_time:
     type: string_textfield
-    weight: 21
+    weight: 22
     region: content
     settings:
       size: 60
@@ -413,19 +437,19 @@ content:
             selector: ''
   moderation_state:
     type: moderation_state_default
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 1
+    weight: 2
     region: content
     settings:
       display_label: true
@@ -440,7 +464,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 3
     region: content
     settings:
       match_operator: CONTAINS
@@ -449,16 +473,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 4
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
-  field_based_on: true
   field_day: true
   field_dayofweek: true
-  field_master: true
   field_registration_required: true
   field_show_and_go: true
   field_webform: true

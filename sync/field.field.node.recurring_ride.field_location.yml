@@ -21,7 +21,7 @@ settings:
   handler: views
   handler_settings:
     view:
-      view_name: locations
+      view_name: club_locations
       display_name: entity_reference_1
       arguments: {  }
 field_type: entity_reference

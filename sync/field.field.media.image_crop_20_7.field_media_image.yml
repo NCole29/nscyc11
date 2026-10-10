@@ -24,7 +24,7 @@ settings:
   handler_settings: {  }
   file_directory: 'images/[date:custom:Y]'
   file_extensions: 'png gif jpg jpeg'
-  max_filesize: '2 MB'
+  max_filesize: '4 MB'
   max_resolution: ''
   min_resolution: ''
   alt_field: true

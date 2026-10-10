@@ -2,27 +2,24 @@ uuid: f730ceb9-d834-4dab-a17b-ee7d95097a87
 langcode: en
 status: true
 dependencies:
-  config:
-    - crop.type.crop_4_3
   module:
-    - crop
+    - focal_point
 _core:
   default_config_hash: iYI99PNtkAPpWuZXZBfo1OxvTyx1luHVdMp-4TVoWHY
 name: small_4_3
 label: 'Small - (244 wide) with crop 4:3'
 effects:
-  e051acef-d8a1-4983-a700-a70eb0856971:
-    uuid: e051acef-d8a1-4983-a700-a70eb0856971
-    id: crop_crop
-    weight: 3
-    data:
-      crop_type: crop_4_3
-      automatic_crop_provider: null
-  44709e44-e057-457c-a57f-a8d48980b4e4:
-    uuid: 44709e44-e057-457c-a57f-a8d48980b4e4
-    id: image_scale
-    weight: 3
+  044d6f6d-c7f2-4528-a0a4-880e70b29087:
+    uuid: 044d6f6d-c7f2-4528-a0a4-880e70b29087
+    id: focal_point_scale_and_crop
+    weight: -10
     data:
       width: 244
-      height: null
-      upscale: false
+      height: 183
+      crop_type: focal_point
+  b93165f4-4c67-46ba-88a9-a57a8870ff2d:
+    uuid: b93165f4-4c67-46ba-88a9-a57a8870ff2d
+    id: image_convert
+    weight: -9
+    data:
+      extension: webp

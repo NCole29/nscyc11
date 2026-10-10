@@ -89,6 +89,12 @@ body {
 .bottom-box {
   border-left: 4px solid #155295!important;
 }
+/* applied in field_ride_picture template */
+.picture-margins {
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  margin-left: -1rem;
+}
 
 /* FOOTER */
 .footer-site-name {
@@ -177,6 +183,11 @@ p.button a {
   color: #ffffff!important;
 }
 
+/* all pages */
+.solo-image {
+  border-radius: 0.25rem;
+}
+
 /* FORMS - Reduce width (improves webform fit on page) */ 
 .solo-input,
 .solo-select {
@@ -206,4 +217,23 @@ p.button a {
   .bottom-container {
     margin-top: -2rem!important;
   }
+  .picture-margins {
+    margin: -1.5rem -1rem 1rem -1rem;
+  }
+}
+
+@media(min-width: 690px) {
+  .layout--twocol-section.layout--twocol-section--50-50 > .layout__region--first {
+    padding-right:1rem;
+  }
+}
+
+/** Do not use columns on width < 690px. This negates mid-width: 40em (40em = 640px) 
+    because it messes up iPhone SE in landscape (667px width) */
+@media(max-width: 690px) {
+  .layout--twocol-section.layout--twocol-section--50-50 > .layout__region--first,
+  .layout--twocol-section.layout--twocol-section--50-50 > .layout__region--second {
+    flex: 0 1 100%;
+  }
+
 }

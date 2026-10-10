@@ -4,14 +4,28 @@ status: true
 dependencies:
   module:
     - crop
+    - scheduler
 third_party_settings:
   crop:
-    image_field: _none
+    image_field: field_media_image
+  scheduler:
+    expand_fieldset: when_required
+    fields_display_mode: vertical_tab
+    publish_enable: false
+    publish_past_date: error
+    publish_past_date_created: false
+    publish_required: false
+    publish_revision: false
+    publish_touch: false
+    show_message_after_update: true
+    unpublish_enable: false
+    unpublish_required: false
+    unpublish_revision: false
 _core:
   default_config_hash: DaRe3NmIIfy8_ztagAJFPpf5eP0pJTK_mtrY4c69QwQ
 id: image_crop_16_9
 label: 'Image, 16:9 aspect ratio'
-description: 'Use local images with crop for reusable media; 16:9 aspect ratio enforced. <strong>Ride pages</strong> use this media type.'
+description: 'Image inserted in text editor, uses image widget crop tool. 16:9 aspect ratio enforced. '
 source: image
 queue_thumbnail_downloads: false
 new_revision: false

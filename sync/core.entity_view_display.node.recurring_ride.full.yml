@@ -8,7 +8,7 @@ dependencies:
     - field.field.node.recurring_ride.field_about_ride_images
     - field.field.node.recurring_ride.field_activity
     - field.field.node.recurring_ride.field_additional_information
-    - field.field.node.recurring_ride.field_based_on
+    - field.field.node.recurring_ride.field_custom_repeat_rule
     - field.field.node.recurring_ride.field_datetime
     - field.field.node.recurring_ride.field_dayofweek
     - field.field.node.recurring_ride.field_description
@@ -17,7 +17,6 @@ dependencies:
     - field.field.node.recurring_ride.field_location
     - field.field.node.recurring_ride.field_lunch_place
     - field.field.node.recurring_ride.field_lunch_same
-    - field.field.node.recurring_ride.field_master
     - field.field.node.recurring_ride.field_multiple_times
     - field.field.node.recurring_ride.field_registration_required
     - field.field.node.recurring_ride.field_ride_leader
@@ -430,14 +429,13 @@ content:
 hidden:
   field_about_recurring_dates: true
   field_about_ride_images: true
-  field_based_on: true
+  field_custom_repeat_rule: true
   field_day: true
   field_dayofweek: true
   field_developed_by: true
   field_gravel_category: true
   field_lunch_place: true
   field_lunch_same: true
-  field_master: true
   field_multiple_times: true
   field_registration_required: true
   field_webform: true

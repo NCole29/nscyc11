@@ -1,0 +1,32 @@
+uuid: 7615baec-8321-4384-8726-908a3d481750
+langcode: en
+status: true
+dependencies:
+  module:
+    - crop
+    - scheduler
+third_party_settings:
+  scheduler:
+    expand_fieldset: when_required
+    fields_display_mode: vertical_tab
+    publish_enable: false
+    publish_past_date: error
+    publish_past_date_created: false
+    publish_required: false
+    publish_revision: false
+    publish_touch: false
+    show_message_after_update: true
+    unpublish_enable: false
+    unpublish_required: false
+    unpublish_revision: false
+  crop:
+    image_field: _none
+id: ride_picture
+label: 'Ride picture'
+description: 'Focal point crop. 16:9 aspect ratio enforced.'
+source: image
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: field_media_image_1
+field_map: {  }

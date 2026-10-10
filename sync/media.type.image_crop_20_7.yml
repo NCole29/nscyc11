@@ -4,14 +4,28 @@ status: true
 dependencies:
   module:
     - crop
+    - scheduler
 third_party_settings:
   crop:
-    image_field: _none
+    image_field: field_media_image
+  scheduler:
+    expand_fieldset: when_required
+    fields_display_mode: vertical_tab
+    publish_enable: false
+    publish_past_date: error
+    publish_past_date_created: false
+    publish_required: false
+    publish_revision: false
+    publish_touch: false
+    show_message_after_update: true
+    unpublish_enable: false
+    unpublish_required: false
+    unpublish_revision: false
 _core:
   default_config_hash: oEYIn4XJCMsd50cS_C1LZbbalo1wgl3k0XOXlnvCWWg
 id: image_crop_20_7
 label: 'Banner picture'
-description: 'Use local images with crop for reusable media; 20:7 aspect ratio enforced.'
+description: 'Focal point crop. 20:7 aspect ratio enforced.'
 source: image
 queue_thumbnail_downloads: false
 new_revision: false

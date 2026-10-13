@@ -5,6 +5,5 @@ nsctheme-global:
       css/club-calendar.css: { }
       css/club-solo.css: { }
       css/club-tables.css: { }
-      css/gin-custom.css: { }
   js:
     js/solo-subtheme-script.js: {}

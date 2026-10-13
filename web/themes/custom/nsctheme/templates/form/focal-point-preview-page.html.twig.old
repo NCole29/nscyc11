@@ -1,0 +1,29 @@
+{{ attach_library('focal_point/drupal.focal_point_preview') }}
+
+<div id="focal-point-preview-wrapper">
+  <span class="derivatives-note note">{{ derivative_image_note }}</span>
+  <div id="focal-point-derivatives">
+
+    {# Define the order of media types for image previews #}
+    {% set preferred_order = ['Ride picture', 'Banner', 'Gallery','Large 4:3 (560px wide)'] %}
+
+    {# Render the styles in the requested order if they exist #}
+    {% for style_name in preferred_order %}
+      {% if derivative_images[style_name] is defined %}
+        {% set derivative = derivative_images[style_name] %}
+        <div id="focal-point-derivative-preview-{{ style_name }}" class="focal-point-derivative-preview" data-image-style="{{ style_name }}">
+          <h3 class="focal-point-derivative-preview-label">{{ derivative.style }}</h3>
+          {{ node_type }}
+          {{ derivative.preview }}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div id="focal-point-preview">
+    <h2 id="focal-point-preview-label">{{ 'Original image'|t }}</h2>
+    <div class="focal-point-original-image">{{ original_image }}</div>
+  </div>
+  <span class="preview-note note">{{ preview_image_note }}</span>
+
+</div>

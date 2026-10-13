@@ -44,6 +44,26 @@ body {
   justify-content: left;
   align-items: center;
 }
+/* Welcome block */
+.welcome-text-inner {
+  max-width:100%!important;
+  padding:0!important;
+}
+.welcome-block {
+  color: #ffffff !important;
+  background-color: #0f3967 !important;
+  padding: 0 1rem 0 1rem;
+  margin-bottom: 1rem;
+}
+.welcome-block h2,
+.welcome-block p,
+.welcome-block a {
+  color: #ffffff !important;
+}
+.welcome-block a:hover {
+  color: #FDF7DE !important;
+}
+
 /* Ride lists (CSS class is added in the View) */
 .rides-list {
   border: 1px solid black;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\club\Hook;
 
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\Core\Extension\ExtensionPathResolver;
 
 class ClubTemplates {
 
@@ -25,7 +26,7 @@ class ClubTemplates {
       'address_plain__custom' => [
         'template' => 'address-plain',
         'base hook' => 'field',
-      ],      
+      ],
       // Adding 'uri' to variables so its available in paragraph templates.
       'fontawesomeicons' => [
         'variables' => [
@@ -47,5 +48,17 @@ class ClubTemplates {
         ],
       ],
     ];      
-  }  
+  } 
+
+  /**
+   * Implements hook_page_attachments() to add custom CSS to admin pages.
+   */
+  #[Hook('page_attachments')]
+  function adminStyles(array &$attachments) {
+    // Check if the current route is an admin route
+    if (\Drupal::service('router.admin_context')->isAdminRoute()) {
+      $attachments['#attached']['library'][] = 'club/admin-overrides';
+    }
+  }
+
 }

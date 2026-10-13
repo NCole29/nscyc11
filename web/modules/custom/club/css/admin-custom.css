@@ -7,11 +7,16 @@
   }
 }
 
-/* Custom background color (light blue:#e1eafc or yellow:#) for the details component */
+/* Custom background color (light blue:#e1eafc or yellow:#FFFDD0) for the details component */
 .info-details {
   background-color: #FFFDD0 !important;
   border: 1px solid #9e9c9c;
   font-size: 14px;
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.focal-preview-note,
+.preview-note {
+  color: #000 !important;
 }

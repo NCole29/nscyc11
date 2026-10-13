@@ -1,0 +1,33 @@
+{{ attach_library('focal_point/drupal.focal_point_preview') }}
+
+<div id="focal-point-preview-wrapper">
+  <span class="derivatives-note note focal-preview-note">
+  Click an image to see a larger preview. Scroll horizontally to see all styles.<br>
+  Ride pages use Ride pictures; Banner pages use Banner or Gallery style. Text editors use Large or Small images at 16:9 or 4:3 aspect ratio.
+  </span>
+
+  <div id="focal-point-derivatives">
+
+    {# Define the order of media types for image previews #}
+    {% set preferred_order = ['ride_picture', 'banner', 'gallery','small_4_3','small_16_9','large_4_3','large_16_9'] %}
+
+    {# Render the styles in the requested order if they exist #}
+    {% for style_name in preferred_order %}
+      {% if derivative_images[style_name] is defined %}
+        {% set derivative = derivative_images[style_name] %}
+        
+        <div id="focal-point-derivative-preview-{{ style_name }}" class="focal-point-derivative-preview" data-image-style="{{ style_name }}">
+          <h3 class="focal-point-derivative-preview-label">{{ derivative.style }}</h3>
+          {{ derivative.image }}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div id="focal-point-preview">
+    <h2 id="focal-point-preview-label">{{ 'Original image'|t }}</h2>
+    <div class="focal-point-original-image">{{ original_image }}</div>
+  </div>
+  <span class="preview-note note">{{ preview_image_note }}</span>
+
+</div>

@@ -50,3 +50,5 @@ function nsctheme_preprocess_smart_date_recurring_text_rule(&$variables) {
     $variables['custom_rule'] = $node->get('field_custom_repeat_rule')->value;
   }
 }
+
+

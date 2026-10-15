@@ -1,0 +1,11 @@
+uuid: da2d313a-aa27-44d8-8dd8-ad56b39840c4
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.banner
+label: Banner
+description: null
+targetEntityType: media
+cache: true

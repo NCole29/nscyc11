@@ -1,0 +1,11 @@
+uuid: d8c05675-e2b1-4b79-adfa-a09f4ad80bc5
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.small_4x3
+label: 'Small 4x3'
+description: null
+targetEntityType: media
+cache: true

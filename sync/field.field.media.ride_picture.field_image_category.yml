@@ -1,4 +1,4 @@
-uuid: e09419e9-a440-48cc-abd7-68791319522e
+uuid: bb87a532-4af5-4aca-b681-58b65d8de836
 langcode: en
 status: true
 dependencies:
@@ -6,6 +6,8 @@ dependencies:
     - field.storage.media.field_image_category
     - media.type.ride_picture
     - taxonomy.vocabulary.image_category
+  content:
+    - 'taxonomy_term:image_category:343a5c88-3bc1-4d83-b169-4e9f18c194a4'
 id: media.ride_picture.field_image_category
 field_name: field_image_category
 entity_type: media
@@ -14,7 +16,9 @@ label: 'Image category'
 description: ''
 required: false
 translatable: false
-default_value: {  }
+default_value:
+  -
+    target_uuid: 343a5c88-3bc1-4d83-b169-4e9f18c194a4
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

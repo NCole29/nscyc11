@@ -1,0 +1,47 @@
+uuid: f1ef8448-53f5-4852-ab37-af65cd3be35a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.gallery
+    - field.field.media.gallery.field_image_category
+    - field.field.media.gallery.field_media_image
+    - image.style.thumbnail_3_2
+    - media.type.gallery
+  module:
+    - focal_point
+    - imce
+_core:
+  default_config_hash: 8UJ4eWzLvl-PCKqphh3UzV0hIBx9d9ONpCxiQordvjQ
+id: media.gallery.gallery
+targetEntityType: media
+bundle: gallery
+mode: gallery
+content:
+  field_image_category:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_media_image:
+    type: image_focal_point
+    weight: 0
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail_3_2
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings:
+      imce:
+        enabled: false
+hidden:
+  created: true
+  name: true
+  path: true
+  publish_on: true
+  scheduler_settings: true
+  status: true
+  uid: true
+  unpublish_on: true

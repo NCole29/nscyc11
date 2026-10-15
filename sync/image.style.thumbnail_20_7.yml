@@ -2,27 +2,24 @@ uuid: 46f067c3-fc8a-4faa-af33-60cbbe87392b
 langcode: en
 status: true
 dependencies:
-  config:
-    - crop.type.crop_20_7
   module:
-    - crop
+    - focal_point
 _core:
   default_config_hash: 4H-QWt_Bwo9c455ckzjaGX7zwbDYrIFp3rYgjlDKvNg
 name: thumbnail_20_7
 label: 'Thumbnail 20:7'
 effects:
-  70116d09-897c-4f73-886c-8331248b9109:
-    uuid: 70116d09-897c-4f73-886c-8331248b9109
-    id: crop_crop
-    weight: 1
-    data:
-      crop_type: crop_20_7
-      automatic_crop_provider: null
-  42e438e3-943d-4aed-9244-0ed7d7df15a1:
-    uuid: 42e438e3-943d-4aed-9244-0ed7d7df15a1
-    id: image_scale
-    weight: 3
+  43d2c878-dac1-45e6-9972-9c7a3ad0de0a:
+    uuid: 43d2c878-dac1-45e6-9972-9c7a3ad0de0a
+    id: focal_point_scale_and_crop
+    weight: -10
     data:
       width: 286
       height: 100
-      upscale: false
+      crop_type: focal_point
+  a68a0e53-00cb-4596-a9aa-053101078b8e:
+    uuid: a68a0e53-00cb-4596-a9aa-053101078b8e
+    id: image_convert
+    weight: -9
+    data:
+      extension: webp

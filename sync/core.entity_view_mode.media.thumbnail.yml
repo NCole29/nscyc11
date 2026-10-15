@@ -8,6 +8,6 @@ _core:
   default_config_hash: FrONFcN1ekJzVidgSXDa7HeqAoz1sSvxRASiNs5tdEk
 id: media.thumbnail
 label: Thumbnail
-description: ''
+description: null
 targetEntityType: media
 cache: true

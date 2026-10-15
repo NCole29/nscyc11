@@ -1,11 +1,11 @@
-uuid: a4271f6f-5641-4816-a31e-0c9961a83b8a
+uuid: a1981b8b-bc38-41f4-a948-d3df238cbb16
 langcode: en
 status: true
 dependencies:
   config:
     - field.field.media.ride_picture.field_image_category
-    - field.field.media.ride_picture.field_media_image_1
-    - image.style.large_16_9
+    - field.field.media.ride_picture.field_media_image
+    - image.style.ride_picture
     - media.type.ride_picture
   module:
     - svg_image
@@ -14,12 +14,12 @@ targetEntityType: media
 bundle: ride_picture
 mode: default
 content:
-  field_media_image_1:
+  field_media_image:
     type: image
     label: visually_hidden
     settings:
       image_link: ''
-      image_style: large_16_9
+      image_style: ride_picture
       image_loading:
         attribute: lazy
       svg_attributes:

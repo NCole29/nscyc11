@@ -25,7 +25,7 @@ _core:
   default_config_hash: Nr_Gli9BKXipV5n4_41LOiB03LT_P69s2VV6btmAbpE
 id: image
 label: Image
-description: 'Use local images for reusable media.'
+description: 'Use local images for reusable media in text editor. Select size and aspect ratio after inserting the image.'
 source: image
 queue_thumbnail_downloads: false
 new_revision: true

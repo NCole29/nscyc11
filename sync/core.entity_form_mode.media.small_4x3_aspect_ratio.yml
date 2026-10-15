@@ -1,0 +1,11 @@
+uuid: f52ba883-9d1c-44b0-8bd2-535e1d270ed2
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.small_4x3_aspect_ratio
+label: 'Small 4x3 aspect ratio'
+description: null
+targetEntityType: media
+cache: true

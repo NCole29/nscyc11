@@ -24,8 +24,8 @@ third_party_settings:
 _core:
   default_config_hash: DaRe3NmIIfy8_ztagAJFPpf5eP0pJTK_mtrY4c69QwQ
 id: image_crop_16_9
-label: 'Image, 16:9 aspect ratio'
-description: 'Image inserted in text editor, uses image widget crop tool. 16:9 aspect ratio enforced. '
+label: 'Embed 16:9 aspect ratio'
+description: 'Image inserted in text editor using image widget crop tool, 16:9 aspect ratio.'
 source: image
 queue_thumbnail_downloads: false
 new_revision: false

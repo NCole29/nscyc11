@@ -14,7 +14,7 @@ field_name: banner_image
 entity_type: node
 bundle: page
 label: 'Banner image'
-description: "After adding multiple images, change the order by clicking Show media item weights and edit.<br>\r\nMore than 3 gallery images may be too small on mobile devices."
+description: 'Upload one banner image or three gallery images to span the full screen width. <br>Drag gallery images to adjust the display order.'
 required: false
 translatable: true
 default_value: {  }

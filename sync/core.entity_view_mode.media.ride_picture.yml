@@ -1,0 +1,11 @@
+uuid: 310efab9-7f11-4610-9d7d-50aa8581a918
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.ride_picture
+label: 'Ride picture'
+description: null
+targetEntityType: media
+cache: true

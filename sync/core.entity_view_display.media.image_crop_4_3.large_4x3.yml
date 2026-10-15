@@ -1,0 +1,45 @@
+uuid: 0cebaece-2b7f-4147-9870-188c1657d8dc
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.large_4x3
+    - field.field.media.image_crop_4_3.field_image_category
+    - field.field.media.image_crop_4_3.field_media_image
+    - image.style.large_4_3
+    - media.type.image_crop_4_3
+  module:
+    - layout_builder
+    - svg_image
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+_core:
+  default_config_hash: hZvWLUS6T52vjbnnWcJaHn1Jsszf3MNOISTKskexq7g
+id: media.image_crop_4_3.large_4x3
+targetEntityType: media
+bundle: image_crop_4_3
+mode: large_4x3
+content:
+  field_media_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: large_4_3
+      image_loading:
+        attribute: lazy
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_image_category: true
+  name: true
+  thumbnail: true
+  uid: true

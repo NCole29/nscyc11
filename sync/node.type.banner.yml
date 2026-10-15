@@ -27,7 +27,7 @@ _core:
 name: 'Home page banner'
 type: banner
 description: '<em>Banner</em> displays one or more images across the top of the <strong>home page</strong>. Use the scheduling tool to rotate them seasonally.'
-help: 'The <strong>Title</strong> is used only for identification on the administrative Content list. It does not appear on the website alongside the banner images.'
+help: 'The <strong>Title</strong> appears on the administrative Content list but is hidden on the live website. Banners are published upon saving.'
 new_revision: true
 preview_mode: 1
 display_submitted: false

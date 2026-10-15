@@ -6,7 +6,7 @@ dependencies:
     - core.entity_form_mode.media.media_library
     - field.field.media.image_crop_4_3.field_image_category
     - field.field.media.image_crop_4_3.field_media_image
-    - image.style.small_4_3
+    - image.style.thumbnail_4_3
     - media.type.image_crop_4_3
   module:
     - image_widget_crop
@@ -24,8 +24,8 @@ content:
     region: content
     settings:
       progress_indicator: throbber
-      preview_image_style: small_4_3
-      crop_preview_image_style: small_4_3
+      preview_image_style: thumbnail_4_3
+      crop_preview_image_style: thumbnail_4_3
       crop_list:
         - crop_4_3
       crop_types_required:

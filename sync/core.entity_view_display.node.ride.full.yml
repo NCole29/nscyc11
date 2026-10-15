@@ -48,27 +48,6 @@ third_party_settings:
           context_mapping: {  }
           column_widths: 50-50
         components:
-          7e0a7ab0-ae7f-4f6b-9662-42ef3b3afd4e:
-            uuid: 7e0a7ab0-ae7f-4f6b-9662-42ef3b3afd4e
-            region: second
-            configuration:
-              id: 'field_block:node:ride:field_cancel'
-              label: Cancel
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: boolean
-                label: visually_hidden
-                settings:
-                  format: custom
-                  format_custom_false: ''
-                  format_custom_true: '<h2>****  Canceled  ****</h2>'
-                third_party_settings: {  }
-            weight: 4
-            additional: {  }
           d2b9eabe-27db-4f0d-9252-9e28081dc5bc:
             uuid: d2b9eabe-27db-4f0d-9252-9e28081dc5bc
             region: first
@@ -172,7 +151,7 @@ third_party_settings:
                 label: visually_hidden
                 settings:
                   image_link: ''
-                  image_style: large_16_9
+                  image_style: ride_picture
                   image_loading:
                     attribute: lazy
                 third_party_settings: {  }

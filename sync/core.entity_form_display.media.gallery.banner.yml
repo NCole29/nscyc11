@@ -1,0 +1,59 @@
+uuid: fddd23c5-0bae-4d31-9582-5d6decb72099
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_form_mode.media.banner
+    - field.field.media.gallery.field_image_category
+    - field.field.media.gallery.field_media_image
+    - media.type.gallery
+  module:
+    - path
+id: media.gallery.banner
+targetEntityType: media
+bundle: gallery
+mode: banner
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 100
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  field_image_category: true
+  field_media_image: true
+  publish_on: true
+  scheduler_settings: true
+  unpublish_on: true

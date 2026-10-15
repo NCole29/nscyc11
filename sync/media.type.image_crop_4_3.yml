@@ -24,8 +24,8 @@ third_party_settings:
 _core:
   default_config_hash: NGG6KvUeL1GhHxrJsFECt5NrEjEPiAeN0lmtd45La2s
 id: image_crop_4_3
-label: 'Image, 4:3 aspect ratio'
-description: 'Image inserted in text editor, uses image widget crop tool. 4:3 aspect ratio enforced.'
+label: 'Embed 4:3 aspect ratio'
+description: 'Image inserted in text editor using image widget crop tool, 4:3 aspect ratio.'
 source: image
 queue_thumbnail_downloads: false
 new_revision: false

@@ -67,3 +67,4 @@ filters:
       allowed_view_modes: {  }
       allowed_media_types:
         public_file: public_file
+        ride_picture: ride_picture

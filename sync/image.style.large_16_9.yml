@@ -2,24 +2,33 @@ uuid: 260f8399-afd1-4019-88f2-9a1fa7c44fca
 langcode: en
 status: true
 dependencies:
+  config:
+    - crop.type.crop_16_9
   module:
-    - focal_point
+    - crop
 _core:
   default_config_hash: t96p7rPOr_fgqd2yGQzeslUN1l7SGi9fXkI8ofR-e0Q
 name: large_16_9
-label: 'Ride picture'
+label: 'Large 16:9 (750px wide)'
 effects:
-  415a0396-3a96-4aff-9de7-9c9d1b599851:
-    uuid: 415a0396-3a96-4aff-9de7-9c9d1b599851
-    id: focal_point_scale_and_crop
-    weight: 2
-    data:
-      width: 1024
-      height: 576
-      crop_type: focal_point
   64fc85f1-1889-4681-b449-3c58c3a30e79:
     uuid: 64fc85f1-1889-4681-b449-3c58c3a30e79
     id: image_convert
-    weight: 2
+    weight: -8
     data:
       extension: webp
+  e801c91b-5d10-4655-aeec-2af527f23e53:
+    uuid: e801c91b-5d10-4655-aeec-2af527f23e53
+    id: crop_crop
+    weight: -10
+    data:
+      crop_type: crop_16_9
+      automatic_crop_provider: null
+  3c4cb58d-f9d7-4954-920f-12228ac5edf4:
+    uuid: 3c4cb58d-f9d7-4954-920f-12228ac5edf4
+    id: image_scale
+    weight: -9
+    data:
+      width: 750
+      height: 422
+      upscale: false

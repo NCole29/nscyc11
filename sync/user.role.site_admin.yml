@@ -13,7 +13,6 @@ dependencies:
     - media.type.image_crop_20_7
     - media.type.image_crop_4_3
     - media.type.public_file
-    - media.type.remote_video
     - media.type.restricted_file
     - node.type.announcement
     - node.type.banner
@@ -172,7 +171,6 @@ permissions:
   - 'edit any paragraphs_block block content'
   - 'edit any public_file media'
   - 'edit any recurring_ride content'
-  - 'edit any remote_video media'
   - 'edit any restricted_file media'
   - 'edit any ride content'
   - 'edit any webform content'

@@ -4,8 +4,9 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.large
-    - core.entity_view_mode.media.medium
-    - core.entity_view_mode.media.small
+    - core.entity_view_mode.media.large_4x3
+    - core.entity_view_mode.media.small_16_9
+    - core.entity_view_mode.media.small_4x3
     - core.entity_view_mode.media.window_popup
   module:
     - club
@@ -103,11 +104,11 @@ filters:
       default_view_mode: default
       allowed_view_modes:
         large: large
-        medium: medium
-        small: small
+        large_4x3: large_4x3
+        small_16_9: small_16_9
+        small_4x3: small_4x3
         window_popup: window_popup
       allowed_media_types:
         image_crop_16_9: image_crop_16_9
         image_crop_4_3: image_crop_4_3
         public_file: public_file
-        restricted_file: restricted_file

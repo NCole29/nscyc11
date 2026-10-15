@@ -2,6 +2,8 @@ uuid: a1e16fd3-fddb-4193-986e-14a8054b6656
 langcode: en
 status: true
 dependencies:
+  config:
+    - core.entity_view_mode.media.thumbnail
   module:
     - editor
     - linkit
@@ -77,7 +79,7 @@ filters:
     weight: 100
     settings:
       default_view_mode: default
-      allowed_view_modes: {  }
+      allowed_view_modes:
+        thumbnail: thumbnail
       allowed_media_types:
-        image_crop_16_9: image_crop_16_9
-        image_crop_4_3: image_crop_4_3
+        image: image

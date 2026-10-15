@@ -24,7 +24,7 @@ settings:
     target_bundles:
       ride_picture: ride_picture
     sort:
-      field: _none
+      field: name
       direction: ASC
     auto_create: false
     auto_create_bundle: image_crop_16_9

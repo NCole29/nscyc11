@@ -1,12 +1,12 @@
-uuid: cffe4f3e-2513-4d5f-af8f-ef07b8d60be3
+uuid: 82961c02-9c58-4930-ab50-7f23f24b2c74
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.media.media_library
     - field.field.media.ride_picture.field_image_category
-    - field.field.media.ride_picture.field_media_image_1
-    - image.style.thumbnail_16_9
+    - field.field.media.ride_picture.field_media_image
+    - image.style.thumbnail_ride
     - media.type.ride_picture
   module:
     - svg_image
@@ -20,7 +20,7 @@ content:
     label: hidden
     settings:
       image_link: ''
-      image_style: thumbnail_16_9
+      image_style: thumbnail_ride
       image_loading:
         attribute: lazy
       svg_attributes:
@@ -33,6 +33,6 @@ content:
 hidden:
   created: true
   field_image_category: true
-  field_media_image_1: true
+  field_media_image: true
   name: true
   uid: true

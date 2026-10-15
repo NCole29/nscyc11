@@ -1,6 +1,6 @@
 uuid: ad885891-b074-40a6-beac-17a31beaf733
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.media.thumbnail

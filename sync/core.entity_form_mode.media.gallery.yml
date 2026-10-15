@@ -1,0 +1,11 @@
+uuid: 26570d03-a351-4ff9-9d45-4df400d32fac
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.gallery
+label: Gallery
+description: null
+targetEntityType: media
+cache: true

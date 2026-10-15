@@ -1,0 +1,11 @@
+uuid: 6139e86e-64bc-46ec-8e55-ae66ba563d58
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.large_4x3_aspect_ratio
+label: 'Large 4x3 aspect ratio'
+description: null
+targetEntityType: media
+cache: true

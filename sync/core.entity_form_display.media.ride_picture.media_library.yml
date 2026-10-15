@@ -1,12 +1,12 @@
-uuid: 4ef0f27d-3632-4475-b318-bf30c960d462
+uuid: 0bc75c12-d366-4757-84a6-b360286ea006
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_form_mode.media.media_library
     - field.field.media.ride_picture.field_image_category
-    - field.field.media.ride_picture.field_media_image_1
-    - image.style.small_16_9
+    - field.field.media.ride_picture.field_media_image
+    - image.style.thumbnail_ride
     - media.type.ride_picture
   module:
     - focal_point
@@ -16,18 +16,18 @@ targetEntityType: media
 bundle: ride_picture
 mode: media_library
 content:
-  field_media_image_1:
+  field_media_image:
     type: image_focal_point
     weight: 0
     region: content
     settings:
       progress_indicator: throbber
-      preview_image_style: small_16_9
+      preview_image_style: thumbnail_ride
       preview_link: true
       offsets: '50,50'
     third_party_settings:
       imce:
-        enabled: true
+        enabled: false
 hidden:
   created: true
   field_image_category: true

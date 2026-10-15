@@ -4,10 +4,13 @@ status: true
 dependencies:
   config:
     - field.field.node.banner.banner_image
+    - field.field.node.banner.field_resize_banner_image
+    - image.style.banner
     - node.type.banner
   module:
     - layout_builder
     - layout_builder_restrictions
+    - media
     - user
 third_party_settings:
   layout_builder:
@@ -28,11 +31,13 @@ bundle: banner
 mode: default
 content:
   banner_image:
-    type: entity_reference_entity_view
+    type: media_thumbnail
     label: hidden
     settings:
-      view_mode: media_library
-      link: false
+      image_link: ''
+      image_style: banner
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 4
     region: content
@@ -46,4 +51,5 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-hidden: {  }
+hidden:
+  field_resize_banner_image: true

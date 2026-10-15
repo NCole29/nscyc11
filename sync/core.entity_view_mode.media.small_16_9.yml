@@ -1,0 +1,11 @@
+uuid: 5198b47b-3dfd-4d2b-b090-1d38b677aa40
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.small_16_9
+label: 'Small 16x9'
+description: null
+targetEntityType: media
+cache: true

@@ -1,0 +1,46 @@
+uuid: b937c599-6e71-41c6-ac8e-76769e9c19dc
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.small_4x3_aspect_ratio
+    - field.field.media.image_crop_4_3.field_image_category
+    - field.field.media.image_crop_4_3.field_media_image
+    - image.style.thumbnail_4_3
+    - media.type.image_crop_4_3
+  module:
+    - image_widget_crop
+    - imce
+id: media.image_crop_4_3.small_4x3_aspect_ratio
+targetEntityType: media
+bundle: image_crop_4_3
+mode: small_4x3_aspect_ratio
+content:
+  field_media_image:
+    type: image_widget_crop
+    weight: 0
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail_4_3
+      crop_preview_image_style: thumbnail_4_3
+      crop_list:
+        - crop_4_3
+      crop_types_required:
+        - crop_4_3
+      warn_multiple_usages: true
+      show_crop_area: false
+      show_default_crop: true
+    third_party_settings:
+      imce:
+        enabled: false
+hidden:
+  created: true
+  field_image_category: true
+  name: true
+  path: true
+  publish_on: true
+  scheduler_settings: true
+  status: true
+  uid: true
+  unpublish_on: true

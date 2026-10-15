@@ -1,0 +1,43 @@
+uuid: d9ff3294-d7c5-4937-8ed2-fb4adec8160a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.thumbnail
+    - field.field.media.ride_picture.field_image_category
+    - field.field.media.ride_picture.field_media_image
+    - image.style.thumbnail_ride
+    - media.type.ride_picture
+  module:
+    - layout_builder
+    - svg_image
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: media.ride_picture.thumbnail
+targetEntityType: media
+bundle: ride_picture
+mode: thumbnail
+content:
+  field_media_image:
+    type: image
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: thumbnail_ride
+      image_loading:
+        attribute: lazy
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_image_category: true
+  name: true
+  thumbnail: true
+  uid: true

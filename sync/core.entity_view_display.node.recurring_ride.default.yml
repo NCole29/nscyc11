@@ -26,7 +26,7 @@ dependencies:
     - field.field.node.recurring_ride.field_webform
     - field.field.node.recurring_ride.field_webform_closing
     - field.field.node.recurring_ride.field_webform_limit
-    - image.style.medium_16_9
+    - image.style.large_16_9
     - node.type.recurring_ride
   module:
     - club
@@ -154,7 +154,7 @@ content:
     label: visually_hidden
     settings:
       image_link: ''
-      image_style: medium_16_9
+      image_style: large_16_9
       image_loading:
         attribute: lazy
     third_party_settings: {  }

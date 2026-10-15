@@ -14,7 +14,7 @@ field_name: banner_image
 entity_type: node
 bundle: event
 label: 'Banner image'
-description: 'After adding gallery images, change the order by clicking Show media item weights and change the weights.'
+description: 'Upload one banner image or three gallery images to span the full screen width. <br>Drag gallery images to adjust the display order.'
 required: false
 translatable: true
 default_value: {  }

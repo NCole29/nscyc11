@@ -2,27 +2,24 @@ uuid: f1da57bc-58b7-480c-9d33-42916ae07451
 langcode: en
 status: true
 dependencies:
-  config:
-    - crop.type.crop_3_2
   module:
-    - crop
+    - focal_point
 _core:
   default_config_hash: ePs1KizhMFSJvomDV22-jtRocu1mdpixZWhJxd6MVTs
 name: thumbnail_3_2
 label: 'Thumbnail 3:2'
 effects:
-  121d00ba-bdb9-4370-a5b0-ae6d107e5432:
-    uuid: 121d00ba-bdb9-4370-a5b0-ae6d107e5432
-    id: crop_crop
-    weight: 1
-    data:
-      crop_type: crop_3_2
-      automatic_crop_provider: null
-  57bdcfec-d408-42ee-9957-97bcd310ffb2:
-    uuid: 57bdcfec-d408-42ee-9957-97bcd310ffb2
-    id: image_scale
-    weight: 2
+  d3159feb-266b-4d81-aaae-ce4418ea9fb2:
+    uuid: d3159feb-266b-4d81-aaae-ce4418ea9fb2
+    id: focal_point_scale_and_crop
+    weight: -10
     data:
       width: 150
       height: 100
-      upscale: false
+      crop_type: focal_point
+  c99864fb-3bea-4853-b35b-8fd187155efb:
+    uuid: c99864fb-3bea-4853-b35b-8fd187155efb
+    id: image_convert
+    weight: -9
+    data:
+      extension: webp

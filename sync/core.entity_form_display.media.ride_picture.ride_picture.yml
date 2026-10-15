@@ -1,0 +1,40 @@
+uuid: 5c0a15a2-eaa2-44cc-9bf2-01db50eed789
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.ride_picture
+    - field.field.media.ride_picture.field_image_category
+    - field.field.media.ride_picture.field_media_image
+    - image.style.ride_picture
+    - media.type.ride_picture
+  module:
+    - focal_point
+    - imce
+id: media.ride_picture.ride_picture
+targetEntityType: media
+bundle: ride_picture
+mode: ride_picture
+content:
+  field_media_image:
+    type: image_focal_point
+    weight: 0
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: ride_picture
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings:
+      imce:
+        enabled: false
+hidden:
+  created: true
+  field_image_category: true
+  name: true
+  path: true
+  publish_on: true
+  scheduler_settings: true
+  status: true
+  uid: true
+  unpublish_on: true

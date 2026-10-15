@@ -1,0 +1,46 @@
+uuid: c065a04b-8bdb-4b38-a92f-4e4e15b07f2b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.small_16x9_aspect_ratio
+    - field.field.media.image.field_image_category
+    - field.field.media.image.field_media_image
+    - image.style.thumbnail_16_9
+    - media.type.image
+  module:
+    - focal_point
+    - imce
+_core:
+  default_config_hash: Zbmgu5iVG81My70Z3wcMkcTwCJ5xNyBL26FZR_k5Bfg
+id: media.image.small_16x9_aspect_ratio
+targetEntityType: media
+bundle: image
+mode: small_16x9_aspect_ratio
+content:
+  field_image_category:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_media_image:
+    type: image_focal_point
+    weight: 0
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail_16_9
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings:
+      imce:
+        enabled: false
+hidden:
+  created: true
+  name: true
+  path: true
+  publish_on: true
+  status: true
+  uid: true
+  unpublish_on: true

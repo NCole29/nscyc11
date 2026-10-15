@@ -11,17 +11,23 @@ _core:
 name: thumbnail_16_9
 label: 'Thumbnail 16:9'
 effects:
-  e455bdfa-8041-469a-9fc6-9c8378c9320a:
-    uuid: e455bdfa-8041-469a-9fc6-9c8378c9320a
+  467c1be6-c206-4279-ba25-e93f53c5d7f1:
+    uuid: 467c1be6-c206-4279-ba25-e93f53c5d7f1
+    id: image_convert
+    weight: -8
+    data:
+      extension: webp
+  58afe141-bcca-4d12-a269-b425862169a5:
+    uuid: 58afe141-bcca-4d12-a269-b425862169a5
     id: crop_crop
-    weight: 1
+    weight: -10
     data:
       crop_type: crop_16_9
       automatic_crop_provider: null
-  252a3b32-7cea-48a4-b322-5d45fc1ef090:
-    uuid: 252a3b32-7cea-48a4-b322-5d45fc1ef090
+  487e549c-d263-45a6-bf23-356201910274:
+    uuid: 487e549c-d263-45a6-bf23-356201910274
     id: image_scale
-    weight: 3
+    weight: -9
     data:
       width: 178
       height: 100

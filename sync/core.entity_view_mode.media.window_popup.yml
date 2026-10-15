@@ -8,6 +8,6 @@ _core:
   default_config_hash: kjB-7nA8tee_f3SjOh-bI9yspmslPQ5yXxPoEkINei4
 id: media.window_popup
 label: 'Popup window'
-description: ''
+description: null
 targetEntityType: media
 cache: true

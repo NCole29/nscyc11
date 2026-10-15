@@ -7,7 +7,7 @@ dependencies:
 _core:
   default_config_hash: 3enXiwUwXVSnJ6hbnV68FLF5yoJLrbWurzxIWwlTR6A
 id: media.large
-label: Large
-description: ''
+label: 'Large 16x9'
+description: null
 targetEntityType: media
 cache: true

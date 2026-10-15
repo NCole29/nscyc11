@@ -11,7 +11,6 @@ dependencies:
     - media.type.image_crop_20_7
     - media.type.image_crop_4_3
     - media.type.public_file
-    - media.type.remote_video
     - node.type.announcement
     - node.type.banner
     - node.type.event
@@ -114,7 +113,6 @@ permissions:
   - 'edit own image_crop_20_7 media'
   - 'edit own image_crop_4_3 media'
   - 'edit own public_file media'
-  - 'edit own remote_video media'
   - 'edit own webform'
   - 'revert all revisions'
   - 'schedule publishing of nodes'

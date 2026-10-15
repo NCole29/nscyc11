@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.field.media.image_crop_4_3.field_image_category
     - field.field.media.image_crop_4_3.field_media_image
-    - image.style.small_4_3
+    - image.style.thumbnail_4_3
     - media.type.image_crop_4_3
   module:
     - image_widget_crop
@@ -17,20 +17,14 @@ targetEntityType: media
 bundle: image_crop_4_3
 mode: default
 content:
-  field_image_category:
-    type: options_select
-    weight: 2
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_media_image:
     type: image_widget_crop
-    weight: 26
+    weight: 0
     region: content
     settings:
       progress_indicator: throbber
-      preview_image_style: small_4_3
-      crop_preview_image_style: small_4_3
+      preview_image_style: thumbnail_4_3
+      crop_preview_image_style: thumbnail_4_3
       crop_list:
         - crop_4_3
       crop_types_required:
@@ -41,16 +35,10 @@ content:
     third_party_settings:
       imce:
         enabled: false
-  name:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
 hidden:
   created: true
+  field_image_category: true
+  name: true
   path: true
   publish_on: true
   status: true

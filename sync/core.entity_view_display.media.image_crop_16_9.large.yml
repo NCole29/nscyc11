@@ -1,4 +1,4 @@
-uuid: b439d82e-d375-40ed-a77c-bd64333ccf8d
+uuid: a8ed3606-5022-4ef6-a943-9413433fe302
 langcode: en
 status: true
 dependencies:
@@ -16,7 +16,7 @@ third_party_settings:
     enabled: false
     allow_custom: false
 _core:
-  default_config_hash: P8RMowyRL3vQJILdzpuu0x-v8fXJlOlhBP6rrroW5so
+  default_config_hash: ak9MDP-f3xltBLEt4YV5Q0ICsUuqAsyCx_SPwSstWv4
 id: media.image_crop_16_9.large
 targetEntityType: media
 bundle: image_crop_16_9

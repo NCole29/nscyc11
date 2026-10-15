@@ -1,0 +1,59 @@
+uuid: cc13a6f8-cc3b-45af-a316-85c74cf06778
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_form_mode.media.small_16x9_aspect_ratio
+    - field.field.media.image_crop_20_7.field_image_category
+    - field.field.media.image_crop_20_7.field_media_image
+    - media.type.image_crop_20_7
+  module:
+    - path
+id: media.image_crop_20_7.small_16x9_aspect_ratio
+targetEntityType: media
+bundle: image_crop_20_7
+mode: small_16x9_aspect_ratio
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 100
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  field_image_category: true
+  field_media_image: true
+  publish_on: true
+  scheduler_settings: true
+  unpublish_on: true

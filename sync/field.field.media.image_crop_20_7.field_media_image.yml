@@ -22,9 +22,9 @@ default_value_callback: ''
 settings:
   handler: 'default:file'
   handler_settings: {  }
-  file_directory: 'images/[date:custom:Y]'
+  file_directory: images/banner
   file_extensions: 'png gif jpg jpeg'
-  max_filesize: '4 MB'
+  max_filesize: '5 MB'
   max_resolution: ''
   min_resolution: ''
   alt_field: true

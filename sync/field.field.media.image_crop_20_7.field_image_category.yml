@@ -6,6 +6,8 @@ dependencies:
     - field.storage.media.field_image_category
     - media.type.image_crop_20_7
     - taxonomy.vocabulary.image_category
+  content:
+    - 'taxonomy_term:image_category:f557d619-3252-47cc-aad1-c59e88f7ec41'
 _core:
   default_config_hash: IyJT2kjDxxWtUJMYvjguZR31jhs7GmvT3sCGiQpVibQ
 id: media.image_crop_20_7.field_image_category
@@ -16,7 +18,9 @@ label: 'Image category'
 description: ''
 required: false
 translatable: true
-default_value: {  }
+default_value:
+  -
+    target_uuid: f557d619-3252-47cc-aad1-c59e88f7ec41
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

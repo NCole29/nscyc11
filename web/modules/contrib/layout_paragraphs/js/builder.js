@@ -17,6 +17,9 @@
       const { element, method } = uiElement;
       $container[method]($(element).addClass('js-lpb-ui'));
     });
+    if ($container.closest('.lp-builder--symmetric-translation').length > 0) {
+      $container.find('.lpb-btn--add, .lpb-duplicate, .lpb-delete').remove();
+    }
   }
 
   /**

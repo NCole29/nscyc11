@@ -10,6 +10,9 @@
  * Author:       Alaa Haddad http://www.alaahaddad.com.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
+
 if ($updated_regions["bottom"]) {
 
   $region_label = implode(", ", $updated_regions["bottom"]);
@@ -52,7 +55,7 @@ if ($updated_regions["bottom"]) {
       $form["solo_settings"]["settings_bottom_container"]["layout_settings"]["enable_per_type_layout_bottom"] = [
         "#type" => "checkbox",
         "#title" => t("Enable per-content-type layouts for Bottom region"),
-        "#default_value" => theme_get_setting("enable_per_type_layout_bottom"),
+        "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("enable_per_type_layout_bottom"), fn() => theme_get_setting("enable_per_type_layout_bottom")),
       ];
 
       foreach ($content_types as $type_id => $type_label) {
@@ -112,7 +115,7 @@ if ($updated_regions["bottom"]) {
       $form["solo_settings"]["settings_bottom_container"]["accessibility_behavior"]["enable_aria_bottom"] = [
         "#type" => "checkbox",
         "#title" => t("Enable ARIA Landmark for Bottom Container"),
-        "#default_value" => theme_get_setting("enable_aria_bottom") ?? 0,
+        "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("enable_aria_bottom"), fn() => theme_get_setting("enable_aria_bottom")) ?? 0,
         "#description" => t("Adds <code>role='region'</code> and <code>aria-label</code> to the bottom container for improved accessibility. Enable only if this region consistently contains important, navigable content."),
       ];
 
@@ -147,7 +150,7 @@ if ($updated_regions["bottom"]) {
         "#title" => t("Region Block Alignment Option"),
         "#type" => "select",
         "#options" => _alignment_region($region),
-        "#default_value" => theme_get_setting("align_{$region}") ?? "region-left",
+        "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("align_{$region}"), fn() => theme_get_setting("align_{$region}")) ?? "region-left",
         "#description" => t("<p>By default, block content is left-aligned. This feature allows theme users to align blocks to the center or right within specific regions through region-level configuration. (Large screen only).</p>"),
       ];
 

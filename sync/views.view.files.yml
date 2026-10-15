@@ -8,6 +8,7 @@ dependencies:
   module:
     - file
     - media
+    - node
     - user
 id: files
 label: Files
@@ -790,7 +791,13 @@ display:
           id: area_text_custom
           table: views
           field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
           plugin_id: text_custom
+          empty: false
+          content: 'Usage counts reflect the generation of thumbnails (displayed here) in addition to web page displays.'
+          tokenize: false
       footer: {  }
       display_extenders: {  }
     cache_metadata:
@@ -1323,7 +1330,7 @@ display:
           group_type: sum
           admin_label: ''
           plugin_id: numeric
-          label: 'Used in'
+          label: Usage
           exclude: false
           alter:
             alter_text: false
@@ -1431,19 +1438,22 @@ display:
           role:
             administrator: administrator
       sorts:
-        count:
-          id: count
-          table: file_usage
-          field: count
-          relationship: none
+        created:
+          id: created
+          table: media_field_data
+          field: created
+          relationship: reverse_field_media_image_media
           group_type: group
           admin_label: ''
-          plugin_id: standard
-          order: ASC
+          entity_type: media
+          entity_field: created
+          plugin_id: date
+          order: DESC
           expose:
             label: ''
             field_identifier: ''
           exposed: false
+          granularity: second
       filters:
         uri:
           id: uri
@@ -1636,6 +1646,7 @@ display:
       defaults:
         access: false
         pager: true
+        group_by: false
         relationships: false
         fields: false
         sorts: false
@@ -1661,6 +1672,7 @@ display:
           entity_type: file
           plugin_id: entity_reverse
           required: false
+      group_by: true
       display_description: ''
       header:
         area_text_custom:
@@ -1683,7 +1695,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: '<p>Displaying @start - @end of @total</p>'
+          content: "Usage reflects the generation of thumbnails (displayed here) in addition to web page displays.\r\n<p>Displaying @start - @end of @total</p>"
       display_extenders: {  }
       path: admin/content/files
       menu:
@@ -1915,6 +1927,72 @@ display:
           format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
           suffix: ''
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: reverse__node__field_ride_picture
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: field
+          label: 'Ride page'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: true
+            link_rel: canonical
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
       pager:
         type: full
         options:
@@ -2042,6 +2120,7 @@ display:
         arguments: false
         filters: false
         filter_groups: false
+        header: false
       relationships:
         fid:
           id: fid
@@ -2051,13 +2130,46 @@ display:
           group_type: group
           admin_label: 'File usage'
           required: true
+        reverse_field_media_file_media:
+          id: reverse_field_media_file_media
+          table: file_managed
+          field: reverse_field_media_file_media
+          relationship: none
+          group_type: group
+          admin_label: field_media_file
+          entity_type: file
+          plugin_id: entity_reverse
+          required: false
+        reverse__node__field_ride_picture:
+          id: reverse__node__field_ride_picture
+          table: media_field_data
+          field: reverse__node__field_ride_picture
+          relationship: reverse_field_media_file_media
+          group_type: group
+          admin_label: field_ride_picture
+          entity_type: media
+          plugin_id: entity_reverse
+          required: false
       group_by: false
       display_description: ''
+      header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text_custom
+          empty: false
+          content: 'Use count reflects the generation of thumbnails in addition to web page displays.'
+          tokenize: false
       display_extenders: {  }
       path: admin/content/files/usage/%
     cache_metadata:
       max-age: -1
       contexts:
+        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args

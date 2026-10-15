@@ -184,3 +184,24 @@
   --solo-text-align-start: right;
   --solo-text-align-end: left;
 }
+
+/**
+ * Element-level direction.
+ *
+ * :root:dir(rtl) above can only ever match <html>, so a dir="rtl" block inside
+ * an LTR page - an Arabic pull quote in an English article, a translated field
+ * on a mixed-language node - kept the page's tokens and rendered left-aligned.
+ * The reverse case (an LTR island in an RTL page) was wrong the same way.
+ *
+ * :where() holds these at zero specificity so nothing already in the theme,
+ * a sub-theme, or a colour scheme is outranked by them.
+ */
+:where(:dir(ltr)) {
+  --solo-text-align-start: left;
+  --solo-text-align-end: right;
+}
+
+:where(:dir(rtl)) {
+  --solo-text-align-start: right;
+  --solo-text-align-end: left;
+}

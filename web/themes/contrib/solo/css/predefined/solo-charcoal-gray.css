@@ -23,8 +23,8 @@ Braves Navy #13274F
   border-bottom-style: solid;
   border-color: var(--solo-white);
 }
-.page-wrapper .primary-menu,
-.page-wrapper .primary-sidebar-menu {
+.page-wrapper .primary-menu:where(:not([style*="--r-br:"] *)),
+.page-wrapper .primary-sidebar-menu:where(:not([style*="--r-br:"] *)) {
   --r-br: #6a6b66;
 }
 
@@ -152,15 +152,15 @@ div.page-title.lone {
   background: var(--r-bg);
 }
 
-.page-wrapper .selectify,
-.page-wrapper .solo-select,
-.page-wrapper .solo-radio,
-.page-wrapper .solo-check,
-.page-wrapper .solo-input,
-.page-wrapper .solo-textarea,
-.page-wrapper a.button,
-.page-wrapper input.button,
-.page-wrapper .search-button-close button {
+.page-wrapper .selectify:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-select:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-radio:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-check:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-input:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-textarea:where(:not([style*="--r-br:"] *)),
+.page-wrapper a.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper input.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .search-button-close button:where(:not([style*="--r-br:"] *)) {
   --r-br: #9cb5e7;
 }
 

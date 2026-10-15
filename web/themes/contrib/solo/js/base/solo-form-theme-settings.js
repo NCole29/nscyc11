@@ -33,13 +33,13 @@
           toggleButton.id = "solo-accordion-toggle-all";
           toggleButton.type = "button";
           toggleButton.className = "button button--small solo-accordion-toggle-button";
-          toggleButton.textContent = "Expand All Sections";
+          toggleButton.textContent = Drupal.t("Expand All Sections");
           toggleButton.setAttribute("data-state", "collapsed");
 
           // Create help text
           const helpText = document.createElement("div");
           helpText.className = "description solo-accordion-toggle-help";
-          helpText.textContent = "Quickly expand or collapse all theme setting sections below.";
+          helpText.textContent = Drupal.t("Quickly expand or collapse all theme setting sections below.");
 
           buttonContainer.appendChild(toggleButton);
           buttonContainer.appendChild(helpText);
@@ -58,9 +58,9 @@
                 accordion.setAttribute("open", "true");
               });
 
-              this.textContent = "Collapse All Sections";
+              this.textContent = Drupal.t("Collapse All Sections");
               this.setAttribute("data-state", "expanded");
-              helpText.textContent = "All sections are now expanded. Click to collapse them.";
+              helpText.textContent = Drupal.t("All sections are now expanded. Click to collapse them.");
 
             } else {
               // Collapse all accordions
@@ -68,9 +68,9 @@
                 accordion.removeAttribute("open");
               });
 
-              this.textContent = "Expand All Sections";
+              this.textContent = Drupal.t("Expand All Sections");
               this.setAttribute("data-state", "collapsed");
-              helpText.textContent = "All sections are now collapsed. Click to expand them.";
+              helpText.textContent = Drupal.t("All sections are now collapsed. Click to expand them.");
             }
           });
 
@@ -80,17 +80,20 @@
             const openAccordions = context.querySelectorAll("form.system-theme-settings > details.form-wrapper[open]");
 
             if (openAccordions.length === 0) {
-              toggleButton.textContent = "Expand All Sections";
+              toggleButton.textContent = Drupal.t("Expand All Sections");
               toggleButton.setAttribute("data-state", "collapsed");
-              helpText.textContent = "Quickly expand or collapse all theme setting sections below.";
+              helpText.textContent = Drupal.t("Quickly expand or collapse all theme setting sections below.");
             } else if (openAccordions.length === allAccordions.length) {
-              toggleButton.textContent = "Collapse All Sections";
+              toggleButton.textContent = Drupal.t("Collapse All Sections");
               toggleButton.setAttribute("data-state", "expanded");
-              helpText.textContent = "All sections are expanded. Click to collapse them.";
+              helpText.textContent = Drupal.t("All sections are expanded. Click to collapse them.");
             } else {
-              toggleButton.textContent = "Expand All Sections";
+              toggleButton.textContent = Drupal.t("Expand All Sections");
               toggleButton.setAttribute("data-state", "mixed");
-              helpText.textContent = `${openAccordions.length} of ${allAccordions.length} sections are open.`;
+              helpText.textContent = Drupal.t("@open of @all sections are open.", {
+                "@open": openAccordions.length,
+                "@all": allAccordions.length
+              });
             }
           };
 

@@ -5,6 +5,8 @@
  *
  * Available variables:
  * - heading_id: Pagination heading ID.
+ * - pagination_heading_level: The heading level to use for the pager.
+ *   Defaults to h4 when core does not supply it.
  * - items: List of pager items.
  *
  * @see template_preprocess_views_mini_pager()
@@ -12,7 +14,10 @@
 #}
 {% if items.previous or items.next %}
   <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">
-    <span id="{{ heading_id }}" class="pager__heading visually-hidden">{{ 'Pagination'|t }}</span>
+    {# See templates/navigation/pager.html.twig for why this is a heading
+       rather than a span, and why the default is h4. #}
+    {% set pager_heading = pagination_heading_level|default('h4') %}
+    <{{ pager_heading }} id="{{ heading_id }}" class="pager__heading visually-hidden">{{ 'Pagination'|t }}</{{ pager_heading }}>
     <ul class="solo-clear pager__items js-pager__items">
       {% if items.previous %}
         <li class="solo-button pager__item pager__item--previous">

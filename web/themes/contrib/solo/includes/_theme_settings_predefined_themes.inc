@@ -10,6 +10,8 @@
  * Author:       Alaa Haddad http://www.alaahaddad.com.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 $form["solo_settings"]["settings_predefined_theme"] = [
@@ -41,7 +43,7 @@ $form["solo_settings"]["settings_predefined_theme"]["color_scheme_selection"]["t
   "#type" => "select",
   "#title" => t("Select a category"),
   "#options" => _get_theme_category(),
-  "#default_value" => theme_get_setting("theme_category"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("theme_category"), fn() => theme_get_setting("theme_category")),
 ];
 
 $form["solo_settings"]["settings_predefined_theme"]["color_scheme_selection"]["predefined_current_theme"] = [
@@ -53,7 +55,7 @@ $form["solo_settings"]["settings_predefined_theme"]["color_scheme_selection"]["p
       ":input[name='theme_category']" => ["!value" => "none"],
     ],
   ],
-  "#default_value" => theme_get_setting("predefined_current_theme"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("predefined_current_theme"), fn() => theme_get_setting("predefined_current_theme")),
 ];
 
 // Advanced Settings Tab (for future expansion)

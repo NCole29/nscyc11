@@ -60,9 +60,20 @@ h3 a) {
 .page-wrapper .main-navigation-wrapper li>a,
 .page-wrapper .header li.nav__menu-item>button,
 .page-wrapper .main-navigation-wrapper li>button {
-  --r-br: #9c9ab2;
   --r-bg: #757395;
   --r-tx: #fbfafc;
+}
+
+.page-wrapper .login-button-open:where(:not([style*="--r-br:"] *)),
+.page-wrapper .hamburger-icon button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper ul:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper li:where(:not([style*="--r-br:"] *)),
+.page-wrapper .header li.nav__menu-item>a:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper li>a:where(:not([style*="--r-br:"] *)),
+.page-wrapper .header li.nav__menu-item>button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper li>button:where(:not([style*="--r-br:"] *)) {
+  --r-br: #9c9ab2;
 }
 
 .page-wrapper .login-button-open:hover,
@@ -119,9 +130,15 @@ h3 a) {
 .fixed-search-block,
 .popup-login-block-inner {
   --s-b: 11, 11, 11;
-  --r-br: #c7c6d0;
   --r-bg: linear-gradient(45deg, #e8e7ed, #ecebef);
   background: var(--r-bg);
+}
+
+.main-container:where(:not([style*="--r-br:"] *)),
+.top-container:where(:not([style*="--r-br:"] *)),
+.fixed-search-block:where(:not([style*="--r-br:"] *)),
+.popup-login-block-inner:where(:not([style*="--r-br:"] *)) {
+  --r-br: #c7c6d0;
 }
 
 .highlighted {
@@ -151,10 +168,15 @@ div.page-title.lone {
 .bottom-container,
 .footer-container,
 .footer-menu {
-  --r-br: #4f4d66;
   --r-tx: #fdfdfd;
   --r-bg: linear-gradient(180deg, #131318, #1a171b);
   background: var(--r-bg);
+}
+
+.bottom-container:where(:not([style*="--r-br:"] *)),
+.footer-container:where(:not([style*="--r-br:"] *)),
+.footer-menu:where(:not([style*="--r-br:"] *)) {
+  --r-br: #4f4d66;
 }
 
 .bottom-container .bottom-box-inner,
@@ -209,15 +231,15 @@ div.page-title.lone {
   fill: #4d4c5c;
 }
 
-.page-wrapper .selectify,
-.page-wrapper .solo-select,
-.page-wrapper .solo-radio,
-.page-wrapper .solo-check,
-.page-wrapper .solo-input,
-.page-wrapper .solo-textarea,
-.page-wrapper a.button,
-.page-wrapper input.button,
-.page-wrapper .search-button-close button {
+.page-wrapper .selectify:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-select:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-radio:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-check:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-input:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-textarea:where(:not([style*="--r-br:"] *)),
+.page-wrapper a.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper input.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .search-button-close button:where(:not([style*="--r-br:"] *)) {
   --r-br: #9998aa;
 }
 

@@ -10,6 +10,9 @@
  * Author:       Alaa Haddad http://www.alaahaddad.com.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
+
 // Welcome region.
 if (array_key_exists("welcome_text", $updated_regions["mix"])) {
 
@@ -44,14 +47,14 @@ if (array_key_exists("welcome_text", $updated_regions["mix"])) {
   $form["solo_settings"]["settings_{$region}"]["region_configuration"]["enable_aria_welcome"] = [
     "#type" => "checkbox",
     "#title" => t("Enable ARIA Landmark for Welcome Region"),
-    "#default_value" => theme_get_setting("enable_aria_welcome") ?? 0,
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("enable_aria_welcome"), fn() => theme_get_setting("enable_aria_welcome")) ?? 0,
     "#description" => t("Adds <code>role='region'</code> and <code>aria-label</code> to the welcome region for improved accessibility. Enable only if this region consistently contains important, navigable content."),
   ];
 
   $form["solo_settings"]["settings_{$region}"]["region_configuration"]["site_regions_welcome_width"] = [
     "#type" => "checkbox",
     "#title" => t("Tick this box to enable full width for this region (recommended for hero sections)."),
-    "#default_value" => theme_get_setting("site_regions_welcome_width"),
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_regions_welcome_width"), fn() => theme_get_setting("site_regions_welcome_width")),
   ];
 
   // Color Settings Tab.

@@ -20,17 +20,28 @@ ASH #564C4D, FLINT #7F7D9C
 .page-wrapper a.button,
 .page-wrapper input.button,
 .page-wrapper .search-button-close button {
-  --r-br: #cbc5c5;
   border-color: var(--r-br);
 }
 
+.page-wrapper .selectify:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-select:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-radio:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-check:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-input:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-textarea:where(:not([style*="--r-br:"] *)),
+.page-wrapper a.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper input.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .search-button-close button:where(:not([style*="--r-br:"] *)) {
+  --r-br: #cbc5c5;
+}
+
 /* inner regions */
-.page-wrapper .region-inner {
+.page-wrapper .region-inner:where(:not([style*="--r-br:"] *)) {
   --r-br: #d3d1ec;
 }
 
-.page-wrapper .primary-sidebar-menu,
-.page-wrapper .primary-menu {
+.page-wrapper .primary-sidebar-menu:where(:not([style*="--r-br:"] *)),
+.page-wrapper .primary-menu:where(:not([style*="--r-br:"] *)) {
   --r-br: #302f3c;
 }
 

@@ -213,9 +213,6 @@
           targetElement.setAttribute('tabindex', '-1');
         }
 
-        const announcement = getSectionLabel(targetElement);
-        console.log('Announcement:', announcement);
-
         // Use scrollIntoView for better screen reader compatibility.
         // 'start' alignment works better with TalkBack than other options.
         targetElement.scrollIntoView({

@@ -10,7 +10,7 @@ dependencies:
 test_dependencies:
   - block_field:block_field
 
-# Information added by Drupal.org packaging script on 2026-04-15
-version: '2.1.3'
+# Information added by Drupal.org packaging script on 2026-10-09
+version: '2.1.5'
 project: 'layout_paragraphs'
-datestamp: 1776262784
+datestamp: 1791575737

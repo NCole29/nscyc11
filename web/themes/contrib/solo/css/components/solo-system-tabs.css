@@ -71,12 +71,14 @@ nav.action-links > li > a {
   padding-block: var(--solo-px8);
   padding-inline: var(--solo-px16);
   display: block;
+  color: inherit;
 }
 
 ul.secondary > li > a {
   padding-block: var(--solo-px6);
   padding-inline: var(--solo-px12);
   display: block;
+  color: inherit;
 }
 
 ul.primary .task-icon {

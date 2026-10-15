@@ -16,6 +16,7 @@ use Drupal\Core\Layout\LayoutPluginManagerInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\layout_paragraphs\LayoutParagraphsSection;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Plugin\PreviewAwarePluginInterface;
 use Drupal\layout_paragraphs\LayoutParagraphsComponent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\layout_paragraphs\LayoutParagraphsLayoutTempstoreRepository;
@@ -123,7 +124,11 @@ class LayoutParagraphsBuilder extends RenderElementBase implements ContainerFact
    * Properties:
    * - #layout_paragraphs_layout: a LayoutParagraphsLayout instance.
    * - #uuid: if provided, the uuid of the single paragraph to render.
-   * - #is_translating: if translating content.
+   * - #is_translating: if translating content. Where the property is not set,
+   *   the translation mode recorded on the layout by the widget or the
+   *   frontend builder form is used, so that a render which has nothing but
+   *   the layout - every render from a component route - applies the same
+   *   translation restrictions. The default is not translating.
    */
   public function getInfo() {
     return [
@@ -144,7 +149,11 @@ class LayoutParagraphsBuilder extends RenderElementBase implements ContainerFact
    */
   public function preRender($element) {
     $this->layoutParagraphsLayout = $this->tempstore->get($element['#layout_paragraphs_layout']);
-    $this->isTranslating = $element['#is_translating'] ?? FALSE;
+    // A render without the #is_translating property falls back to the
+    // translation mode the widget or the frontend builder form recorded on the
+    // layout. A property that is set wins, including when it is FALSE.
+    $this->isTranslating = $element['#is_translating']
+      ?? (bool) $this->layoutParagraphsLayout->getThirdPartySetting('layout_paragraphs', 'is_translating', FALSE);
     $element_uuid = $element['#uuid'];
     $preview_view_mode = $this->layoutParagraphsLayout->getSetting('preview_view_mode', 'default');
 
@@ -166,6 +175,9 @@ class LayoutParagraphsBuilder extends RenderElementBase implements ContainerFact
       if ($component->isLayout()) {
         $section = $this->layoutParagraphsLayout->getLayoutSection($component->getEntity());
         $layout_plugin_instance = $this->layoutPluginInstance($section);
+        if ($layout_plugin_instance instanceof PreviewAwarePluginInterface) {
+          $layout_plugin_instance->setInPreview(TRUE);
+        }
         foreach (array_keys($element['#components'][$uuid]['regions']) as $region_name) {
           foreach ($section->getComponentsForRegion($region_name) as $child_component) {
             $child_uuid = $child_component->getEntity()->uuid();
@@ -196,6 +208,9 @@ class LayoutParagraphsBuilder extends RenderElementBase implements ContainerFact
       'data-lpb-ui-id' => $this->layoutParagraphsLayout->id(),
       'data-lpb-id' => $this->layoutParagraphsLayout->id(),
     ] + ($element['#attributes'] ?? []);
+    if ($this->isTranslating() && !$this->supportsAsymmetricTranslations()) {
+      $element['#attributes']['class'][] = 'lp-builder--symmetric-translation';
+    }
     $element['#attached']['library'] = ['layout_paragraphs/builder'];
     $element['#attached']['drupalSettings']['lpBuilder'][$this->layoutParagraphsLayout->id()] = $this->layoutParagraphsLayout->getSettings();
     $element['#is_empty'] = $this->layoutParagraphsLayout->isEmpty();
@@ -487,6 +502,9 @@ class LayoutParagraphsBuilder extends RenderElementBase implements ContainerFact
    *
    * @param \Drupal\layout_paragraphs\LayoutParagraphsSection $section
    *   The section.
+   *
+   * @return \Drupal\Core\Layout\LayoutInterface
+   *   The layout plugin instance.
    */
   protected function layoutPluginInstance(LayoutParagraphsSection $section) {
     $layout_id = $section->getLayoutId();

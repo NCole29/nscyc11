@@ -8,11 +8,32 @@
  * Website:      http://www.flashwebcenter.com
  * Description:  template
  * Author:       Alaa Haddad http://www.alaahaddad.com.
+ *
+ * Kept for Drupal 10 and Drupal 11 before 11.3, which load the procedural
+ * #[LegacyHook] functions from includes/ through this file. On Drupal >= 11.3
+ * every hook runs from src/Hook, and each #[Hook] method loads the includes
+ * itself through \Drupal\solo\SoloIncludes::load(), so Solo works fully
+ * without this file -- which is what #[ExtensionFileIsConverted] below states
+ * to core. tests/src/Unit/ThemeFileIndependenceTest.php keeps that true.
  */
 
-require_once __DIR__ . '/includes/_theme_settings_helper_functions.inc';
-require_once __DIR__ . '/includes/_solo_preloader.inc';
-require_once __DIR__ . '/includes/_solo_theme_preprocess.inc';
-require_once __DIR__ . '/includes/_solo_theme_suggestions.inc';
-require_once __DIR__ . '/includes/_solo_theme_alter.inc';
-require_once __DIR__ . '/includes/_solo_theme_misc.inc';
+use Drupal\Core\Hook\Attribute\ExtensionFileIsConverted;
+use Drupal\Core\Hook\Attribute\LegacyHook;
+use Drupal\solo\SoloIncludes;
+
+SoloIncludes::load();
+
+/**
+ * Marks solo.theme as converted to classes for Drupal >= 11.3.
+ *
+ * Core reads #[ExtensionFileIsConverted] from a function in the .theme file
+ * and then skips the "Using solo.theme is deprecated" notice. The function is
+ * not a hook and does nothing; #[LegacyHook] keeps core from registering it as
+ * one.
+ *
+ * @see \Drupal\Core\Hook\Attribute\ExtensionFileIsConverted
+ */
+#[LegacyHook]
+#[ExtensionFileIsConverted]
+function solo_extension_file_is_converted(): void {
+}

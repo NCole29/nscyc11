@@ -502,7 +502,6 @@ display:
             field_location: field_location
             field_date_1: field_date_1
             field_ride_leader_1: field_ride_leader_1
-            field_ride_picture: field_ride_picture
             name: name
             status: status
             created: created
@@ -530,14 +529,14 @@ display:
               empty_column: false
               responsive: ''
             type:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_location:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -555,15 +554,8 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_ride_picture:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             name:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -577,14 +569,14 @@ display:
               empty_column: false
               responsive: ''
             created:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             changed:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''

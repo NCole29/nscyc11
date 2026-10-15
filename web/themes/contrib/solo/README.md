@@ -400,3 +400,32 @@ Except Home Page).
 
 - Text input for predefined CSS classes.
 - 15 color input fields for this region.
+
+## Content-Security-Policy
+
+Measured, so that a site running a strict CSP knows what this theme puts on a
+page:
+
+- **No inline JavaScript.** No `<script>` blocks, no `on*` event handler
+  attributes, no `eval()` or `new Function()`. Nothing here requires
+  `script-src 'unsafe-inline'`.
+- **23 inline `style="..."` attributes** across 22 templates. These need
+  `style-src-attr 'unsafe-inline'`. A nonce cannot authorise a style
+  *attribute* — nonces apply only to `<script>` and `<style>` elements.
+- **One inline `<style>` element**, and only when you use it: the
+  **CSS injector** theme setting emits whatever CSS you put in it. Leave that
+  setting empty and no inline `<style>` is produced at all. This is the one
+  place where a nonce would be the right fix.
+
+Two assets are attached through `html_head` rather than the Libraries API, so
+the [Content-Security-Policy module](https://www.drupal.org/project/csp) will
+not discover them automatically and your policy has to allow them explicitly:
+
+| Asset | When | Needs |
+| --- | --- | --- |
+| Generated `solo-js-dynamic.js`, as `<script src="…">` | *Dynamic JS* setting enabled | `script-src 'self'` |
+| Google Font stylesheet `<link>` | *Import Google Font* setting used | `style-src` + `font-src` for `fonts.googleapis.com` / `fonts.gstatic.com` |
+
+The script tag is an external same-origin reference, not inline code — it is
+attached this way because the locale module rejects stream-wrapper URIs for
+library JS assets.

@@ -20,12 +20,23 @@ FLINT #7F7D9C, ASH #564C4D
 .page-wrapper a.button,
 .page-wrapper input.button,
 .page-wrapper .search-button-close button {
-  --r-br: #9c9ab2;
   border-color: var(--r-br);
 }
 
+.page-wrapper .selectify:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-select:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-radio:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-check:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-input:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-textarea:where(:not([style*="--r-br:"] *)),
+.page-wrapper a.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper input.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .search-button-close button:where(:not([style*="--r-br:"] *)) {
+  --r-br: #9c9ab2;
+}
+
 /* inner regions */
-.page-wrapper .region-inner {
+.page-wrapper .region-inner:where(:not([style*="--r-br:"] *)) {
   --r-br: #c9c9c9;
 }
 

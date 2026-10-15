@@ -29,21 +29,24 @@ Carbon Gray #625D5D, Davy’s Gray #555555, Dim Gray #696969
   --r-tx: #363635;
 }
 
-.page-wrapper .copyright,
-.page-wrapper .copyright *,
-.page-wrapper .footer-menu,
-.page-wrapper .footer-menu *,
-.page-wrapper .footer-container,
-.page-wrapper .footer-container *,
-.page-wrapper .bottom-container,
-.page-wrapper .bottom-container * {
+/* Scheme border colour reaches every descendant, except inside an element
+   whose inline style sets --r-br (a region's own "borders" setting), so
+   that setting wins. :where() keeps the specificity of the old "*". */
+.page-wrapper .copyright:where(:not([style*="--r-br:"] *)),
+.page-wrapper .copyright :where(:not([style*="--r-br:"] *)),
+.page-wrapper .footer-menu:where(:not([style*="--r-br:"] *)),
+.page-wrapper .footer-menu :where(:not([style*="--r-br:"] *)),
+.page-wrapper .footer-container:where(:not([style*="--r-br:"] *)),
+.page-wrapper .footer-container :where(:not([style*="--r-br:"] *)),
+.page-wrapper .bottom-container:where(:not([style*="--r-br:"] *)),
+.page-wrapper .bottom-container :where(:not([style*="--r-br:"] *)) {
   --r-br: var(--r-br-dark);
 }
 
-.page-wrapper .top-container,
-.page-wrapper .top-container *,
-.page-wrapper .main-container,
-.page-wrapper .main-container * {
+.page-wrapper .top-container:where(:not([style*="--r-br:"] *)),
+.page-wrapper .top-container :where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-container:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-container :where(:not([style*="--r-br:"] *)) {
   --r-br: var(--r-br-light);
 }
 
@@ -78,9 +81,20 @@ h3 a) {
 .page-wrapper .main-navigation-wrapper li>a,
 .page-wrapper .header li.nav__menu-item>button,
 .page-wrapper .main-navigation-wrapper li>button {
-  --r-br: #838383;
   --r-bg: #616161;
   --r-tx: #fafafa;
+}
+
+.page-wrapper .login-button-open:where(:not([style*="--r-br:"] *)),
+.page-wrapper .hamburger-icon button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper ul:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper li:where(:not([style*="--r-br:"] *)),
+.page-wrapper .header li.nav__menu-item>a:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper li>a:where(:not([style*="--r-br:"] *)),
+.page-wrapper .header li.nav__menu-item>button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper li>button:where(:not([style*="--r-br:"] *)) {
+  --r-br: #838383;
 }
 
 .page-wrapper .login-button-open:hover,
@@ -137,9 +151,15 @@ h3 a) {
 .fixed-search-block,
 .popup-login-block-inner {
   --s-b: 11, 11, 11;
-  --r-br: #9c9c9c;
   --r-bg: linear-gradient(45deg, #f9f9f9, #f9f8f8);
   background: var(--r-bg);
+}
+
+.main-container:where(:not([style*="--r-br:"] *)),
+.top-container:where(:not([style*="--r-br:"] *)),
+.fixed-search-block:where(:not([style*="--r-br:"] *)),
+.popup-login-block-inner:where(:not([style*="--r-br:"] *)) {
+  --r-br: #9c9c9c;
 }
 
 .highlighted {
@@ -169,10 +189,15 @@ div.page-title.lone {
 .bottom-container,
 .footer-container,
 .footer-menu {
-  --r-br: #696969;
   --r-tx: #fdfdfd;
   --r-bg: linear-gradient(0deg, #030302, #0c0c0c);
   background: var(--r-bg);
+}
+
+.bottom-container:where(:not([style*="--r-br:"] *)),
+.footer-container:where(:not([style*="--r-br:"] *)),
+.footer-menu:where(:not([style*="--r-br:"] *)) {
+  --r-br: #696969;
 }
 
 .bottom-container .bottom-box-inner,
@@ -227,15 +252,15 @@ div.page-title.lone {
   fill: #73736f;
 }
 
-.page-wrapper .selectify,
-.page-wrapper .solo-select,
-.page-wrapper .solo-radio,
-.page-wrapper .solo-check,
-.page-wrapper .solo-input,
-.page-wrapper .solo-textarea,
-.page-wrapper a.button,
-.page-wrapper input.button,
-.page-wrapper .search-button-close button {
+.page-wrapper .selectify:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-select:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-radio:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-check:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-input:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-textarea:where(:not([style*="--r-br:"] *)),
+.page-wrapper a.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper input.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .search-button-close button:where(:not([style*="--r-br:"] *)) {
   --r-br: #c7c4c4;
 }
 

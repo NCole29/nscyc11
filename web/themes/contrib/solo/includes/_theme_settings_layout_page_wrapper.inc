@@ -10,6 +10,9 @@
  * Author:       Alaa Haddad http://www.alaahaddad.com.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
+
 // Page wrapper settings.
 $form["solo_settings"]["settings_page_wrapper"] = [
   "#type" => "details",
@@ -87,7 +90,7 @@ $form["solo_settings"]["settings_page_wrapper"]["css_classes_styling"]["classes_
 
     <strong>Note:</strong> Avoid overusing utility classes in deeply nested structures to maintain maintainability and design clarity.
   "),
-  "#default_value" => theme_get_setting("classes_page_wrapper"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("classes_page_wrapper"), fn() => theme_get_setting("classes_page_wrapper")),
 ];
 
 // Animation Settings Tab.
@@ -102,7 +105,7 @@ $form["solo_settings"]["settings_page_wrapper"]["animation_settings"]["opacity_p
   "#type" => "checkbox",
   "#title" => t("Enable Smooth Page Load Animation"),
   "#description" => t("Activates a smooth transition effect for the entire page when it is loaded, enhancing the user experience by gradually increasing the page's visibility from transparent to fully opaque. Ideal for creating a more engaging and visually appealing website entrance."),
-  "#default_value" => theme_get_setting("opacity_page_wrapper"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("opacity_page_wrapper"), fn() => theme_get_setting("opacity_page_wrapper")),
 ];
 
 // Color Settings Tab.

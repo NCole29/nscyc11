@@ -7,6 +7,9 @@
  * Rule-based, cache-aware. No logic in Twig; library attached conditionally.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
+
 /**
  * Resolves a stored logo path to a URL for use in preloader img src.
  *
@@ -82,7 +85,7 @@ function _solo_preloader_decision($theme) {
 
   $logo_use_theme = (bool) $config->get('preloader_logo_use_theme');
   $logo_url = $logo_use_theme
-    ? trim((string) (theme_get_setting('logo.url') ?? ''))
+    ? trim((string) (DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('logo.url'), fn() => theme_get_setting('logo.url')) ?? ''))
     : _solo_preloader_resolve_logo_url($config->get('preloader_logo_url') ?? '');
 
   // Validate transition effect (shared by force_show and normal paths).

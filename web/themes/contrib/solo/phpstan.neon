@@ -1,0 +1,69 @@
+# PHPStan configuration for the Solo theme.
+#
+# Added 2026-09-08. Until now Solo shipped no PHPStan config at all, so
+# measurement 2 of this lane's acceptance bar was not "zero errors" -- it was
+# NEVER TAKEN, which is a different and worse thing to report as clean.
+#
+# Level 5 rather than max on purpose: Solo is ~30 include files of procedural
+# theme code that predates any typing effort, and a level that produces a
+# thousand findings gates nothing and gets ignored. 5 is the level that catches
+# real defects -- wrong argument counts, undefined methods, impossible
+# conditions -- which is the class of bug that D12 actually introduced here
+# (see the removed $variables['teaser'] in _solo_theme_preprocess.inc).
+# Raising it is a deliberate follow-up, not an oversight.
+parameters:
+  level: 5
+  paths:
+    - src
+    - tests
+    - includes
+    # theme-settings.php was removed when Drupal 11.5.0 deprecated it (core
+    # removes it in 12.0.0). Its hook moved to src/Hook/SoloThemeSettingsHooks
+    # and its helpers to includes/_solo_theme_settings.inc, both already
+    # covered above. Leaving the dead entry here made PHPStan abort with
+    # "Path ... does not exist" and analyse NOTHING - the same silent-zero
+    # failure the excludePaths comment below describes, via a different key.
+    - solo.theme
+    - solo.post_update.php
+  excludePaths:
+    # A theme has no vendor/ of its own -- composer installs into the SITE's
+    # vendor dir. The (?) marker is REQUIRED: PHPStan treats a missing
+    # excludePath as a fatal config error and analyses nothing at all. That is
+    # not hypothetical -- selectify shipped this exact file without the marker
+    # and its analysis had never run once.
+    - vendor (?)
+  ignoreErrors:
+    # The theme-settings includes are require_once'd INTO the scope of
+    # solo_form_system_theme_settings_alter(), which defines the variables they
+    # use before pulling them in -- theme-settings.php sets $updated_regions at
+    # line 288 and $attributes at line 290, then requires the includes at 307+.
+    # None of those files assigns those variables itself (measured: 0
+    # assignments to $attributes in _theme_settings_layout_bottom.inc), because
+    # they are not meant to stand alone.
+    #
+    # PHPStan analyses each include as its own file and cannot see the caller's
+    # scope, so it reports every one of those reads as possibly-undefined: 79
+    # findings, all of them structurally impossible to fix without rewriting
+    # the include mechanism itself. They were checked against the code, not
+    # assumed to be noise.
+    #
+    # ⚠ Scoped to this ONE identifier and ONLY under includes/. Anything else
+    # in these files -- an undefined METHOD, a wrong argument count, an
+    # impossible condition -- still reports. This is not a baseline and it does
+    # not silence the file.
+    -
+      identifier: variable.undefined
+      path: includes/*.inc
+    # #[ExtensionFileIsConverted] is how solo.theme tells Drupal >= 11.5 that
+    # it is kept only for older core (see the file's own docblock). The class
+    # does not exist before that release -- measured absent in Drupal 11.4.8
+    # and 10.6.18 -- and PHP never instantiates an attribute nobody reflects,
+    # so it is inert there. Scoped to that one class, that one identifier and
+    # solo.theme; reportUnmatched is off because on Drupal 12, where the class
+    # exists, this entry matches nothing.
+    -
+      message: '#^Attribute class Drupal\\Core\\Hook\\Attribute\\ExtensionFileIsConverted does not exist\.$#'
+      identifier: attribute.notFound
+      path: solo.theme
+      reportUnmatched: false
+  treatPhpDocTypesAsCertain: false

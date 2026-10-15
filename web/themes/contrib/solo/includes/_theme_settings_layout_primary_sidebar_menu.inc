@@ -10,6 +10,9 @@
  * Author:       Alaa Haddad http://www.alaahaddad.com.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
+
 // Primary Sidebar menu region.
 if (array_key_exists("primary_sidebar_menu", $updated_regions["mix"])) {
 
@@ -44,13 +47,13 @@ if (array_key_exists("primary_sidebar_menu", $updated_regions["mix"])) {
   $form["solo_settings"]["settings_{$region}"]["menu_layout_styling"]["primary_sidebar_menu_border"] = [
     "#type" => "checkbox",
     "#title" => t("Tick this box if you prefer to add border for each menu item"),
-    "#default_value" => theme_get_setting("primary_sidebar_menu_border"),
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("primary_sidebar_menu_border"), fn() => theme_get_setting("primary_sidebar_menu_border")),
   ];
 
   $form["solo_settings"]["settings_{$region}"]["menu_layout_styling"]["primary_sidebar_menu_branding"] = [
     "#type" => "checkbox",
     "#title" => t("Tick this box to display a clickable logo next to the close button. To also display the site name, add the class show-sitename to the field (CSS Classes Only)."),
-    "#default_value" => theme_get_setting("primary_sidebar_menu_branding"),
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("primary_sidebar_menu_branding"), fn() => theme_get_setting("primary_sidebar_menu_branding")),
   ];
 
   // Menu Behavior & Accessibility Tab.
@@ -64,7 +67,7 @@ if (array_key_exists("primary_sidebar_menu", $updated_regions["mix"])) {
   $form["solo_settings"]["settings_{$region}"]["menu_behavior_accessibility"]["primary_sidebar_menu_hover"] = [
     "#type" => "checkbox",
     "#title" => t("Tick this box if you prefer to show the sidebar main menu dropdowns when hovering over them with the mouse, instead of clicking. (Large screen only)"),
-    "#default_value" => theme_get_setting("primary_sidebar_menu_hover"),
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("primary_sidebar_menu_hover"), fn() => theme_get_setting("primary_sidebar_menu_hover")),
   ];
 
   // Color Settings Tab.

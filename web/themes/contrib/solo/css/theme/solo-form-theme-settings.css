@@ -385,7 +385,13 @@ form.system-theme-settings [data-drupal-selector="solo-color-picker"]:hover {
 }
 
 form.system-theme-settings [data-drupal-selector="solo-color-picker"]:focus-within {
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+  /* currentColor, not black: this form renders in the ADMIN theme, which
+     may be dark (Gin), where a black ring is invisible. currentColor is
+     the control's own text colour, so it contrasts in either mode.
+     rgba(0,0,0,0.1) measured 1.25:1 against white - WCAG 2.2 Focus
+     Appearance wants 3:1. 60% of currentColor measures about 3.7:1 on a
+     light admin theme and higher on a dark one. */
+  box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 60%, transparent);
 }
 
 form.system-theme-settings [data-drupal-selector="solo-color-picker"] label {
@@ -418,7 +424,13 @@ form.system-theme-settings [data-drupal-selector="solo-color-picker"] .solo-colo
 }
 
 form.system-theme-settings [data-drupal-selector="solo-color-picker"] .solo-color-picker-wrapper:focus-within {
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+  /* currentColor, not black: this form renders in the ADMIN theme, which
+     may be dark (Gin), where a black ring is invisible. currentColor is
+     the control's own text colour, so it contrasts in either mode.
+     rgba(0,0,0,0.1) measured 1.25:1 against white - WCAG 2.2 Focus
+     Appearance wants 3:1. 60% of currentColor measures about 3.7:1 on a
+     light admin theme and higher on a dark one. */
+  box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 60%, transparent);
 }
 
 form.system-theme-settings [data-drupal-selector="solo-color-picker"] .solo-color-picker-wrapper input[type="text"] {

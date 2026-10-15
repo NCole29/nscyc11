@@ -8,7 +8,7 @@ dependencies:
   - civicrm:civicrm
   - civicrm_entity:civicrm_entity
 
-# Information added by Drupal.org packaging script on 2026-07-09
-version: '4.0.8'
+# Information added by Drupal.org packaging script on 2026-10-13
+version: '4.0.9'
 project: 'civicrm_entity'
-datestamp: 1783618968
+datestamp: 1791934445

@@ -15,6 +15,36 @@ html {
   overflow-x: hidden;
 }
 
+/*
+ * Headings break an unbreakable word rather than overflow the page.
+ *
+ * `overflow-wrap: break-word` is already inherited from html/body above, and
+ * it is NOT enough here. `break-word` does not reduce an element's min-content
+ * contribution, so inside a grid or flex container the track is still sized to
+ * the longest unbreakable word and the text paints outside its own box.
+ * `anywhere` does reduce it, so the track shrinks and the word wraps.
+ *
+ * Measured 2026-09-13 on sts.local, node/218, a title carrying a 60-character
+ * unbroken word: h1.page-title-text was 1502px wide with a scrollWidth of
+ * 1854px, inside a `display: grid` parent, with min-width already 0. The page
+ * scrolled 336px horizontally -- confirmed as behaviour, not a computed-style
+ * reading, because window.scrollTo(9999, 0) moved it. Applying this rule to
+ * the headings alone took it to 0; `min-width: 0` changed nothing, and scoping
+ * the fix to the content region changed nothing, because the page TITLE was
+ * the overflowing element rather than the body copy.
+ *
+ * Found by apex_theme_test_kit, whose TK 03 fixture node exists for this.
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.page-title-text {
+  overflow-wrap: anywhere;
+}
+
 /* HTML tags */
 h1 {
   font-size: var(--solo-px36);/* 36px */

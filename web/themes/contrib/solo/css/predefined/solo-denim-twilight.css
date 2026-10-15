@@ -11,10 +11,13 @@
   --r-br-dark: #42545c;
 }
 
-.page-wrapper .footer-container,
-.page-wrapper .footer-container *,
-.page-wrapper .bottom-container,
-.page-wrapper .bottom-container * {
+/* Scheme border colour reaches every descendant, except inside an element
+   whose inline style sets --r-br (a region's own "borders" setting), so
+   that setting wins. :where() keeps the specificity of the old "*". */
+.page-wrapper .footer-container:where(:not([style*="--r-br:"] *)),
+.page-wrapper .footer-container :where(:not([style*="--r-br:"] *)),
+.page-wrapper .bottom-container:where(:not([style*="--r-br:"] *)),
+.page-wrapper .bottom-container :where(:not([style*="--r-br:"] *)) {
   --r-br: var(--r-br-dark);
 }
 
@@ -74,9 +77,20 @@ h3 a) {
 .page-wrapper .main-navigation-wrapper li>a,
 .page-wrapper .header li.nav__menu-item>button,
 .page-wrapper .main-navigation-wrapper li>button {
-  --r-br: #223163;
   --r-bg: #0c1224;
   --r-tx: #f0f2fa;
+}
+
+.page-wrapper .login-button-open:where(:not([style*="--r-br:"] *)),
+.page-wrapper .hamburger-icon button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper ul:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper li:where(:not([style*="--r-br:"] *)),
+.page-wrapper .header li.nav__menu-item>a:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper li>a:where(:not([style*="--r-br:"] *)),
+.page-wrapper .header li.nav__menu-item>button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper li>button:where(:not([style*="--r-br:"] *)) {
+  --r-br: #223163;
 }
 
 .page-wrapper .login-button-open:hover,
@@ -254,15 +268,15 @@ h3 a) {
   fill: #658798;
 }
 
-.page-wrapper .selectify,
-.page-wrapper .solo-select,
-.page-wrapper .solo-radio,
-.page-wrapper .solo-check,
-.page-wrapper .solo-input,
-.page-wrapper .solo-textarea,
-.page-wrapper a.button,
-.page-wrapper input.button,
-.page-wrapper .search-button-close button {
+.page-wrapper .selectify:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-select:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-radio:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-check:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-input:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-textarea:where(:not([style*="--r-br:"] *)),
+.page-wrapper a.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper input.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .search-button-close button:where(:not([style*="--r-br:"] *)) {
   --r-br: #c2ccd1;
 }
 

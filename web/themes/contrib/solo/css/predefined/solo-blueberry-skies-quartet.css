@@ -60,9 +60,20 @@ h3 a) {
 .page-wrapper .main-navigation-wrapper li>a,
 .page-wrapper .header li.nav__menu-item>button,
 .page-wrapper .main-navigation-wrapper li>button {
-  --r-br: #005390;
   --r-bg: #0066b2;
   --r-tx: #f6fbff;
+}
+
+.page-wrapper .login-button-open:where(:not([style*="--r-br:"] *)),
+.page-wrapper .hamburger-icon button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper ul:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper li:where(:not([style*="--r-br:"] *)),
+.page-wrapper .header li.nav__menu-item>a:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper li>a:where(:not([style*="--r-br:"] *)),
+.page-wrapper .header li.nav__menu-item>button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper li>button:where(:not([style*="--r-br:"] *)) {
+  --r-br: #005390;
 }
 
 .page-wrapper .login-button-open:hover,
@@ -113,9 +124,15 @@ h3 a) {
 .top-container,
 .fixed-search-block,
 .popup-login-block-inner {
-  --r-br: #8f7a66;
   --r-bg: linear-gradient(135deg, #fbfdff, #f4f2ef);
   background: var(--r-bg);
+}
+
+.main-container:where(:not([style*="--r-br:"] *)),
+.top-container:where(:not([style*="--r-br:"] *)),
+.fixed-search-block:where(:not([style*="--r-br:"] *)),
+.popup-login-block-inner:where(:not([style*="--r-br:"] *)) {
+  --r-br: #8f7a66;
 }
 
 .highlighted {
@@ -160,10 +177,15 @@ header.header h3 a span {
 .bottom-container,
 .footer-container,
 .footer-menu {
-  --r-br: #005ca1;
   --r-tx: #c2b6aa;
   --r-bg: linear-gradient(180deg, #0e0c0a, #000508);
   background: var(--r-bg);
+}
+
+.bottom-container:where(:not([style*="--r-br:"] *)),
+.footer-container:where(:not([style*="--r-br:"] *)),
+.footer-menu:where(:not([style*="--r-br:"] *)) {
+  --r-br: #005ca1;
 }
 
 .bottom-container .bottom-box-inner,
@@ -218,15 +240,15 @@ header.header h3 a span {
   fill: #5d5043;
 }
 
-.page-wrapper .selectify,
-.page-wrapper .solo-select,
-.page-wrapper .solo-radio,
-.page-wrapper .solo-check,
-.page-wrapper .solo-input,
-.page-wrapper .solo-textarea,
-.page-wrapper a.button,
-.page-wrapper input.button,
-.page-wrapper .search-button-close button {
+.page-wrapper .selectify:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-select:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-radio:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-check:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-input:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-textarea:where(:not([style*="--r-br:"] *)),
+.page-wrapper a.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper input.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .search-button-close button:where(:not([style*="--r-br:"] *)) {
   --r-br: #2c261f;
 }
 
@@ -272,10 +294,13 @@ header.header h3 a span {
   background: var(--r-header-bg);
 }
 
-.page-wrapper .top-container,
-.page-wrapper .top-container *,
-.page-wrapper .main-container,
-.page-wrapper .main-container * {
+/* Scheme border colour reaches every descendant, except inside an element
+   whose inline style sets --r-br (a region's own "borders" setting), so
+   that setting wins. :where() keeps the specificity of the old "*". */
+.page-wrapper .top-container:where(:not([style*="--r-br:"] *)),
+.page-wrapper .top-container :where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-container:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-container :where(:not([style*="--r-br:"] *)) {
   --r-br: var(--r-br-light);
 }
 

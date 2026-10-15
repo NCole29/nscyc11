@@ -115,6 +115,33 @@
   overflow-x: auto;
 }
 
+/**
+ * Sticky tables: reachable columns beat a sticky header on small screens.
+ *
+ * A sticky table's wrapper was excluded from overflow-x: auto above, because
+ * overflow-x: auto forces overflow-y to auto, and that re-scopes the
+ * position: sticky on thead (from core's sticky-header.module.css) to the
+ * wrapper instead of the viewport - so the header stops sticking.
+ *
+ * The cost of that exclusion is worse on a phone: measured at a 305px
+ * viewport, a two-column sticky table was 461px wide inside a 239px wrapper,
+ * and html { overflow-x: hidden } then clipped the surplus. 222px of table was
+ * unreachable with no scrollbar and no way to get at it.
+ *
+ * So below the tablet breakpoint the wrapper scrolls and the header gives up
+ * stickiness; from 48rem up, where the table usually fits, the sticky header
+ * is restored and behaviour is exactly as before.
+ */
+.solo-table-wrapper.wrapper-sticky {
+  overflow-x: auto;
+}
+
+@media (min-width: 48rem) {
+  .solo-table-wrapper.wrapper-sticky {
+    overflow-x: visible;
+  }
+}
+
 .solo-table-wrapper .tableresponsive-toggle-columns {
   float: none !important;
   clear: both;

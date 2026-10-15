@@ -7,17 +7,17 @@ dependencies:
 name: thumbnail_ride
 label: 'Thumbnail ride'
 effects:
-  d7bdc353-3fee-4fa4-af95-62af60819454:
-    uuid: d7bdc353-3fee-4fa4-af95-62af60819454
-    id: focal_point_crop
-    weight: 1
+  36c3d94e-256c-4e45-9171-5b2c44ca713d:
+    uuid: 36c3d94e-256c-4e45-9171-5b2c44ca713d
+    id: image_convert
+    weight: -9
+    data:
+      extension: webp
+  b675d0ea-24aa-4de0-b6f6-c6e383aa5aeb:
+    uuid: b675d0ea-24aa-4de0-b6f6-c6e383aa5aeb
+    id: focal_point_scale_and_crop
+    weight: -10
     data:
       width: 178
       height: 100
       crop_type: focal_point
-  36c3d94e-256c-4e45-9171-5b2c44ca713d:
-    uuid: 36c3d94e-256c-4e45-9171-5b2c44ca713d
-    id: image_convert
-    weight: 2
-    data:
-      extension: webp

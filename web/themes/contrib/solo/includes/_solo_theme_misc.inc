@@ -5,9 +5,12 @@
  * Theme Setting.
  */
 
+use Drupal\Core\Hook\Attribute\LegacyHook;
+use Drupal\solo\Hook\SoloThemeMiscHooks;
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
 use Drupal\Core\File\FileExists;
 use Drupal\Core\File\FileSystemInterface;
-use Drupal\Core\Url;
 
 /**
  * Writes the dynamic CSS/JS theme settings to public:// on disk.
@@ -86,9 +89,9 @@ function _solo_write_dynamic_assets(?string $css_dynamic, ?string $js_dynamic): 
 function _load_google_fonts(array &$attachments): void {
   $fonts = ['site_font_google_global_on', 'site_font_google_heading_on'];
   foreach ($fonts as $font) {
-    if (theme_get_setting($font)) {
-      $font_setting = theme_get_setting($font);
-      $font_path = 'solo/solo-gf' . (theme_get_setting('site_font_google_local_on') ? 'in' : 'ex') . substr($font_setting, 4);
+    if (DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting($font), fn() => theme_get_setting($font))) {
+      $font_setting = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting($font), fn() => theme_get_setting($font));
+      $font_path = 'solo/solo-gf' . (DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('site_font_google_local_on'), fn() => theme_get_setting('site_font_google_local_on')) ? 'in' : 'ex') . substr($font_setting, 4);
       $attachments['#attached']['library'][] = $font_path;
     }
   }
@@ -105,7 +108,7 @@ function _load_google_fonts(array &$attachments): void {
  *   The theme setting name to check (e.g., 'site_font_google_special_on').
  */
 function _load_external_google_font(array &$attachments, string $setting_name): void {
-  $font_setting = theme_get_setting($setting_name);
+  $font_setting = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting($setting_name), fn() => theme_get_setting($setting_name));
   if ($font_setting) {
     $library_name = 'solo/solo-gfex' . substr($font_setting, 4);
     $attachments['#attached']['library'][] = $library_name;
@@ -117,11 +120,11 @@ function _load_external_google_font(array &$attachments, string $setting_name): 
  */
 function _load_predefined_color_theme(array &$attachments): void {
   // Default library path based on theme settings.
-  $theme_category = theme_get_setting('theme_category');
+  $theme_category = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('theme_category'), fn() => theme_get_setting('theme_category'));
   $is_theme = '';
 
   if ($theme_category !== 'none') {
-    $is_theme_setting = theme_get_setting('predefined_current_theme') ?? '';
+    $is_theme_setting = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('predefined_current_theme'), fn() => theme_get_setting('predefined_current_theme')) ?? '';
     $theme_parts = explode('|', $is_theme_setting);
     $is_theme = count($theme_parts) > 1 ? $theme_parts[1] : $theme_parts[0];
   }
@@ -164,7 +167,7 @@ function _solo_utilities_get_user_selected_library() {
  * Helper function.
  */
 function _load_font_awesome(array &$attachments): void {
-  $fw_version = theme_get_setting('site_font_awesome_on');
+  $fw_version = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('site_font_awesome_on'), fn() => theme_get_setting('site_font_awesome_on'));
   if ($fw_version === NULL) {
     return;
   }
@@ -186,7 +189,7 @@ function _load_font_awesome(array &$attachments): void {
  */
 function _load_full_opacity(array &$attachments): void {
   // Fast path: if the feature is off, do nothing.
-  if (!theme_get_setting('site_opacity_onscroll_on')) {
+  if (!DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('site_opacity_onscroll_on'), fn() => theme_get_setting('site_opacity_onscroll_on'))) {
     return;
   }
 
@@ -218,7 +221,7 @@ function _load_full_opacity(array &$attachments): void {
  * Helper function.
  */
 function _site_load_w3css_library(array &$attachments): void {
-  if (theme_get_setting('site_load_w3css_on')) {
+  if (DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('site_load_w3css_on'), fn() => theme_get_setting('site_load_w3css_on'))) {
     $attachments['#attached']['library'][] = 'solo/w3-css';
   }
 }
@@ -227,60 +230,17 @@ function _site_load_w3css_library(array &$attachments): void {
  * Helper function.
  */
 function _load_color_coded_system_tabs(array &$attachments): void {
-  if (theme_get_setting('color_coded_system_tabs')) {
+  if (DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('color_coded_system_tabs'), fn() => theme_get_setting('color_coded_system_tabs'))) {
     $attachments['#attached']['library'][] = 'solo/solo-color-coded-system-tabs';
-  }
-}
-
-/**
- * Helper function.
- */
-function _load_enable_toggleable_radios(array &$attachments): void {
-  if (theme_get_setting('enable_toggleable_radios')) {
-    $attachments['#attached']['library'][] = 'solo/solo-toggleable-radios';
   }
 }
 
 /**
  * Implements hook_page_attachments_alter().
  */
+#[LegacyHook]
 function solo_page_attachments_alter(array &$attachments): void {
-
-  _load_google_fonts($attachments);
-
-  // NEW: Use single parameterized function instead of three separate ones.
-  _load_external_google_font($attachments, 'site_font_google_special_on');
-  _load_external_google_font($attachments, 'site_name_google_font');
-  _load_external_google_font($attachments, 'site_pagetitle_google_font');
-  // Preloader text font is attached only when preloader is shown (see _solo_preprocess_html_preloader) to avoid blocking first paint when preloader is disabled or uses spinner.
-  _load_predefined_color_theme($attachments);
-  _load_font_awesome($attachments);
-  _load_full_opacity($attachments);
-  _site_load_w3css_library($attachments);
-  _load_color_coded_system_tabs($attachments);
-  _load_enable_toggleable_radios($attachments);
-
-  // Check if debug mode is enabled in theme settings.
-  if (theme_get_setting('solo_menu_debug')) {
-    // NEW: Get verbosity setting.
-    $verbosity = theme_get_setting('solo_menu_debug_verbosity') ?: 'normal';
-
-    // Enable debug mode in drupalSettings.
-    $attachments['#attached']['drupalSettings']['solo']['debug'] = TRUE;
-
-    // NEW: Pass verbosity to JavaScript.
-    $attachments['#attached']['drupalSettings']['solo']['debug_verbosity'] = $verbosity;
-
-    // Attach the debug library.
-    $attachments['#attached']['library'][] = 'solo/solo-debug';
-
-    // Display warning message on every page (ENHANCED - optional)
-    \Drupal::messenger()->addWarning(t('<strong>SOLO DEBUG MODE ACTIVE</strong> (Verbosity: @verbosity) — Development tools are enabled. Open browser console and run showReport() for menu diagnostics. <a class="warning" href="@settings_url">Disable debug mode</a> before going to production.', [
-    // Shows "Normal", "Minimal", or "Verbose".
-      '@verbosity' => ucfirst($verbosity),
-      '@settings_url' => Url::fromRoute('system.theme_settings_theme', ['theme' => \Drupal::theme()->getActiveTheme()->getName()])->toString(),
-    ]));
-  }
+  \Drupal::classResolver(SoloThemeMiscHooks::class)->pageAttachmentsAlter($attachments);
 }
 
 /**
@@ -346,45 +306,7 @@ function _solo_convert_hex_to_hsl(string $hex_string): array {
 /**
  * Implements hook_modules_disabled().
  */
+#[LegacyHook]
 function solo_modules_disabled(array $modules): void {
-  if (in_array('solo_utilities', $modules, TRUE)) {
-    // Detect all installed themes that are using Solo as a base or are Solo.
-    $theme_handler = \Drupal::service('theme_handler');
-    $theme_names = array_keys($theme_handler->listInfo());
-
-    foreach ($theme_names as $theme_name) {
-      $theme = $theme_handler->getTheme($theme_name);
-      if (!$theme) {
-        continue;
-      }
-
-      // Skip if it's not Solo or a sub-theme of Solo.
-      $base_themes = array_keys($theme->info['base theme'] ?? []);
-      if ($theme_name !== 'solo' && !in_array('solo', $base_themes, TRUE)) {
-        continue;
-      }
-
-      $config = \Drupal::configFactory()->getEditable("{$theme_name}.settings");
-      $has_changes = FALSE;
-
-      // Core setting keys to clear.
-      $keys_to_clear = [
-        'enable_custom_widths',
-        'enable_custom_node_width',
-        'site_widths',
-      ];
-
-      foreach ($keys_to_clear as $key) {
-        if ($config->get($key) !== NULL) {
-          $config->clear($key);
-          $has_changes = TRUE;
-        }
-      }
-
-      if ($has_changes) {
-        $config->save();
-        \Drupal::configFactory()->reset("{$theme_name}.settings");
-      }
-    }
-  }
+  \Drupal::classResolver(SoloThemeMiscHooks::class)->modulesDisabled($modules);
 }

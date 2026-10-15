@@ -997,7 +997,7 @@ solo.settings:
       label: 'Icon colors'
 
     sm_show_icons:
-      type: integer
+      type: boolean
       label: 'Show icons'
 
     sm_icon_telegram:

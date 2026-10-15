@@ -5,6 +5,8 @@
  *
  * Available variables:
  * - heading_id: Pagination heading ID.
+ * - pagination_heading_level: The heading level to use for the pager.
+ *   Defaults to h4 when core does not supply it.
  * - items: List of pager items.
  *   The list is keyed by the following elements:
  *   - first: Item for the first page; not present on the first page of results.
@@ -32,7 +34,14 @@
 #}
 {% if items %}
   <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">
-    <span id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</span>
+    {# Core renders a real heading here, not a span, so assistive technology
+       can reach the pager by heading. pagination_heading_level is provided by
+       Views (configurable per pager) and defaults to h4 in core itself - see
+       PagerPluginBase::getHeadingLevel(). The |default keeps this working on
+       core versions that do not supply the variable, which Solo still
+       supports, instead of rendering an empty <> tag. #}
+    {% set pager_heading = pagination_heading_level|default('h4') %}
+    <{{ pager_heading }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pager_heading }}>
     <ul class="solo-clear pager__items js-pager__items">
       {# Print first item if we are not on the first page. #}
       {% if items.first %}

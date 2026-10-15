@@ -10,6 +10,9 @@
  * Author:       Alaa Haddad http://www.alaahaddad.com.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
+
 /**
  * The theme settings.
  */
@@ -39,7 +42,7 @@ $form["solo_settings"]["settings_global_misc"]["layout_dimensions"] = [
 $form["solo_settings"]["settings_global_misc"]["layout_dimensions"]["enable_px_based_widths"] = [
   "#type" => "checkbox",
   "#title" => t("Enable PX-Based Global Website Width"),
-  "#default_value" => theme_get_setting("enable_px_based_widths"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("enable_px_based_widths"), fn() => theme_get_setting("enable_px_based_widths")),
   "#description" => t("Check this box to switch the website's width from rem units to fixed pixel-based widths, ensuring consistent layout sizing. <a href='https://alaahaddad.com/node/70' target='_blank'>Learn more</a>."),
 ];
 
@@ -47,7 +50,7 @@ $form["solo_settings"]["settings_global_misc"]["layout_dimensions"]["site_global
   "#title" => t("Global Website Width - Solo Theme"),
   "#type" => "select",
   "#options" => _get_site_width_options(),
-  "#default_value" => theme_get_setting("site_global_width") ?? "sw-1600",
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_global_width"), fn() => theme_get_setting("site_global_width")) ?? "sw-1600",
   "#description" => t("<p><strong>You can adjust the entire website's width by choosing your preferred size in pixels or rem units.</strong></p>"),
 ];
 
@@ -62,7 +65,7 @@ if (\Drupal::moduleHandler()->moduleExists("solo_utilities") && solo_utilities__
   $form["solo_settings"]["settings_global_misc"]["layout_dimensions"]["enable_custom_widths"] = [
     "#type" => "checkbox",
     "#title" => t("Enable custom widths for each content type"),
-    "#default_value" => theme_get_setting("enable_custom_widths"),
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("enable_custom_widths"), fn() => theme_get_setting("enable_custom_widths")),
   ];
 
   // Collapsible details element for content type specific width settings.
@@ -77,9 +80,9 @@ if (\Drupal::moduleHandler()->moduleExists("solo_utilities") && solo_utilities__
     ],
   ];
 
-  $site_widths = theme_get_setting('site_widths') ?? [];
+  $site_widths = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('site_widths'), fn() => theme_get_setting('site_widths')) ?? [];
   foreach ($content_types as $type => $label) {
-    $global_width = theme_get_setting("site_global_width") ?? "sw-1600";
+    $global_width = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_global_width"), fn() => theme_get_setting("site_global_width")) ?? "sw-1600";
     $override = $site_widths[$type] ?? NULL;
     $form["solo_settings"]["settings_global_misc"]["layout_dimensions"]["content_type_widths"]["site_width_" . $type] = [
       "#title" => t("Width for @content_type", ["@content_type" => $label]),
@@ -99,7 +102,7 @@ if (\Drupal::moduleHandler()->moduleExists("solo_utilities") && solo_utilities__
   $form["solo_settings"]["settings_global_misc"]["layout_dimensions"]["enable_custom_node_width"] = [
     "#type" => "checkbox",
     "#title" => t("Tick this box to enable custom widths for individual nodes or for each content type."),
-    "#default_value" => theme_get_setting("enable_custom_node_width"),
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("enable_custom_node_width"), fn() => theme_get_setting("enable_custom_node_width")),
     "#description" => t("Allow setting custom widths for individual nodes. Once enabled, you will see a dropdown in the node edit form where you can select a custom width for each node. If 'None' is selected, the default width will be used. Individual node widths take priority over content type-specific widths, which take priority over the global width."),
   ];
 }
@@ -117,7 +120,7 @@ $form["solo_settings"]["settings_global_misc"]["layout_dimensions"]["site_global
   "#title" => t("Website's Breakpoints - Solo Theme"),
   "#type" => "select",
   "#options" => _get_site_breakpoints_options(),
-  "#default_value" => theme_get_setting("site_global_breakpoints") ?? "sb-992",
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_global_breakpoints"), fn() => theme_get_setting("site_global_breakpoints")) ?? "sb-992",
   "#description" => t("<p><strong>Use them to adjust the global layout for a particular screen or device size.</strong></p>"),
 ];
 
@@ -125,14 +128,14 @@ $form["solo_settings"]["settings_global_misc"]["layout_dimensions"]["site_region
   "#type" => "checkbox",
   "#title" => t("Tick this box to modify the layout collapse order."),
   "#description"   => t("<p>When enabled, this setting adjusts the layout of grouped regions to collapse into a responsive grid for better viewing on smaller screens. This feature applies only if the grouped region contains exactly three or four regions.</p>"),
-  "#default_value" => theme_get_setting("site_regions_collapse_order"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_regions_collapse_order"), fn() => theme_get_setting("site_regions_collapse_order")),
 ];
 
 $form["solo_settings"]["settings_global_misc"]["layout_dimensions"]["site_menu_breakpoints"] = [
   "#title" => t("Menu's Breakpoints - Solo Theme"),
   "#type" => "select",
   "#options" => _get_menu_breakpoints_options(),
-  "#default_value" => theme_get_setting("site_menu_breakpoints") ?? "mn-992",
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_menu_breakpoints"), fn() => theme_get_setting("site_menu_breakpoints")) ?? "mn-992",
   "#description" => t("<p><strong>Adjust the global layout for any responsive menu on a specific screen or device size using them.</strong></p>"),
 ];
 
@@ -140,7 +143,7 @@ $form["solo_settings"]["settings_global_misc"]["layout_dimensions"]["site_global
   "#title" => t("Website Region's Spaces"),
   "#type" => "select",
   "#options" => _get_site_global_regions_gap(),
-  "#default_value" => theme_get_setting("site_global_regions_gap") ?? "16",
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_global_regions_gap"), fn() => theme_get_setting("site_global_regions_gap")) ?? "16",
   "#description" => t("<p><strong>You can adjust the entire website's padding by choosing your preferred size in pixels or rem units.</strong></p>"),
 ];
 
@@ -156,7 +159,7 @@ $form["solo_settings"]["settings_global_misc"]["typography_content"]["site_globa
   "#title" => t("Website's Font Size"),
   "#type" => "select",
   "#options" => _get_site_global_font_size(),
-  "#default_value" => theme_get_setting("site_global_font_size") ?? "16",
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_global_font_size"), fn() => theme_get_setting("site_global_font_size")) ?? "16",
   "#description" => t("<p><strong>You can adjust the entire website's font size by choosing your preferred size in pixels or rem units.</strong></p>"),
 ];
 
@@ -164,7 +167,7 @@ $form["solo_settings"]["settings_global_misc"]["typography_content"]["site_node_
   "#title" => t("Choose the node date format."),
   "#type" => "select",
   "#options" => _get_site_node_date_format($d_s, $d_m, $d_l),
-  "#default_value" => theme_get_setting("site_node_date_format") ?? "solo_date_l",
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_node_date_format"), fn() => theme_get_setting("site_node_date_format")) ?? "solo_date_l",
   "#description" => t("Select a custom format for the node creation date. Choose '- None -' to use the default format provided by Drupal core or contributed modules."),
 ];
 
@@ -180,13 +183,13 @@ Step 2: Inject the CSS rules to specify the font families in the field below. Fo
 
 <span class='error'>Note</span>: If you are using Global Site Fonts or Heading Fonts, you must include <span class='error'>!important</span>; in your CSS.
  "),
-  "#default_value" => theme_get_setting("site_import_google_font"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_import_google_font"), fn() => theme_get_setting("site_import_google_font")),
 ];
 
 $form["solo_settings"]["settings_global_misc"]["typography_content"]["site_reading_mode_content_type"] = [
   "#type" => "select",
   "#title" => t("Reading Mode (45rem/720px)"),
-  "#default_value" => theme_get_setting("site_reading_mode_content_type") ?? "",
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_reading_mode_content_type"), fn() => theme_get_setting("site_reading_mode_content_type")) ?? "",
   "#options" => _solo_get_content_types(),
   "#multiple" => TRUE,
   "#description" => t("A common guideline for the maximum width of a text block for comfortable reading is around 60 to 75 characters per line. This guideline helps to prevent the text from becoming too difficult to follow from one line to the next. Choose the content type for which 'Reading Mode' should be enabled, and set the maximum width for the content region to 45rem/720px for both Text Formatted Long and Text Formatted Long with Summary. It is for Default/Full view mode only."),
@@ -205,7 +208,7 @@ if (\Drupal::moduleHandler()->moduleExists("solo_utilities")) {
     "#type" => "checkbox",
     "#title" => t("Enable custom block title visibility"),
     "#description" => t("Allows control over each block's title visibility: visible, visually hidden (for screen readers), or completely removed from HTML output."),
-    "#default_value" => theme_get_setting("enable_block_title_visibility"),
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("enable_block_title_visibility"), fn() => theme_get_setting("enable_block_title_visibility")),
   ];
 }
 else {
@@ -247,7 +250,7 @@ $form["solo_settings"]["settings_global_misc"]["comments"]["comment_display_orde
   "#type" => "checkbox",
   "#title" => t("Display comment subject before author information"),
   "#description" => t("When enabled, the comment subject (heading) appears before the author name and date. This improves accessibility by allowing screen reader users to navigate comments using heading navigation. <strong>Recommended for accessibility compliance.</strong>"),
-  "#default_value" => theme_get_setting("comment_heading_first") ?? TRUE,
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("comment_heading_first"), fn() => theme_get_setting("comment_heading_first")) ?? TRUE,
 ];
 
 // Comment form position fieldset.
@@ -261,7 +264,7 @@ $form["solo_settings"]["settings_global_misc"]["comments"]["comment_form_positio
   "#type" => "radios",
   "#title" => t("Comment form position"),
   "#description" => t("Choose whether the 'Add new comment' form appears before or after the list of existing comments. Displaying the form after comments is useful when you want visitors to read existing discussion before adding their own comment."),
-  "#default_value" => theme_get_setting("comment_form_position") ?? "before",
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("comment_form_position"), fn() => theme_get_setting("comment_form_position")) ?? "before",
   "#options" => [
     "before" => t("Before comments (default)"),
     "after" => t("After comments"),
@@ -278,32 +281,32 @@ $form["solo_settings"]["settings_global_misc"]["comments"]["comment_visibility"]
 $form["solo_settings"]["settings_global_misc"]["comments"]["comment_visibility"]["comment_show_author"] = [
   "#type" => "checkbox",
   "#title" => t("Show author name"),
-  "#default_value" => theme_get_setting("comment_show_author") ?? TRUE,
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("comment_show_author"), fn() => theme_get_setting("comment_show_author")) ?? TRUE,
 ];
 
 $form["solo_settings"]["settings_global_misc"]["comments"]["comment_visibility"]["comment_show_date"] = [
   "#type" => "checkbox",
   "#title" => t("Show comment date"),
-  "#default_value" => theme_get_setting("comment_show_date") ?? TRUE,
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("comment_show_date"), fn() => theme_get_setting("comment_show_date")) ?? TRUE,
 ];
 
 $form["solo_settings"]["settings_global_misc"]["comments"]["comment_visibility"]["comment_show_picture"] = [
   "#type" => "checkbox",
   "#title" => t("Show user picture"),
-  "#default_value" => theme_get_setting("comment_show_picture") ?? TRUE,
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("comment_show_picture"), fn() => theme_get_setting("comment_show_picture")) ?? TRUE,
 ];
 
 $form["solo_settings"]["settings_global_misc"]["comments"]["comment_visibility"]["comment_show_permalink"] = [
   "#type" => "checkbox",
   "#title" => t("Show permalink"),
-  "#default_value" => theme_get_setting("comment_show_permalink") ?? TRUE,
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("comment_show_permalink"), fn() => theme_get_setting("comment_show_permalink")) ?? TRUE,
 ];
 
 $form["solo_settings"]["settings_global_misc"]["comments"]["comment_visibility"]["comment_show_new_indicator"] = [
   "#type" => "checkbox",
   "#title" => t("Show new comment indicator"),
   "#description" => t("Displays a 'New' badge for comments posted since the user's last visit."),
-  "#default_value" => theme_get_setting("comment_show_new_indicator") ?? TRUE,
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("comment_show_new_indicator"), fn() => theme_get_setting("comment_show_new_indicator")) ?? TRUE,
 ];
 
 // Comment date format fieldset.
@@ -334,7 +337,7 @@ $form["solo_settings"]["settings_global_misc"]["comments"]["comment_date_setting
   "#title" => t("Comment date format"),
   "#description" => t("Select the format for displaying comment dates. You can create custom date formats at <a href='/admin/config/regional/date-time'>Date and time formats</a>."),
   "#options" => $date_format_options,
-  "#default_value" => theme_get_setting("comment_date_format") ?? 'solo_relative',
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("comment_date_format"), fn() => theme_get_setting("comment_date_format")) ?? 'solo_relative',
 ];
 
 // Comment title settings fieldset.
@@ -354,7 +357,7 @@ $form["solo_settings"]["settings_global_misc"]["comments"]["comment_title_settin
     "h5" => t("H5 - Fifth level"),
     "h6" => t("H6 - Sixth level"),
   ],
-  "#default_value" => theme_get_setting("comment_title_tag") ?? "h3",
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("comment_title_tag"), fn() => theme_get_setting("comment_title_tag")) ?? "h3",
 ];
 
 // Custom Code Tab.
@@ -369,21 +372,21 @@ $form["solo_settings"]["settings_global_misc"]["custom_code"]["site_css_injector
   "#type" => "textarea",
   "#title" => t("CSS Injector"),
   "#description" => t("Use this field to inject custom CSS directly into the page head on every page. This method is best for small snippets of CSS that modify the look and feel of your site globally. Changes take effect immediately and are stored within the theme settings, making it a convenient option for quick adjustments or tests."),
-  "#default_value" => theme_get_setting("site_css_injector"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_css_injector"), fn() => theme_get_setting("site_css_injector")),
 ];
 
 $form["solo_settings"]["settings_global_misc"]["custom_code"]["site_css_dynamic"] = [
   "#type" => "textarea",
   "#title" => t("CSS Dynamic"),
   "#description" => t("Enter your CSS here to have it written into a dedicated CSS file that's loaded across your site. This approach is ideal for more substantial CSS customizations that benefit from being cached as a separate file. It's particularly useful for performance optimization on larger sites, as it ensures that your custom styles are cached by browsers and not inlined on every page load. It is saved in the public file system path sites/*/files/solo/css/solo-css-dynamic.css."),
-  "#default_value" => theme_get_setting("site_css_dynamic"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_css_dynamic"), fn() => theme_get_setting("site_css_dynamic")),
 ];
 
 $form["solo_settings"]["settings_global_misc"]["custom_code"]["site_js_dynamic"] = [
   "#type" => "textarea",
   "#title" => t("JavaScript Dynamic"),
   "#description" => t("Enter your JavaScript code here to be saved into a separate, dedicated file that will be loaded across your site. Ideal for extensive JavaScript that benefits from browser caching, this approach helps in optimizing site performance by reducing page load times. By including this JavaScript, you'll automatically have access to a set of Drupal's core libraries within your scripts, including jQuery, AJAX functionalities, Drupal behaviors, drupalSettings, and once. This means you can leverage these powerful features directly in your custom JavaScript, enhancing your site's interactivity and functionality without needing to manually include these libraries. It is saved in the public file system path sites/*/files/solo/js/solo-js-dynamic.js."),
-  "#default_value" => theme_get_setting("site_js_dynamic"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_js_dynamic"), fn() => theme_get_setting("site_js_dynamic")),
 ];
 
 // Interface Behavior Tab.
@@ -398,41 +401,41 @@ $form["solo_settings"]["settings_global_misc"]["interface_behavior"]["site_login
   "#type" => "checkbox",
   "#title" => t("Tick this box to modify the layout for the login, register, and password reset pages."),
   "#description"   => t("<p>The login form will be centralized, with the left and right sides concealed.</p>"),
-  "#default_value" => theme_get_setting("site_login_page_on"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_login_page_on"), fn() => theme_get_setting("site_login_page_on")),
 ];
 
 $form["solo_settings"]["settings_global_misc"]["interface_behavior"]["site_flip_header_menu"] = [
   "#type" => "checkbox",
   "#title" => t("Tick this box to flip the main menu order. It will be displayed before the header."),
-  "#default_value" => theme_get_setting("site_flip_header_menu"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_flip_header_menu"), fn() => theme_get_setting("site_flip_header_menu")),
 ];
 
 $form["solo_settings"]["settings_global_misc"]["interface_behavior"]["site_opacity_onscroll_on"] = [
   "#type" => "checkbox",
   "#title" => t("Tick this box to animate opacity while scrolling down."),
   "#description"   => t("<p>Upon visiting the page, the hidden blocks remain unseen. They only begin to animate and become visible as you scroll down. However, this feature is disabled by default.</p>"),
-  "#default_value" => theme_get_setting("site_opacity_onscroll_on"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_opacity_onscroll_on"), fn() => theme_get_setting("site_opacity_onscroll_on")),
 ];
 
 $form["solo_settings"]["settings_global_misc"]["interface_behavior"]["site_inline_items_on"] = [
   "#type" => "checkbox",
   "#title" => t("Tick this box to display multiple taxonomy term field items on the same line."),
   "#description"   => t("<p>In the current setup, when there's a field with multiple values, those values are shown one beneath the other in a block layout. This can use a significant amount of vertical space, especially if there are numerous values. However, this new feature modifies this layout. Instead of displaying the values on separate lines, they will be shown side by side on the same line, with spaces separating them. This change will result in a more condensed and easily readable display</p>"),
-  "#default_value" => theme_get_setting("site_inline_items_on"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_inline_items_on"), fn() => theme_get_setting("site_inline_items_on")),
 ];
 
 $form["solo_settings"]["settings_global_misc"]["interface_behavior"]["color_coded_system_tabs"] = [
   "#type" => "checkbox",
   "#title" => t("Tick this box to enhanced navigation with color-coded system tabs"),
   "#description"   => t("<p>This tailored CSS script enriches the user interface of the website by assigning bespoke colors to core system tab links, such as View, Edit, Delete, and Revisions.</p>"),
-  "#default_value" => theme_get_setting("color_coded_system_tabs"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("color_coded_system_tabs"), fn() => theme_get_setting("color_coded_system_tabs")),
 ];
 
 $form["solo_settings"]["settings_global_misc"]["interface_behavior"]["site_toggle_speed"] = [
   "#type" => "select",
   "#title" => t("Menu Animation Speed"),
   "#description" => t("Controls how fast the menu opens/closes. Applies to all menus."),
-  "#default_value" => theme_get_setting("site_toggle_speed") ?? "normal",
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_toggle_speed"), fn() => theme_get_setting("site_toggle_speed")) ?? "normal",
   "#options" => [
     "fast" => t("Fast"),
     "normal" => t("Normal"),
@@ -459,7 +462,7 @@ $form["solo_settings"]["settings_global_misc"]["accessibility"]['keyboard_naviga
   '#type' => 'checkboxes',
   '#title' => t('Enable Keyboard Navigation for Menus'),
   '#description' => t('Select which menus should have full keyboard navigation support (arrow keys, screen reader compatibility). Only applies to menus using Solo templates.'),
-  '#default_value' => theme_get_setting('keyboard_navigation_menus') ?? [],
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('keyboard_navigation_menus'), fn() => theme_get_setting('keyboard_navigation_menus')) ?? [],
   '#options' => $menu_options,
 ];
 
@@ -475,7 +478,7 @@ $form["solo_settings"]["settings_global_misc"]["preloader"] = [
 $form["solo_settings"]["settings_global_misc"]["preloader"]["preloader_enabled"] = [
   '#type' => 'checkbox',
   '#title' => t('Enable preloader'),
-  '#default_value' => theme_get_setting('preloader_enabled') ?? FALSE,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_enabled'), fn() => theme_get_setting('preloader_enabled')) ?? FALSE,
   '#description' => t('Show a brief loading overlay. Disabled by default.'),
   '#id' => 'edit-preloader-enabled',
 ];
@@ -491,7 +494,7 @@ $form["solo_settings"]["settings_global_misc"]["preloader"]["visibility"]["prelo
   '#type' => 'number',
   '#title' => t('Max display time (seconds)'),
   '#weight' => -20,
-  '#default_value' => theme_get_setting('preloader_max_display_seconds') ?? 8,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_max_display_seconds'), fn() => theme_get_setting('preloader_max_display_seconds')) ?? 8,
   '#min' => 3,
   '#max' => 60,
   '#step' => 1,
@@ -503,7 +506,7 @@ $form["solo_settings"]["settings_global_misc"]["preloader"]["visibility"]["prelo
   '#type' => 'radios',
   '#title' => t('Hide preloader when'),
   '#weight' => -19,
-  '#default_value' => theme_get_setting('preloader_hide_on') ?? 'dom_ready',
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_hide_on'), fn() => theme_get_setting('preloader_hide_on')) ?? 'dom_ready',
   '#options' => [
     'dom_ready' => t('Page appears (recommended)'),
     'load' => t('Page fully loaded (images, scripts, etc.)'),
@@ -514,7 +517,7 @@ $form["solo_settings"]["settings_global_misc"]["preloader"]["visibility"]["prelo
 $form["solo_settings"]["settings_global_misc"]["preloader"]["visibility"]["preloader_force_show"] = [
   '#type' => 'checkbox',
   '#title' => t('Force show for testing'),
-  '#default_value' => theme_get_setting('preloader_force_show') ?? FALSE,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_force_show'), fn() => theme_get_setting('preloader_force_show')) ?? FALSE,
   '#description' => t('Show the preloader on every page for 30 seconds (logged in, admin, any path). Use this to test logo, text size, and colors. Uncheck when done.'),
   '#weight' => -10,
   '#id' => 'edit-preloader-force-show',
@@ -524,21 +527,21 @@ $form["solo_settings"]["settings_global_misc"]["preloader"]["visibility"]["prelo
 $form["solo_settings"]["settings_global_misc"]["preloader"]["visibility"]["preloader_disable_authenticated"] = [
   '#type' => 'checkbox',
   '#title' => t('Disable for authenticated users'),
-  '#default_value' => theme_get_setting('preloader_disable_authenticated') ?? TRUE,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_disable_authenticated'), fn() => theme_get_setting('preloader_disable_authenticated')) ?? TRUE,
   '#description' => t('Do not show the preloader to logged-in users. Recommended for editors.'),
 ];
 
 $form["solo_settings"]["settings_global_misc"]["preloader"]["visibility"]["preloader_disable_admin_routes"] = [
   '#type' => 'checkbox',
   '#title' => t('Disable on admin routes'),
-  '#default_value' => theme_get_setting('preloader_disable_admin_routes') ?? TRUE,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_disable_admin_routes'), fn() => theme_get_setting('preloader_disable_admin_routes')) ?? TRUE,
   '#description' => t('Do not show on /admin, layout builder, content editing, etc.'),
 ];
 
 $form["solo_settings"]["settings_global_misc"]["preloader"]["visibility"]["preloader_path_rules"] = [
   '#type' => 'textarea',
   '#title' => t('Path include/exclude rules'),
-  '#default_value' => theme_get_setting('preloader_path_rules') ?? '',
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_path_rules'), fn() => theme_get_setting('preloader_path_rules')) ?? '',
   '#description' => t('One path per line. Leave empty to use the default visibility above.<br><br><strong>Exclude:</strong> prefix with a minus sign to hide the preloader on that path (e.g. <code>-/contact</code>, <code>-/about</code>).<br><strong>Include only:</strong> list paths without a prefix to show the preloader only on those paths (e.g. <code>/</code> for front page only, or <code>/</code> and <code>/products</code>).'),
   '#rows' => 4,
 ];
@@ -561,7 +564,7 @@ $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["prelo
     'logo' => t('Logo'),
     'logo_text' => t('Logo + text'),
   ],
-  '#default_value' => theme_get_setting('preloader_style') ?? 'spinner',
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_style'), fn() => theme_get_setting('preloader_style')) ?? 'spinner',
   '#description' => t('Spinner is lightest and shows immediately; progress bar shows an animated bar centered on the page; text and logo can wait on fonts or images.'),
 ];
 
@@ -577,14 +580,14 @@ $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["prelo
     'zoom_out' => t('Zoom out'),
     'blur' => t('Blur'),
   ],
-  '#default_value' => theme_get_setting('preloader_transition') ?? 'fade',
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_transition'), fn() => theme_get_setting('preloader_transition')) ?? 'fade',
   '#description' => t('How the preloader disappears when the page is ready. All effects include a fade; slide/zoom/blur add motion.'),
 ];
 
 $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["preloader_spinner_show_percent"] = [
   '#type' => 'checkbox',
   '#title' => t('Show percentage (0%–100%) inside spinner'),
-  '#default_value' => theme_get_setting('preloader_spinner_show_percent') ?? FALSE,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_spinner_show_percent'), fn() => theme_get_setting('preloader_spinner_show_percent')) ?? FALSE,
   '#description' => t('Estimated progress only (not real load %). Adds one timer and a small text update; minimal extra load.'),
   '#states' => ['visible' => [':input#edit-preloader-style' => ['value' => 'spinner']]],
 ];
@@ -593,7 +596,7 @@ $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["prelo
   '#type' => 'textfield',
   '#title' => t('Text'),
   '#id' => 'edit-preloader-text',
-  '#default_value' => theme_get_setting('preloader_text') ?? '',
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_text'), fn() => theme_get_setting('preloader_text')) ?? '',
   '#description' => t('Shown when style is "Text" or "Logo + text".'),
   '#states' => [
     'visible' => [
@@ -609,7 +612,7 @@ $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["prelo
   '#type' => 'select',
   '#title' => t('Text Font'),
   '#options' => _get_name_title_google_font(),
-  '#default_value' => theme_get_setting('preloader_text_font') ?? '',
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_text_font'), fn() => theme_get_setting('preloader_text_font')) ?? '',
   '#description' => t('Optional. For fastest display, leave at "None"—custom fonts load from the network and can delay the preloader.'),
   '#states' => [
     'visible' => [
@@ -626,7 +629,7 @@ $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["prelo
   '#title' => t('Text animation effect'),
   '#description' => t('Gradient text animation. Same options as Site Name and Page Title. For best performance leave at "None"—animation CSS can delay the preloader. Choose an effect only if you want the look.'),
   '#options' => _get_animate_site_name(),
-  '#default_value' => theme_get_setting('preloader_text_animate_effect') ?? '',
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_text_animate_effect'), fn() => theme_get_setting('preloader_text_animate_effect')) ?? '',
   '#states' => [
     'visible' => [
       ':input#edit-preloader-style' => [
@@ -640,7 +643,7 @@ $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["prelo
 $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["preloader_text_font_size"] = [
   '#type' => 'number',
   '#title' => t('Text size (px)'),
-  '#default_value' => theme_get_setting('preloader_text_font_size') ?? 24,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_text_font_size'), fn() => theme_get_setting('preloader_text_font_size')) ?? 24,
   '#min' => 12,
   '#max' => 124,
   '#step' => 1,
@@ -658,7 +661,7 @@ $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["prelo
 $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["preloader_logo_use_theme"] = [
   '#type' => 'checkbox',
   '#title' => t('Use logo supplied by the theme'),
-  '#default_value' => theme_get_setting('preloader_logo_use_theme') ?? TRUE,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_logo_use_theme'), fn() => theme_get_setting('preloader_logo_use_theme')) ?? TRUE,
   '#description' => t('When checked, the preloader uses the same logo as the site (theme settings). Uncheck to set a custom path below.'),
   '#states' => [
     'visible' => [
@@ -675,7 +678,7 @@ $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["prelo
   '#type' => 'textfield',
   '#title' => t('Path to custom logo'),
   '#id' => 'edit-preloader-logo-url',
-  '#default_value' => theme_get_setting('preloader_logo_url') ?? '',
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_logo_url'), fn() => theme_get_setting('preloader_logo_url')) ?? '',
   '#description' => t('Examples: logo.svg (for a file in the public filesystem), public://logo.svg, or themes/contrib/solo/logo.svg. Only used when "Use logo supplied by the theme" is unchecked.'),
   '#states' => [
     'visible' => [
@@ -691,7 +694,7 @@ $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["prelo
 $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["preloader_logo_width"] = [
   '#type' => 'number',
   '#title' => t('Logo width (px)'),
-  '#default_value' => theme_get_setting('preloader_logo_width') ?? 160,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_logo_width'), fn() => theme_get_setting('preloader_logo_width')) ?? 160,
   '#min' => 16,
   '#max' => 800,
   '#step' => 1,
@@ -709,7 +712,7 @@ $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["prelo
 $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["preloader_logo_height"] = [
   '#type' => 'number',
   '#title' => t('Logo height (px)'),
-  '#default_value' => theme_get_setting('preloader_logo_height') ?? 80,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_logo_height'), fn() => theme_get_setting('preloader_logo_height')) ?? 80,
   '#min' => 16,
   '#max' => 600,
   '#step' => 1,
@@ -727,7 +730,7 @@ $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["prelo
 $form["solo_settings"]["settings_global_misc"]["preloader"]["appearance"]["preloader_logo_opacity"] = [
   '#type' => 'number',
   '#title' => t('Logo opacity (%)'),
-  '#default_value' => theme_get_setting('preloader_logo_opacity') ?? 100,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_logo_opacity'), fn() => theme_get_setting('preloader_logo_opacity')) ?? 100,
   '#min' => 0,
   '#max' => 100,
   '#step' => 1,
@@ -763,7 +766,7 @@ $preloader_app["preloader_bg_opacity"] = [
   '#title' => t('Background opacity'),
   '#min' => 0,
   '#max' => 100,
-  '#default_value' => theme_get_setting('preloader_bg_opacity') ?? 100,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('preloader_bg_opacity'), fn() => theme_get_setting('preloader_bg_opacity')) ?? 100,
   '#description' => t('0–100. Combined with background color as rgba.'),
   '#id' => 'edit-preloader-bg-opacity',
   '#states' => ['visible' => [':input#edit-preloader-enabled' => ['checked' => TRUE]]],
@@ -781,7 +784,7 @@ $form["solo_settings"]["settings_global_misc"]["back_to_top"] = [
 $form["solo_settings"]["settings_global_misc"]["back_to_top"]["back_to_top_enabled"] = [
   '#type' => 'checkbox',
   '#title' => t('Enable back to top'),
-  '#default_value' => theme_get_setting('back_to_top_enabled') ?? FALSE,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('back_to_top_enabled'), fn() => theme_get_setting('back_to_top_enabled')) ?? FALSE,
   '#description' => t('Show the button after the user scrolls down.'),
   '#id' => 'edit-back-to-top-enabled',
 ];
@@ -795,28 +798,28 @@ $form["solo_settings"]["settings_global_misc"]["back_to_top"]["visibility"] = [
 $form["solo_settings"]["settings_global_misc"]["back_to_top"]["visibility"]["back_to_top_disable_admin_routes"] = [
   '#type' => 'checkbox',
   '#title' => t('Disable on admin routes'),
-  '#default_value' => theme_get_setting('back_to_top_disable_admin_routes') ?? TRUE,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('back_to_top_disable_admin_routes'), fn() => theme_get_setting('back_to_top_disable_admin_routes')) ?? TRUE,
   '#description' => t('Recommended. Editors should not see the button in the admin UI.'),
 ];
 
 $form["solo_settings"]["settings_global_misc"]["back_to_top"]["visibility"]["back_to_top_disable_authenticated"] = [
   '#type' => 'checkbox',
   '#title' => t('Disable for authenticated users'),
-  '#default_value' => theme_get_setting('back_to_top_disable_authenticated') ?? FALSE,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('back_to_top_disable_authenticated'), fn() => theme_get_setting('back_to_top_disable_authenticated')) ?? FALSE,
   '#description' => t('Optional. Some site owners prefer a cleaner UX for editors.'),
 ];
 
 $form["solo_settings"]["settings_global_misc"]["back_to_top"]["visibility"]["back_to_top_hide_small_screens"] = [
   '#type' => 'checkbox',
   '#title' => t('Hide on small screens (&lt;768px)'),
-  '#default_value' => theme_get_setting('back_to_top_hide_small_screens') ?? FALSE,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('back_to_top_hide_small_screens'), fn() => theme_get_setting('back_to_top_hide_small_screens')) ?? FALSE,
   '#description' => t('Optional. Mobile users often do not need it.'),
 ];
 
 $form["solo_settings"]["settings_global_misc"]["back_to_top"]["visibility"]["back_to_top_scroll_threshold"] = [
   '#type' => 'number',
   '#title' => t('Show after scroll distance (px)'),
-  '#default_value' => theme_get_setting('back_to_top_scroll_threshold') ?? 400,
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('back_to_top_scroll_threshold'), fn() => theme_get_setting('back_to_top_scroll_threshold')) ?? 400,
   '#min' => 200,
   '#max' => 800,
   '#step' => 50,
@@ -836,7 +839,7 @@ $form["solo_settings"]["settings_global_misc"]["back_to_top"]["position"]["back_
     'bottom-right' => t('Bottom right'),
     'bottom-left' => t('Bottom left'),
   ],
-  '#default_value' => theme_get_setting('back_to_top_position') ?? 'bottom-right',
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('back_to_top_position'), fn() => theme_get_setting('back_to_top_position')) ?? 'bottom-right',
 ];
 
 $form["solo_settings"]["settings_global_misc"]["back_to_top"]["style"] = [
@@ -852,7 +855,7 @@ $form["solo_settings"]["settings_global_misc"]["back_to_top"]["style"]["back_to_
     'solid' => t('Solid circle'),
     'outline' => t('Minimal outline'),
   ],
-  '#default_value' => theme_get_setting('back_to_top_style') ?? 'solid',
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('back_to_top_style'), fn() => theme_get_setting('back_to_top_style')) ?? 'solid',
 ];
 
 $form["solo_settings"]["settings_global_misc"]["back_to_top"]["style"]["back_to_top_icon"] = [
@@ -863,7 +866,7 @@ $form["solo_settings"]["settings_global_misc"]["back_to_top"]["style"]["back_to_
     'chevron-up' => t('Chevron up'),
     'arrow-minimal' => t('Arrow (minimal)'),
   ],
-  '#default_value' => theme_get_setting('back_to_top_icon') ?? 'arrow-up',
+  '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('back_to_top_icon'), fn() => theme_get_setting('back_to_top_icon')) ?? 'arrow-up',
 ];
 
 $back_to_top_style = &$form["solo_settings"]["settings_global_misc"]["back_to_top"]["style"];
@@ -875,7 +878,7 @@ $back_to_top_style["settings_back_to_top___r_tx"] = _generate_form_element(
 );
 
 // Menu template assignment tab: one row per menu; same path so save works.
-$saved_assignments = theme_get_setting('menu_template_assignments') ?? [];
+$saved_assignments = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('menu_template_assignments'), fn() => theme_get_setting('menu_template_assignments')) ?? [];
 $saved_assignments = is_array($saved_assignments) ? $saved_assignments : [];
 $saved_by_menu = [];
 foreach ($saved_assignments as $row) {

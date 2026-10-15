@@ -10,6 +10,9 @@
  * Author:       Alaa Haddad http://www.alaahaddad.com.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
+
 /**
  * The theme settings.
  */
@@ -47,14 +50,14 @@ $form["solo_settings"]["settings_{$region}"]["copyright_content"]["footer_use_fo
   "#type" => "checkbox",
   "#title" => t("Use a single formatted text field for copyright and credit"),
   "#description" => t("One field for copyright. When checked, four fields hide."),
-  "#default_value" => theme_get_setting("footer_use_formatted_text"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("footer_use_formatted_text"), fn() => theme_get_setting("footer_use_formatted_text")),
 ];
 
 $form["solo_settings"]["settings_{$region}"]["copyright_content"]["footer_copyright"] = [
   "#type" => "textfield",
   "#title" => t("Enter Copyright Text"),
   "#description" => t("Type %year% instead of an actual number for a dynamic copyright year. (Copyright © %year% Company Name - All rights reserved)."),
-  "#default_value" => theme_get_setting("footer_copyright"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("footer_copyright"), fn() => theme_get_setting("footer_copyright")),
   "#states" => [
     "visible" => [
       ":input[name=\"footer_use_formatted_text\"]" => ["checked" => FALSE],
@@ -63,7 +66,7 @@ $form["solo_settings"]["settings_{$region}"]["copyright_content"]["footer_copyri
 ];
 
 $allowed_formats = _solo_get_text_formats();
-$footer_formatted = theme_get_setting("footer_copyright_formatted");
+$footer_formatted = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("footer_copyright_formatted"), fn() => theme_get_setting("footer_copyright_formatted"));
 $form["solo_settings"]["settings_{$region}"]["copyright_content"]["footer_copyright_formatted"] = [
   "#type" => "text_format",
   "#title" => t("Copyright and credit (formatted)"),
@@ -82,7 +85,7 @@ $form["solo_settings"]["settings_{$region}"]["copyright_content"]["footer_link"]
   "#type" => "textfield",
   "#title" => t("Enter Footer Link URL"),
   "#description" => t("Enter the URL for the footer link."),
-  "#default_value" => theme_get_setting("footer_link"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("footer_link"), fn() => theme_get_setting("footer_link")),
   "#states" => [
     "visible" => [
       ":input[name=\"footer_use_formatted_text\"]" => ["checked" => FALSE],
@@ -94,7 +97,7 @@ $form["solo_settings"]["settings_{$region}"]["copyright_content"]["footer_link_l
   "#type" => "textfield",
   "#title" => t("Enter Footer Link Label"),
   "#description" => t("Enter the Label for the footer link[Footer Link Label][Footer Link Text]."),
-  "#default_value" => theme_get_setting("footer_link_label"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("footer_link_label"), fn() => theme_get_setting("footer_link_label")),
   "#states" => [
     "visible" => [
       ":input[name=\"footer_use_formatted_text\"]" => ["checked" => FALSE],
@@ -106,7 +109,7 @@ $form["solo_settings"]["settings_{$region}"]["copyright_content"]["footer_link_t
   "#type" => "textfield",
   "#title" => t("Enter Footer Link Text"),
   "#description" => t("Enter the text for the footer link. This field is required if a URL is provided."),
-  "#default_value" => theme_get_setting("footer_link_text"),
+  "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("footer_link_text"), fn() => theme_get_setting("footer_link_text")),
   "#states" => [
     "visible" => [
       ":input[name=\"footer_use_formatted_text\"]" => ["checked" => FALSE],

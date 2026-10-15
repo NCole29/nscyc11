@@ -75,9 +75,20 @@ h3 a) {
 .page-wrapper .main-navigation-wrapper li>a,
 .page-wrapper .header li.nav__menu-item>button,
 .page-wrapper .main-navigation-wrapper li>button {
-  --r-br: #c4c8cd;
   --r-bg: #e9eaec;
   --r-tx: #33383d;
+}
+
+.page-wrapper .login-button-open:where(:not([style*="--r-br:"] *)),
+.page-wrapper .hamburger-icon button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper ul:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper li:where(:not([style*="--r-br:"] *)),
+.page-wrapper .header li.nav__menu-item>a:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper li>a:where(:not([style*="--r-br:"] *)),
+.page-wrapper .header li.nav__menu-item>button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-navigation-wrapper li>button:where(:not([style*="--r-br:"] *)) {
+  --r-br: #c4c8cd;
 }
 
 .page-wrapper .login-button-open:hover,
@@ -141,20 +152,29 @@ div.page-title.lone {
 
 .top-container .top-box-first-inner {
   --r-bg: #f5fefd;
-  --r-br: #b7f8f1;
   --s-b: 20, 207, 187;
+}
+
+.top-container .top-box-first-inner:where(:not([style*="--r-br:"] *)) {
+  --r-br: #b7f8f1;
 }
 
 .top-container .top-box-second-inner {
   --r-bg: #fef9f3;
-  --r-br: #f9dab4;
   --s-b: 236, 140, 23;
+}
+
+.top-container .top-box-second-inner:where(:not([style*="--r-br:"] *)) {
+  --r-br: #f9dab4;
 }
 
 .top-container .top-box-third-inner {
   --r-bg: #fbfcf8;
-  --r-br: #e0e8c8;
   --s-b: 148, 173, 72;
+}
+
+.top-container .top-box-third-inner:where(:not([style*="--r-br:"] *)) {
+  --r-br: #e0e8c8;
 }
 
 .bottom-container {
@@ -163,26 +183,38 @@ div.page-title.lone {
 
 .bottom-container .bottom-box-first-inner {
   --r-bg: #f2f7fd;
-  --r-br: #a8caf2;
   --s-b: 35, 121, 222;
+}
+
+.bottom-container .bottom-box-first-inner:where(:not([style*="--r-br:"] *)) {
+  --r-br: #a8caf2;
 }
 
 .bottom-container .bottom-box-second-inner {
   --r-bg: #f7f5f6;
-  --r-br: #c2b3bb;
   --s-b: 141, 113, 128;
+}
+
+.bottom-container .bottom-box-second-inner:where(:not([style*="--r-br:"] *)) {
+  --r-br: #c2b3bb;
 }
 
 .bottom-container .bottom-box-third-inner {
   --r-bg: #fdf9ef;
-  --r-br: #f5e2b3;
   --s-b: 224, 168, 30;
+}
+
+.bottom-container .bottom-box-third-inner:where(:not([style*="--r-br:"] *)) {
+  --r-br: #f5e2b3;
 }
 
 .bottom-container .bottom-box-fourth-inner {
   --r-bg: #f8f8e8;
-  --r-br: #e8e8b4;
   --s-b: 185, 185, 57;
+}
+
+.bottom-container .bottom-box-fourth-inner:where(:not([style*="--r-br:"] *)) {
+  --r-br: #e8e8b4;
 }
 
 .footer-container {
@@ -191,20 +223,29 @@ div.page-title.lone {
 
 .footer-container .footer-box-first-inner {
   --r-bg: #edf2f8;
-  --r-br: #a4bddb;
   --s-b: 79, 127, 185;
+}
+
+.footer-container .footer-box-first-inner:where(:not([style*="--r-br:"] *)) {
+  --r-br: #a4bddb;
 }
 
 .footer-container .footer-box-second-inner {
   --r-bg: #efece1;
-  --r-br: #c6bb93;
   --s-b: 169, 152, 91;
+}
+
+.footer-container .footer-box-second-inner:where(:not([style*="--r-br:"] *)) {
+  --r-br: #c6bb93;
 }
 
 .footer-container .footer-box-third-inner {
   --r-bg: #eef1ea;
-  --r-br: #b4c1a3;
   --s-b: 130, 152, 102;
+}
+
+.footer-container .footer-box-third-inner:where(:not([style*="--r-br:"] *)) {
+  --r-br: #b4c1a3;
 }
 
 .main-container,
@@ -243,15 +284,15 @@ div.page-title.lone {
   fill: #294668;
 }
 
-.page-wrapper .selectify,
-.page-wrapper .solo-select,
-.page-wrapper .solo-radio,
-.page-wrapper .solo-check,
-.page-wrapper .solo-input,
-.page-wrapper .solo-textarea,
-.page-wrapper a.button,
-.page-wrapper input.button,
-.page-wrapper .search-button-close button {
+.page-wrapper .selectify:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-select:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-radio:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-check:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-input:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-textarea:where(:not([style*="--r-br:"] *)),
+.page-wrapper a.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper input.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .search-button-close button:where(:not([style*="--r-br:"] *)) {
   --r-br: #bcc8ad;
 }
 

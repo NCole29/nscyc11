@@ -24,56 +24,31 @@
   color: var(--r-tx);
 }
 
-.page-wrapper img,
-.page-wrapper code,
-.page-wrapper pre,
-.page-wrapper kbd,
-.page-wrapper samp,
-.page-wrapper p,
-.page-wrapper hr,
-.page-wrapper ul,
-.page-wrapper ol,
-.page-wrapper ul li,
-.page-wrapper ol li,
-.page-wrapper table,
-.page-wrapper th,
-.page-wrapper td,
-.page-wrapper tr,
-.page-wrapper blockquote {
+/* Specificity zeroed out to let structural paragraph builders pass down colors */
+:where(.page-wrapper) :where(
+  img, code, pre, kbd, samp, p, hr,
+  ul, ol, li, table, th, td, tr, blockquote
+) {
   border-color: var(--r-br, var(--r-br-b));
   color: var(--r-tx, var(--r-tx-dark));
 }
 
-.page-wrapper hr,
-.page-wrapper ul,
-.page-wrapper ol,
-.page-wrapper ol li,
-.page-wrapper ul li,
-.page-wrapper table,
-.page-wrapper .dropbutton-widget {
+:where(.page-wrapper) :where(
+  hr, ul, ol, table, .dropbutton-widget
+) {
   background-color: var(--r-bg);
 }
 
-.page-wrapper .field hr,
-.page-wrapper .views-field hr,
-.page-wrapper .messages ul,
-.page-wrapper .field ul,
-.page-wrapper .views-field ul,
-.page-wrapper .messages ul li,
-.page-wrapper .field ul li,
-.page-wrapper .views-field ul li,
-.page-wrapper .messages ol,
-.page-wrapper .field ol,
-.page-wrapper .views-field ol,
-.page-wrapper .messages ol li,
-.page-wrapper .field ol li,
-.page-wrapper .views-field ol li,
-.page-wrapper .field table {
+:where(.page-wrapper) :where(
+  .field hr, .views-field hr, .messages ul, .field ul, .views-field ul,
+  .messages ul li, .field ul li, .views-field ul li, .messages ol,
+  .field ol, .views-field ol, .messages ol li, .field ol li,
+  .views-field ol li, .field table
+) {
   background-color: initial;
 }
 
-.page-wrapper mark,
-.page-wrapper abbr {
+:where(.page-wrapper) :where(mark, abbr) {
   background-color: inherit;
   color: inherit;
 }
@@ -92,8 +67,12 @@
 }
 
 
-/* Link only */
-.page-wrapper a:not(.nav__menu-link,
+/* Link only — specificity (0,1,1): above solo-normalize.css (`a { all: unset }`,
+   `li a { color: inherit }`) so the region link colour applies (#3629228), and
+   below a paragraph's own link rules (0,2,0)+, so section link colours win.
+   Only the .page-wrapper part is zeroed; zeroing the whole selector (1.0.35)
+   let normalize win and every link fell back to the text colour. */
+:where(.page-wrapper) a:not(.nav__menu-link,
 .button,
 .site-name-link,
 .site-logo,
@@ -103,7 +82,7 @@ h3 a) {
   color: var(--r-lk, var(--r-tx));
 }
 
-.page-wrapper a:not(.nav__menu-link,
+:where(.page-wrapper) a:not(.nav__menu-link,
 .button,
 .site-name-link,
 .site-logo,
@@ -113,18 +92,11 @@ h3 a):hover {
   color: var(--r-lk-h, var(--r-tx));
 }
 
-.page-wrapper h1,
-.page-wrapper h2,
-.page-wrapper h3,
-.page-wrapper h1 a,
-.page-wrapper h2 a,
-.page-wrapper h3 a,
-.page-wrapper h1 a span,
-.page-wrapper h2 a span,
-.page-wrapper h3 a span,
-.page-wrapper .site-name,
-.page-wrapper .site-slogan,
-.page-wrapper .site-name-link {
+:where(.page-wrapper) :where(
+  h1, h2, h3, h1 a, h2 a, h3 a,
+  h1 a span, h2 a span, h3 a span,
+  .site-name, .site-slogan, .site-name-link
+) {
   color: var(--r-h1, var(--r-tx));
 }
 

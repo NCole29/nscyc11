@@ -8,8 +8,8 @@ _core:
   default_config_hash: o2qka7Q_RI0cctlckjSI9br-3K_wZjjq59_0Vgq3c8g
 id: default_admin_secondary_local_tasks
 theme: default_admin
-region: pre_content
-weight: 0
+region: header
+weight: -2
 provider: null
 plugin: local_tasks_block
 settings:

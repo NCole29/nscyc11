@@ -10,6 +10,9 @@
  * Author:       Alaa Haddad http://www.alaahaddad.com.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
+
 if ($updated_regions["main"]) {
 
   $region_label = implode(", ", $updated_regions["main"]);
@@ -49,7 +52,7 @@ if ($updated_regions["main"]) {
       $form["solo_settings"]["settings_main_container"]["layout_settings"]["enable_per_type_layout_main"] = [
         "#type" => "checkbox",
         "#title" => t("Enable per-content-type layouts for Main region"),
-        "#default_value" => theme_get_setting("enable_per_type_layout_main"),
+        "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("enable_per_type_layout_main"), fn() => theme_get_setting("enable_per_type_layout_main")),
       ];
 
       foreach ($content_types as $type_id => $type_label) {
@@ -82,7 +85,7 @@ if ($updated_regions["main"]) {
         "#title" => t("Select the layout order for mobile view"),
         "#description" => t("<p>This setting allows you to choose the order in which the main content and sidebars are displayed on smaller screens.</p>"),
         "#options" => _get_mobile_layout_options(),
-        "#default_value" => theme_get_setting("site_mobile_layout_order"),
+        "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_mobile_layout_order"), fn() => theme_get_setting("site_mobile_layout_order")),
       ];
 
       // Styling & Design Tab.
@@ -108,7 +111,7 @@ if ($updated_regions["main"]) {
       $form["solo_settings"]["settings_main_container"]["accessibility"]["skip_main_content"] = [
         "#type" => "checkbox",
         "#title" => t("Enable skip to main content link"),
-        "#default_value" => theme_get_setting("skip_main_content"),
+        "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("skip_main_content"), fn() => theme_get_setting("skip_main_content")),
       ];
 
       // Color Settings Tab.
@@ -142,7 +145,7 @@ if ($updated_regions["main"]) {
         "#title" => t("Region Block Alignment Option"),
         "#type" => "select",
         "#options" => _alignment_region($region),
-        "#default_value" => theme_get_setting("align_{$region}") ?? "region-left",
+        "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("align_{$region}"), fn() => theme_get_setting("align_{$region}")) ?? "region-left",
         "#description" => t("<p>By default, block content is left-aligned. This feature allows theme users to align blocks to the center or right within specific regions through region-level configuration. (Large screen only).</p>"),
       ];
 

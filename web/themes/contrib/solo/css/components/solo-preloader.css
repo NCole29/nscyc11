@@ -201,7 +201,7 @@ html.solo-preloader-enabled .solo-preloader--progress_bar .solo-preloader__bar-t
 html.solo-preloader-enabled .solo-preloader--progress_bar .solo-preloader__bar-fill {
   position: absolute;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   height: 100%;
   width: 0%;
   background-color: var(--r-tx, #333);

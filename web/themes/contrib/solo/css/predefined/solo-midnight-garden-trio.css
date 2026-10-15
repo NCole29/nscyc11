@@ -23,8 +23,8 @@ Braves Navy #13274F, Zombie Gray #63645E, Mantis #74C365
   border-color: var(--solo-white);
 }
 
-.page-wrapper .primary-sidebar-menu,
-.page-wrapper .primary-menu {
+.page-wrapper .primary-sidebar-menu:where(:not([style*="--r-br:"] *)),
+.page-wrapper .primary-menu:where(:not([style*="--r-br:"] *)) {
   --r-br: #274fa0;
 }
 
@@ -136,6 +136,9 @@ div.page-title.lone {
 
 .top-container {
   --r-bg: #f9fcf8;
+}
+
+.top-container:where(:not([style*="--r-br:"] *)) {
   --r-br: #8acd7d;
 }
 
@@ -145,28 +148,41 @@ div.page-title.lone {
 .footer-menu,
 .fixed-search-block,
 .popup-login-block-inner {
-  --r-br: #b1e5a7;
   --r-bg: linear-gradient(45deg, #ffffff, #eef2fb);
   background: var(--r-bg);
+}
+
+.main-container:where(:not([style*="--r-br:"] *)),
+.bottom-container:where(:not([style*="--r-br:"] *)),
+.footer-container:where(:not([style*="--r-br:"] *)),
+.footer-menu:where(:not([style*="--r-br:"] *)),
+.fixed-search-block:where(:not([style*="--r-br:"] *)),
+.popup-login-block-inner:where(:not([style*="--r-br:"] *)) {
+  --r-br: #b1e5a7;
 }
 
 .top-container .top-box-inner,
 .bottom-container .bottom-box-inner,
 .footer-container .footer-box-inner {
-  --r-br: #8acd7d;
   --r-bg: linear-gradient(0deg, #ffffff, #eef2fb);
   background: var(--r-bg);
 }
 
-.page-wrapper .selectify,
-.page-wrapper .solo-select,
-.page-wrapper .solo-radio,
-.page-wrapper .solo-check,
-.page-wrapper .solo-input,
-.page-wrapper .solo-textarea,
-.page-wrapper a.button,
-.page-wrapper input.button,
-.page-wrapper .search-button-close button {
+.top-container .top-box-inner:where(:not([style*="--r-br:"] *)),
+.bottom-container .bottom-box-inner:where(:not([style*="--r-br:"] *)),
+.footer-container .footer-box-inner:where(:not([style*="--r-br:"] *)) {
+  --r-br: #8acd7d;
+}
+
+.page-wrapper .selectify:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-select:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-radio:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-check:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-input:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-textarea:where(:not([style*="--r-br:"] *)),
+.page-wrapper a.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper input.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .search-button-close button:where(:not([style*="--r-br:"] *)) {
   --r-br: #85c779;
 }
 

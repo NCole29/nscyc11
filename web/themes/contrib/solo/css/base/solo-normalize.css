@@ -12,7 +12,20 @@ html {
 
 body {
   margin: 0;
-  text-align: var(--solo-text-align-start);
+  /**
+   * Logical keyword, not var(--solo-text-align-start).
+   *
+   * The token resolves to the physical "left"/"right" of the PAGE. text-align
+   * inherits, so every descendant then inherited the page's physical side and a
+   * dir="rtl" block inside an LTR page stayed left-aligned. "start" inherits as
+   * the keyword and is resolved per element against that element's own
+   * direction, so each subtree aligns to its own start. Identical result at
+   * page level in both directions; correct inside a direction-flipped subtree.
+   *
+   * The token is still right for float and for any element that sets its own
+   * text-align - those are declarations, not inherited values.
+   */
+  text-align: start;
 }
 
 main {

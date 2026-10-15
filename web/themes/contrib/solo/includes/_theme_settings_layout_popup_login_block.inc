@@ -10,6 +10,9 @@
  * Author:       Alaa Haddad http://www.alaahaddad.com.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
+
 // Popup login block region.
 if (array_key_exists("popup_login_block", $updated_regions["mix"])) {
 
@@ -45,13 +48,13 @@ if (array_key_exists("popup_login_block", $updated_regions["mix"])) {
     "#type" => "checkbox",
     "#title" => t("Tick this box to login via a popup block. <strong><a class='error' href='/admin/structure/block'>The User Login Block Must Be Enabled</a></strong>"),
     "#description" => t("This feature provides an option for users to login via a popup block. When the user checks the box labeled 'Login in a Popup Block', instead of being redirected to a separate login page, a popup block will appear on the current page. This popup block will contain the necessary fields for the user to enter their login credentials."),
-    "#default_value" => theme_get_setting("header_popup_login"),
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("header_popup_login"), fn() => theme_get_setting("header_popup_login")),
   ];
 
   $form["solo_settings"]["settings_{$region}"]["popup_configuration"]["header_login_links"] = [
     "#type" => "textfield",
     "#title" => t("You can change the login word."),
-    "#default_value" => theme_get_setting("header_login_links") ?? "Login",
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("header_login_links"), fn() => theme_get_setting("header_login_links")) ?? "Login",
     "#states" => [
       "visible" => [
         ":input[name='header_popup_login']" => ["checked" => TRUE],
@@ -72,7 +75,7 @@ if (array_key_exists("popup_login_block", $updated_regions["mix"])) {
     "#type" => "number",
     "#title" => t("Animation duration (milliseconds)"),
     "#description" => t("Duration of open/close animations in milliseconds. Default: 300ms"),
-    "#default_value" => theme_get_setting("popup_login_animation_duration") ?? 300,
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("popup_login_animation_duration"), fn() => theme_get_setting("popup_login_animation_duration")) ?? 300,
     "#min" => 0,
     "#max" => 5000,
     "#step" => 50,
@@ -89,7 +92,7 @@ if (array_key_exists("popup_login_block", $updated_regions["mix"])) {
     "#type" => "number",
     "#title" => t("Z-index"),
     "#description" => t("The z-index value for the popup overlay. Adjust if the popup appears behind other elements. Default: 10000"),
-    "#default_value" => theme_get_setting("popup_login_z_index") ?? 10000,
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("popup_login_z_index"), fn() => theme_get_setting("popup_login_z_index")) ?? 10000,
     "#min" => 1,
     "#max" => 999999,
     "#states" => [
@@ -104,7 +107,7 @@ if (array_key_exists("popup_login_block", $updated_regions["mix"])) {
     "#type" => "number",
     "#title" => t("Overlay opacity"),
     "#description" => t("The opacity of the background overlay (0-100). Default: 50%"),
-    "#default_value" => theme_get_setting("popup_login_overlay_opacity") ?? 50,
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("popup_login_overlay_opacity"), fn() => theme_get_setting("popup_login_overlay_opacity")) ?? 50,
     "#min" => 0,
     "#max" => 100,
     "#field_suffix" => "%",
@@ -120,7 +123,7 @@ if (array_key_exists("popup_login_block", $updated_regions["mix"])) {
     "#type" => "textfield",
     "#title" => t("Custom trigger selectors"),
     "#description" => t("Additional CSS selectors for elements that should trigger the login popup. Separate multiple selectors with commas. Example: .my-login-button, #custom-login-link"),
-    "#default_value" => theme_get_setting("popup_login_custom_triggers") ?? "",
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("popup_login_custom_triggers"), fn() => theme_get_setting("popup_login_custom_triggers")) ?? "",
     "#states" => [
       "visible" => [
         ":input[name='header_popup_login']" => ["checked" => TRUE],
@@ -133,7 +136,7 @@ if (array_key_exists("popup_login_block", $updated_regions["mix"])) {
     "#type" => "checkbox",
     "#title" => t("Use inline styles for display property"),
     "#description" => t("Controls how the popup visibility is managed. When checked, uses <code>style.display</code> directly. When unchecked, uses CSS classes. <strong>This setting does not affect animation, z-index, or other settings - those always work via CSS variables.</strong> Only change this if you experience conflicts with other modules."),
-    "#default_value" => theme_get_setting("popup_login_use_inline_styles") ?? FALSE,
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("popup_login_use_inline_styles"), fn() => theme_get_setting("popup_login_use_inline_styles")) ?? FALSE,
     "#states" => [
       "visible" => [
         ":input[name='header_popup_login']" => ["checked" => TRUE],
@@ -154,7 +157,7 @@ if (array_key_exists("popup_login_block", $updated_regions["mix"])) {
     "#type" => "checkbox",
     "#title" => t("Close on Escape key"),
     "#description" => t("Allow users to close the popup by pressing the Escape key. Recommended for accessibility."),
-    "#default_value" => theme_get_setting("popup_login_close_on_escape") ?? TRUE,
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("popup_login_close_on_escape"), fn() => theme_get_setting("popup_login_close_on_escape")) ?? TRUE,
     "#states" => [
       "visible" => [
         ":input[name='header_popup_login']" => ["checked" => TRUE],
@@ -167,7 +170,7 @@ if (array_key_exists("popup_login_block", $updated_regions["mix"])) {
     "#type" => "checkbox",
     "#title" => t("Close on outside click"),
     "#description" => t("Close the popup when clicking outside of the login form. Recommended for better UX."),
-    "#default_value" => theme_get_setting("popup_login_close_on_outside_click") ?? TRUE,
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("popup_login_close_on_outside_click"), fn() => theme_get_setting("popup_login_close_on_outside_click")) ?? TRUE,
     "#states" => [
       "visible" => [
         ":input[name='header_popup_login']" => ["checked" => TRUE],
@@ -180,7 +183,7 @@ if (array_key_exists("popup_login_block", $updated_regions["mix"])) {
     "#type" => "checkbox",
     "#title" => t("Enable focus trap"),
     "#description" => t("Trap keyboard focus within the popup for better accessibility. Recommended for WCAG 2.1 compliance."),
-    "#default_value" => theme_get_setting("popup_login_focus_trap") ?? TRUE,
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("popup_login_focus_trap"), fn() => theme_get_setting("popup_login_focus_trap")) ?? TRUE,
     "#states" => [
       "visible" => [
         ":input[name='header_popup_login']" => ["checked" => TRUE],
@@ -193,7 +196,7 @@ if (array_key_exists("popup_login_block", $updated_regions["mix"])) {
     "#type" => "checkbox",
     "#title" => t("Announce to screen readers"),
     "#description" => t("Announce popup state changes to screen reader users for better accessibility. Recommended for WCAG 2.1 compliance."),
-    "#default_value" => theme_get_setting("popup_login_announce_to_screen_readers") ?? TRUE,
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("popup_login_announce_to_screen_readers"), fn() => theme_get_setting("popup_login_announce_to_screen_readers")) ?? TRUE,
     "#states" => [
       "visible" => [
         ":input[name='header_popup_login']" => ["checked" => TRUE],
@@ -206,7 +209,7 @@ if (array_key_exists("popup_login_block", $updated_regions["mix"])) {
     "#type" => "checkbox",
     "#title" => t("Return focus on close"),
     "#description" => t("Return keyboard focus to the element that triggered the popup when it closes. Recommended for accessibility."),
-    "#default_value" => theme_get_setting("popup_login_return_focus_on_close") ?? TRUE,
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("popup_login_return_focus_on_close"), fn() => theme_get_setting("popup_login_return_focus_on_close")) ?? TRUE,
     "#states" => [
       "visible" => [
         ":input[name='header_popup_login']" => ["checked" => TRUE],

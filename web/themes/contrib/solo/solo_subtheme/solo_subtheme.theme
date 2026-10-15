@@ -2,16 +2,28 @@
 
 /**
  * @file
- * Add your custom theme override functions here.
+ * Kept only for Drupal before 11.3; the hooks live in src/Hook.
+ *
+ * Add new hooks as #[Hook] methods in a class under src/Hook, not as functions
+ * in this file. If you do add procedural code here, remove the
+ * #[ExtensionFileIsConverted] line below: it tells core this file is not
+ * needed on Drupal >= 11.3, which is then no longer true, and it hides the
+ * deprecation notice that would have told you so.
  */
+
+use Drupal\Core\Hook\Attribute\ExtensionFileIsConverted;
+use Drupal\Core\Hook\Attribute\LegacyHook;
+use Drupal\solo_subtheme\Hook\SoloSubthemeHooks;
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * #[ExtensionFileIsConverted] tells Drupal >= 11.5 that this file is kept only
+ * for older core: the hook body lives in src/Hook/SoloSubthemeHooks.php.
  */
+#[LegacyHook]
+#[ExtensionFileIsConverted]
 function solo_subtheme_theme_suggestions_block_alter(&$suggestions, $variables) {
 
-  // Load theme suggestions for blocks from parent theme.
-  foreach ($suggestions as &$suggestion) {
-    $suggestion = str_replace('solo_', 'solo_subtheme_', $suggestion);
-  }
+  \Drupal::classResolver(SoloSubthemeHooks::class)->themeSuggestionsBlockAlter($suggestions, $variables);
 }

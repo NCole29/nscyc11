@@ -22,12 +22,23 @@ BLUEBERRY #241571, CERULEAN #0492C2
 .page-wrapper a.button,
 .page-wrapper input.button,
 .page-wrapper .search-button-close button {
-  --r-br: #74dafc;
   border-color: var(--r-br);
 }
 
+.page-wrapper .selectify:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-select:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-radio:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-check:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-input:where(:not([style*="--r-br:"] *)),
+.page-wrapper .solo-textarea:where(:not([style*="--r-br:"] *)),
+.page-wrapper a.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper input.button:where(:not([style*="--r-br:"] *)),
+.page-wrapper .search-button-close button:where(:not([style*="--r-br:"] *)) {
+  --r-br: #74dafc;
+}
+
 /* inner regions */
-.page-wrapper .region-inner {
+.page-wrapper .region-inner:where(:not([style*="--r-br:"] *)) {
   --r-br: #bfb6f1;
 }
 
@@ -142,8 +153,11 @@ h3 a) {
   --r-bg: var(--solo-white);
 }
 
-.page-wrapper .main-container,
-.page-wrapper .main-container * {
+/* Scheme border colour reaches every descendant, except inside an element
+   whose inline style sets --r-br (a region's own "borders" setting), so
+   that setting wins. :where() keeps the specificity of the old "*". */
+.page-wrapper .main-container:where(:not([style*="--r-br:"] *)),
+.page-wrapper .main-container :where(:not([style*="--r-br:"] *)) {
   --r-br: var(--r-br-light);
 }
 

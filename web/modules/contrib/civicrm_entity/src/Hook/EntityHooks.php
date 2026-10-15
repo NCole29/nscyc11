@@ -32,6 +32,13 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 class EntityHooks {
 
   /**
+   * Whether hook_entity_type_build() is being processed by this module.
+   *
+   * @var bool
+   */
+  protected static bool $buildingEntityTypes = FALSE;
+
+  /**
    * Constructor for EntityHooks.
    */
   public function __construct(
@@ -50,6 +57,40 @@ class EntityHooks {
    */
   #[Hook('entity_type_build')]
   public function entityTypeBuild(array &$entity_types): void {
+    // Building the definitions boots CiviCRM. While CiviCRM resolves its
+    // paths it reads Drupal config, and a config override can look up entity
+    // types, which rebuilds the definitions and re-enters this hook before the
+    // CiviCRM boot has loaded its extensions. Calling the CiviCRM API from that
+    // nested build reaches a half-initialized CiviCRM (for example dispatcher
+    // listeners of extensions whose files are not loaded yet). Skip the nested
+    // build: the outer build adds the CiviCRM entity types and its definitions
+    // are the ones that end up cached.
+    if (static::$buildingEntityTypes) {
+      return;
+    }
+    static::$buildingEntityTypes = TRUE;
+    try {
+      $this->buildCivicrmEntityTypes($entity_types);
+    }
+    catch (\Throwable $e) {
+      // A skipped nested build has already cached definitions without the
+      // CiviCRM entity types, and this build will not replace them. Clear them
+      // so that the next build adds the CiviCRM entity types again.
+      $this->entityTypeManager->clearCachedDefinitions();
+      throw $e;
+    }
+    finally {
+      static::$buildingEntityTypes = FALSE;
+    }
+  }
+
+  /**
+   * Adds the supported CiviCRM entity types to the entity type definitions.
+   *
+   * @param array $entity_types
+   *   The entity type definitions, keyed by entity type ID.
+   */
+  protected function buildCivicrmEntityTypes(array &$entity_types): void {
     $supported_entities = SupportedEntities::getInfo();
     $config = \Drupal::config('civicrm_entity.settings');
     $enabled_entity_types = $config->get('enabled_entity_types') ?: [];

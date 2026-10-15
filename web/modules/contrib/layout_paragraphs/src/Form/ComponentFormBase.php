@@ -9,6 +9,7 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Form\SubformState;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Layout\LayoutPluginManagerInterface;
+use Drupal\Core\Render\Element;
 use Drupal\field_group\FormatterHelper;
 use Drupal\Core\Ajax\CloseDialogCommand;
 use Drupal\Core\Form\FormStateInterface;
@@ -263,6 +264,52 @@ abstract class ComponentFormBase extends FormBase implements ComponentFormInterf
         $form['#process'][] = 'field_group_form_process';
       }
     }
+
+    $original_language = $this->paragraph->getUntranslated()->language()->getId();
+    // Get current translation.
+    $editing_language = $this->paragraph->language()->getId();
+
+    $isTranslating = $original_language != $editing_language;
+    $hide_untranslatable_fields = $this->paragraph->isDefaultTranslationAffectedOnly();
+
+    foreach (Element::children($form) as $field) {
+      if ($this->paragraph->hasField($field)) {
+        $field_definition = $this->paragraph->get($field)->getFieldDefinition();
+
+        // Do a check if we have to add a class to the form element. We need
+        // those classes (paragraphs-content and paragraphs-behavior) to show
+        // and hide elements, depending of the active perspective.
+        // We need them to filter out entity reference revisions fields that
+        // reference paragraphs, cause otherwise we have problems with showing
+        // and hiding the right fields in nested paragraphs.
+        $is_paragraph_field = FALSE;
+        if ($field_definition->getType() == 'entity_reference_revisions') {
+          // Check if we are referencing paragraphs.
+          if ($field_definition->getSetting('target_type') == 'paragraph') {
+            $is_paragraph_field = TRUE;
+          }
+        }
+
+        if (!$is_paragraph_field) {
+          $form[$field]['#attributes']['class'][] = 'paragraphs-content';
+        }
+        $translatable = $field_definition->isTranslatable();
+        // Hide untranslatable fields when configured to do so except
+        // paragraph fields.
+        if (!$translatable && $isTranslating && !$is_paragraph_field) {
+          if ($hide_untranslatable_fields) {
+            $form[$field]['#access'] = FALSE;
+          }
+          else {
+            $form[$field]['widget']['#after_build'][] = [
+              static::class,
+              'addTranslatabilityClue',
+            ];
+          }
+        }
+      }
+    }
+
     return $form;
   }
 

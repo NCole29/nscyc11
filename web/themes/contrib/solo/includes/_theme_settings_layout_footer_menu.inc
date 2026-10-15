@@ -10,6 +10,9 @@
  * Author:       Alaa Haddad http://www.alaahaddad.com.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
+
 // Footer menu region.
 if (array_key_exists("footer_menu", $updated_regions["mix"])) {
 
@@ -52,7 +55,7 @@ if (array_key_exists("footer_menu", $updated_regions["mix"])) {
   $form["solo_settings"]["settings_{$region}"]["accessibility"]["skip_footer_content"] = [
     "#type" => "checkbox",
     "#title" => t("Enable skip to footer link"),
-    "#default_value" => theme_get_setting("skip_footer_content"),
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("skip_footer_content"), fn() => theme_get_setting("skip_footer_content")),
   ];
 
   // Color Settings Tab.

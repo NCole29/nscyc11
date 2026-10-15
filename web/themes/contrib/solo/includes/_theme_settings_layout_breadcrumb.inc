@@ -10,6 +10,9 @@
  * Author:       Alaa Haddad http://www.alaahaddad.com.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
+
 // Breadcrumb region.
 if (array_key_exists("breadcrumb", $updated_regions["mix"])) {
 
@@ -45,13 +48,13 @@ if (array_key_exists("breadcrumb", $updated_regions["mix"])) {
     "#type" => "checkbox",
     "#title" => t("Exclude the page title from the Breadcrumb."),
     "#description" => t("By default, Drupal does not include the page title in the breadcrumb. Solo adds it as a custom feature, but you can disable it to revert to the default behavior. Enable this option to prevent the page title from being added to the breadcrumb trail. This setting applies to all content types, Views pages, taxonomy terms, and user profile pages."),
-    "#default_value" => theme_get_setting("site_breadcrumb_pagetitle_off"),
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_breadcrumb_pagetitle_off"), fn() => theme_get_setting("site_breadcrumb_pagetitle_off")),
   ];
 
   $form["solo_settings"]["settings_{$region}"]["breadcrumb_configuration"]["site_breadcrumb_scroll"] = [
     "#type" => "checkbox",
     "#title" => t("Tick this box to enable Breadcrumb scrolling (Prevent Wrap)"),
-    "#default_value" => theme_get_setting("site_breadcrumb_scroll"),
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_breadcrumb_scroll"), fn() => theme_get_setting("site_breadcrumb_scroll")),
   ];
 
   // Color Settings Tab.

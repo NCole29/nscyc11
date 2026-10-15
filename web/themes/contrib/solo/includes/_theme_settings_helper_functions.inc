@@ -10,6 +10,8 @@
  * Author:       Alaa Haddad http://www.alaahaddad.com.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -498,7 +500,7 @@ function _generate_form_element($region, $label, $attribute_key, $attribute_labe
     '#maxlength' => 7,
     '#size' => 10,
     '#title' => t("(@attribute_label)", ['@attribute_label' => $attribute_label]),
-    '#default_value' => theme_get_setting("settings_{$region}_{$attribute_key}"),
+    '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("settings_{$region}_{$attribute_key}"), fn() => theme_get_setting("settings_{$region}_{$attribute_key}")),
     '#attributes' => [
       'pattern' => '^#[a-fA-F0-9]{6}',
     ],
@@ -516,7 +518,7 @@ function _generate_css_classes($region, $label) {
     '#type' => 'textfield',
     '#title' => t('CSS Classes Only'),
     '#description' => t('Insert any CSS classes here. The CSS should be input by a trusted user (an admin or developer).'),
-    '#default_value' => theme_get_setting("classes_{$region}"),
+    '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("classes_{$region}"), fn() => theme_get_setting("classes_{$region}")),
   ];
 
 }
@@ -528,7 +530,7 @@ function _animate_region_border($region) {
   return [
     '#type' => 'checkbox',
     '#title' => t("Tick this box to initiate animation of the region's border."),
-    '#default_value' => theme_get_setting("site_regions_{$region}_animate_border"),
+    '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_regions_{$region}_animate_border"), fn() => theme_get_setting("site_regions_{$region}_animate_border")),
   ];
 }
 
@@ -539,7 +541,7 @@ function _animate_region_hover($region) {
   return [
     '#type' => 'checkbox',
     '#title' => t("Tick this box to initiate on hover animation for the region."),
-    '#default_value' => theme_get_setting("site_regions_{$region}_animate_hover"),
+    '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_regions_{$region}_animate_hover"), fn() => theme_get_setting("site_regions_{$region}_animate_hover")),
   ];
 }
 
@@ -561,7 +563,7 @@ function _border_region($region) {
   return [
     '#type' => 'checkbox',
     '#title' => t('Tick this box if you prefer to apply a border to the inside regions'),
-    '#default_value' => theme_get_setting("site_regions_{$region}_border"),
+    '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_regions_{$region}_border"), fn() => theme_get_setting("site_regions_{$region}_border")),
   ];
 }
 
@@ -572,7 +574,7 @@ function _rounded_region($region) {
   return [
     '#type' => 'select',
     '#title' => t("Select from this list to enable rounding of the inside regions' corners."),
-    '#default_value' => theme_get_setting("site_regions_{$region}_rounded") ?? '',
+    '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_regions_{$region}_rounded"), fn() => theme_get_setting("site_regions_{$region}_rounded")) ?? '',
     '#options' => [
       '' => t('None'),
       'radius-4' => t('4px / 0.25rem'),
@@ -590,7 +592,7 @@ function _disable_region($region) {
   return [
     '#type' => 'select',
     '#title' => t("Change the visibility for @region region", ['@region' => $region]),
-    '#default_value' => theme_get_setting("site_regions_{$region}_disable") ?? 0,
+    '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("site_regions_{$region}_disable"), fn() => theme_get_setting("site_regions_{$region}_disable")) ?? 0,
     '#options' => [
       0 => t('Visible on all pages'),
       1 => t('Visible on Home Page Only.'),
@@ -605,7 +607,7 @@ function _disable_region($region) {
 function _get_active_regions() {
 
   $active_theme = \Drupal::theme()->getActiveTheme()->getName();
-  $theme_regions = system_region_list($active_theme);
+  $theme_regions = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.4.0', fn() => \Drupal::service('theme_handler')->getTheme($active_theme)->listAllRegions(), fn() => system_region_list($active_theme));
   $block_storage = \Drupal::entityTypeManager()->getStorage('block');
 
   foreach ($theme_regions as $machine_name => $label_name) {
@@ -639,30 +641,30 @@ function _get_updated_regions() {
   $region_config = [
     'top' => [
       'regions' => ['top_first', 'top_second', 'top_third'],
-      'container' => 'Top Container Wrapper',
-      'labels' => ['Top First Container', 'Top Second Container',
-        'Top Third Container',
+      'container' => t('Top Container Wrapper'),
+      'labels' => [t('Top First Container'), t('Top Second Container'),
+        t('Top Third Container'),
       ],
     ],
     'main' => [
       'regions' => ['sidebar_first', 'content', 'sidebar_second'],
-      'container' => 'Main Container Wrapper',
-      'labels' => ['Sidebar First', 'Content', 'Sidebar Second'],
+      'container' => t('Main Container Wrapper'),
+      'labels' => [t('Sidebar First'), t('Content'), t('Sidebar Second')],
     ],
     'bottom' => [
       'regions' => ['bottom_first', 'bottom_second', 'bottom_third',
         'bottom_fourth',
       ],
-      'container' => 'Bottom Container Wrapper',
-      'labels' => ['Bottom First Container', 'Bottom Second Container',
-        'Bottom Third Container', 'Bottom Fourth Container',
+      'container' => t('Bottom Container Wrapper'),
+      'labels' => [t('Bottom First Container'), t('Bottom Second Container'),
+        t('Bottom Third Container'), t('Bottom Fourth Container'),
       ],
     ],
     'footer' => [
       'regions' => ['footer_first', 'footer_second', 'footer_third'],
-      'container' => 'Footer Container Wrapper',
-      'labels' => ['Footer First Container', 'Footer Second Container',
-        'Footer Third Container',
+      'container' => t('Footer Container Wrapper'),
+      'labels' => [t('Footer First Container'), t('Footer Second Container'),
+        t('Footer Third Container'),
       ],
     ],
   ];
@@ -702,7 +704,7 @@ function _get_updated_regions() {
 function _count_regions() {
 
   $active_theme = \Drupal::theme()->getActiveTheme()->getName();
-  $theme_regions = system_region_list($active_theme);
+  $theme_regions = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.4.0', fn() => \Drupal::service('theme_handler')->getTheme($active_theme)->listAllRegions(), fn() => system_region_list($active_theme));
   $block_storage = \Drupal::entityTypeManager()->getStorage('block');
   $config = \Drupal::service('config.factory')->getEditable('solo.settings');
 
@@ -772,7 +774,7 @@ function _create_region_layout_radio_four($region) {
   return [
     '#type' => 'select',
     '#title' => t("The four columns' settings for @region region", ['@region' => $region]),
-    '#default_value' => theme_get_setting("{$region}_4col") ?? 'solo-col-1-1-1-1',
+    '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("{$region}_4col"), fn() => theme_get_setting("{$region}_4col")) ?? 'solo-col-1-1-1-1',
     '#options' => [
       'solo-col-1-1-1-1' => t('25%, 25%, 25%, 25%'),
       'solo-col-1-2-2-1' => t('16.6%, 33.3%, 33.3%, 16.6%'),
@@ -795,7 +797,7 @@ function _create_region_layout_radio_three($region) {
   return [
     '#type' => 'select',
     '#title' => t("The three columns' settings for @region region", ['@region' => $region]),
-    '#default_value' => theme_get_setting("{$region}_3col") ?? $def,
+    '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("{$region}_3col"), fn() => theme_get_setting("{$region}_3col")) ?? $def,
     '#options' => [
       'solo-col-1-1-1' => t('33.3%, 33.3%, 33.3%'),
       'solo-col-1-2-1' => t('25%, 50%, 25%'),
@@ -833,7 +835,7 @@ function _create_region_layout_radio_two($region, &$variables) {
   return [
     '#type' => 'select',
     '#title' => t("The two columns' settings for @region region", ['@region' => $region]),
-    '#default_value' => theme_get_setting("{$region}_2col") ?? $def,
+    '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("{$region}_2col"), fn() => theme_get_setting("{$region}_2col")) ?? $def,
     '#options' => [
       'solo-col-1-1' => t('50%, 50%'),
       'solo-col-2-1' => t('67%, 33%'),
@@ -853,7 +855,7 @@ function _create_megamenu_layout() {
   return [
     '#type' => 'select',
     '#title' => t('Megamenu Layout (1, 2, 3 or 4 Columns).'),
-    '#default_value' => theme_get_setting('primary_menu_megamenu_layout') ?? 'm-1-1',
+    '#default_value' => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('primary_menu_megamenu_layout'), fn() => theme_get_setting('primary_menu_megamenu_layout')) ?? 'm-1-1',
     '#options' => [
       'm-1' => t('1 Column - 100%'),
       'm-1-1' => t('2 Columns - 50%, 50%'),
@@ -964,15 +966,15 @@ function solo_settings_search_submit(array &$form, FormStateInterface $form_stat
  */
 function _solo_get_layout_default($region, $col, $type_id) {
   $global = "{$region}_{$col}";
-  $enabled = theme_get_setting("enable_per_type_layout_$region");
+  $enabled = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("enable_per_type_layout_$region"), fn() => theme_get_setting("enable_per_type_layout_$region"));
 
   $val = NULL;
   if ($enabled) {
-    $layouts = theme_get_setting('solo_layouts') ?? [];
+    $layouts = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting('solo_layouts'), fn() => theme_get_setting('solo_layouts')) ?? [];
     $val = $layouts[$region][$col][$type_id] ?? NULL;
   }
   if (empty($val)) {
-    $val = theme_get_setting($global);
+    $val = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting($global), fn() => theme_get_setting($global));
   }
 
   return $val;

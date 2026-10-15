@@ -9,7 +9,7 @@ _core:
 id: default_admin_primary_local_tasks
 theme: default_admin
 region: header
-weight: 0
+weight: -3
 provider: null
 plugin: local_tasks_block
 settings:

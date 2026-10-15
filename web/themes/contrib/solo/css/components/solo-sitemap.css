@@ -1,5 +1,5 @@
 ul.sitemap {
-  padding-left: 0;
+  padding-inline-start: 0;
   margin: 0;
 }
 
@@ -11,7 +11,7 @@ ul.sitemap ul {
 /* --- Visual indicator for menu items --- */
 ul.sitemap .menu-item::before {
   content: "› ";
-  margin-right: 0.25em;
+  margin-inline-end: 0.25em;
 }
 
 /* --- Non-clickable text-only menu items --- */
@@ -24,7 +24,7 @@ ul.sitemap .menu-label {
 ul.sitemap .menu-item.has-children > .menu-label::after {
   content: " ▼";
   font-size: 0.75em;
-  margin-left: 0.25em;
+  margin-inline-start: 0.25em;
 }
 
 ul.sitemap.menu-level-0 > .menu-item::before,

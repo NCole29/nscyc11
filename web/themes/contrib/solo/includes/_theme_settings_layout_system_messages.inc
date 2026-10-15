@@ -10,6 +10,9 @@
  * Author:       Alaa Haddad http://www.alaahaddad.com.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
+
 // System message region.
 if (array_key_exists("system_messages", $updated_regions["mix"])) {
 
@@ -44,7 +47,7 @@ if (array_key_exists("system_messages", $updated_regions["mix"])) {
   $form["solo_settings"]["settings_{$region}"]["message_configuration"]["system_messages_disable_dark"] = [
     "#type" => "checkbox",
     "#title" => t("Tick this box if you want to personalize the background of your system messages to match your brand. This will disable the default background."),
-    "#default_value" => theme_get_setting("system_messages_disable_dark"),
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("system_messages_disable_dark"), fn() => theme_get_setting("system_messages_disable_dark")),
   ];
 
   // Color Settings Tab.

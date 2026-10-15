@@ -10,6 +10,9 @@
  * Author:       Alaa Haddad http://www.alaahaddad.com.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
+
 // Check if the Search module is enabled.
 if (\Drupal::moduleHandler()->moduleExists("search")) {
 
@@ -45,7 +48,7 @@ if (\Drupal::moduleHandler()->moduleExists("search")) {
       "disable_keywords" => t("Disable Keywords filter"),
       "disable_types" => t('Enable “Limit by content type” control'),
     ],
-    "#default_value" => theme_get_setting("disable_search_filters") ?? [],
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("disable_search_filters"), fn() => theme_get_setting("disable_search_filters")) ?? [],
   ];
 
   // Display Options Tab.
@@ -60,7 +63,7 @@ if (\Drupal::moduleHandler()->moduleExists("search")) {
   $form["solo_settings"]["settings_search"]["display_options"]["enable_teaser_mode"] = [
     "#type" => "checkbox",
     "#title" => t("Use Teaser Mode for Search Results"),
-    "#default_value" => theme_get_setting("enable_teaser_mode") ?? 0,
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("enable_teaser_mode"), fn() => theme_get_setting("enable_teaser_mode")) ?? 0,
     "#description" => t("Enable this option to display search results using the teaser view mode."),
   ];
 
@@ -77,7 +80,7 @@ if (\Drupal::moduleHandler()->moduleExists("search")) {
     "#type" => "checkboxes",
     "#title" => t("Content Types to Display in Search Results"),
     "#options" => _solo_get_content_types(),
-    "#default_value" => theme_get_setting("search_result_content_types") ?? [],
+    "#default_value" => DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', fn() => \Drupal::service(ThemeSettingsProvider::class)->getSetting("search_result_content_types"), fn() => theme_get_setting("search_result_content_types")) ?? [],
     "#description" => t("Allow site builder to select which content types can be searched across the site. The chosen content types will apply to both the search form on the page and the Drupal Core Search Blocks."),
     "#states" => [
       // Show this field only if "Disable Types" is selected.

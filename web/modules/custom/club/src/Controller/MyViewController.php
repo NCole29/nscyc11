@@ -30,7 +30,8 @@ class MyViewController extends ControllerBase {
   }
 
   /**
-   * Displays the MySQL view data.
+   * Displays MySQL view data - list of unique Ride Names with the most recent ride date.
+   *  MySQL view = unique_rides. Drupal View = club_rides.
    */
   public function content(): array {
     $data = $this->viewRepository->getViewData();

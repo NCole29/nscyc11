@@ -1,0 +1,34 @@
+
+{# set minhgt =140 to account for thumbnails, and 230 if date & location are displayed above thumbnail #}
+{% if date > 0 %}
+  {% set minhgt = '230px' %}
+{% else %}
+  {% set minhgt = '140px' %}
+{% endif %}
+{#  style="min-height:{{ minhgt }}" #}
+
+
+<article class="border-b-1 border-(--dark)/40">
+  <div class="justify-around mb-4">
+
+    <h2 class="text-left text-xl font-bold"><a href="{{ url }}">{{ heading }}</a></h2>
+
+    {# Events displayed in 2 columns #}
+    {% if date or location %}
+    <div class="grid grid-cols-4 gap-4">
+      <div class="col-span-1">
+        {{ date }}
+        {{ location }}
+      </div>
+      <div class="col-span-3">
+        {{ summary }}
+      </div>
+    </div>
+    {% else %}
+    {# Announcements and Basic Pages displayed in 1 column #}
+    <div>
+      {{ summary }}
+    </div>
+    {% endif %}
+  </div>
+</article>

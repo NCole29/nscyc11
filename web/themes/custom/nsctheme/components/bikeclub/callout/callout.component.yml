@@ -1,0 +1,25 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: callout
+group: Bikeclub
+description: Paragraph callout
+props:
+  type: object
+  properties:
+    heading:
+      title: Heading
+      type: string
+    button_uri:
+      title: Button link
+      type: string
+    button_text:
+      type: string
+      title: Button text
+    shaded:
+      title: Shade background
+      type: string
+    height:
+      title: Height
+      type: string
+slots:
+  content:
+    title: Content

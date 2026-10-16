@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f2f708b53d1fb6d833cabe98bb46e2c",
+    "content-hash": "8bbe666d5f7eb0300909b93f0d86cc20",
     "packages": [
         {
             "name": "adrienrn/php-mimetyper",
@@ -8983,6 +8983,57 @@
             "homepage": "https://www.drupal.org/project/views_data_export",
             "support": {
                 "source": "https://git.drupalcode.org/project/views_data_export"
+            }
+        },
+        {
+            "name": "drupal/views_row_sdc",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/views_row_sdc.git",
+                "reference": "1.2.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/views_row_sdc-1.2.1.zip",
+                "reference": "1.2.1",
+                "shasum": "513eb17a66a59b6f640faa5d2c4957ad5445806c"
+            },
+            "require": {
+                "drupal/core": "^11.3 || ^12",
+                "php": ">=8.3"
+            },
+            "require-dev": {
+                "drupal/navigation_extra_tools": "^1.3",
+                "drush/drush": ">=11.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.2.1",
+                    "datestamp": "1784766705",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "James Shields",
+                    "homepage": "https://www.drupal.org/u/lostcarpark",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Use a single directory component to display each item in a view.",
+            "homepage": "https://www.drupal.org/project/views_row_sdc",
+            "support": {
+                "source": "https://git.drupalcode.org/project/views_row_sdc",
+                "issues": "https://www.drupal.org/project/issues/views_row_sdc"
             }
         },
         {

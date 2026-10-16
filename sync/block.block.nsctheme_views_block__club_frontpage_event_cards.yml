@@ -1,4 +1,4 @@
-uuid: 9b7e2990-3389-4218-8bd2-244256ee9cc1
+uuid: c9809037-7e86-47a4-a92a-6bdd87569613
 langcode: en
 status: true
 dependencies:
@@ -9,14 +9,14 @@ dependencies:
     - views
   theme:
     - nsctheme
-id: nsctheme_views_block__club_frontpage_block_2
+id: nsctheme_views_block__club_frontpage_event_cards
 theme: nsctheme
 region: content
-weight: -15
+weight: 0
 provider: null
-plugin: 'views_block:club_frontpage-block_2'
+plugin: 'views_block:club_frontpage-event_cards'
 settings:
-  id: 'views_block:club_frontpage-block_2'
+  id: 'views_block:club_frontpage-event_cards'
   label: ''
   label_display: '0'
   provider: views

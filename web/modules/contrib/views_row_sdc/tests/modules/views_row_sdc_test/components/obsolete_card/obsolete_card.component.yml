@@ -1,0 +1,22 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+
+name: Obsolete Card
+description: A simple card for testing that Views Row SDC module excludes obsolete components.
+status: obsolete
+noUi: false
+props:
+  type: object
+  additionalProperties: false
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Title of the card.
+    subtitle:
+      type: string
+      title: Subtitle
+      description: Subtitle of the card.
+slots:
+  media:
+    title: Media
+    description: Media associated with the slot.

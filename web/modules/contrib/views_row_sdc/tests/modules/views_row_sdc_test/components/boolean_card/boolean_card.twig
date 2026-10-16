@@ -1,0 +1,9 @@
+{%
+  set classes = [
+    'card',
+  ]
+%}
+<div{{attributes.addClass(classes)}}>
+	<div class="title">Title: {{ title }}</div>
+  <div class="flag">Flag is {{ flag ? 'on' : 'off' }}.</div>
+</div>

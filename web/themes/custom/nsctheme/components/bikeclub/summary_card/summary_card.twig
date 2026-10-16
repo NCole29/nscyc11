@@ -1,0 +1,21 @@
+{# set minhgt =140 to account for thumbnails, and 230 if date & location are displayed above thumbnail #}
+{% if date > 0 %}
+  {% set minhgt = '230px' %}
+{% else %}
+  {% set minhgt = '140px' %}
+{% endif %}
+
+<article class="summary-card">
+  <div class="summary-card-container">
+    <div class="summary-content">
+     <h2 class="summary-title"><a href="{{ url }}">{{ heading }}</a></h2>
+      {% if date or location %}
+        {{ date }}
+        {{ location }}
+      {% endif %}
+    </div>
+    <div class="summary-content">
+      {{ content }}
+    </div>
+  </div>
+</article>

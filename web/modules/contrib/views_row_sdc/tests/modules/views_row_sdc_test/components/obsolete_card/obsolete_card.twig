@@ -1,0 +1,16 @@
+{%
+  set classes = [
+  'card',
+]
+%}
+<div{{attributes.addClass(classes)}}>
+	<div class="title">Title: {{ title }}</div>
+  {% if subtitle %}
+	  <div class="subtitle">Subtitle: {{ subtitle }}</div>
+  {% endif %}
+  {% if media %}
+    <div class="media">Media:
+      {{ media }}
+    </div>
+  {% endif %}
+</div>

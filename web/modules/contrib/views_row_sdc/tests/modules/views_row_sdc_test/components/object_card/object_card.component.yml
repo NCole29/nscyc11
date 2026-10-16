@@ -1,0 +1,17 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+
+name: Object Card
+description: A simple card for testing object props for image field in Views Row SDC module.
+status: experimental
+props:
+  type: object
+  additionalProperties: false
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Title of the card.
+    image:
+      type: object
+      title: Image
+      description: Image property.

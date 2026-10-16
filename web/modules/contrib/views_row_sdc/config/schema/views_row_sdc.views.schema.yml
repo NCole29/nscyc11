@@ -1,0 +1,39 @@
+views.row.sdc_component:
+  type: views_row
+  label: 'Component row'
+  mapping:
+    component_id:
+      type: string
+      label: 'Component ID'
+    props:
+      type: sequence
+      label: 'Prop mappings'
+      sequence:
+        type: mapping
+        label: 'Prop field and type'
+        mapping:
+          field:
+            type: string
+            label: 'Property field name, or blank for static'
+          static:
+            type: string
+            label: 'The static prop value, or blank if field mapped'
+          type:
+            type: string
+            label: 'Property type'
+          enum:
+            type: sequence
+            label: 'Array of enum options'
+            sequence:
+              type: string
+              label: 'Enumeration option'
+    slots:
+      type: sequence
+      label: 'Slot mappings'
+      sequence:
+        type: mapping
+        label: 'Slot field'
+        mapping:
+          field:
+            type: string
+            label: 'Slot field name'

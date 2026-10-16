@@ -1,0 +1,31 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: pcard
+group: Bikeclub
+description: Paragraph card
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Heading
+      examples:
+        - Section title
+    shaded:
+      title: Shaded
+      type: string
+      label: Shade background
+      default: "0"
+    height:
+      title: Height
+      type: string
+      default: "0"
+slots:
+  content:
+    title: Content
+  image:
+    title: Image
+    type: string
+    label: The image URL or data.
+  link:
+    title: URL
+    type: string

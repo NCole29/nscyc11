@@ -1,0 +1,32 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: summary_card
+group: Bikeclub
+description: Cards arranged in rows.
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Heading
+      examples:
+        - Section title
+    heading:
+      type: string
+      title: Heading
+    url:
+      type: string
+      title: URL
+    image:
+      title: Image
+      type: string
+      label: The image URL or data.
+    date:
+      title: Date
+      type: string
+      label: Date
+    location:
+      title: Location
+      type: string
+slots:
+  content:
+    title: Content

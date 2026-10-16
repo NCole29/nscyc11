@@ -1,0 +1,13 @@
+# These are mostly files added by DDEV.
+.ddev/
+.editorconfig
+.gitattributes
+.vscode/
+
+phpcs.xml.dist
+phpstan-baseline.neon
+phpstan.neon
+
+recipes/
+vendor/
+web/

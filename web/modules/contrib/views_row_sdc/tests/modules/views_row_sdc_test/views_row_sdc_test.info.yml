@@ -1,0 +1,13 @@
+name: 'Views Row SDC Test'
+type: module
+description: 'Test component for Views Row SDC testing.'
+hidden: true
+package: Testing
+core_version_requirement: ^11.3 || ^12
+dependencies:
+  - views_row_sdc:views_row_sdc
+
+# Information added by Drupal.org packaging script on 2026-07-23
+version: '1.2.1'
+project: 'views_row_sdc'
+datestamp: 1784766686

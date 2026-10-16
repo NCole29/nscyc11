@@ -1,0 +1,32 @@
+{#  callout.twig is "included" in bikeclub_solo/templates/paragraphs/paragraph--callout.html.twig
+    which must be modified if fields are added.
+
+  Do not put paragraph--callout.html.twig in the module/templates folder, because then
+  it's applied to the admin theme and the contextual edit link is not displayed in the admin view.
+
+  Colors are set in the subtheme (Appearance > Bikeclub_solo) and made available to the template 
+  via a preprocess hook in bikeclub_solo.theme.
+ #}
+
+{% set bg_color = shaded ? 'bg-secondary' : 'bg-white' %}
+{%
+  set classes = [
+  'w-auto',
+  'mr-4',
+  bg_color,
+	height, 
+  ]
+%}
+
+<div{{ attributes.addClass(classes) }}>
+  <div class="callout-text border-l-6 py-4">
+    <h4><center>{{ heading }}</center></h4>
+    {{ content }}
+
+    {% if button_text and button_uri %}
+    <div class="button bg-primary">
+      <a href="{{ button_uri }}" class="text-white">{{ button_text }}</a>
+    </div>
+    {% endif %}
+  </div>
+</div>

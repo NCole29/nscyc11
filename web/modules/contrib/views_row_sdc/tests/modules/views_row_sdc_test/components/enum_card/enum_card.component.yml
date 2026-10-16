@@ -1,0 +1,22 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+
+name: Enum Card
+description: A simple card for testing enum props in Views Row SDC module.
+status: experimental
+props:
+  type: object
+  additionalProperties: false
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Title of the card.
+    alignment:
+      type: string
+      title: Alignment
+      enum: ['lawful', 'neutral', 'chaotic']
+      meta:enum:
+        lawful: Totally Lawful
+        neutral: Absolutely Neutral
+      examples: ['lawful']
+      description: Character alignment on card.

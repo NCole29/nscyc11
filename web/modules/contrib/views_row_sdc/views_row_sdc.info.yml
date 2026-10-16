@@ -1,0 +1,10 @@
+name: 'Views Row SDC'
+type: module
+description: 'Use a single directory component to display each item in a view.'
+package: Views
+core_version_requirement: ^11.3 || ^12
+
+# Information added by Drupal.org packaging script on 2026-07-23
+version: '1.2.1'
+project: 'views_row_sdc'
+datestamp: 1784766686

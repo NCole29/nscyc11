@@ -1,0 +1,25 @@
+{
+    "name": "drupal/views_row_sdc",
+    "description": "Use a single directory component to display each item in a view.",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=8.3"
+    },
+    "require-dev": {
+        "drupal/navigation_extra_tools": "^1.3",
+        "drush/drush": ">=11.0"
+    },
+    "homepage": "https://www.drupal.org/project/views_row_sdc",
+    "authors": [
+        {
+            "name": "James Shields",
+            "homepage": "https://www.drupal.org/u/lostcarpark",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/views_row_sdc",
+        "source": "https://git.drupalcode.org/project/views_row_sdc"
+    }
+}

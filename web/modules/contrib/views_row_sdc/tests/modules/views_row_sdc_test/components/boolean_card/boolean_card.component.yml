@@ -1,0 +1,17 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+
+name: Boolean Test Card
+description: A simple card for testing Boolean Slots with Views Row SDC module.
+status: experimental
+props:
+  type: object
+  additionalProperties: false
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Title of the card.
+    flag:
+      type: boolean
+      title: Flag
+      description: Boolean flag.

@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.event.field_contact_person
     - field.field.node.event.field_contact_us
     - field.field.node.event.field_date
+    - field.field.node.event.field_image
     - field.field.node.event.field_location
     - field.field.node.event.field_page_access
     - field.field.node.event.field_registration_link
@@ -60,7 +61,7 @@ third_party_settings:
                 settings:
                   view_mode: teaser
                 third_party_settings: {  }
-            weight: 2
+            weight: 3
             additional: {  }
           f099611f-c56f-48f9-9737-69c34a38c70d:
             uuid: f099611f-c56f-48f9-9737-69c34a38c70d
@@ -125,7 +126,7 @@ third_party_settings:
                   time_wrapper: false
                   localize: false
                 third_party_settings: {  }
-            weight: 1
+            weight: 2
             additional: {  }
           4b8d3900-2b26-49df-95f4-197505dcf547:
             uuid: 4b8d3900-2b26-49df-95f4-197505dcf547
@@ -135,7 +136,52 @@ third_party_settings:
               label_display: '0'
               context_mapping:
                 entity: layout_builder.entity
-            weight: 3
+            weight: 4
+            additional: {  }
+          e2c2d957-28b1-4964-8928-7f4dcd116e30:
+            uuid: e2c2d957-28b1-4964-8928-7f4dcd116e30
+            region: first
+            configuration:
+              id: 'field_block:node:event:field_image'
+              label: Image
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: media_thumbnail
+                label: visually_hidden
+                settings:
+                  image_link: ''
+                  image_style: small_4_3
+                  image_loading:
+                    attribute: lazy
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          b84dbb93-1738-41eb-9014-1424a802b4dc:
+            uuid: b84dbb93-1738-41eb-9014-1424a802b4dc
+            region: second
+            configuration:
+              id: 'field_block:node:event:field_webform'
+              label: 'Registration form'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: webform_entity_reference_link
+                label: visually_hidden
+                settings:
+                  label: Register
+                  dialog: narrow
+                  attributes:
+                    class:
+                      - button
+                third_party_settings: {  }
+            weight: 5
             additional: {  }
         third_party_settings: {  }
       -
@@ -229,6 +275,7 @@ hidden:
   field_contact_person: true
   field_contact_us: true
   field_date: true
+  field_image: true
   field_padding: true
   field_page_access: true
   field_registration_type: true

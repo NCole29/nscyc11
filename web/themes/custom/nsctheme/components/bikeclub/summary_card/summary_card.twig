@@ -1,5 +1,5 @@
 {# set minhgt =140 to account for thumbnails, and 230 if date & location are displayed above thumbnail #}
-{% if date > 0 %}
+{% if date %}
   {% set minhgt = '230px' %}
 {% else %}
   {% set minhgt = '140px' %}
@@ -8,10 +8,13 @@
 <article class="summary-card">
   <div class="summary-card-container">
     <div class="summary-content">
+      {{ image }}
      <h2 class="summary-title"><a href="{{ url }}">{{ heading }}</a></h2>
-      {% if date or location %}
+      {% if date %}
         {{ date }}
-        {{ location }}
+      {% endif %}
+      {% if location %}
+        {{ location }} 
       {% endif %}
     </div>
     <div class="summary-content">

@@ -1,16 +1,23 @@
 .summary-card-container {
     justify-content: space-around; /* Distributes items with space around them */
+    width: 100%;
+    padding: 0;
     gap: 0; /* Adds a gap between flex items */
 }
 .summary-card {
 /*  background: #fafafa;*/
-  border: 1px solid #808080;
-  border-radius: 5px;
-  box-shadow: 1px 1px 0 0 #808080;
-  height: auto;
-  margin: 0.5rem 0.5rem 0.5rem 0; 
-  position: relative;
+  display: table;
+  clear: both;
+  margin: 0.5rem 0.5rem 1rem 0.5rem; 
+  padding: 1rem 1rem 0 1rem;
   width: auto;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0), 0 2px 4px -2px rgb(0 0 0 );
+
+/*  
+  height: auto;
+  position: relative;
+*/  
 }
 .summary-card .summary-title {
   text-align: left;

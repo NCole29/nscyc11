@@ -4,10 +4,24 @@
   position: relative;
   width: auto;
 }
+.summary-inner {
+  justify-content: space-around;
+  margin-bottom: .25rem;
+}
 
-
-.summary h3 {
+.summary h2 {
+  text-align: left;
   font-size: 1.25rem;
+  font-weight: bold;
+}
+.summary .summary-date {
+  display: grid;
+  grid-column: 4;
+  grid-column: span 1 / span 4;
+  gap: .25rem;
+}
+.summary .summary-text {
+  grid-column: span 3 / span 4;
 }
 .summary .summary-image {
   float: left;

@@ -1,0 +1,29 @@
+uuid: 93b238b7-2f42-4694-a5a3-b30c719d71f0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image
+    - media.type.image_crop_4_3
+    - node.type.event
+id: node.event.field_image
+field_name: field_image
+entity_type: node
+bundle: event
+label: Image
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image_crop_4_3: image_crop_4_3
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: image_crop_4_3
+field_type: entity_reference

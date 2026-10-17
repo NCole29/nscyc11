@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.event.field_contact_person
     - field.field.node.event.field_contact_us
     - field.field.node.event.field_date
+    - field.field.node.event.field_image
     - field.field.node.event.field_location
     - field.field.node.event.field_page_access
     - field.field.node.event.field_registration_link
@@ -60,7 +61,7 @@ third_party_settings:
                 settings:
                   view_mode: teaser
                 third_party_settings: {  }
-            weight: 2
+            weight: 3
             additional: {  }
           362585ef-ee6a-4102-a725-7397290405c4:
             uuid: 362585ef-ee6a-4102-a725-7397290405c4
@@ -97,6 +98,28 @@ third_party_settings:
                 settings:
                   timezone_override: ''
                   format_type: day_and_date
+                third_party_settings: {  }
+            weight: 2
+            additional: {  }
+          e48f086d-cb14-4bdf-a52e-bafb8c518029:
+            uuid: e48f086d-cb14-4bdf-a52e-bafb8c518029
+            region: first
+            configuration:
+              id: 'field_block:node:event:field_image'
+              label: Image
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: media_thumbnail
+                label: visually_hidden
+                settings:
+                  image_link: ''
+                  image_style: small_4_3
+                  image_loading:
+                    attribute: lazy
                 third_party_settings: {  }
             weight: 1
             additional: {  }
@@ -162,6 +185,7 @@ hidden:
   field_contact_person: true
   field_contact_us: true
   field_date: true
+  field_image: true
   field_page_access: true
   field_registration_type: true
   field_resize_banner_image: true

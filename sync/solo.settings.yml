@@ -110,7 +110,7 @@ footer_3col: solo-col-1-1-1
 count_main: 2
 count_top: 3
 count_bottom: 3
-count_footer: 3
+count_footer: 2
 classes_page_wrapper: ''
 opacity_page_wrapper: false
 classes_header: ''
@@ -207,7 +207,7 @@ theme_category: none
 predefined_current_theme: midnight_and_twilight|solo-midnight-whispers
 sm_icon_size: sm-icons-medium
 sm_icon_colors: ''
-sm_show_icons: 1
+sm_show_icons: true
 sm_icon_telegram: ''
 sm_icon_bluesky: ''
 sm_icon_reddit: ''

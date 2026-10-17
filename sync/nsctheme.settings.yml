@@ -124,8 +124,8 @@ site_regions_welcome_width: 0
 enable_aria_welcome: false
 classes_top_container: ''
 site_regions_top_disable: '0'
-site_regions_top_rounded: radius-8
-site_regions_top_border: true
+site_regions_top_rounded: ''
+site_regions_top_border: false
 site_regions_top_animate_border: false
 site_regions_top_animate_hover: false
 enable_aria_top: false
@@ -269,9 +269,9 @@ settings_page_wrapper___r_lk: '#155295'
 settings_page_wrapper___r_lk_h: ''
 settings_page_wrapper___r_br: ''
 settings_page_wrapper___r_tx_lk: ''
-settings_page_wrapper___r_tx_lk_h: ''
+settings_page_wrapper___r_tx_lk_h: '#666666'
 settings_page_wrapper___r_bg_lk: ''
-settings_page_wrapper___r_bg_lk_h: ''
+settings_page_wrapper___r_bg_lk_h: '#FAE07C'
 settings_page_wrapper___r_tx_bt: '#ffffff'
 settings_page_wrapper___r_tx_bt_h: ''
 settings_page_wrapper___r_bg_bt: '#155295'

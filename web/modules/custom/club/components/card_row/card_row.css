@@ -9,7 +9,7 @@
   box-shadow: 1px 1px 0 0 #808080;
   height: auto;
   /*margin: 0.5rem;*/
-  margin: 0.5rem 0.5rem 0.5rem 0; 
+  margin: 1rem 0.5rem 0.5rem 0; 
   position: relative;
   width: auto;
 }
@@ -41,6 +41,9 @@ img {
 @media(max-width: 767px) {
   .card-container {
     display: inline-block; 
+  }
+  .card-row {
+    margin: 0.5rem 0 0 0; /*0.5rem 0.5rem 0.5rem 0; */
   }
   .card-row .card-title {
     letter-spacing: 0;

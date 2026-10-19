@@ -1,0 +1,44 @@
+uuid: 9e03bd95-6a7d-4b45-90dc-1e8c062f0097
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser2
+    - field.field.node.announcement.field_contact_person
+    - field.field.node.announcement.field_contact_us
+    - field.field.node.announcement.field_image
+    - field.field.node.announcement.field_resize_text_image
+    - field.field.node.announcement.field_summary
+    - field.field.node.announcement.field_text
+    - image.style.small_16_9
+    - node.type.announcement
+  module:
+    - media
+    - user
+id: node.announcement.teaser2
+targetEntityType: node
+bundle: announcement
+mode: teaser2
+content:
+  field_image:
+    type: media_thumbnail
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: small_16_9
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_contact_person: true
+  field_contact_us: true
+  field_resize_text_image: true
+  field_summary: true
+  field_text: true

@@ -18,11 +18,9 @@ h2 a,
 h3 a) {
   color: #195295;
   text-decoration: none;
-  padding: 4px 8px 4px 0; /* Adds space around the text so the background looks clean */
-  border-radius: 4px; /* Optional: rounds the corners of the background */
-  
-  /* Smoothly animates the background color change over 0.3 seconds */
-  transition: background-color 0.3s ease; 
+  padding: 4px 8px 4px 0; /* Adds space around the text so the background looks clean on hover */
+  border-radius: 4px; /* Optional: rounds the corners of the background */  
+  transition: background-color 0.3s ease; /* Smoothly animates hover background change over 0.3 seconds */
 }
 
 :where(.page-wrapper) a:hover {
@@ -123,12 +121,14 @@ h3 a) {
   margin-top: 0;
   margin-bottom: 0;  
 }
-.bottom-container-margin {
+/* bottom- container ride blocks (Join Our Club, First Time NSC Riders, NSC Ride Safety Culture */
+/* css applied in Appearance > NSC solo subtheme > CSS classes (applied to each container) */ 
+.ride-block-border {
+  border:0!important;
+  border-left: 4px solid #0b294a!important;
   margin-bottom: 1rem;
 }
-.bottom-box {
-  border-left: 4px solid #155295!important;
-}
+
 /* applied in field_ride_picture template */
 .picture-margins {
   margin-right: 1rem;
@@ -183,6 +183,10 @@ hr {
   color:#ffffff;
 }
 
+.p {
+  margin-top: 0;
+}
+
 /* CKEDITOR - Add styles for selection in editor */
 p.small {
   font-size: 85%;
@@ -227,6 +231,18 @@ p.button a {
 /* all pages */
 .solo-image {
   border-radius: 0.25rem;
+}
+
+.image-style-ride-picture {
+  width: 100%;
+}
+
+.layout--twocol-section.layout--twocol-section--50-50 > .layout__region--first,
+.layout--twocol-section.layout--twocol-section--33-67 > .layout__region--first,
+.layout--twocol-section.layout--twocol-section--67-33 > .layout__region--first,
+.layout--twocol-section.layout--twocol-section--25-75 > .layout__region--first,
+.layout--twocol-section.layout--twocol-section--75-25 > .layout__region--first {
+  padding-right:0.5rem;
 }
 
 /* FORMS - Reduce width (improves webform fit on page) */ 

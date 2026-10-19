@@ -6,7 +6,7 @@ dependencies:
     - core.entity_form_mode.media.large_16x9_aspect_ratio
     - field.field.media.image.field_image_category
     - field.field.media.image.field_media_image
-    - image.style.thumbnail_16_9
+    - image.style.large_16_9
     - media.type.image
   module:
     - focal_point
@@ -30,7 +30,7 @@ content:
     region: content
     settings:
       progress_indicator: throbber
-      preview_image_style: thumbnail_16_9
+      preview_image_style: large_16_9
       preview_link: true
       offsets: '50,50'
     third_party_settings:

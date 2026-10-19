@@ -12,7 +12,7 @@ dependencies:
 id: nsctheme_joinourclub
 theme: nsctheme
 region: bottom_first
-weight: 0
+weight: -16
 provider: null
 plugin: 'block_content:ba371780-1f39-4cfc-ab03-48534c63f83a'
 settings:

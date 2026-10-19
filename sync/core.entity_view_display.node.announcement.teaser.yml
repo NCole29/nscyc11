@@ -6,6 +6,8 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.announcement.field_contact_person
     - field.field.node.announcement.field_contact_us
+    - field.field.node.announcement.field_image
+    - field.field.node.announcement.field_resize_text_image
     - field.field.node.announcement.field_summary
     - field.field.node.announcement.field_text
     - node.type.announcement
@@ -37,15 +39,25 @@ content:
     third_party_settings: {  }
     weight: -20
     region: content
+  field_image:
+    type: entity_reference_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: small_16_9
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
   field_summary:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
 hidden:
   field_contact_person: true
   field_contact_us: true
+  field_resize_text_image: true
   field_text: true
   links: true

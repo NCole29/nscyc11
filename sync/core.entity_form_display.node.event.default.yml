@@ -45,7 +45,6 @@ third_party_settings:
       children:
         - promote
         - sticky
-        - field_image
         - field_summary
       label: 'Summary for home page'
       region: content
@@ -97,10 +96,11 @@ third_party_settings:
     group_page_content:
       children:
         - title
+        - field_image
+        - field_text
         - field_location
         - field_date
         - field_type_of_page
-        - field_text
         - field_components
         - field_page_access
         - group_group_resize
@@ -136,10 +136,10 @@ third_party_settings:
     group_group_resize:
       children:
         - field_resize_text_image
-      label: 'HOW TO ADD IMAGES IN THE TEXT EDITORS'
+      label: 'HOW TO ADD IMAGES'
       region: hidden
       parent_name: group_page_content
-      weight: 10
+      weight: 13
       format_type: details
       format_settings:
         classes: info-details
@@ -231,7 +231,7 @@ content:
     third_party_settings: {  }
   field_components:
     type: layout_paragraphs
-    weight: 13
+    weight: 20
     region: content
     settings:
       view_mode: default
@@ -297,7 +297,7 @@ content:
     third_party_settings: {  }
   field_date:
     type: datetime_default
-    weight: 8
+    weight: 18
     region: content
     settings: {  }
     third_party_settings:
@@ -305,14 +305,14 @@ content:
         hide: true
   field_image:
     type: media_library_widget
-    weight: 10
+    weight: 15
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_location:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 17
     region: content
     settings:
       match_operator: CONTAINS
@@ -322,7 +322,7 @@ content:
     third_party_settings: {  }
   field_page_access:
     type: options_select
-    weight: 14
+    weight: 21
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -367,13 +367,13 @@ content:
     third_party_settings: {  }
   field_resize_text_image:
     type: markup
-    weight: 11
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
   field_summary:
     type: text_textarea
-    weight: 11
+    weight: 16
     region: content
     settings:
       rows: 5
@@ -402,7 +402,7 @@ content:
             selector: ''
   field_text:
     type: text_textarea
-    weight: 12
+    weight: 16
     region: content
     settings:
       rows: 5
@@ -432,7 +432,7 @@ content:
             selector: ''
   field_type_of_page:
     type: options_buttons
-    weight: 9
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -498,7 +498,7 @@ content:
       conditional_fields: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 7
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -510,7 +510,7 @@ content:
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 8
+    weight: 14
     region: content
     settings:
       display_label: true
@@ -529,7 +529,7 @@ content:
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 9
+    weight: 15
     region: content
     settings:
       display_label: true
@@ -554,7 +554,7 @@ content:
             selector: ''
   title:
     type: string_textfield
-    weight: 6
+    weight: 12
     region: content
     settings:
       size: 60

@@ -1,6 +1,6 @@
 uuid: e6c95f58-4392-41e1-ac58-699a68c0de69
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_form_mode.media.small_4x3_aspect_ratio

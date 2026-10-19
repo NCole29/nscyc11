@@ -1,0 +1,33 @@
+uuid: 0612bf14-56bf-4cb0-8a1a-78e517b2011a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image
+    - media.type.image
+    - media.type.image_crop_16_9
+    - media.type.ride_picture
+    - node.type.announcement
+id: node.announcement.field_image
+field_name: field_image
+entity_type: node
+bundle: announcement
+label: Image
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image_crop_16_9: image_crop_16_9
+      image: image
+      ride_picture: ride_picture
+    sort:
+      field: created
+      direction: DESC
+    auto_create: false
+    auto_create_bundle: image
+field_type: entity_reference

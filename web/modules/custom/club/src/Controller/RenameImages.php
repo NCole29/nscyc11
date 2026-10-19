@@ -83,17 +83,17 @@ class RenameImages {
     }
     return;
   }
-
+  
   /**
    * Process ride image (limit 1). 
    */
-  public function fixRideImage($mid) {
+  public function fixOneImage($mid,$nodeType) {
     $media = Media::load($mid);
     $alt = $media->get('thumbnail')[0]->get('alt')->getString();
 
     // Get taxonomy term ID.
     $termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
-    $term = $termStorage->loadByProperties(['vid' => 'image_category', 'name' => 'Ride']);
+    $term = $termStorage->loadByProperties(['vid' => 'image_category', 'name' => $nodeType]);
     $term = reset($term);
     $image_cat = $term->id();
 

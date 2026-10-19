@@ -45,12 +45,21 @@ class ClubNodes {
       break;
 
       case 'announcement':
+        // Set image name & category.  
+        if (isset($node->field_image->target_id)) {
+          $this->renameImages->fixOneImage($node->field_image->target_id, 'Announcement');
+        }
+        $this->fixImage($node);
+        $this->clearContact($node); 
       case 'page':
         $this->fixImage($node);
         $this->clearContact($node); 
       break;
 
       case 'event':
+        if (isset($node->field_image->target_id)) {
+          $this->renameImages->fixOneImage($node->field_image->target_id, 'Event');
+        }
         $this->fixImage($node);
         $this->clearContact($node);
 
@@ -210,7 +219,7 @@ class ClubNodes {
 
     // Set image name & category.  
     if (isset($node->field_ride_picture->target_id)) {
-      $this->renameImages->fixRideImage($node->field_ride_picture->target_id);
+      $this->renameImages->fixOneImage($node->field_ride_picture->target_id, 'Ride');
     }
 
     // Clear Times if multiple time is unchecked.

@@ -62,7 +62,7 @@ third_party_settings:
                 settings:
                   view_mode: default
                 third_party_settings: {  }
-            weight: 6
+            weight: 7
             additional: {  }
           0b8359a9-e219-4902-9816-fb35e92731c9:
             uuid: 0b8359a9-e219-4902-9816-fb35e92731c9
@@ -77,7 +77,7 @@ third_party_settings:
                 label: hidden
                 settings: {  }
                 third_party_settings: {  }
-            weight: 5
+            weight: 6
             additional: {  }
           5d544eb0-e696-4a14-840c-2af05001d303:
             uuid: 5d544eb0-e696-4a14-840c-2af05001d303
@@ -94,7 +94,7 @@ third_party_settings:
                   view_mode: default
                   link: true
                 third_party_settings: {  }
-            weight: 4
+            weight: 5
             additional: {  }
           2ba2f98c-84b5-4d96-b7fb-f27765d85633:
             uuid: 2ba2f98c-84b5-4d96-b7fb-f27765d85633
@@ -117,7 +117,7 @@ third_party_settings:
                   rel: '0'
                   target: '0'
                 third_party_settings: {  }
-            weight: 5
+            weight: 6
             additional: {  }
           bb1f35bd-1016-4ab5-a92f-145402ef2b4f:
             uuid: bb1f35bd-1016-4ab5-a92f-145402ef2b4f
@@ -141,7 +141,7 @@ third_party_settings:
                   time_wrapper: false
                   localize: false
                 third_party_settings: {  }
-            weight: 3
+            weight: 4
             additional: {  }
           307c4c86-7efc-466b-a148-49b9d3ca3e1e:
             uuid: 307c4c86-7efc-466b-a148-49b9d3ca3e1e
@@ -159,7 +159,7 @@ third_party_settings:
                 label: above
                 settings: {  }
                 third_party_settings: {  }
-            weight: 7
+            weight: 8
             additional: {  }
           944e82e4-5b24-4c90-a3a4-66a0dc361baf:
             uuid: 944e82e4-5b24-4c90-a3a4-66a0dc361baf
@@ -177,7 +177,7 @@ third_party_settings:
                 label: above
                 settings: {  }
                 third_party_settings: {  }
-            weight: 8
+            weight: 9
             additional: {  }
           f20c6178-4540-4140-86da-05c24e7a3b6c:
             uuid: f20c6178-4540-4140-86da-05c24e7a3b6c
@@ -200,7 +200,7 @@ third_party_settings:
                     class:
                       - button
                 third_party_settings: {  }
-            weight: 6
+            weight: 7
             additional: {  }
           c4f23eb5-ff3f-40a6-ab21-c0bf85afac2c:
             uuid: c4f23eb5-ff3f-40a6-ab21-c0bf85afac2c
@@ -220,7 +220,7 @@ third_party_settings:
                   thousand_separator: ''
                   prefix_suffix: true
                 third_party_settings: {  }
-            weight: 7
+            weight: 8
             additional: {  }
           ed18025d-f7ca-4b98-8ed4-0cb26ca13dee:
             uuid: ed18025d-f7ca-4b98-8ed4-0cb26ca13dee
@@ -240,7 +240,7 @@ third_party_settings:
                   timezone_override: ''
                   format_type: medium
                 third_party_settings: {  }
-            weight: 8
+            weight: 9
             additional: {  }
           4fa46326-4018-4b6e-95ee-8535466371e1:
             uuid: 4fa46326-4018-4b6e-95ee-8535466371e1
@@ -250,7 +250,7 @@ third_party_settings:
               label_display: '0'
               context_mapping:
                 entity: layout_builder.entity
-            weight: 9
+            weight: 10
             additional: {  }
           f777fca9-ac74-45b1-9757-e67b698484bd:
             uuid: f777fca9-ac74-45b1-9757-e67b698484bd
@@ -268,11 +268,11 @@ third_party_settings:
                 label: visually_hidden
                 settings:
                   image_link: ''
-                  image_style: large_4_3
+                  image_style: large_16_9
                   image_loading:
                     attribute: lazy
                 third_party_settings: {  }
-            weight: 2
+            weight: 3
             additional: {  }
         third_party_settings: {  }
       -

@@ -3,13 +3,13 @@
 <div id="focal-point-preview-wrapper">
   <span class="derivatives-note note focal-preview-note">
   Click an image to see a larger preview. Scroll horizontally to see all styles.<br>
-  Ride pages use Ride pictures; Banner pages use Banner or Gallery style. Text editors use Large or Small images at 16:9 or 4:3 aspect ratio.
+  Ride pages use Ride pictures; Banner pages use Banner or Gallery style. 
   </span>
 
   <div id="focal-point-derivatives">
 
     {# Define the order of media types for image previews #}
-    {% set preferred_order = ['ride_picture', 'banner', 'gallery','small_4_3','small_16_9','large_4_3','large_16_9'] %}
+    {% set preferred_order = ['ride_picture', 'banner', 'gallery','image','small_4_3','small_16_9','large_4_3','large_16_9'] %}
 
     {# Render the styles in the requested order if they exist #}
     {% for style_name in preferred_order %}

@@ -5,7 +5,7 @@ dependencies:
   module:
     - media
 id: media.large_4x3
-label: 'Large 4x3'
+label: 'Embed large 4x3'
 description: null
 targetEntityType: media
 cache: true

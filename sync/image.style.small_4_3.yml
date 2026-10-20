@@ -9,7 +9,7 @@ dependencies:
 _core:
   default_config_hash: iYI99PNtkAPpWuZXZBfo1OxvTyx1luHVdMp-4TVoWHY
 name: small_4_3
-label: 'Small 4:3 (244px wide)'
+label: 'Embed small 4:3 (244px wide)'
 effects:
   b93165f4-4c67-46ba-88a9-a57a8870ff2d:
     uuid: b93165f4-4c67-46ba-88a9-a57a8870ff2d

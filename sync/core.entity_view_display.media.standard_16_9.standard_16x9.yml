@@ -1,13 +1,13 @@
-uuid: 45a89f3e-8a09-4181-a3e0-a3649894d0a8
+uuid: f5c7719c-b3bf-46c3-b839-80608cf8a028
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.media.small_16_9
-    - field.field.media.image.field_image_category
-    - field.field.media.image.field_media_image
-    - image.style.small_16_9
-    - media.type.image
+    - core.entity_view_mode.media.standard_16x9
+    - field.field.media.standard_16_9.field_image_category
+    - field.field.media.standard_16_9.field_media_image
+    - image.style.standard_16_9
+    - media.type.standard_16_9
   module:
     - layout_builder
     - svg_image
@@ -15,19 +15,17 @@ third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
-_core:
-  default_config_hash: 8ET773LTYQ43JOrvM8h_K9zrYLS9nw-ttxpaTcODqjY
-id: media.image.small_16_9
+id: media.standard_16_9.standard_16x9
 targetEntityType: media
-bundle: image
-mode: small_16_9
+bundle: standard_16_9
+mode: standard_16x9
 content:
   field_media_image:
     type: image
     label: visually_hidden
     settings:
       image_link: ''
-      image_style: small_16_9
+      image_style: standard_16_9
       image_loading:
         attribute: lazy
       svg_attributes:

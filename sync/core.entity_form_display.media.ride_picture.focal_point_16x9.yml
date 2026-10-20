@@ -1,0 +1,39 @@
+uuid: ec4b1ced-2e72-44cf-94b9-231237239dc6
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.focal_point_16x9
+    - field.field.media.ride_picture.field_image_category
+    - field.field.media.ride_picture.field_media_image
+    - image.style.thumbnail_focal_16_9
+    - media.type.ride_picture
+  module:
+    - focal_point
+    - imce
+id: media.ride_picture.focal_point_16x9
+targetEntityType: media
+bundle: ride_picture
+mode: focal_point_16x9
+content:
+  field_media_image:
+    type: image_focal_point
+    weight: 0
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail_focal_16_9
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings:
+      imce:
+        enabled: false
+hidden:
+  created: true
+  field_image_category: true
+  name: true
+  path: true
+  publish_on: true
+  status: true
+  uid: true
+  unpublish_on: true

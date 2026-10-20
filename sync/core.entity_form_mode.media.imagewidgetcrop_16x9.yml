@@ -1,0 +1,11 @@
+uuid: 8e2864d1-8773-4c0e-9810-a618de701cfb
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.imagewidgetcrop_16x9
+label: 'ImageWidgetCrop 16x9'
+description: null
+targetEntityType: media
+cache: true

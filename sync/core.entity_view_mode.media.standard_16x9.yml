@@ -1,11 +1,11 @@
-uuid: 817c7395-e5c0-4d79-a73a-7e166afdbf47
+uuid: 055fbb50-7619-4833-a96b-beb932ccb3d6
 langcode: en
 status: true
 dependencies:
   module:
     - media
-id: media.ride_picture
-label: 'Ride picture'
+id: media.standard_16x9
+label: 'Standard 16x9'
 description: null
 targetEntityType: media
 cache: true

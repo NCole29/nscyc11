@@ -1662,7 +1662,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if distance is not empty %}\r\n<a href=\"https://ridewithgps.com/routes/{{ rwgps_id_1 }}/cue_sheet\">Cue sheet</a>\r\n{% endif %}\r\n"
+            text: "{% if distance is not empty %}\r\n<a href=\"https://ridewithgps.com/routes/{{ rwgps_id_1 }}/cue_sheet\">Cues</a>\r\n{% endif %}\r\n"
             make_link: false
             path: ''
             absolute: false
@@ -1703,6 +1703,7 @@ display:
           type: string
           settings:
             link_to_entity: false
+            link_rel: canonical
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -1723,11 +1724,11 @@ display:
           entity_type: club_route
           entity_field: rwgps_id
           plugin_id: field
-          label: Files
+          label: Route
           exclude: false
           alter:
             alter_text: true
-            text: "{% if distance is not empty %}\r\n<a href=\"https://ridewithgps.com/routes/{{ rwgps_id }}.gpx?sub_format=track\">GPX</a>, \r\n<a href=\"http://www.ridewithgps.com/routes/{{ rwgps_id }}/send_to_device\" target=\"blank\">Send to device</a>\r\n{% endif %}"
+            text: "{% if distance is not empty %}\r\n<a href=\"http://www.ridewithgps.com/routes/{{ rwgps_id }}/send_to_device\" target=\"blank\">Send to device</a>\r\n{% endif %}"
             make_link: false
             path: ''
             absolute: false
@@ -1768,6 +1769,7 @@ display:
           type: string
           settings:
             link_to_entity: false
+            link_rel: canonical
           group_column: value
           group_columns: {  }
           group_rows: true

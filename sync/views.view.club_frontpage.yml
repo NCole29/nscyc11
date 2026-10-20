@@ -8,7 +8,7 @@ dependencies:
     - field.storage.node.field_image
     - field.storage.node.field_location
     - field.storage.node.field_summary
-    - image.style.ride_picture
+    - image.style.standard_16_9
     - node.type.announcement
     - node.type.event
   module:
@@ -821,7 +821,7 @@ display:
           type: media_thumbnail
           settings:
             image_link: ''
-            image_style: ride_picture
+            image_style: standard_16_9
             image_loading:
               attribute: lazy
           group_column: target_id

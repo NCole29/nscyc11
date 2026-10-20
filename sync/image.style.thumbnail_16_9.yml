@@ -17,15 +17,15 @@ effects:
     weight: -8
     data:
       extension: webp
-  58afe141-bcca-4d12-a269-b425862169a5:
-    uuid: 58afe141-bcca-4d12-a269-b425862169a5
+  61a08079-eb9d-4a54-81cd-c4bad4e2c8fc:
+    uuid: 61a08079-eb9d-4a54-81cd-c4bad4e2c8fc
     id: crop_crop
     weight: -10
     data:
       crop_type: crop_16_9
       automatic_crop_provider: null
-  487e549c-d263-45a6-bf23-356201910274:
-    uuid: 487e549c-d263-45a6-bf23-356201910274
+  cd56d1ed-49ec-4e7d-8930-3c3283709cb8:
+    uuid: cd56d1ed-49ec-4e7d-8930-3c3283709cb8
     id: image_scale
     weight: -9
     data:

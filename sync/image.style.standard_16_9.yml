@@ -4,8 +4,8 @@ status: true
 dependencies:
   module:
     - focal_point
-name: ride_picture
-label: 'Ride picture'
+name: standard_16_9
+label: 'Standard (16:9)'
 effects:
   e2aa8729-483a-44da-a9f5-271dc654beed:
     uuid: e2aa8729-483a-44da-a9f5-271dc654beed

@@ -9,7 +9,7 @@ dependencies:
 _core:
   default_config_hash: t96p7rPOr_fgqd2yGQzeslUN1l7SGi9fXkI8ofR-e0Q
 name: large_16_9
-label: 'Large 16:9 (750px wide)'
+label: 'Embed large 16:9 (750px wide)'
 effects:
   64fc85f1-1889-4681-b449-3c58c3a30e79:
     uuid: 64fc85f1-1889-4681-b449-3c58c3a30e79

@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.restricted_file.field_document_category
     - field.field.media.restricted_file.field_media_file_1
     - media.type.restricted_file
   module:
@@ -14,6 +15,14 @@ targetEntityType: media
 bundle: restricted_file
 mode: default
 content:
+  field_document_category:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
   field_media_file_1:
     type: file_default
     label: visually_hidden

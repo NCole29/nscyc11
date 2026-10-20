@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.restricted_file.field_document_category
     - field.field.media.restricted_file.field_media_file_1
     - media.type.restricted_file
   module:
@@ -14,6 +15,12 @@ targetEntityType: media
 bundle: restricted_file
 mode: default
 content:
+  field_document_category:
+    type: options_select
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_media_file_1:
     type: file_generic
     weight: 1

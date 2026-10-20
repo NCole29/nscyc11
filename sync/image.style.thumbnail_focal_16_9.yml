@@ -1,0 +1,23 @@
+uuid: ec171780-9b33-402b-abb8-945c54ca46ad
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: thumbnail_focal_16_9
+label: 'Thumbnail focal 16:9'
+effects:
+  1dd2d2f6-5777-4e89-809b-96c60ee90d5e:
+    uuid: 1dd2d2f6-5777-4e89-809b-96c60ee90d5e
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 178
+      height: 100
+      crop_type: focal_point
+  1d30eacd-2233-4f94-b32a-312f22adf7a7:
+    uuid: 1d30eacd-2233-4f94-b32a-312f22adf7a7
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

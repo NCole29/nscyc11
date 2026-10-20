@@ -5,7 +5,7 @@ dependencies:
   module:
     - media
 id: media.small_16x9_aspect_ratio
-label: 'Small 16x9 aspect ratio'
+label: 'Embed small 16x9 aspect ratio'
 description: null
 targetEntityType: media
 cache: true

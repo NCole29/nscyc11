@@ -308,7 +308,9 @@ content:
     weight: 15
     region: content
     settings:
-      media_types: {  }
+      media_types:
+        - standard_16_9
+        - ride_picture
     third_party_settings: {  }
   field_location:
     type: entity_reference_autocomplete

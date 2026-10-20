@@ -1,0 +1,11 @@
+uuid: 848508fa-0639-4674-86c2-942c8790f82c
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.focal_point_16x9
+label: 'Focal point 16x9'
+description: null
+targetEntityType: media
+cache: true

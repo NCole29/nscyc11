@@ -147,13 +147,10 @@ third_party_settings:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: media_thumbnail
+                type: entity_reference_entity_view
                 label: visually_hidden
                 settings:
-                  image_link: ''
-                  image_style: ride_picture
-                  image_loading:
-                    attribute: lazy
+                  view_mode: standard_16x9
                 third_party_settings: {  }
             weight: 0
             additional: {  }

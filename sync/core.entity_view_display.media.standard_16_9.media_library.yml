@@ -1,0 +1,38 @@
+uuid: 06ef88eb-7731-40f1-a077-9f42428b82c4
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.media_library
+    - field.field.media.standard_16_9.field_image_category
+    - field.field.media.standard_16_9.field_media_image
+    - image.style.thumbnail_focal_16_9
+    - media.type.standard_16_9
+  module:
+    - svg_image
+id: media.standard_16_9.media_library
+targetEntityType: media
+bundle: standard_16_9
+mode: media_library
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: thumbnail_focal_16_9
+      image_loading:
+        attribute: lazy
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_image_category: true
+  field_media_image: true
+  name: true
+  uid: true

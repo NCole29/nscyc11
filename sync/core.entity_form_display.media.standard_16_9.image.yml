@@ -1,18 +1,18 @@
-uuid: cc13a6f8-cc3b-45af-a316-85c74cf06778
+uuid: b47cfed1-3413-4eb8-a7b3-8f9a1c66a2e3
 langcode: en
 status: false
 dependencies:
   config:
-    - core.entity_form_mode.media.small_16x9_aspect_ratio
-    - field.field.media.image_crop_20_7.field_image_category
-    - field.field.media.image_crop_20_7.field_media_image
-    - media.type.image_crop_20_7
+    - core.entity_form_mode.media.image
+    - field.field.media.standard_16_9.field_image_category
+    - field.field.media.standard_16_9.field_media_image
+    - media.type.standard_16_9
   module:
     - path
-id: media.image_crop_20_7.small_16x9_aspect_ratio
+id: media.standard_16_9.image
 targetEntityType: media
-bundle: image_crop_20_7
-mode: small_16x9_aspect_ratio
+bundle: standard_16_9
+mode: image
 content:
   created:
     type: datetime_timestamp

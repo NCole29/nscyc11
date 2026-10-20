@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.media.media_library
+    - field.field.media.restricted_file.field_document_category
     - field.field.media.restricted_file.field_media_file_1
     - media.type.restricted_file
   module:
@@ -33,6 +34,12 @@ targetEntityType: media
 bundle: restricted_file
 mode: media_library
 content:
+  field_document_category:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_media_file_1:
     type: file_generic
     weight: 1

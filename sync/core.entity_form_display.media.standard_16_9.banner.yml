@@ -1,18 +1,18 @@
-uuid: de2d37a1-6f15-4bf9-babe-11e2f2c1d051
+uuid: 3287cc28-8a30-4644-a46b-f92a99dc4065
 langcode: en
 status: false
 dependencies:
   config:
-    - core.entity_form_mode.media.ride_picture
-    - field.field.media.gallery.field_image_category
-    - field.field.media.gallery.field_media_image
-    - media.type.gallery
+    - core.entity_form_mode.media.banner
+    - field.field.media.standard_16_9.field_image_category
+    - field.field.media.standard_16_9.field_media_image
+    - media.type.standard_16_9
   module:
     - path
-id: media.gallery.ride_picture
+id: media.standard_16_9.banner
 targetEntityType: media
-bundle: gallery
-mode: ride_picture
+bundle: standard_16_9
+mode: banner
 content:
   created:
     type: datetime_timestamp

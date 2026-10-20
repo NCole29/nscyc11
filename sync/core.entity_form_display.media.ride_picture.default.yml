@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.field.media.ride_picture.field_image_category
     - field.field.media.ride_picture.field_media_image
-    - image.style.thumbnail_ride
+    - image.style.thumbnail_16_9
     - media.type.ride_picture
   module:
     - focal_point
@@ -21,7 +21,7 @@ content:
     region: content
     settings:
       progress_indicator: throbber
-      preview_image_style: thumbnail_ride
+      preview_image_style: thumbnail_16_9
       preview_link: true
       offsets: '50,50'
     third_party_settings:

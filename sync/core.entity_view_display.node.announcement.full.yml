@@ -39,10 +39,13 @@ third_party_settings:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: entity_reference_entity_view
+                type: media_thumbnail
                 label: visually_hidden
                 settings:
-                  view_mode: large
+                  image_link: ''
+                  image_style: standard_16_9
+                  image_loading:
+                    attribute: lazy
                 third_party_settings: {  }
             weight: 0
             additional: {  }

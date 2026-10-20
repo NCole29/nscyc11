@@ -10,10 +10,11 @@ dependencies:
     - field.field.node.announcement.field_resize_text_image
     - field.field.node.announcement.field_summary
     - field.field.node.announcement.field_text
-    - image.style.small_4_3
+    - image.style.standard_16_9
     - node.type.announcement
   module:
     - media
+    - text
     - user
 id: node.announcement.past_event
 targetEntityType: node
@@ -25,20 +26,26 @@ content:
     label: visually_hidden
     settings:
       image_link: ''
-      image_style: small_4_3
+      image_style: standard_16_9
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 101
+    weight: 1
+    region: content
+  field_summary:
+    type: text_default
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden:
   field_contact_person: true
   field_contact_us: true
   field_resize_text_image: true
-  field_summary: true
   field_text: true

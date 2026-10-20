@@ -10,10 +10,12 @@ dependencies:
     - field.field.node.announcement.field_resize_text_image
     - field.field.node.announcement.field_summary
     - field.field.node.announcement.field_text
+    - image.style.standard_16_9
     - node.type.announcement
   module:
     - layout_builder
     - layout_builder_restrictions
+    - media
     - text
     - user
 third_party_settings:
@@ -40,11 +42,13 @@ content:
     weight: -20
     region: content
   field_image:
-    type: entity_reference_entity_view
+    type: media_thumbnail
     label: visually_hidden
     settings:
-      view_mode: small_16_9
-      link: false
+      image_link: ''
+      image_style: standard_16_9
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 0
     region: content

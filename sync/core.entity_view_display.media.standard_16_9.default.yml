@@ -1,0 +1,44 @@
+uuid: b52637d2-438e-4112-9dc4-49e0e874f7fa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.standard_16_9.field_image_category
+    - field.field.media.standard_16_9.field_media_image
+    - image.style.standard_16_9
+    - media.type.standard_16_9
+  module:
+    - svg_image
+id: media.standard_16_9.default
+targetEntityType: media
+bundle: standard_16_9
+mode: default
+content:
+  field_image_category:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_media_image:
+    type: image
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: standard_16_9
+      image_loading:
+        attribute: lazy
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  name: true
+  thumbnail: true
+  uid: true

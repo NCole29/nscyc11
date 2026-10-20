@@ -154,7 +154,7 @@ third_party_settings:
                 label: visually_hidden
                 settings:
                   image_link: ''
-                  image_style: small_4_3
+                  image_style: standard_16_9
                   image_loading:
                     attribute: lazy
                 third_party_settings: {  }

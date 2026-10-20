@@ -10,7 +10,7 @@ dependencies:
     - field.field.node.announcement.field_resize_text_image
     - field.field.node.announcement.field_summary
     - field.field.node.announcement.field_text
-    - image.style.small_16_9
+    - image.style.standard_16_9
     - node.type.announcement
   module:
     - media
@@ -25,7 +25,7 @@ content:
     label: visually_hidden
     settings:
       image_link: ''
-      image_style: small_16_9
+      image_style: standard_16_9
       image_loading:
         attribute: lazy
     third_party_settings: {  }

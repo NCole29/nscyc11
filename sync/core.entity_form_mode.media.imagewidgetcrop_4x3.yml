@@ -1,0 +1,11 @@
+uuid: b0d70f1b-407c-4aea-966b-622b26121183
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.imagewidgetcrop_4x3
+label: 'ImageWidgetCrop 4x3'
+description: null
+targetEntityType: media
+cache: true

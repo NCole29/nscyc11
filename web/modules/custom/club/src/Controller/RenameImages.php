@@ -85,9 +85,9 @@ class RenameImages {
   }
   
   /**
-   * Process ride image (limit 1). 
+   * Process announcement, event, and ride images (limit 1 per page). 
    */
-  public function fixOneImage($mid,$nodeType) {
+  public function fixOneImage($mid, $nodeType) {
     $media = Media::load($mid);
     $alt = $media->get('thumbnail')[0]->get('alt')->getString();
 
@@ -103,6 +103,7 @@ class RenameImages {
     if ($image_cat) {
       $media->set('field_image_category', $image_cat)->save();
     }
+    return;
   }
 
   /**

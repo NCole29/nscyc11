@@ -1,0 +1,38 @@
+uuid: 0808c695-41c9-462a-b092-68934697e391
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.standard_16_9.field_image_category
+    - field.field.media.standard_16_9.field_media_image
+    - image.style.thumbnail_focal_16_9
+    - media.type.standard_16_9
+  module:
+    - focal_point
+    - imce
+id: media.standard_16_9.default
+targetEntityType: media
+bundle: standard_16_9
+mode: default
+content:
+  field_media_image:
+    type: image_focal_point
+    weight: 0
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail_focal_16_9
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings:
+      imce:
+        enabled: false
+hidden:
+  created: true
+  field_image_category: true
+  name: true
+  path: true
+  publish_on: true
+  status: true
+  uid: true
+  unpublish_on: true

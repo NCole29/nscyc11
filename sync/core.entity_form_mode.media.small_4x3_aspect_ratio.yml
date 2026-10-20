@@ -5,7 +5,7 @@ dependencies:
   module:
     - media
 id: media.small_4x3_aspect_ratio
-label: 'Small 4x3 aspect ratio'
+label: 'Embed small 4x3 aspect ratio'
 description: null
 targetEntityType: media
 cache: true

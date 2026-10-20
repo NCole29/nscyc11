@@ -17,12 +17,6 @@ targetEntityType: media
 bundle: gallery
 mode: default
 content:
-  field_image_category:
-    type: options_select
-    weight: 1
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_media_image:
     type: image_focal_point
     weight: 0
@@ -37,6 +31,7 @@ content:
         enabled: false
 hidden:
   created: true
+  field_image_category: true
   name: true
   path: true
   publish_on: true

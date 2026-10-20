@@ -24,10 +24,12 @@ dependencies:
     - field.field.node.event.field_webform_limit
     - field.field.node.event.field_webform_results
     - field.field.node.event.layout_builder__layout
+    - image.style.thumbnail_focal_16_9
     - node.type.event
   module:
     - datetime
     - link
+    - media
     - smart_date
     - text
     - user
@@ -67,11 +69,13 @@ content:
     weight: 1
     region: content
   field_image:
-    type: entity_reference_entity_view
+    type: media_thumbnail
     label: visually_hidden
     settings:
-      view_mode: default
-      link: false
+      image_link: ''
+      image_style: thumbnail_focal_16_9
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 2
     region: content

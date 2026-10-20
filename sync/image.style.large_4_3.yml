@@ -9,7 +9,7 @@ dependencies:
 _core:
   default_config_hash: VBf4XY1LEkn6wnBOR7DZKu74syzQC0450SHMCITofQ4
 name: large_4_3
-label: 'Large 4:3 (560px wide)'
+label: 'Embed large 4:3 (560px wide)'
 effects:
   ae8b301c-2169-4db2-892a-f8fae4df6b12:
     uuid: ae8b301c-2169-4db2-892a-f8fae4df6b12

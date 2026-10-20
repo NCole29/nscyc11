@@ -1,0 +1,29 @@
+uuid: 466fa09a-7437-471d-b52a-ffc0cedf33ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_document_category
+    - media.type.restricted_file
+    - taxonomy.vocabulary.document_category
+id: media.restricted_file.field_document_category
+field_name: field_document_category
+entity_type: media
+bundle: restricted_file
+label: 'Document category'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      document_category: document_category
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

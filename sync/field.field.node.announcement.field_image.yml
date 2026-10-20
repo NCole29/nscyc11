@@ -4,9 +4,8 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_image
-    - media.type.image
-    - media.type.image_crop_16_9
     - media.type.ride_picture
+    - media.type.standard_16_9
     - node.type.announcement
 id: node.announcement.field_image
 field_name: field_image
@@ -22,12 +21,11 @@ settings:
   handler: 'default:media'
   handler_settings:
     target_bundles:
-      image_crop_16_9: image_crop_16_9
-      image: image
       ride_picture: ride_picture
+      standard_16_9: standard_16_9
     sort:
       field: created
       direction: DESC
     auto_create: false
-    auto_create_bundle: image
+    auto_create_bundle: ride_picture
 field_type: entity_reference

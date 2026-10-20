@@ -6,7 +6,7 @@ dependencies:
     - core.entity_view_mode.media.thumbnail
     - field.field.media.ride_picture.field_image_category
     - field.field.media.ride_picture.field_media_image
-    - image.style.thumbnail_ride
+    - image.style.thumbnail_focal_16_9
     - media.type.ride_picture
   module:
     - layout_builder
@@ -25,7 +25,7 @@ content:
     label: visually_hidden
     settings:
       image_link: ''
-      image_style: thumbnail_ride
+      image_style: thumbnail_focal_16_9
       image_loading:
         attribute: lazy
       svg_attributes:

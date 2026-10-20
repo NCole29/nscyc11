@@ -1,0 +1,32 @@
+uuid: 562987ab-5686-4a9e-b0a1-c59b940e9256
+langcode: en
+status: true
+dependencies:
+  module:
+    - crop
+    - scheduler
+third_party_settings:
+  scheduler:
+    expand_fieldset: when_required
+    fields_display_mode: vertical_tab
+    publish_enable: false
+    publish_past_date: error
+    publish_past_date_created: false
+    publish_required: false
+    publish_revision: false
+    publish_touch: false
+    show_message_after_update: true
+    unpublish_enable: false
+    unpublish_required: false
+    unpublish_revision: false
+  crop:
+    image_field: _none
+id: standard_16_9
+label: 'Standard (16:9)'
+description: 'Focal point crop. 16:9 aspect ratio enforced. Used for image field on Announcement and Event.'
+source: image
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: field_media_image
+field_map: {  }

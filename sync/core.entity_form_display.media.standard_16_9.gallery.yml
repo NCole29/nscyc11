@@ -1,18 +1,18 @@
-uuid: 4dda5e00-e02d-466f-96b5-417a773c429f
+uuid: e753a8f5-07ca-43b9-87e5-4d67190142b4
 langcode: en
 status: false
 dependencies:
   config:
-    - core.entity_form_mode.media.large_4x3_aspect_ratio
-    - field.field.media.gallery.field_image_category
-    - field.field.media.gallery.field_media_image
-    - media.type.gallery
+    - core.entity_form_mode.media.gallery
+    - field.field.media.standard_16_9.field_image_category
+    - field.field.media.standard_16_9.field_media_image
+    - media.type.standard_16_9
   module:
     - path
-id: media.gallery.large_4x3_aspect_ratio
+id: media.standard_16_9.gallery
 targetEntityType: media
-bundle: gallery
-mode: large_4x3_aspect_ratio
+bundle: standard_16_9
+mode: gallery
 content:
   created:
     type: datetime_timestamp

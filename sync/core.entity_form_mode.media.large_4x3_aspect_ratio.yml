@@ -5,7 +5,7 @@ dependencies:
   module:
     - media
 id: media.large_4x3_aspect_ratio
-label: 'Large 4x3 aspect ratio'
+label: 'Embed large 4x3 aspect ratio'
 description: null
 targetEntityType: media
 cache: true

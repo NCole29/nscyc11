@@ -23,10 +23,6 @@ class ClubTemplates {
         'template' => 'field--address',
         'base hook' => 'field',
       ],  
-      'address_plain__custom' => [
-        'template' => 'address-plain',
-        'base hook' => 'field',
-      ],
       // Adding 'uri' to variables so its available in paragraph templates.
       'fontawesomeicons' => [
         'variables' => [

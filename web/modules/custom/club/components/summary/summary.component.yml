@@ -12,13 +12,13 @@ props:
       title: URL
     image:
       type: string
-      label: The image URL or data.
+      label: Image
     date:
       type: string
       label: Date
     location:
       type: string
-      title: URL
+      title: Location
 slots:
   content:
     title: Content

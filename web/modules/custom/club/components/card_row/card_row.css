@@ -1,6 +1,8 @@
-.card-rcontainer {
+.card-row-container {
     justify-content: space-around; /* Distributes items with space around them */
     gap: 0; /* Adds a gap between flex items */
+    height: 35rem;
+    overflow: auto;
 }
 .card-row {
   background: #fafafa;
@@ -24,6 +26,11 @@
 .card-row .card-image {
   float: left;
   margin-right: 10px;
+}
+.card-row .card-more {
+  float: right;
+  margin-right: 1rem0px;
+  font-size: .8rem;
 }
 .card-row .card-content {
   padding: 0 1rem 0 1rem;

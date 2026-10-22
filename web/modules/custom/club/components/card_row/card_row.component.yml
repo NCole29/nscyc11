@@ -7,9 +7,6 @@ props:
     heading:
       type: string
       title: Heading
-    url:
-      type: string
-      title: URL
     image:
       type: string
       label: The image URL or data.
@@ -17,6 +14,9 @@ props:
       type: string
       label: Date
     location:
+      type: string
+      title: Location
+    link:
       type: string
       title: URL
 slots:

@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Theme override to display location address on a care (view mode = card)
+ *  with the location name displayed as a field label not a node title (no link).
+ * 
+ */
+#}
+
+{% set classes = [
+    'solo-clear',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div{{ content_attributes.addClass('solo-clear') }}>
+    Location:<strong>{{ label }}</strong>  {{ content|without('field_google_map') }}
+  </div>
+</article>

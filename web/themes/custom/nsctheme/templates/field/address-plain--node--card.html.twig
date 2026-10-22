@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * Default template for the 'plain' address formatter.
+ * Modified - put street, city, state on one line
+ */
+#}
+  {% if organization %}
+    {{ organization }} <br>
+  {% endif %}
+  {% if address_line1 %}
+    {{ address_line1 }}, {{ locality }}, {{ administrative_area.code }}
+  {% endif %}

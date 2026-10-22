@@ -1,6 +1,6 @@
 {# image is above content for mobile screens and to left otherwise #}
 <article class="card-row">
-  <div class="card-rcontainer">
+  <div class="card-row-container">
     {% if image %}
       <div>
         {{ image}}
@@ -8,13 +8,17 @@
     {% endif %}
     <div class="card-content">
      <h2 class="card-title"><a href="{{ url }}">{{ heading }}</a></h2>
-      {% if date or location %}
+      {% if date %}
         {{ date }}
-        {{ location }}
       {% endif %}
-    </div>
-    <div class="card-content">
+      {% if location %}
+        <p>{{ location }}</p>
+      {% endif %}
+
       {{ content }}
+    </div>
+    <div class="card-more">
+      {{ link }}
     </div>
   </div>
 </article>

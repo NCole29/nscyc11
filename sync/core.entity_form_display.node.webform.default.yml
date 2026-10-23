@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.webform.field_components
     - field.field.node.webform.field_contact_person
     - field.field.node.webform.field_contact_us
+    - field.field.node.webform.field_image
     - field.field.node.webform.field_page_access
     - field.field.node.webform.field_resize_banner_image
     - field.field.node.webform.field_resize_text_image
@@ -18,7 +19,6 @@ dependencies:
     - field.field.node.webform.field_webform_closing
     - field.field.node.webform.field_webform_limit
     - field.field.node.webform.field_webform_results
-    - field.field.node.webform.webform
     - node.type.webform
     - workflows.workflow.editorial
   module:
@@ -26,6 +26,7 @@ dependencies:
     - content_moderation
     - field_group
     - layout_paragraphs
+    - markup
     - media_library
     - path
     - scheduler
@@ -39,6 +40,7 @@ third_party_settings:
         - group_place_summary_on_home_page
         - group_banner
         - group_contact_link
+        - group_webform
       label: Tabs
       region: content
       parent_name: ''
@@ -53,11 +55,14 @@ third_party_settings:
     group_page_content:
       children:
         - title
+        - field_image
         - field_type_of_page
         - field_text
         - field_components
-        - webform
         - field_page_access
+        - moderation_state
+        - group_content_moderation
+        - group_how_to_add_images
       label: 'Page content'
       region: content
       parent_name: group_tabs
@@ -90,10 +95,11 @@ third_party_settings:
     group_banner:
       children:
         - banner_image
+        - group_how_to_prepare_banner_imag
       label: 'Banner image'
       region: content
       parent_name: group_tabs
-      weight: 3
+      weight: 4
       format_type: tab
       format_settings:
         classes: ''
@@ -109,7 +115,7 @@ third_party_settings:
       label: 'Contact link'
       region: content
       parent_name: group_tabs
-      weight: 4
+      weight: 5
       format_type: tab
       format_settings:
         classes: ''
@@ -119,20 +125,54 @@ third_party_settings:
         formatter: closed
         description: "Contact forms allow visitors to email club members without exposing personal email addresses. Choose a form for club officials, or select 'Personal contact form' to list specific club members in the field provided."
         required_fields: true
-    group_content_moderation:
+    group_how_to_add_images:
       children:
-        - moderation_state
-      label: 'Content moderation'
-      region: content
-      parent_name: ''
-      weight: 1
+        - field_resize_text_image
+      label: 'HOW TO ADD IMAGES'
+      region: hidden
+      parent_name: group_page_content
+      weight: 3
       format_type: details
+      format_settings:
+        classes: info-details
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: true
+    group_webform:
+      children:
+        - field_webform
+        - field_webform_limit
+        - field_webform_results
+      label: Webform
+      region: hidden
+      parent_name: group_tabs
+      weight: 3
+      format_type: tab
       format_settings:
         classes: ''
         show_empty_fields: false
         id: ''
         label_as_html: false
-        open: true
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_how_to_prepare_banner_imag:
+      children:
+        - field_resize_banner_image
+      label: 'HOW TO PREPARE BANNER IMAGES FOR UPLOAD'
+      region: hidden
+      parent_name: group_banner
+      weight: 8
+      format_type: details
+      format_settings:
+        classes: info-details
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: false
         description: ''
         required_fields: true
 id: node.webform.default
@@ -142,14 +182,14 @@ mode: default
 content:
   banner_image:
     type: media_library_widget
-    weight: 12
+    weight: 10
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_components:
     type: layout_paragraphs
-    weight: 5
+    weight: 6
     region: content
     settings:
       view_mode: default
@@ -180,7 +220,7 @@ content:
             selector: ''
   field_contact_person:
     type: entity_reference_autocomplete
-    weight: 8
+    weight: 9
     region: content
     settings:
       match_operator: CONTAINS
@@ -203,7 +243,7 @@ content:
             values: {  }
             value_form:
               -
-                target_id: personal
+                target_id: '56'
             effect: show
             effect_options: {  }
             selector: ''
@@ -213,15 +253,34 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_image:
+    type: media_library_widget
+    weight: 3
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
   field_page_access:
     type: options_select
     weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_resize_banner_image:
+    type: markup
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_resize_text_image:
+    type: markup
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_summary:
     type: text_textarea
-    weight: 10
+    weight: 6
     region: content
     settings:
       rows: 5
@@ -247,7 +306,7 @@ content:
             selector: ''
   field_text:
     type: text_textarea
-    weight: 4
+    weight: 5
     region: content
     settings:
       rows: 5
@@ -274,50 +333,75 @@ content:
             selector: ''
   field_type_of_page:
     type: options_buttons
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_webform:
+    type: webform_entity_reference_select
+    weight: 8
+    region: content
+    settings:
+      default_data: true
+      webforms: {  }
+    third_party_settings: {  }
+  field_webform_limit:
+    type: number
+    weight: 9
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_webform_results:
+    type: entity_reference_autocomplete
+    weight: 11
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 3
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 4
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 8
+    weight: 4
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 5
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 3
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 2
+    weight: 1
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 9
+    weight: 5
     region: content
     settings:
       display_label: true
@@ -350,27 +434,14 @@ content:
     third_party_settings: {  }
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 6
+    weight: 5
     region: content
     settings: {  }
-    third_party_settings: {  }
-  webform:
-    type: webform_entity_reference_select
-    weight: 6
-    region: content
-    settings:
-      default_data: true
-      webforms: {  }
     third_party_settings: {  }
 hidden:
   body: true
   created: true
-  field_resize_banner_image: true
-  field_resize_text_image: true
-  field_webform: true
   field_webform_closing: true
-  field_webform_limit: true
-  field_webform_results: true
   layout_builder__layout: true
   uid: true
   url_redirects: true

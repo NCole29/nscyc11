@@ -48,6 +48,7 @@ third_party_settings:
         - field_datetime
         - field_custom_repeat_rule
         - field_time
+        - moderation_state
         - group_master_ride_or_variation_
         - group_date
       label: 'Basic info'
@@ -195,22 +196,6 @@ third_party_settings:
         open: true
         description: 'Use the <strong>Description</strong> field to describe the routes. Use <strong>Additional information</strong> for items such as directions, parking information, details about planned cookouts, and road conditions.'
         required_fields: false
-    group_content_moderation:
-      children:
-        - moderation_state
-      label: 'Content moderation'
-      region: content
-      parent_name: ''
-      weight: 1
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        open: true
-        description: ''
-        required_fields: true
 _core:
   default_config_hash: gZ7PlGeTKO0WnadK4hHIzSWn5Z5ElqnPW1BFxvdPQKI
 id: node.recurring_ride.default
@@ -332,7 +317,7 @@ content:
             selector: ''
   field_location:
     type: entity_reference_autocomplete
-    weight: 14
+    weight: 19
     region: content
     settings:
       match_operator: CONTAINS
@@ -342,7 +327,7 @@ content:
     third_party_settings: {  }
   field_lunch_place:
     type: entity_reference_autocomplete
-    weight: 17
+    weight: 21
     region: content
     settings:
       match_operator: CONTAINS
@@ -371,7 +356,7 @@ content:
             selector: ''
   field_lunch_same:
     type: options_select
-    weight: 16
+    weight: 20
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -394,14 +379,14 @@ content:
     third_party_settings: {  }
   field_ride_picture:
     type: media_library_widget
-    weight: 10
+    weight: 11
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_rwgps_routes:
     type: entity_reference_autocomplete
-    weight: 18
+    weight: 22
     region: content
     settings:
       match_operator: CONTAINS
@@ -437,7 +422,7 @@ content:
             selector: ''
   moderation_state:
     type: moderation_state_default
-    weight: 4
+    weight: 23
     region: content
     settings: {  }
     third_party_settings: {  }

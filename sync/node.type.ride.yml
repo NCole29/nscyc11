@@ -4,7 +4,6 @@ status: true
 dependencies:
   module:
     - menu_ui
-    - node_revision_delete
     - scheduler
 third_party_settings:
   menu_ui:
@@ -23,23 +22,6 @@ third_party_settings:
     unpublish_enable: false
     unpublish_required: false
     unpublish_revision: false
-  node_revision_delete:
-    amount:
-      status: true
-      settings:
-        amount: 5
-    created:
-      status: true
-      settings:
-        age: 1
-    drafts:
-      status: false
-      settings:
-        age: 1
-    only_drafts:
-      status: false
-      settings:
-        age: 0
 _core:
   default_config_hash: dxkJD1kRKKC1aodNRfDvuV9lKhaA5WDig_zq2DviR3Q
 name: Ride

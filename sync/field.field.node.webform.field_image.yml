@@ -1,0 +1,31 @@
+uuid: 8c8aee5f-30f3-4ff0-af3f-df11271b6bc4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image
+    - media.type.ride_picture
+    - media.type.standard_16_9
+    - node.type.webform
+id: node.webform.field_image
+field_name: field_image
+entity_type: node
+bundle: webform
+label: Image
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      ride_picture: ride_picture
+      standard_16_9: standard_16_9
+    sort:
+      field: created
+      direction: DESC
+    auto_create: false
+    auto_create_bundle: ride_picture
+field_type: entity_reference

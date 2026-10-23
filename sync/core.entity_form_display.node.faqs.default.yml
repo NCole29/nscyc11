@@ -14,7 +14,6 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - allowed_formats
-    - conditional_fields
     - content_moderation
     - faqfield
     - field_group
@@ -23,31 +22,14 @@ dependencies:
     - text
 third_party_settings:
   field_group:
-    group_contact_link:
-      children:
-        - group_contact
-        - field_page_access
-      label: 'Contact link and access'
-      region: content
-      parent_name: group_faqs
-      weight: 3
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        formatter: closed
-        description: ''
-        required_fields: true
     group_faqs:
       children:
-        - group_contact_link
         - group_text
+        - group_faqs_tab
       label: FAQs
       region: content
       parent_name: ''
-      weight: 0
+      weight: 1
       format_type: tabs
       format_settings:
         classes: ''
@@ -59,14 +41,17 @@ third_party_settings:
     group_text:
       children:
         - title
+        - group_resize
         - field_text_above_faqs
         - field_text_below_faqs
-        - field_faq
-        - group_resize
+        - field_contact_us
+        - field_contact_person
+        - field_page_access
+        - moderation_state
       label: 'Page content'
-      region: hidden
+      region: content
       parent_name: group_faqs
-      weight: 2
+      weight: 0
       format_type: tab
       format_settings:
         classes: ''
@@ -76,30 +61,13 @@ third_party_settings:
         formatter: closed
         description: ''
         required_fields: true
-    group_contact:
-      children:
-        - field_contact_us
-        - field_contact_person
-      label: 'Contact link'
-      region: content
-      parent_name: group_contact_link
-      weight: 3
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        open: false
-        description: "Contact forms allow visitors to email club members without exposing personal email addresses. Choose a form for club officials, or select 'Personal contact form' to list specific club members in the field provided."
-        required_fields: true
     group_resize:
       children:
         - field_resize_text_image
       label: 'HOW TO ADD IMAGES IN THE TEXT EDITORS'
       region: hidden
       parent_name: group_text
-      weight: 2
+      weight: 5
       format_type: details
       format_settings:
         classes: info-details
@@ -109,20 +77,20 @@ third_party_settings:
         open: false
         description: ''
         required_fields: true
-    group_content_moderation:
+    group_faqs_tab:
       children:
-        - moderation_state
-      label: 'Content moderation'
+        - field_faq
+      label: FAQs
       region: content
-      parent_name: ''
+      parent_name: group_faqs
       weight: 1
-      format_type: details
+      format_type: tab
       format_settings:
         classes: ''
         show_empty_fields: false
         id: ''
         label_as_html: false
-        open: true
+        formatter: closed
         description: ''
         required_fields: true
 id: node.faqs.default
@@ -132,7 +100,7 @@ mode: default
 content:
   field_contact_person:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 9
     region: content
     settings:
       match_operator: CONTAINS
@@ -155,19 +123,19 @@ content:
             values: {  }
             value_form:
               -
-                target_id: personal
+                target_id: '56'
             effect: show
             effect_options: {  }
             selector: ''
   field_contact_us:
     type: options_select
-    weight: 4
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   field_faq:
     type: faqfield_default
-    weight: 5
+    weight: 2
     region: content
     settings:
       answer_widget: text_format
@@ -183,19 +151,19 @@ content:
     third_party_settings: {  }
   field_page_access:
     type: options_select
-    weight: 6
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
   field_resize_text_image:
     type: markup
-    weight: 3
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   field_text_above_faqs:
     type: text_textarea
-    weight: 3
+    weight: 6
     region: content
     settings:
       rows: 2
@@ -206,7 +174,7 @@ content:
         hide_guidelines: '1'
   field_text_below_faqs:
     type: text_textarea
-    weight: 4
+    weight: 7
     region: content
     settings:
       rows: 2
@@ -217,13 +185,13 @@ content:
         hide_guidelines: '1'
   moderation_state:
     type: moderation_state_default
-    weight: 4
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -236,9 +204,19 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 1
+    weight: 4
     region: content
     settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 3
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
@@ -248,7 +226,6 @@ hidden:
   publish_on: true
   publish_state: true
   sticky: true
-  uid: true
   unpublish_on: true
   unpublish_state: true
   url_redirects: true

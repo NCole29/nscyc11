@@ -6,8 +6,11 @@ dependencies:
     - core.entity_view_mode.media.media_library
     - field.storage.media.field_media_image
     - image.style.thumbnail
+    - media.type.public_file
+    - media.type.restricted_file
     - taxonomy.vocabulary.image_category
   module:
+    - entity_usage
     - media
     - node
     - svg_image
@@ -530,7 +533,7 @@ display:
         options:
           offset: 0
           pagination_heading_level: h4
-          items_per_page: 20
+          items_per_page: 0
           total_pages: null
           id: 0
           tags:
@@ -576,23 +579,7 @@ display:
           empty: true
           content: 'No media available.'
           tokenize: false
-      sorts:
-        created:
-          id: created
-          table: media_field_data
-          field: created
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: media
-          entity_field: created
-          plugin_id: date
-          order: DESC
-          expose:
-            label: ''
-            field_identifier: ''
-          exposed: false
-          granularity: second
+      sorts: {  }
       arguments: {  }
       filters:
         name:
@@ -721,6 +708,49 @@ display:
           hierarchy: false
           limit: true
           error_message: true
+        bundle_1:
+          id: bundle_1
+          table: media_field_data
+          field: bundle
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: media
+          entity_field: bundle
+          plugin_id: bundle
+          operator: 'not in'
+          value:
+            public_file: public_file
+            restricted_file: restricted_file
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -836,7 +866,7 @@ display:
           admin_label: ''
           plugin_id: text_custom
           empty: false
-          content: "<details class=\"info-details\">\r\n<summary>Files vs. Media Items</summary>\r\n<p>Every uploaded item appears in two different lists under the Content tab:\r\n<ul>\r\n<li><strong>File:</strong> The actual physical file (e.g., invoice.pdf or hero-banner.jpg) stored on the server.</li>\r\n<li><strong>Media Item:</strong> The Drupal record that points to the physical file. It controls how and where the item is displayed on the the website. </li>\r\n</ul>\r\nBoth lists display the same information so you can match a media item to its physical file. However, <strong>\"delete\" links behave differently.</strong> The Files list deletes the actual physical file while the Media list deletes the database record.\r\n<p><strong>Checking Media Usage</strong>\r\n<br>Before modifying or deleting an asset, click <strong>Usage count</strong> on the Media page. This shows exactly which web pages display the image or link to the file.</p> \r\n<p><strong>How to Delete Items Safely</strong>\r\n<ol>\r\n<li><strong>Always check \"Usage\" first</strong> to ensure you do not break live content.</li>\r\n<li><strong>Delete the Media item</strong> to remove unused file references from the database. The system will automatically clean up the associated physical file.</li>\r\n<li><strong>Use the Files list</strong> only if you need to bypass the automated cleanup and permanently delete the physical file immediately.</li>\r\n</details>\r\n<hr>"
+          content: "<details class=\"info-details\">\r\n<summary>Files vs. Media Items</summary>\r\n<p>Every uploaded item appears in two different lists under the Content tab:\r\n<ul>\r\n<li><strong>File:</strong> The actual physical file (e.g., invoice.pdf or hero-banner.jpg) stored on the server.</li>\r\n<li><strong>Media Item:</strong> The Drupal record that points to the physical file. It controls how and where the item is displayed on the the website. </li>\r\n</ul>\r\nBoth lists display the same information so you can match a media item to its physical file. However, <strong>\"delete\" links behave differently.</strong> The Files list deletes the actual physical file while the Media list deletes the database record.\r\n<p><strong>Checking Media Usage</strong>\r\n<br>Before modifying or deleting an asset, click <strong>Usage count</strong> on the Media page. This shows exactly which web pages display the image or link to the file.</p> \r\n<p><strong>How to Delete Items Safely</strong>\r\n<ol>\r\n<li><strong>Always check \"Usage\" first</strong> to ensure you do not break live content, but note that usage includes appearance in old revisions.</li>\r\n<li><strong>Delete the Media item</strong> to remove unused file references from the database. The system will automatically clean up the associated physical file.</li>\r\n<li><strong>Use the Files list</strong> only if you need to bypass the automated cleanup and permanently delete the physical file immediately.</li>\r\n</details>\r\n<hr>"
           tokenize: false
         area:
           id: area
@@ -848,7 +878,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: 'Most thumbnails show the original image, not the cropped version.'
+            value: 'Usage counts include usage in old revisions.'
             format: basic_html
           tokenize: false
         result:
@@ -1448,7 +1478,17 @@ display:
         group_by: false
         relationships: false
         fields: false
-      relationships: {  }
+      relationships:
+        media_to_usage_entity:
+          id: media_to_usage_entity
+          table: media
+          field: media_to_usage_entity
+          relationship: none
+          group_type: group
+          admin_label: 'Usage information (Media)'
+          entity_type: media
+          plugin_id: standard
+          required: false
       group_by: true
       display_description: ''
       display_extenders: {  }

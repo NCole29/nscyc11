@@ -1,0 +1,69 @@
+uuid: cff97619-0f9f-4296-88a6-07d1fb1e39f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser2
+    - field.field.node.webform.banner_image
+    - field.field.node.webform.body
+    - field.field.node.webform.field_components
+    - field.field.node.webform.field_contact_person
+    - field.field.node.webform.field_contact_us
+    - field.field.node.webform.field_image
+    - field.field.node.webform.field_page_access
+    - field.field.node.webform.field_resize_banner_image
+    - field.field.node.webform.field_resize_text_image
+    - field.field.node.webform.field_summary
+    - field.field.node.webform.field_text
+    - field.field.node.webform.field_type_of_page
+    - field.field.node.webform.field_webform
+    - field.field.node.webform.field_webform_closing
+    - field.field.node.webform.field_webform_limit
+    - field.field.node.webform.field_webform_results
+    - image.style.standard_16_9
+    - node.type.webform
+  module:
+    - media
+    - user
+id: node.webform.teaser2
+targetEntityType: node
+bundle: webform
+mode: teaser2
+content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
+  field_image:
+    type: media_thumbnail
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: standard_16_9
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  banner_image: true
+  body: true
+  field_components: true
+  field_contact_person: true
+  field_contact_us: true
+  field_page_access: true
+  field_resize_banner_image: true
+  field_resize_text_image: true
+  field_summary: true
+  field_text: true
+  field_type_of_page: true
+  field_webform: true
+  field_webform_closing: true
+  field_webform_limit: true
+  field_webform_results: true

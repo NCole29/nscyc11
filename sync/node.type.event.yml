@@ -4,7 +4,6 @@ status: true
 dependencies:
   module:
     - menu_ui
-    - node_revision_delete
     - scheduler
 third_party_settings:
   menu_ui:
@@ -24,23 +23,6 @@ third_party_settings:
     unpublish_enable: false
     unpublish_required: false
     unpublish_revision: false
-  node_revision_delete:
-    amount:
-      status: true
-      settings:
-        amount: 5
-    created:
-      status: true
-      settings:
-        age: 6
-    drafts:
-      status: false
-      settings:
-        age: 1
-    only_drafts:
-      status: false
-      settings:
-        age: 0
 _core:
   default_config_hash: IT2w0M8R-akIPHuSW86ktF-x6AbKEApzviiE9jWU-A0
 name: Event

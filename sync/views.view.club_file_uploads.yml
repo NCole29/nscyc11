@@ -9,8 +9,8 @@ dependencies:
     - webform.webform.board_meeting_minutes
     - webform.webform.club_reports
   module:
-    - smart_date
     - user
+    - views_year_filter
     - webform
     - webform_views
 id: club_file_uploads
@@ -799,7 +799,7 @@ display:
     display_plugin: block
     position: 2
     display_options:
-      title: 'Reports added in the past 7 days'
+      title: 'Meeting Minutes or Reports added in the past 7 days'
       fields:
         webform_submission_value:
           id: webform_submission_value

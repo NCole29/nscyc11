@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.webform.field_components
     - field.field.node.webform.field_contact_person
     - field.field.node.webform.field_contact_us
+    - field.field.node.webform.field_image
     - field.field.node.webform.field_page_access
     - field.field.node.webform.field_resize_banner_image
     - field.field.node.webform.field_resize_text_image
@@ -20,8 +21,10 @@ dependencies:
     - field.field.node.webform.field_webform_limit
     - field.field.node.webform.field_webform_results
     - field.field.node.webform.webform
+    - image.style.standard_16_9
     - node.type.webform
   module:
+    - media
     - text
     - user
     - webform
@@ -32,6 +35,17 @@ mode: teaser
 content:
   content_moderation_control:
     settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_image:
+    type: media_thumbnail
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: standard_16_9
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 0
     region: content

@@ -10,6 +10,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormInterface; 
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -26,10 +27,13 @@ class ClubForms {
     protected ConfigFactoryInterface $config,
     protected AccountProxyInterface $currentUser,
     protected EntityTypeManagerInterface $entityTypeManager,
+    protected MessengerInterface $messenger,
     protected RouteMatchInterface $routeMatch,
     protected RequestStack $requestStack
   ) {
   }
+
+
 
   /**
    * Implements hook_form_node_form_alter().
@@ -161,7 +165,14 @@ class ClubForms {
    */
   #[Hook('form_alter')]
   public function formAlter(&$form, $form_state, $form_id) {
+   // \Drupal::messenger()->addStatus('Form ID: ' . $form_id); 
+    
     switch($form_id) {
+      case 'media_library_add_form_upload':
+          $preview = 'Images may be cropped. After choosing an image, click Preview. Exit preview and move the crosshairs to obtain the desired focal point.';
+          $this->messenger->addStatus($preview);
+      break;
+
       case 'user_form':
         // If editing Own account, hide name (it's set in CiviCRM), status, and roles.
         $form_user = $this->routeMatch->getParameter('user')->id();

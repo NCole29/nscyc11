@@ -108,6 +108,23 @@ elements: |-
           width: 20
         '#parent': civicrm_1_contact_1_cg1_fieldset
         '#title': Phone
+    member_directory:
+      '#type': processed_text
+      '#text': '<h3>Member Directory</h3><p>Our member directory is available to current members and requires logging into the website. To protect your privacy, it displays only your name, city or town, and state; email addresses and phone numbers are not included. Members may use the directory to contact other members by clicking their name to open a contact form that routes your message directly to them.</p>'
+      '#format': basic_html
+    civicrm_1_contact_1_cg6_custom_51:
+      '#type': civicrm_options
+      '#title': 'Include in member directory'
+      '#civicrm_live_options': 0
+      '#options':
+        1: 'Yes'
+        0: 'No'
+      '#default_value': '1'
+      '#data_type': Boolean
+      '#has_help': true
+      '#form_key': civicrm_1_contact_1_cg6_custom_51
+      '#parent': civicrm_1_contact_1_cg6_fieldset
+      '#default_option': ''
     waiver:
       '#type': container
       waiver_markup:
@@ -383,7 +400,10 @@ handlers:
       civicrm_1_contact_1_email_is_primary: '1'
       contact_1_number_of_website: '0'
       contact_1_number_of_im: '0'
-      contact_1_number_of_cg6: '0'
+      contact_1_number_of_cg6: '1'
+      contact_1_settings_dynamic_custom_cg6: 0
+      civicrm_1_contact_1_cg6_custom_8: 0
+      civicrm_1_contact_1_cg6_custom_51: create_civicrm_webform_element
       prefix_known: ''
       prefix_unknown: ''
       toggle_message: 0
@@ -405,6 +425,8 @@ handlers:
         disable_unregister: 0
         allow_url_load: 0
         disable_primary_participant: 0
+      membership_options:
+        show_status_message: 1
       membership_1_number_of_membership: '1'
       civicrm_1_membership_1_membership_membership_type_id: '1'
       civicrm_1_membership_1_membership_financial_type_id: '2'
@@ -459,7 +481,8 @@ handlers:
             number_of_email: '1'
             number_of_website: '0'
             number_of_im: '0'
-            number_of_cg6: '0'
+            number_of_cg6: '1'
+            dynamic_custom_cg6: 0
             phone:
               1:
                 phone_type_id: '1'

@@ -153,6 +153,23 @@ elements: |-
         '#extra':
           width: 20
         '#parent': civicrm_1_contact_1_cg1_fieldset
+    processed_text:
+      '#type': processed_text
+      '#text': '<h3>Member Directory</h3><p>Our member directory is available to current members and requires logging into the website. To protect your privacy, it displays only your name, city or town, and state; email addresses and phone numbers are not included. Members may use the directory to contact other members by clicking their name to open a contact form that routes your message directly to them.</p>'
+      '#format': basic_html
+    civicrm_1_contact_1_cg6_custom_51:
+      '#type': civicrm_options
+      '#title': 'Include in member directory'
+      '#civicrm_live_options': 0
+      '#options':
+        1: 'Yes'
+        0: 'No'
+      '#default_value': '1'
+      '#data_type': Boolean
+      '#has_help': true
+      '#form_key': civicrm_1_contact_1_cg6_custom_51
+      '#parent': civicrm_1_contact_1_cg6_fieldset
+      '#default_option': ''
     waiver:
       '#type': container
       waiver_text:
@@ -367,7 +384,6 @@ handlers:
     conditions: {  }
     weight: null
     settings:
-      disable: 'Leave Fields and Save Settings'
       nid: 1
       number_of_contacts: '1'
       1_contact_type: individual
@@ -400,10 +416,10 @@ handlers:
       civicrm_1_contact_1_cg1_custom_1: create_civicrm_webform_element
       civicrm_1_contact_1_cg1_custom_2: create_civicrm_webform_element
       contact_1_number_of_other: '1'
-      civicrm_1_contact_1_other_group:
+      civicrm_1_contact_1_other_crmgroup:
         '': ''
       civicrm_1_contact_1_other_tag:
-        6: '6'
+        '': ''
       contact_1_number_of_address: '1'
       civicrm_1_contact_1_address_street_address: create_civicrm_webform_element
       civicrm_1_contact_1_address_street_name: 0
@@ -433,7 +449,10 @@ handlers:
       civicrm_1_contact_1_email_is_primary: '1'
       contact_1_number_of_website: '0'
       contact_1_number_of_im: '0'
-      contact_1_number_of_cg6: '0'
+      contact_1_number_of_cg6: '1'
+      contact_1_settings_dynamic_custom_cg6: 0
+      civicrm_1_contact_1_cg6_custom_8: 0
+      civicrm_1_contact_1_cg6_custom_51: create_civicrm_webform_element
       prefix_known: ''
       prefix_unknown: ''
       toggle_message: 0
@@ -455,6 +474,8 @@ handlers:
         disable_unregister: 0
         allow_url_load: 0
         disable_primary_participant: 0
+      membership_options:
+        show_status_message: 1
       membership_1_number_of_membership: '1'
       civicrm_1_membership_1_membership_membership_type_id: '1'
       civicrm_1_membership_1_membership_financial_type_id: '2'
@@ -515,11 +536,8 @@ handlers:
             number_of_email: '1'
             number_of_website: '0'
             number_of_im: '0'
-            number_of_cg6: '0'
-            other:
-              1:
-                tag:
-                  6: '6'
+            number_of_cg6: '1'
+            dynamic_custom_cg6: 0
             address:
               1:
                 location_type_id: '5'

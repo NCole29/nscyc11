@@ -18,22 +18,22 @@ description: '<p>User form to edit CiviCRM name, address, phone.</p>'
 categories:
   - User
 elements: |-
-  civicrm_1_contact_1_fieldset_fieldset:
-    '#type': fieldset
-    '#title': 'Contact Information'
-    '#form_key': civicrm_1_contact_1_fieldset_fieldset
-    civicrm_1_contact_1_contact_existing:
-      '#type': civicrm_contact
-      '#search_prompt': '- Choose existing -'
-      '#widget': hidden
-      '#form_key': civicrm_1_contact_1_contact_existing
-      '#allow_create': 1
-      '#none_prompt': '+ Create new +'
-      '#default': user
-      '#contact_type': individual
-      '#parent': civicrm_1_contact_1_fieldset_fieldset
-      '#extra': {  }
-      '#title': 'Existing Contact'
+  civicrm_1_contact_1_contact_existing:
+    '#type': civicrm_contact
+    '#search_prompt': '- Choose existing -'
+    '#widget': hidden
+    '#form_key': civicrm_1_contact_1_contact_existing
+    '#allow_create': 1
+    '#none_prompt': '+ Create new +'
+    '#default': user
+    '#contact_type': individual
+    '#parent': civicrm_1_contact_1_fieldset_fieldset
+    '#extra': {  }
+    '#title': 'Existing Contact'
+  contact_info:
+    '#type': processed_text
+    '#text': '<h3>Contact Information</h3>'
+    '#format': basic_html
   name:
     '#type': webform_flexbox
     civicrm_1_contact_1_contact_first_name:
@@ -141,10 +141,10 @@ elements: |-
         width: 20
       '#parent': civicrm_1_contact_1_fieldset_fieldset
       '#title': 'Email 3'
-  civicrm_1_contact_1_cg1_fieldset:
-    '#type': fieldset
-    '#title': 'Emergency Contact'
-    '#form_key': civicrm_1_contact_1_cg1_fieldset
+  emergency_contact:
+    '#type': processed_text
+    '#text': '<h3>Emergency Contact</h3>'
+    '#format': basic_html
   emergency:
     '#type': webform_flexbox
     civicrm_1_contact_1_cg1_custom_1:
@@ -165,6 +165,23 @@ elements: |-
         width: 20
       '#parent': civicrm_1_contact_1_cg1_fieldset
       '#title': Phone
+  member_directory:
+    '#type': processed_text
+    '#text': '<h3>Member Directory</h3><p>Our member directory is available to current members and requires logging into the website. To protect your privacy, it displays only your name, city or town, and state; email addresses and phone numbers are not included. Members may use the directory to contact other members by clicking their name to open a contact form that routes your message directly to them.</p>'
+    '#format': basic_html
+  civicrm_1_contact_1_cg6_custom_51:
+    '#type': civicrm_options
+    '#title': 'Include in member directory'
+    '#civicrm_live_options': 0
+    '#options':
+      1: 'Yes'
+      0: 'No'
+    '#default_value': '1'
+    '#data_type': Boolean
+    '#has_help': true
+    '#form_key': civicrm_1_contact_1_cg6_custom_51
+    '#parent': civicrm_1_contact_1_cg6_fieldset
+    '#default_option': ''
 css: ''
 javascript: ''
 settings:
@@ -359,7 +376,6 @@ handlers:
     conditions: {  }
     weight: null
     settings:
-      disable: 'Leave Fields and Save Settings'
       nid: 1
       number_of_contacts: '1'
       1_contact_type: individual
@@ -425,7 +441,10 @@ handlers:
       civicrm_1_contact_3_email_location_type_id: '5'
       contact_1_number_of_website: '0'
       contact_1_number_of_im: '0'
-      contact_1_number_of_cg6: '0'
+      contact_1_number_of_cg6: '1'
+      contact_1_settings_dynamic_custom_cg6: 0
+      civicrm_1_contact_1_cg6_custom_8: 0
+      civicrm_1_contact_1_cg6_custom_51: create_civicrm_webform_element
       prefix_known: ''
       prefix_unknown: ''
       toggle_message: 0
@@ -447,6 +466,8 @@ handlers:
         disable_unregister: 0
         allow_url_load: 0
         disable_primary_participant: 0
+      membership_options:
+        show_status_message: 1
       membership_1_number_of_membership: '0'
       civicrm_1_contribution_1_contribution_enable_contribution: '0'
       checksum_text: ''
@@ -473,7 +494,8 @@ handlers:
             number_of_email: '3'
             number_of_website: '0'
             number_of_im: '0'
-            number_of_cg6: '0'
+            number_of_cg6: '1'
+            dynamic_custom_cg6: 0
             address:
               1:
                 location_type_id: '5'

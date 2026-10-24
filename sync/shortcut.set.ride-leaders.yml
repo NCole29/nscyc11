@@ -1,8 +1,0 @@
-uuid: 3beec9c0-4fa3-4100-b6c4-3ce3baed3268
-langcode: en
-status: true
-dependencies: {  }
-_core:
-  default_config_hash: g8X3RAdpQPkYdxUVGUaf8JFTjHlgEyCzCZWI2uJwzOM
-id: ride-leaders
-label: 'Ride leaders'

@@ -20,3 +20,8 @@
 .preview-note {
   color: #000 !important;
 }
+
+/* Hides the text format selector wrapper for the FAQ field */
+.field--name-field-faq .filter-wrapper {
+  display: none;
+}

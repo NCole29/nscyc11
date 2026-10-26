@@ -1,0 +1,66 @@
+@media(max-width: 767px) {
+  h2 {
+    font-size:20px!important;
+    margin:0;
+  }
+  h3 {
+    font-size:18px!important;
+    margin:0;
+  }
+  p {
+    margin-bottom: .5rem;
+  }
+  .site-logo-img {
+    height:auto!important;
+    width:auto;
+    padding-bottom: 1rem;
+  }
+
+  /* User account menu on top right of home page */
+  .solo-inner ul.navigation__menubar>li.nav__menu-item>a,
+  .solo-inner ul.navigation__menubar>li.nav__menu-item>span,
+  .solo-inner ul.navigation__menubar>li.nav__menu-item>button {
+    padding: 0 1rem !important;
+  }
+
+  .bottom-container {
+    margin-top: -2rem!important;
+  }
+  .picture-margins {
+    margin: -1.5rem -1rem 1rem -1rem;
+  }
+  /* Text */
+  .field p,
+  .field li,
+  .field span {
+    line-height: 1.5rem!important; /*var(--solo-px28);*/
+  }
+
+  /* user account menu on home page */
+  .nav__menu-link .nav__menu-link-account {
+    padding: 0.25rem 0;
+  }
+
+  .solo-outer .region-inner {
+    padding: .25rem;
+    min-width: 0;
+  }
+}
+
+/*
+@media(min-width: 690px) {
+  .layout--twocol-section.layout--twocol-section--50-50 > .layout__region--first,
+  .layout--twocol-section.layout--twocol-section--50-50 > .layout__region--second {
+    padding-right:1rem;
+  }
+}
+*/
+/** Do not use columns on width < 690px. This negates mid-width: 40em (40em = 640px) 
+    because it messes up iPhone SE in landscape (667px width)
+@media(max-width: 690px) {
+  .layout--twocol-section.layout--twocol-section--50-50 > .layout__region--first,
+  .layout--twocol-section.layout--twocol-section--50-50 > .layout__region--second {
+    flex: 0 1 100%;
+  }
+}
+   */

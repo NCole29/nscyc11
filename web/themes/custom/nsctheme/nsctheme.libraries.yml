@@ -3,6 +3,7 @@ nsctheme-global:
     theme:
       css/club-accordion.css: { } 
       css/club-calendar.css: { }
+      css/club-mobile.css: { }
       css/club-solo.css: { }
       css/club-tables.css: { }
   js:

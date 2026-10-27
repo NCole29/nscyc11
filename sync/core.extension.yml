@@ -18,7 +18,6 @@ module:
   civicrm_member_roles: 0
   civicrmtheme: 0
   ckeditor5: 0
-  ckeditor_accordion: 0
   club: 0
   club_leader: 0
   club_reports: 0
@@ -83,6 +82,7 @@ module:
   mailer_transport: 0
   markup: 0
   masquerade: 0
+  maxlength: 0
   media: 0
   media_library: 0
   menu_link_attributes: 0

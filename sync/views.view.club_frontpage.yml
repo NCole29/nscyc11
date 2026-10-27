@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
     - field.storage.node.field_date
     - field.storage.node.field_image
     - field.storage.node.field_location
@@ -1037,7 +1036,7 @@ display:
       row:
         type: sdc_component
         options:
-          component_id: 'club:card_row'
+          component_id: 'nsctheme:card_row'
           props:
             heading:
               field: title

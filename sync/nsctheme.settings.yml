@@ -154,7 +154,7 @@ classes_content: ''
 align_content: region-left
 classes_sidebar_second: ''
 align_sidebar_second: region-left
-classes_bottom_container: ''
+classes_bottom_container: ride-block-gap
 site_regions_bottom_disable: '0'
 site_regions_bottom_rounded: ''
 site_regions_bottom_border: true
@@ -163,7 +163,7 @@ site_regions_bottom_animate_hover: false
 enable_aria_bottom: false
 classes_bottom_first: ride-block-border
 align_bottom_first: region-left
-classes_bottom_second: ride-block-border
+classes_bottom_second: 'ride-block-border '
 align_bottom_second: region-left
 classes_bottom_third: ride-block-border
 align_bottom_third: region-left

@@ -7,15 +7,20 @@ dependencies:
     - media.type.ride_picture
     - media.type.standard_16_9
     - node.type.announcement
+  content:
+    - 'media:standard_16_9:0de5c85a-7f37-4d55-9993-2e1c45141233'
 id: node.announcement.field_image
 field_name: field_image
 entity_type: node
 bundle: announcement
 label: Image
-description: ''
-required: false
+description: 'An image is required. You can keep the default image, upload a new one, or choose one from the library. If you delete the default image, it will still be available in the library to add back later.'
+required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    target_uuid: 0de5c85a-7f37-4d55-9993-2e1c45141233
+    weight: 0
 default_value_callback: ''
 settings:
   handler: 'default:media'

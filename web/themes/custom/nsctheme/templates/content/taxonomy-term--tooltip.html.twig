@@ -1,0 +1,14 @@
+{# templates/content/taxonomy-term--tooltip.html.twig #}
+{#
+{{ attach_library('tooltip/tooltip') }}
+
+{% set options = {"content": term.description.getString(), "placement": "top"} %}
+<div data-tooltip="{{ options|json_encode }}">{{ name }}</div>
+
+<span class="tx-tooltip" tabindex="0">
+  {{ term_name }}
+  <span class="tx-tooltip-text">
+     {{ description }}
+  </span>
+</span>
+#}

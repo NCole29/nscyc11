@@ -15,7 +15,7 @@ field_name: field_summary
 entity_type: node
 bundle: event
 label: 'Summary for home page'
-description: "Summary should be brief, but there is no character limit.<br>\r\nTo insert images, click the media icon and \"Choose file\" to upload new or scroll down and select existing image. Select image alignment from the image toolbar (size is fixed). Hover over an image and click arrows to insert text before or after the image.<br>\r\nLinks may optionally be displayed as \"buttons\" using Styles on the toolbar."
+description: ''
 required: false
 translatable: true
 default_value: {  }

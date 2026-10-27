@@ -17,16 +17,10 @@ contentTypes:
     recurring_ride: recurring_ride
     ride: ride
   negate: 0
-field:
-  node-field_additional_information: node-field_additional_information
-  node-field_description: node-field_description
-  node-field_location_info: node-field_location_info
-  node-field_summary: node-field_summary
-  node-field_text: node-field_text
-  paragraph-field_text: paragraph-field_text
-  block_content-body: block_content-body
-  node-body: node-body
+field: {  }
 view:
+  card: '0'
+  diff: '0'
   full: '0'
   past_event: '0'
   rss: '0'
@@ -36,10 +30,11 @@ view:
   teaser2: '0'
   token: '0'
 formats:
-  full_html: full_html
+  basic_html: basic_html
   ride_page: ride_page
-  admin_html: '0'
-  basic_html: '0'
   summary_fields: '0'
+  email_html: '0'
   plain_text: '0'
+  webform_default: '0'
 allowed_html_tags: '<b> <i> <strong> <span> <br> <a>'
+excluded_tags: ''

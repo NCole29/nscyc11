@@ -67,6 +67,42 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 0
             additional: {  }
+          1e25fd9c-5897-498f-a525-df040c8c1fec:
+            uuid: 1e25fd9c-5897-498f-a525-df040c8c1fec
+            region: first
+            configuration:
+              id: 'field_block:node:announcement:field_contact_us'
+              label: Contact
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: contact_admin_mailbox
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          c35d44f4-4006-465e-ad37-d3b6de6f5e3e:
+            uuid: c35d44f4-4006-465e-ad37-d3b6de6f5e3e
+            region: first
+            configuration:
+              id: 'field_block:node:announcement:field_contact_person'
+              label: Contact
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: contact_person
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 2
+            additional: {  }
         third_party_settings: {  }
   layout_builder_restrictions:
     allowed_block_categories: {  }

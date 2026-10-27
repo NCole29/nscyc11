@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8bbe666d5f7eb0300909b93f0d86cc20",
+    "content-hash": "938a8ebeb17e4ede514a1a88fb82d21e",
     "packages": [
         {
             "name": "adrienrn/php-mimetyper",
@@ -3837,57 +3837,6 @@
             }
         },
         {
-            "name": "drupal/ckeditor_accordion",
-            "version": "2.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/ckeditor_accordion.git",
-                "reference": "2.3.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ckeditor_accordion-2.3.0.zip",
-                "reference": "2.3.0",
-                "shasum": "570b4e668865ec0b991afa7c44c792b445be9ca8"
-            },
-            "require": {
-                "drupal/core": "^9.4 || ^10 || ^11"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "2.3.0",
-                    "datestamp": "1750873345",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Juhani Väätäjä (j-vee)",
-                    "homepage": "https://www.drupal.org/u/j-vee",
-                    "role": "Maintainer"
-                },
-                {
-                    "name": "Rotem Reiss (rreiss)",
-                    "homepage": "https://www.drupal.org/u/rreiss",
-                    "role": "Maintainer"
-                }
-            ],
-            "description": "Accordion plugin for CKEditor 5.",
-            "homepage": "https://www.drupal.org/project/ckeditor_accordion",
-            "support": {
-                "source": "https://git.drupalcode.org/project/ckeditor_accordion",
-                "issues": "https://www.drupal.org/project/issues/ckeditor_accordion"
-            }
-        },
-        {
             "name": "drupal/coffee",
             "version": "2.0.1",
             "source": {
@@ -7291,6 +7240,82 @@
                 "source": "https://git.drupal.org/project/masquerade.git",
                 "issues": "https://www.drupal.org/project/issues/masquerade",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
+            }
+        },
+        {
+            "name": "drupal/maxlength",
+            "version": "3.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/maxlength.git",
+                "reference": "3.2.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/maxlength-3.2.1.zip",
+                "reference": "3.2.1",
+                "shasum": "0bc4ad82d75fd598ec5bef29febeed7c5e008df3"
+            },
+            "require": {
+                "drupal/core": "^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.2.1",
+                    "datestamp": "1792601813",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Marius Scurtescu (mariuss)",
+                    "homepage": "https://www.drupal.org/u/mariuss",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Clayton Dewey (cedewey)",
+                    "homepage": "https://www.drupal.org/u/cedewey",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Daniel Wehner (dawehner)",
+                    "homepage": "https://www.drupal.org/u/dawehner",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Paulino Michelazzo (pmichelazzo)",
+                    "homepage": "https://www.drupal.org/u/pmichelazzo",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Jeff Hipp (hipp2bsquare)",
+                    "homepage": "https://www.drupal.org/u/hipp2bsquare",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Steven DuBois (srdtwc)",
+                    "homepage": "https://www.drupal.org/u/srdtwc",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Adam Nagy (joevagyok)",
+                    "homepage": "https://www.drupal.org/u/joevagyok",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "MaxLength allows a soft or hard character limit to be set on titles, text fields and link fields.",
+            "homepage": "https://www.drupal.org/project/maxlength",
+            "support": {
+                "source": "https://git.drupalcode.org/project/maxlength",
+                "issues": "https://www.drupal.org/project/issues/maxlength"
             }
         },
         {

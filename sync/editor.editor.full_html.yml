@@ -24,8 +24,6 @@ settings:
       - link
       - drupalMedia
       - insertTable
-      - anchor
-      - Accordion
       - style
       - blockQuote
       - removeFormat

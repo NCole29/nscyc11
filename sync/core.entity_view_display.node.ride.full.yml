@@ -46,7 +46,7 @@ third_party_settings:
         layout_settings:
           label: ''
           context_mapping: {  }
-          column_widths: 50-50
+          column_widths: 33-67
         components:
           d2b9eabe-27db-4f0d-9252-9e28081dc5bc:
             uuid: d2b9eabe-27db-4f0d-9252-9e28081dc5bc
@@ -65,23 +65,7 @@ third_party_settings:
                 settings:
                   link: false
                 third_party_settings: {  }
-            weight: 3
-            additional: {  }
-          9339ed92-2b31-4097-870f-43b50e73effc:
-            uuid: 9339ed92-2b31-4097-870f-43b50e73effc
-            region: second
-            configuration:
-              id: 'field_block:node:ride:field_time'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: string
-                label: above
-                settings:
-                  link_to_entity: false
-                third_party_settings: {  }
-            weight: 9
+            weight: 5
             additional: {  }
           2aa2ffda-04f5-4bac-8a2a-0ad131b8b8fc:
             uuid: 2aa2ffda-04f5-4bac-8a2a-0ad131b8b8fc
@@ -99,25 +83,6 @@ third_party_settings:
                 label: above
                 settings: {  }
                 third_party_settings: {  }
-            weight: 5
-            additional: {  }
-          9d6209e0-63e9-42b9-b09f-5c2a45cf0690:
-            uuid: 9d6209e0-63e9-42b9-b09f-5c2a45cf0690
-            region: second
-            configuration:
-              id: 'field_block:node:ride:field_location'
-              label: 'Starting location'
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: entity_reference_entity_view
-                label: above
-                settings:
-                  view_mode: default
-                third_party_settings: {  }
             weight: 10
             additional: {  }
           930d064d-721f-4dc0-8a0f-4d941ec0798b:
@@ -133,7 +98,7 @@ third_party_settings:
                 label: above
                 settings: {  }
                 third_party_settings: {  }
-            weight: 13
+            weight: 14
             additional: {  }
           58f10125-4069-40f5-bc25-a90bf56c2c4e:
             uuid: 58f10125-4069-40f5-bc25-a90bf56c2c4e
@@ -154,21 +119,6 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 0
             additional: {  }
-          42d4572a-2f53-4289-ad83-66e7e0c3cde1:
-            uuid: 42d4572a-2f53-4289-ad83-66e7e0c3cde1
-            region: first
-            configuration:
-              id: 'field_block:node:ride:field_description'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: text_default
-                label: visually_hidden
-                settings: {  }
-                third_party_settings: {  }
-            weight: 2
-            additional: {  }
           043652b9-24c9-48bc-a0b3-0e8267f527d4:
             uuid: 043652b9-24c9-48bc-a0b3-0e8267f527d4
             region: first
@@ -186,11 +136,70 @@ third_party_settings:
                 settings:
                   allowed_html_tags: '<b><i><strong><span><br><a>'
                 third_party_settings: {  }
-            weight: 4
+            weight: 6
+            additional: {  }
+          6133e5e1-6dfa-4308-bcd6-93a8aa976392:
+            uuid: 6133e5e1-6dfa-4308-bcd6-93a8aa976392
+            region: first
+            configuration:
+              id: 'extra_field_block:node:ride:content_moderation_control'
+              label: 'Moderation control'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 11
+            additional: {  }
+          023a86c8-6145-4f39-bd20-20ca6c99734d:
+            uuid: 023a86c8-6145-4f39-bd20-20ca6c99734d
+            region: second
+            configuration:
+              id: 'views_block:club_route_blocks-route_list'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: null
+            weight: 15
+            additional: {  }
+          9bb2b3ef-4a0b-46a9-8d3f-8254165e972e:
+            uuid: 9bb2b3ef-4a0b-46a9-8d3f-8254165e972e
+            region: content
+            configuration:
+              id: 'field_block:node:ride:field_rwgps_routes'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_label
+                label: above
+                settings:
+                  link: false
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          42d4572a-2f53-4289-ad83-66e7e0c3cde1:
+            uuid: 42d4572a-2f53-4289-ad83-66e7e0c3cde1
+            region: second
+            configuration:
+              id: 'field_block:node:ride:field_description'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: visually_hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 8
             additional: {  }
           0e11bf74-b875-48bb-b684-060152492cfa:
             uuid: 0e11bf74-b875-48bb-b684-060152492cfa
-            region: second
+            region: first
             configuration:
               id: 'field_block:node:ride:field_date'
               label: Date
@@ -210,11 +219,64 @@ third_party_settings:
                   time_wrapper: false
                   localize: false
                 third_party_settings: {  }
+            weight: 3
+            additional: {  }
+          9339ed92-2b31-4097-870f-43b50e73effc:
+            uuid: 9339ed92-2b31-4097-870f-43b50e73effc
+            region: first
+            configuration:
+              id: 'field_block:node:ride:field_time'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: string
+                label: above
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: 4
+            additional: {  }
+          9d6209e0-63e9-42b9-b09f-5c2a45cf0690:
+            uuid: 9d6209e0-63e9-42b9-b09f-5c2a45cf0690
+            region: first
+            configuration:
+              id: 'field_block:node:ride:field_location'
+              label: 'Starting location'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_entity_view
+                label: above
+                settings:
+                  view_mode: default
+                third_party_settings: {  }
+            weight: 7
+            additional: {  }
+          f38cc5eb-1499-4c87-89a2-ab7c46b4bb09:
+            uuid: f38cc5eb-1499-4c87-89a2-ab7c46b4bb09
+            region: first
+            configuration:
+              id: 'field_block:node:ride:field_lunch_same'
+              label: 'Lunch place'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: list_default
+                label: above
+                settings: {  }
+                third_party_settings: {  }
             weight: 8
             additional: {  }
           3a981a25-2b38-43ac-aa5c-3c4532e0babb:
             uuid: 3a981a25-2b38-43ac-aa5c-3c4532e0babb
-            region: second
+            region: first
             configuration:
               id: 'field_block:node:ride:field_lunch_place'
               label: 'Lunch location'
@@ -229,69 +291,7 @@ third_party_settings:
                 settings:
                   view_mode: default
                 third_party_settings: {  }
-            weight: 12
-            additional: {  }
-          f38cc5eb-1499-4c87-89a2-ab7c46b4bb09:
-            uuid: f38cc5eb-1499-4c87-89a2-ab7c46b4bb09
-            region: second
-            configuration:
-              id: 'field_block:node:ride:field_lunch_same'
-              label: 'Lunch place'
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: list_default
-                label: above
-                settings: {  }
-                third_party_settings: {  }
-            weight: 11
-            additional: {  }
-          6133e5e1-6dfa-4308-bcd6-93a8aa976392:
-            uuid: 6133e5e1-6dfa-4308-bcd6-93a8aa976392
-            region: first
-            configuration:
-              id: 'extra_field_block:node:ride:content_moderation_control'
-              label: 'Moderation control'
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                settings: {  }
-                third_party_settings: {  }
-            weight: 6
-            additional: {  }
-          023a86c8-6145-4f39-bd20-20ca6c99734d:
-            uuid: 023a86c8-6145-4f39-bd20-20ca6c99734d
-            region: second
-            configuration:
-              id: 'views_block:club_route_blocks-route_list'
-              label: ''
-              label_display: visible
-              provider: views
-              context_mapping: {  }
-              views_label: ''
-              items_per_page: null
-            weight: 14
-            additional: {  }
-          9bb2b3ef-4a0b-46a9-8d3f-8254165e972e:
-            uuid: 9bb2b3ef-4a0b-46a9-8d3f-8254165e972e
-            region: content
-            configuration:
-              id: 'field_block:node:ride:field_rwgps_routes'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: entity_reference_label
-                label: above
-                settings:
-                  link: false
-                third_party_settings: {  }
-            weight: 0
+            weight: 9
             additional: {  }
         third_party_settings: {  }
       -

@@ -46,6 +46,15 @@ h3 a) {
   font-size: 13px !important;
 }
 
+.node__content {
+  margin-block-end: .25rem;
+}
+
+/* tooltip-taxonomy */
+.tx-tooltip .tx-tooltip-text {
+  width: 20rem;
+}
+
 /* MENU (CSS applied in src/Hook/ClubMenus.php) */
 .home-button {
   padding: 0.95rem 0.5rem 0 0!important;
@@ -121,13 +130,20 @@ h3 a) {
   margin-top: 0;
   margin-bottom: 0;  
 }
-/* bottom- container ride blocks (Join Our Club, First Time NSC Riders, NSC Ride Safety Culture */
-/* css applied in Appearance > NSC solo subtheme > CSS classes (applied to each container) */ 
+
+/*------------------------------------------------------------------------------------------------------------
+  BOTTOM CONTAINER - USED ONLY FOR RIDE BLOCKS (Join Our Club, First Time NSC Riders, NSC Ride Safety Culture)
+  Both css classes applied in Appearance > NSC solo subtheme > Bottom containers > CSS classes 
+ -------------------------------------------------------------------------------------------------------------*/
 .ride-block-border {
   border:0!important;
   border-left: 4px solid #0b294a!important;
   margin-bottom: 1rem;
 }
+.ride-block-gap .solo-col {
+  gap:0!important;
+}
+
 
 /* applied in field_ride_picture template */
 .picture-margins {

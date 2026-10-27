@@ -26,7 +26,6 @@ settings:
       - blockQuote
       - insertTable
       - drupalMedia
-      - Accordion
       - style
       - sourceEditing
   plugins:
@@ -71,8 +70,6 @@ settings:
         -
           label: 'Dark centered'
           element: '<p class="dark-centered">'
-    editor_advanced_link_link:
-      enabled_attributes: {  }
     linkit_extension:
       linkit_enabled: true
       linkit_profile: default

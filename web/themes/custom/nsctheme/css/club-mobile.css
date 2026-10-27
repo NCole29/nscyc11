@@ -47,14 +47,15 @@
   }
 }
 
-/*
+
 @media(min-width: 690px) {
   .layout--twocol-section.layout--twocol-section--50-50 > .layout__region--first,
   .layout--twocol-section.layout--twocol-section--50-50 > .layout__region--second {
     padding-right:1rem;
   }
 }
-*/
+
+
 /** Do not use columns on width < 690px. This negates mid-width: 40em (40em = 640px) 
     because it messes up iPhone SE in landscape (667px width)
 @media(max-width: 690px) {

@@ -7,15 +7,20 @@ dependencies:
     - media.type.ride_picture
     - media.type.standard_16_9
     - node.type.event
+  content:
+    - 'media:standard_16_9:88402488-c052-4a2a-8df0-251298e3e199'
 id: node.event.field_image
 field_name: field_image
 entity_type: node
 bundle: event
 label: Image
-description: ''
-required: false
+description: 'An image is required. You can keep the default image, upload a new one, or choose one from the library. The library includes two "Upcoming Event" images and a "Free event" generic image.'
+required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    target_uuid: 88402488-c052-4a2a-8df0-251298e3e199
+    weight: 0
 default_value_callback: ''
 settings:
   handler: 'default:media'

@@ -1,0 +1,27 @@
+uuid: e8dc9193-b047-4bb2-9e5f-e460eb0014bd
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.tooltip
+    - taxonomy.vocabulary.gravel_categories
+  module:
+    - layout_builder
+    - text
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: taxonomy_term.gravel_categories.tooltip
+targetEntityType: taxonomy_term
+bundle: gravel_categories
+mode: tooltip
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

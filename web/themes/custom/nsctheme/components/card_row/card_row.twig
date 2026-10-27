@@ -1,0 +1,23 @@
+<article class="card-row">
+  <div class="card-row-container">
+    <div>
+      {% if image %}
+        {{ image}}
+      {% endif %}
+    </div>  
+    <div class="card-content">
+     <h2 class="card-title"><a href="{{ url }}">{{ heading }}</a></h2>
+      {% if date %}
+        {{ date }}
+      {% endif %}
+      {% if location %}
+        <p>{{ location }}</p>
+      {% endif %}
+
+      {{ content }}
+    </div>
+    <div class="card-more">
+      {{ link }}
+    </div>
+  </div>
+</article>

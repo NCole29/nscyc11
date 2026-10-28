@@ -1,0 +1,13 @@
+.pcard {
+  display: table;
+  clear: both;
+  max-width: 25rem;
+  padding: 1rem 1rem 0 1rem;
+  width: auto;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+.pcard-image {
+  width: auto;
+  padding: 0;
+}

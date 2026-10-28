@@ -10,6 +10,33 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\File;
 
 /**
+ * Implements hook_form_system_theme_settings_alter().
+ */
+function nsctheme_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+
+  require_once __DIR__ . '/includes/nsctheme_settings.inc';
+}
+
+
+/**
+ * Modified from Solo helper function _generate_form_element() to shorten "settings" names.
+ */
+function _nsctheme_form_element($prefix, $label, $attribute_key, $attribute_label) {
+  return [
+    '#type' => 'textfield',
+    '#maxlength' => 7,
+    '#size' => 10,
+    '#title' => t("(@attribute_label)", ['@attribute_label' => $attribute_label]),
+    '#default_value' => theme_get_setting("{$prefix}_{$attribute_key}"),
+    '#attributes' => [
+      'pattern' => '^#[a-fA-F0-9]{6}',
+    ],
+    '#wrapper_attributes' => [
+      'data-drupal-selector' => 'solo-color-picker',
+    ],
+  ];
+}
+/**
  * Update ckeditor.css if Custom CSS has ":root" colors
  *
  */

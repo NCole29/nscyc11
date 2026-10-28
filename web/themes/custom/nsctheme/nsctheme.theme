@@ -12,31 +12,32 @@ function nsctheme_theme_suggestions_block_alter(array &$suggestions, array $vari
 }
 
 /**
- * Implements hook_form_system_theme_settings_alter() for nsctheme.
- */
-function nsctheme_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
-  // Check if the social icons settings exist in the form.
-  if (isset($form['solo_settings']['settings_social_icons'])) {
-    // Add or override social icons here.
-    $form['solo_settings']['settings_social_icons']['sm_icon_rwgps'] = [
-      '#type' => 'textfield',
-      '#title' => t('RWGPS'),
-      '#default_value' => theme_get_setting('sm_icon_rwgps'),
-    ];
-    $form['solo_settings']['settings_social_icons']['sm_icon_strava'] = [
-      '#type' => 'textfield',
-      '#title' => t('Strava'),
-      '#default_value' => theme_get_setting('sm_icon_strava'),
-    ];
-  }
-}
-
-/**
  * Implements hook_preprocess_page()
  */
 function nsctheme_preprocess_page(&$variables) {
   $variables['sm_icon_rwgps'] = theme_get_setting('sm_icon_rwgps');
   $variables['sm_icon_strava'] = theme_get_setting('sm_icon_strava');
+}
+
+/**
+ * Implements hook_preprocess_paragraph
+ */
+function nsctheme_preprocess_paragraph(&$variables) {
+  $paragraph = $variables['paragraph'];
+  $ptype = $paragraph->getType();
+
+  switch($ptype) {
+    case 'callout':  
+      $variables['border_color'] = theme_get_setting('nsctheme_callout_br', 'nsctheme');
+      $variables['shade_color']  = theme_get_setting('nsctheme_callout_bg', 'nsctheme');
+      $variables['button_bg']    = theme_get_setting('nsctheme_callout_bt_bg', 'nsctheme');
+      $variables['button_tx']    = theme_get_setting('nsctheme_callout_bt_tx', 'nsctheme');
+    break;
+
+    case 'card':
+      $variables['shade_color']  = theme_get_setting('nsctheme_card_bg', 'nsctheme');
+    break;
+  }
 }
 
 /**
@@ -50,5 +51,4 @@ function nsctheme_preprocess_smart_date_recurring_text_rule(&$variables) {
     $variables['custom_rule'] = $node->get('field_custom_repeat_rule')->value;
   }
 }
-
 

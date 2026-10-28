@@ -1,0 +1,15 @@
+{# border_color, shade_color, button_bg, button_tx are set in bikeclub_solo theme settings (Appearance)
+   and made available to Twig via a preprocess hook in bikeclub_solo.theme 
+     button_uri: paragraph.field_button.uri,
+  button_text: paragraph.field_button.title,
+   #}
+
+{% set bg_color = paragraph.field_background.value ? shade_color: '#ffffff' %}
+{% set height = paragraph.field_callout_height.value ? '100%': 'auto' %}
+
+{{ include('nsctheme:callout', {
+  height: height, 
+  shade_color: bg_color,
+  heading: paragraph.field_title.value,
+  content: content|without(content.field_title, content.field_button)
+}, with_context = false) }}

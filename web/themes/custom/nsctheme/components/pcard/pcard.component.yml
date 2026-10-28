@@ -15,7 +15,7 @@ props:
       label: Shade background
       default: "0"
     height:
-      title: Height
+      title: Full height
       type: string
       default: "0"
 slots:

@@ -1,0 +1,16 @@
+{# shaded is set in nsctheme theme settings (Appearance)
+   and made available to Twig via a preprocess hook in nscheme.theme 
+#}
+
+{% set bg_color = paragraph.field_shaded_background.value ? shade_color: '#ededed' %}
+{% set height = paragraph.field_full_height.value ? '100%': 'auto' %}
+
+{{ include('nsctheme:pcard', {
+  height: height, 
+  shade_color: bg_color,
+  title: paragraph.field_title.value,
+  link: paragraph.field_link.uri,
+  image: content.field_image,
+  image_uri: paragraph.field_image.entity.field_media_image.entity.uri.value,
+  content: content|without(content.field_title, content.field_image)
+}, with_context = false) }}

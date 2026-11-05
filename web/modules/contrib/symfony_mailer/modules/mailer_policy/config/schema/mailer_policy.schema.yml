@@ -1,0 +1,135 @@
+# Schema for the configuration files of the Mailer Policy module.
+
+mailer_policy.mailer_policy.*:
+  type: config_entity
+  label: 'Policy'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    configuration:
+      type: sequence
+      label: 'Configuration'
+      sequence:
+        type: mailer_policy.email_adjuster_plugin.[%key]
+
+mailer_policy.address_adjuster_base:
+  type: mapping
+  label: 'SMTP transport'
+  mapping:
+    addresses:
+      type: sequence
+      label: 'Addresses'
+      sequence:
+        type: mapping
+        mapping:
+          value:
+            type: string
+            label: 'E-mail address or special code'
+          display:
+            type: label
+            label: 'Display name'
+
+mailer_policy.email_adjuster_plugin.email_bcc:
+  label: 'Bcc header'
+  type: mailer_policy.address_adjuster_base
+
+mailer_policy.email_adjuster_plugin.email_body:
+  type: mapping
+  label: 'Body'
+  mapping:
+    content:
+      type: text_format
+      label: 'Email body formatted text'
+
+mailer_policy.email_adjuster_plugin.email_cc:
+  type: mailer_policy.address_adjuster_base
+  label: 'Cc header'
+
+mailer_policy.email_adjuster_plugin.email_from:
+  type: mailer_policy.address_adjuster_base
+  label: 'From header'
+
+mailer_policy.email_adjuster_plugin.email_plain:
+  type: mapping
+  label: 'Plain text alternative'
+  mapping:
+    value:
+      type: text
+      label: 'Email body'
+
+mailer_policy.email_adjuster_plugin.email_priority:
+  type: mapping
+  label: 'Priority'
+  mapping:
+    value:
+      type: integer
+      label: 'Email subject'
+
+mailer_policy.email_adjuster_plugin.email_reply_to:
+  type: mailer_policy.address_adjuster_base
+  label: 'Reply-To header'
+
+mailer_policy.email_adjuster_plugin.email_sender:
+  type: mailer_policy.address_adjuster_base
+  label: 'From header'
+
+mailer_policy.email_adjuster_plugin.email_skip_sending:
+  type: mapping
+  label: 'Skip sending'
+  mapping:
+    message:
+      type: label
+      label: 'Skip message'
+
+mailer_policy.email_adjuster_plugin.email_subject:
+  type: mapping
+  label: 'Subject'
+  mapping:
+    value:
+      type: label
+      label: 'Email subject'
+
+mailer_policy.email_adjuster_plugin.email_theme:
+  type: mapping
+  label: 'Theme'
+  mapping:
+    theme:
+      type: string
+      label: 'Email theme'
+
+mailer_policy.email_adjuster_plugin.email_to:
+  type: mailer_policy.address_adjuster_base
+  label: 'To header'
+
+mailer_policy.email_adjuster_plugin.email_transport:
+  type: mapping
+  label: 'Mailer transport'
+  mapping:
+    value:
+      type: label
+      label: 'Email body'
+
+mailer_policy.email_adjuster_plugin.mailer_inline_css:
+  type: mapping
+  label: 'Inline CSS'
+
+mailer_policy.email_adjuster_plugin.mailer_inline_images:
+  type: mapping
+  label: 'Inline images'
+
+mailer_policy.email_adjuster_plugin.mailer_plain_only:
+  type: mapping
+  label: 'Plain text only'
+
+mailer_policy.email_adjuster_plugin.mailer_url_to_absolute:
+  type: mapping
+  label: 'URL to absolute'
+
+mailer_policy.email_adjuster_plugin.mailer_wrap_and_convert:
+  type: mapping
+  label: 'Wrap and convert'
+  mapping:
+    plain:
+      type: boolean
+      label: 'Plain text'

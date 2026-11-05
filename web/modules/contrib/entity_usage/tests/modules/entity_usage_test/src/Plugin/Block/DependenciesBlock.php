@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\entity_usage_test\Plugin\Block;
 
 use Drupal\Component\Utility\NestedArray;
@@ -20,7 +22,7 @@ class DependenciesBlock extends BlockBase {
   /**
    * {@inheritdoc}
    */
-  public function defaultConfiguration() {
+  public function defaultConfiguration(): array {
     return [
       'dependencies' => [],
     ];
@@ -29,14 +31,14 @@ class DependenciesBlock extends BlockBase {
   /**
    * {@inheritdoc}
    */
-  public function build() {
+  public function build(): array {
     return [];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function calculateDependencies() {
+  public function calculateDependencies(): array {
     $dependencies = parent::calculateDependencies();
     if ($this->configuration['dependencies']) {
       $dependencies = NestedArray::mergeDeep($dependencies, $this->configuration['dependencies']);

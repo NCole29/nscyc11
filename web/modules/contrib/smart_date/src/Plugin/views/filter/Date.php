@@ -302,6 +302,9 @@ class Date extends CoreDate implements ContainerFactoryPluginInterface {
       $a = new DateTimePlus($this->value['min'], new \DateTimeZone($timezone));
       $b = new DateTimePlus($this->value['max'], new \DateTimeZone($timezone));
     }
+    // A value with its own offset keeps it: read its parts in site time.
+    $a->setTimezone(new \DateTimeZone($timezone));
+    $b->setTimezone(new \DateTimeZone($timezone));
     $min = [
       'year' => $a->format('Y'),
       'month' => $a->format('n'),

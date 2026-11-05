@@ -47,7 +47,7 @@ describe('Layout Paragraphs Correct Region Tests', () => {
 
     // Click the drag button on the "Third item" to enter keyboard-drag mode.
     cy.lpFindComponent('Third item');
-    cy.get('@selectedComponent').find('.lpb-drag').first().click({ force: true });
+    cy.get('.lpb-drag:visible').click();
 
     // ArrowUp moves the item through positions:
     //   third-region → bottom of second-region

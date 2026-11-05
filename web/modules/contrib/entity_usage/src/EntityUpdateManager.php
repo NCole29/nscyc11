@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\entity_usage;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -158,7 +160,7 @@ class EntityUpdateManager implements EntityUpdateManagerInterface {
     switch ($type) {
       case 'revision':
         assert($entity instanceof RevisionableInterface);
-        $this->usageService->deleteBySourceEntity($entity->id(), $entity->getEntityTypeId(), NULL, $entity->getRevisionId());
+        $this->usageService->deleteBySourceEntity($entity->id(), $entity->getEntityTypeId(), NULL, (int) $entity->getRevisionId());
         break;
 
       case 'translation':
@@ -186,20 +188,8 @@ class EntityUpdateManager implements EntityUpdateManagerInterface {
    *   Whether the entity can be tracked or not.
    */
   protected function allowSourceEntityTracking(EntityInterface $entity): bool {
-    $allow_tracking = FALSE;
     $entity_type = $entity->getEntityType();
-    $enabled_source_entity_types = $this->config->get('track_enabled_source_entity_types');
-    if (!is_array($enabled_source_entity_types)
-      && $entity_type->hasKey('id')
-      && $entity_type->entityClassImplements('\Drupal\Core\Entity\ContentEntityInterface')
-    ) {
-      // When no settings are defined, track all content entities by default.
-      $allow_tracking = TRUE;
-    }
-    elseif (is_array($enabled_source_entity_types) && in_array($entity_type->id(), $enabled_source_entity_types, TRUE)) {
-      $allow_tracking = TRUE;
-    }
-    return $allow_tracking;
+    return in_array($entity_type->id(), $this->trackManager->getSourceEntityTypeIds(), TRUE);
   }
 
   /**
@@ -215,10 +205,12 @@ class EntityUpdateManager implements EntityUpdateManagerInterface {
     $enabled_target_entity_types = $this->config->get('track_enabled_target_entity_types');
     if (!is_array($enabled_target_entity_types)) {
       $entity_type = $entity->getEntityType();
-      // Every entity type that has an ID is tracked if not set.
-      return $entity_type->hasKey('id');
+      // When no settings are defined, track all entity types by default,
+      // except inline entities (e.g. paragraphs) which are handled by their
+      // respective inline entity usage tracking plugins.
+      return $entity_type->hasKey('id') && !in_array($entity_type->id(), $this->trackManager->getInlineEntityTypeIds(), TRUE);
     }
-    return in_array($entity->getEntityTypeId(), $enabled_target_entity_types, TRUE);
+    return in_array($entity->getEntityTypeId(), $enabled_target_entity_types, TRUE) && !in_array($entity->getEntityType()->id(), $this->trackManager->getInlineEntityTypeIds(), TRUE);
   }
 
   /**
@@ -228,16 +220,7 @@ class EntityUpdateManager implements EntityUpdateManagerInterface {
    *   The enabled plugin instances keyed by plugin ID.
    */
   protected function getEnabledPlugins(): array {
-    $all_plugin_ids = array_keys($this->trackManager->getDefinitions());
-    $enabled_plugins = $this->config->get('track_enabled_plugins');
-    $enabled_plugin_ids = is_array($enabled_plugins) ? $enabled_plugins : $all_plugin_ids;
-
-    $plugins = [];
-    foreach (array_intersect($all_plugin_ids, $enabled_plugin_ids) as $plugin_id) {
-      $plugins[$plugin_id] = $this->trackManager->createInstance($plugin_id);
-    }
-
-    return $plugins;
+    return $this->trackManager->getEnabledPlugins($this->config->get('track_enabled_plugins'));
   }
 
 }

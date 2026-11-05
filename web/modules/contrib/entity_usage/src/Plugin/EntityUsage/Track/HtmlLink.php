@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\entity_usage\Plugin\EntityUsage\Track;
 
 use Drupal\Component\Utility\Html;
@@ -8,7 +10,6 @@ use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\entity_usage\Attribute\EntityUsageTrack;
@@ -26,7 +27,6 @@ use Psr\Log\LoggerInterface;
   label: new TranslatableMarkup('HTML links'),
   description: new TranslatableMarkup("Tracks relationships created with standard links inside formatted text fields."),
   field_types: ["text", "text_long", "text_with_summary"],
-  source_entity_class: FieldableEntityInterface::class,
 )]
 class HtmlLink extends TextFieldEmbedBase implements EntityUsageTrackUrlUpdateInterface {
 
@@ -46,7 +46,7 @@ class HtmlLink extends TextFieldEmbedBase implements EntityUsageTrackUrlUpdateIn
   /**
    * {@inheritdoc}
    */
-  public function parseEntitiesFromText($text) {
+  public function parseEntitiesFromText(string $text): array {
     $dom = Html::load($text);
     $xpath = new \DOMXPath($dom);
     $entities = [];

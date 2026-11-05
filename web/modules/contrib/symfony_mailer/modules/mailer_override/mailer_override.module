@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @file
+ * Override sending legacy emails to use Mailer Plus.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+use Drupal\mailer_override\OverrideContactListBuilder;
+use Drupal\mailer_override\OverrideManagerInterface;
+
+/**
+ * Implements hook_symfony_mailer_info_alter().
+ */
+function mailer_override_symfony_mailer_info_alter(&$definitions): void {
+  Drupal::service(OverrideManagerInterface::class)->alterMailerDefinitions($definitions);
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function mailer_override_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
+  Drupal::service(OverrideManagerInterface::class)->formAlter($form, $form_state, $form_id);
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function mailer_override_module_implements_alter(&$implementations, $hook): void {
+  if ($hook == 'form_alter') {
+    // Move our implementation to the end of the list.
+    $value = $implementations['mailer_override'];
+    unset($implementations['mailer_override']);
+    $implementations['mailer_override'] = $value;
+  }
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function mailer_override_entity_type_alter(array &$entity_types) {
+  if (isset($entity_types['contact_form'])) {
+    $entity_types['contact_form']->setHandlerClass('list_builder', OverrideContactListBuilder::class);
+  }
+}
+
+/**
+ * Implements hook_help().
+ */
+function mailer_override_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'symfony_mailer.override.status':
+      $params = [':mailer_policy' => Url::fromRoute('entity.mailer_policy.collection')->toString()];
+      $output = '<p>' . t('You can override email formatting from other modules with enhanced versions using all the features of the Mailer and <a href=":mailer_policy">Mailer Policy</a>. Each type of email override can be enabled or disabled independently.', $params);
+      $output .= ' ' . t("When enabling an override, it is recommended also to import, which creates Policy equivalent to the other module's configuration.") . '</p>';
+      return $output;
+  }
+}

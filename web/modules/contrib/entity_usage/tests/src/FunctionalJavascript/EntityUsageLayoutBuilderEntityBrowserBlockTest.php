@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\entity_usage\FunctionalJavascript;
 
 use Drupal\Tests\contextual\FunctionalJavascript\ContextualLinkClickTrait;
@@ -8,6 +10,8 @@ use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
 use Drupal\user\Entity\Role;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests usage tracking in Layout Builder through Entity Browser Blocks.
@@ -16,6 +20,9 @@ use Drupal\user\Entity\Role;
  * @group layout_builder
  * @coversDefaultClass \Drupal\entity_usage\Plugin\EntityUsage\Track\LayoutBuilder
  */
+#[Group('entity_usage')]
+#[Group('layout_builder')]
+#[RunTestsInSeparateProcesses]
 class EntityUsageLayoutBuilderEntityBrowserBlockTest extends EntityUsageJavascriptTestBase {
 
   use ContextualLinkClickTrait;
@@ -204,9 +211,10 @@ class EntityUsageLayoutBuilderEntityBrowserBlockTest extends EntityUsageJavascri
     $this->assertStringContainsString($host_node->toUrl()->toString(), $first_row_title_link->getAttribute('href'));
     $first_row_field_label = $this->xpath('//table/tbody/tr[1]/td[4]')[0];
     $this->assertEquals('Layout', $first_row_field_label->getText());
-    $assert_session->pageTextNotContains('Old revision(s)');
-    $assert_session->pageTextNotContains('Pending revision(s) / Draft(s)');
-    $assert_session->pageTextNotContains('Default:');
+    // Scoped to the table itself: the page also carries the "Show usage in
+    // old revisions" filter checkbox label.
+    $assert_session->elementTextNotContains('css', 'table', 'Old revisions');
+    $assert_session->elementTextNotContains('css', 'table', 'Draft revision');
 
     // Verify we can edit the layout and add another item to the same region.
     $page->clickLink($host_node->getTitle());
@@ -288,16 +296,23 @@ class EntityUsageLayoutBuilderEntityBrowserBlockTest extends EntityUsageJavascri
     $this->saveHtmlOutput();
     $assert_session->pageTextContains('The layout override has been saved');
 
-    // The record is there, but points to previous revisions only.
+    // The record is there, but points to previous revisions only, so it is
+    // hidden by default.
     $this->drupalGet("/node/{$first_target_node->id()}/usage");
     $assert_session->pageTextContains('Entity usage information for First target node');
+    $assert_session->pageTextContains('There are no recorded usages');
+
+    // Checking "Show usage in old revisions" brings it back. HTMX submits on
+    // change, so there is no button to press.
+    $page->checkField('Show usage in old revisions');
+    $session->wait(500);
     $first_row_title_link = $assert_session->elementExists('xpath', '//table/tbody/tr[1]/td[1]/a');
     $this->assertEquals($host_node->getTitle(), $first_row_title_link->getText());
     $this->assertStringContainsString($host_node->toUrl()->toString(), $first_row_title_link->getAttribute('href'));
     $first_row_field_label = $this->xpath('//table/tbody/tr[1]/td[4]')[0];
     $this->assertEquals('Layout', $first_row_field_label->getText());
-    $first_row_used_in = $this->xpath('//table/tbody/tr[1]/td[6]')[0];
-    $this->assertEquals('Old revision(s)', $first_row_used_in->getText());
+    $first_row_used_in = $this->xpath('//table/tbody/tr[1]/td[5]')[0];
+    $this->assertEquals('2 old revisions', $first_row_used_in->getText());
   }
 
 }

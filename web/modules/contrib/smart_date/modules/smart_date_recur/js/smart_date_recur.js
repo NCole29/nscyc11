@@ -17,17 +17,24 @@
 
       function durationToMinutes(element) {
         const wrapper = element.closest('fieldset');
+        if (!wrapper) {
+          return;
+        }
         const freq = wrapper.querySelector('.recur-repeat');
-        if (freq.value !== 'MINUTELY') {
+        // Widgets without recurring options have no frequency to sync.
+        if (!freq || freq.value !== 'MINUTELY') {
           // The rest only needed for Minutes.
           return;
         }
         const durationSelect = wrapper.querySelector('select.field-duration');
+        const interval = wrapper.querySelector('.field-interval');
+        if (!durationSelect || !interval) {
+          return;
+        }
         let durationVal = durationSelect.value;
         if (durationVal === 'custom') {
           durationVal = parseInt(durationSelect.dataset.duration, 10);
         }
-        const interval = wrapper.querySelector('.field-interval');
         interval.value = durationVal;
       }
 

@@ -1,0 +1,90 @@
+# Schema for the configuration files of the Mailer Transport module.
+
+mailer_transport.settings:
+  type: config_object
+  label: 'Mailer Transport settings'
+  mapping:
+    default_transport:
+      type: string
+      label: Default transport ID
+
+mailer_transport.mailer_transport.*:
+  type: config_entity
+  label: 'Transport'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    plugin:
+      type: string
+      label: 'Plugin'
+    configuration:
+      type: mailer_transport.transport_plugin.[%parent.plugin]
+
+mailer_transport.transport_plugin.dsn:
+  type: mapping
+  label: 'DSN transport'
+  mapping:
+    dsn:
+      type: string
+      label: 'DSN'
+
+mailer_transport.transport_plugin.native:
+  type: mapping
+  label: 'Native transport'
+
+mailer_transport.transport_plugin.null:
+  type: mapping
+  label: 'Null transport'
+
+mailer_transport.transport_plugin.sendmail:
+  type: mapping
+  label: 'Sendmail transport'
+  mapping:
+    query:
+      type: mapping
+      label: 'URL query parameters'
+      mapping:
+        command:
+          type: string
+          label: 'Sendmail command'
+
+
+mailer_transport.transport_plugin.smtp:
+  type: mapping
+  label: 'SMTP transport'
+  mapping:
+    user:
+      type: string
+      label: 'User name'
+    pass:
+      type: string
+      label: 'Password'
+    host:
+      type: string
+      label: 'Host name'
+    port:
+      type: integer
+      label: 'Port'
+    query:
+      type: mapping
+      label: 'URL query parameters'
+      mapping:
+        verify_peer:
+          type: boolean
+          label: 'Verify peer'
+        local_domain:
+          type: string
+          label: 'HELO command domain name'
+        restart_threshold:
+          type: integer
+          label: 'Restart threshold'
+        restart_threshold_sleep:
+          type: integer
+          label: 'Restart threshold sleep'
+        ping_threshold:
+          type: integer
+          label: 'Ping threshold'

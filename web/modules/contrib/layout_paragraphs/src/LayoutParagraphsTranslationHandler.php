@@ -60,10 +60,8 @@ class LayoutParagraphsTranslationHandler implements LayoutParagraphsTranslationH
    */
   public function initTranslations(LayoutParagraphsLayout $layout, bool $is_translating, string $langcode, ?string $source_langcode = NULL): void {
     $items = $layout->getParagraphsReferenceField();
-    /** @var \Drupal\entity_reference_revisions\Plugin\Field\FieldType\EntityReferenceRevisionsItem $item */
-    foreach ($items as $delta => $item) {
-      if (!empty($item->entity) && $item->entity instanceof ParagraphInterface) {
-        $paragraph = $item->entity;
+    foreach ($items->referencedEntities() as $delta => $paragraph) {
+      if ($paragraph instanceof ParagraphInterface) {
         if (!$is_translating) {
           // Set the langcode if we are not translating.
           $langcode_key = $paragraph->getEntityType()->getKey('langcode');
@@ -112,7 +110,16 @@ class LayoutParagraphsTranslationHandler implements LayoutParagraphsTranslationH
             $paragraph = $paragraph->getTranslation($langcode);
           }
         }
-        $items[$delta]->entity = $paragraph;
+        // Use setValue() with a structured array including target_id and
+        // target_revision_id to prevent onChange('entity') from firing. Direct
+        // assignment ($item->entity = $paragraph) triggers __set() which calls
+        // onChange('entity'), potentially nulling out target_id and causing
+        // existing paragraphs to be treated as new (duplicate UUID INSERT).
+        $items[$delta]->setValue([
+          'entity' => $paragraph,
+          'target_id' => $paragraph->id(),
+          'target_revision_id' => $paragraph->getRevisionId(),
+        ], FALSE);
       }
     }
     $layout->setParagraphsReferenceField($items);

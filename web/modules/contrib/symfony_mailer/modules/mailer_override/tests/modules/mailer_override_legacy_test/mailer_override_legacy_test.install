@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Mailer Override legacy email test install.
+ */
+
+use Drupal\language\Entity\ConfigurableLanguage;
+
+/**
+ * Implements hook_install().
+ */
+function mailer_override_legacy_test_install() {
+  ConfigurableLanguage::createFromLangcode('fr')->save();
+}

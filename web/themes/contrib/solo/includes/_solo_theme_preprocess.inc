@@ -1182,7 +1182,11 @@ function _solo_container_has_min_max(array $element): bool {
           $has_min = TRUE;
         }
         elseif (isset($element[$key][$child_key]['#name'])) {
-          $child_name = (string) $element[$key][$child_key]['#name'];
+          $child_name = $element[$key][$child_key]['#name'];
+          if (is_array($child_name)) {
+            $child_name = reset($child_name);
+          }
+          $child_name = is_string($child_name) ? $child_name : '';
           if (str_contains($child_name, '[min]')) {
             $has_min = TRUE;
           }

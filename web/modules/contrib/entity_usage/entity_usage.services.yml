@@ -21,6 +21,9 @@ services:
   plugin.manager.entity_usage.track:
     class: Drupal\entity_usage\EntityUsageTrackManager
     parent: default_plugin_manager
+    arguments:
+      $entityTypeManager: '@entity_type.manager'
+      $configFactory: '@config.factory'
   Drupal\entity_usage\EntityUsageTrackManager: '@plugin.manager.entity_usage.track'
 
   entity_usage.usage:
@@ -52,6 +55,7 @@ services:
   Drupal\entity_usage\UrlToEntityInterface: '@Drupal\entity_usage\UrlToEntity'
 
   Drupal\entity_usage\PreSaveUrlRecorder: ~
+  Drupal\entity_usage\SiteDomains: ~
   Drupal\entity_usage\RecreateTrackingDataForFieldQueuer: ~
 
   # By default we enable Entity and Language subscribers to the
@@ -60,3 +64,5 @@ services:
   # \Drupal\entity_usage\EntityUsageServiceProvider::register().
   Drupal\entity_usage\UrlToEntityIntegrations\EntityRouting: ~
   Drupal\entity_usage\UrlToEntityIntegrations\LanguageIntegration: ~
+
+  Drupal\entity_usage\EventSubscriber\ConfigSubscriber: ~

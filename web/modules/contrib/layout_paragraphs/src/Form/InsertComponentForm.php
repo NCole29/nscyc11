@@ -150,29 +150,30 @@ class InsertComponentForm extends ComponentFormBase {
 
     $response = new AjaxResponse();
     $this->ajaxCloseForm($response);
-    if ($this->needsRefresh()) {
-      return $this->refreshLayout($response);
-    }
-
     $uuid = $this->paragraph->uuid();
-    $rendered_item = $this->renderParagraph($uuid);
 
-    switch ($this->method) {
-      case 'before':
-        $response->addCommand(new BeforeCommand($this->domSelector, $rendered_item));
-        break;
+    if ($this->needsRefresh()) {
+      $this->refreshLayout($response);
+    }
+    else {
+      $rendered_item = $this->renderParagraph($uuid);
+      switch ($this->method) {
+        case 'before':
+          $response->addCommand(new BeforeCommand($this->domSelector, $rendered_item));
+          break;
 
-      case 'after':
-        $response->addCommand(new AfterCommand($this->domSelector, $rendered_item));
-        break;
+        case 'after':
+          $response->addCommand(new AfterCommand($this->domSelector, $rendered_item));
+          break;
 
-      case 'append':
-        $response->addCommand(new AppendCommand($this->domSelector, $rendered_item));
-        break;
+        case 'append':
+          $response->addCommand(new AppendCommand($this->domSelector, $rendered_item));
+          break;
 
-      case 'prepend':
-        $response->addCommand(new PrependCommand($this->domSelector, $rendered_item));
-        break;
+        case 'prepend':
+          $response->addCommand(new PrependCommand($this->domSelector, $rendered_item));
+          break;
+      }
     }
 
     $response->addCommand(new LayoutParagraphsEventCommand($this->layoutParagraphsLayout, $uuid, 'component:insert'));

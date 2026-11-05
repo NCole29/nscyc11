@@ -866,7 +866,15 @@ class SoloThemePreprocessHooks {
       }
     }
     // Check if element name suggests it's date-related.
+    // The name may be an array (#3609300, #3630728); use its first element and
+    // ignore anything that is not then a string.
     $element_name = $element['#name'] ?? '';
+    if (is_array($element_name)) {
+      $element_name = reset($element_name);
+    }
+    if (!is_string($element_name)) {
+      $element_name = '';
+    }
     if ($element_name !== '') {
       $date_indicators = [
         'date',
@@ -1146,7 +1154,15 @@ class SoloThemePreprocessHooks {
     // Ensure class attribute is an array (may be string if already processed).
     _solo_ensure_class_array($variables);
     // Detect AJAX wrappers.
+    // The id may be an array (#3609300, #3630728, e.g. the filebrowser module);
+    // use its first element and ignore anything that is not then a string.
     $container_id = $variables['attributes']['id'] ?? '';
+    if (is_array($container_id)) {
+      $container_id = reset($container_id);
+    }
+    if (!is_string($container_id)) {
+      $container_id = '';
+    }
     if ($container_id !== '' && str_contains($container_id, 'ajax-wrapper')) {
       $variables['attributes']['class'][] = 'ajax-container';
     }

@@ -181,4 +181,38 @@ class HookConversionDriftTest extends TestCase {
     }
   }
 
+  /**
+   * The array guards of #3609300 must survive in the hook classes.
+   *
+   * Conversion 0d81bee moved the preprocess bodies into src/Hook and dropped
+   * the guards shipped in 1.0.35, so an array id or #name (filebrowser) went
+   * back to a TypeError (#3630728). Behaviour is covered by
+   * ArrayAttributeGuardTest; this fails if the guard text itself disappears.
+   */
+  public function testArrayGuardsSurviveConversion(): void {
+    $expected = [
+      '/src/Hook/SoloThemePreprocessHooks.php' => [
+        'str_contains($container_id' => '$container_id',
+        'stripos($element_name' => '$element_name',
+      ],
+      '/includes/_solo_theme_preprocess.inc' => [
+        'str_contains($child_name' => '$child_name',
+      ],
+    ];
+    $checked = 0;
+    foreach ($expected as $path => $anchors) {
+      $source = (string) file_get_contents($this->themePath() . $path);
+      foreach ($anchors as $anchor => $variable) {
+        $start = strpos($source, $anchor);
+        $this->assertNotFalse($start, sprintf('%s: anchor %s not found.', $path, $anchor));
+        // The guard must sit in the lines just before the first use.
+        $window = substr($source, max(0, $start - 700), 700);
+        $this->assertStringContainsString(sprintf('is_array(%s)', $variable), $window, sprintf('%s: no is_array() guard on %s.', $path, $variable));
+        $this->assertStringContainsString(sprintf('is_string(%s)', $variable), $window, sprintf('%s: no is_string() guard on %s.', $path, $variable));
+        $checked++;
+      }
+    }
+    $this->assertSame(3, $checked);
+  }
+
 }

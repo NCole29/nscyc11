@@ -31,9 +31,8 @@ use PHPUnit\Framework\TestCase;
  * loading the file.
  *
  * WHAT THIS ENFORCES
- * 1. solo.theme loads no file itself, calls SoloIncludes::load() (Drupal 10
- *    and Drupal 11 before 11.3 still need the includes through it) and carries
- *    #[ExtensionFileIsConverted].
+ * 1. solo.theme carries #[ExtensionFileIsConverted]. What it loads is
+ *    ThemeFileIncludesTest's job: it must name no Solo class (#3628961).
  * 2. Every #[Hook] method in src/Hook starts with SoloIncludes::load().
  * 3. Every include-defined function that src/ calls or names as a string
  *    callback is defined in a file listed in SoloIncludes::FILES.
@@ -124,17 +123,14 @@ class ThemeFileIndependenceTest extends TestCase {
   }
 
   /**
-   * Requirement 1: solo.theme loads nothing itself and declares the marker.
+   * Requirement 1: solo.theme declares the #[ExtensionFileIsConverted] marker.
    */
-  public function testThemeFileDelegatesToSoloIncludes(): void {
+  public function testThemeFileDeclaresExtensionFileIsConverted(): void {
     $file = $this->themePath() . '/solo.theme';
-    $tokens = $this->tokens($file);
-    $text = implode('', array_column($tokens, 1));
+    $text = implode('', array_column($this->tokens($file), 1));
 
-    foreach ($tokens as $token) {
-      $this->assertNotContains($token[0], [T_REQUIRE, T_REQUIRE_ONCE, T_INCLUDE, T_INCLUDE_ONCE], sprintf('solo.theme line %d loads a file itself; list it in SoloIncludes::FILES instead, or Solo breaks without solo.theme.', $token[2]));
-    }
-    $this->assertStringContainsString('SoloIncludes::load();', $text, 'solo.theme must call SoloIncludes::load(): Drupal 10 and Drupal 11 before 11.3 get the includes only through it.');
+    // What solo.theme loads, and that it names no Solo class, is enforced by
+    // ThemeFileIncludesTest (#3628961).
     $this->assertStringContainsString('#[ExtensionFileIsConverted]', $text, 'solo.theme must carry #[ExtensionFileIsConverted], or core reports it as deprecated.');
   }
 

@@ -4,6 +4,7 @@ namespace Drupal\smart_date\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -29,11 +30,11 @@ class SmartDateDefaultWidget extends SmartDateWidgetBase implements ContainerFac
   use SmartDateDurationConfigTrait;
 
   /**
-   * The date format storage.
+   * The entity type manager.
    *
-   * @var \Drupal\Core\Entity\EntityStorageInterface
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $dateStorage;
+  protected $entityTypeManager;
 
   /**
    * {@inheritdoc}
@@ -85,10 +86,16 @@ class SmartDateDefaultWidget extends SmartDateWidgetBase implements ContainerFac
   /**
    * {@inheritdoc}
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, EntityStorageInterface $date_storage) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, EntityTypeManagerInterface|EntityStorageInterface $entity_type_manager) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
 
-    $this->dateStorage = $date_storage;
+    // @todo Remove support for passing the date_format storage in 5.0.0.
+    if ($entity_type_manager instanceof EntityStorageInterface) {
+      @trigger_error('Passing the date_format storage to ' . __METHOD__ . '() is deprecated in smart_date:4.3.1 and is removed from smart_date:5.0.0. Pass the entity_type.manager service instead. See https://www.drupal.org/project/smart_date/issues/3615276', E_USER_DEPRECATED);
+      $entity_type_manager = \Drupal::entityTypeManager();
+    }
+
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -101,7 +108,7 @@ class SmartDateDefaultWidget extends SmartDateWidgetBase implements ContainerFac
       $configuration['field_definition'],
       $configuration['settings'],
       $configuration['third_party_settings'],
-      $container->get('entity_type.manager')->getStorage('date_format')
+      $container->get('entity_type.manager')
     );
   }
 
@@ -118,8 +125,9 @@ class SmartDateDefaultWidget extends SmartDateWidgetBase implements ContainerFac
     // Identify the type of date and time elements to use.
     $date_type = 'date';
     $time_type = 'time';
-    $date_format = $this->dateStorage->load('html_date')->getPattern();
-    $time_format = $this->dateStorage->load('html_time')->getPattern();
+    $date_format_storage = $this->entityTypeManager->getStorage('date_format');
+    $date_format = $date_format_storage->load('html_date')->getPattern();
+    $time_format = $date_format_storage->load('html_time')->getPattern();
 
     $element['value'] += [
       '#date_date_format' => $date_format,

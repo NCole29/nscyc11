@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\layout_paragraphs\Unit\Element;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Layout\LayoutDefault;
@@ -15,7 +16,9 @@ use Drupal\layout_paragraphs\LayoutParagraphsLayout;
 use Drupal\layout_paragraphs\LayoutParagraphsLayoutTempstoreRepository;
 use Drupal\layout_paragraphs\LayoutParagraphsSection;
 use Drupal\paragraphs\ParagraphInterface;
+use Drupal\paragraphs\ParagraphsConversionManager;
 use Drupal\Tests\UnitTestCase;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Tests preview mode injection for layout plugins in the builder.
@@ -104,7 +107,10 @@ class LayoutParagraphsBuilderTest extends UnitTestCase {
 
     $layout = $this->createMock(LayoutParagraphsLayout::class);
     $layout->method('getComponents')->willReturn([$component]);
-    $layout->method('getSetting')->with('preview_view_mode', 'default')->willReturn('default');
+    $layout->method('getSetting')
+      ->willReturnCallback(static function ($name, $default = NULL) {
+        return $name === 'preview_view_mode' ? 'default' : $default;
+      });
     $layout->method('getLayoutSection')->with($paragraph)->willReturn($section);
 
     $tempstore = $this->createMock(LayoutParagraphsLayoutTempstoreRepository::class);
@@ -126,6 +132,9 @@ class LayoutParagraphsBuilderTest extends UnitTestCase {
         $layout_plugin_manager,
         $this->createMock(RendererInterface::class),
         $this->createMock(EntityTypeBundleInfoInterface::class),
+        $this->createMock(ParagraphsConversionManager::class),
+        $this->createMock(EventDispatcherInterface::class),
+        $this->createMock(ConfigFactoryInterface::class),
       ])
       ->onlyMethods(['buildComponent'])
       ->getMock();

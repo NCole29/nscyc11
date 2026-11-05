@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\entity_usage\Kernel;
 
 use Drupal\entity_test\Entity\EntityTest;
@@ -9,12 +11,16 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests entity usage API methods with multiple source langcodes.
  *
  * @group entity_usage
  */
+#[Group('entity_usage')]
+#[RunTestsInSeparateProcesses]
 class EntityUsageMultilingualTest extends KernelTestBase {
 
   /**
@@ -116,7 +122,7 @@ class EntityUsageMultilingualTest extends KernelTestBase {
     // Saving triggers entity_insert → trackUpdateOnCreation, which iterates
     // over all translations and records usage for each.
     $source->save();
-    $source_vid = $source->getRevisionId() ?: 0;
+    $source_vid = (int) $source->getRevisionId() ?: 0;
 
     /** @var \Drupal\entity_usage\EntityUsageInterface $entity_usage */
     $entity_usage = $this->container->get('entity_usage.usage');
@@ -203,7 +209,7 @@ class EntityUsageMultilingualTest extends KernelTestBase {
       'field_reference' => ['target_id' => $target_fr->id()],
     ]);
     $source->save();
-    $vid = $source->getRevisionId();
+    $vid = (int) $source->getRevisionId();
 
     /** @var \Drupal\entity_usage\EntityUsageInterface $entity_usage */
     $entity_usage = $this->container->get('entity_usage.usage');

@@ -1,13 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\entity_usage\FunctionalJavascript;
 
+// cspell:ignore mnchen münchen
 use Drupal\Core\Entity\ContentEntityTypeInterface;
+use Drupal\entity_usage\EntityUsageInlineTrackingInterface;
 use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\media\Entity\Media;
 use Drupal\node\Entity\Node;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the configuration form.
@@ -16,6 +22,8 @@ use Drupal\node\Entity\Node;
  *
  * @group entity_usage
  */
+#[Group('entity_usage')]
+#[RunTestsInSeparateProcesses]
 class ConfigurationFormTest extends EntityUsageJavascriptTestBase {
 
   use MediaTypeCreationTrait;
@@ -171,7 +179,7 @@ class ConfigurationFormTest extends EntityUsageJavascriptTestBase {
       else {
         $assert_session->fieldExists($field_name);
         // By default all content entity types are tracked.
-        if (in_array($entity_type_id, array_keys($content_entity_types))) {
+        if (in_array($entity_type_id, array_keys($content_entity_types), TRUE)) {
           $assert_session->checkboxChecked($field_name);
         }
         else {
@@ -195,7 +203,7 @@ class ConfigurationFormTest extends EntityUsageJavascriptTestBase {
       else {
         $assert_session->fieldExists($field_name);
         // By default all content entity types are tracked.
-        if (in_array($entity_type_id, array_keys($content_entity_types))) {
+        if (in_array($entity_type_id, array_keys($content_entity_types), TRUE)) {
           $assert_session->checkboxChecked($field_name);
         }
         else {
@@ -219,7 +227,7 @@ class ConfigurationFormTest extends EntityUsageJavascriptTestBase {
         $node2->id() => [
           [
             'source_langcode' => $node2->language()->getId(),
-            'source_vid' => $node2->getRevisionId(),
+            'source_vid' => (int) $node2->getRevisionId(),
             'method' => 'entity_reference',
             'field_name' => 'field_eu_test_related_media',
             'count' => 1,
@@ -289,7 +297,7 @@ class ConfigurationFormTest extends EntityUsageJavascriptTestBase {
         $node5->id() => [
           [
             'source_langcode' => $node5->language()->getId(),
-            'source_vid' => $node5->getRevisionId(),
+            'source_vid' => (int) $node5->getRevisionId(),
             'method' => 'entity_reference',
             'field_name' => 'field_eu_test_related_media',
             'count' => 1,
@@ -309,6 +317,9 @@ class ConfigurationFormTest extends EntityUsageJavascriptTestBase {
     $assert_session->pageTextContains('The following plugins were found in the system and can provide usage tracking. Check all plugins that should be active.');
     $plugins = \Drupal::service('plugin.manager.entity_usage.track')->getDefinitions();
     foreach ($plugins as $plugin_id => $plugin) {
+      if (is_subclass_of($plugin['class'], EntityUsageInlineTrackingInterface::class)) {
+        continue;
+      }
       $field_name = "track_enabled_plugins[plugins][$plugin_id]";
       $assert_session->fieldExists($field_name);
       $assert_session->pageTextContains($plugin['label']);
@@ -345,7 +356,9 @@ class ConfigurationFormTest extends EntityUsageJavascriptTestBase {
     // It should be off by default.
     $assert_session->checkboxNotChecked('track_enabled_base_fields');
     // Check the allowed domains element is there.
-    $assert_session->elementExists('css', 'textarea[name="site_domains"]');
+    $assert_session->elementExists('css', 'textarea[name="site_domains"]')->setValue('Example.com,http://example.com/subdir,http.cat,https://münchen.de/path');
+    $this->submitForm([], 'Save configuration');
+    $assert_session->fieldValueEquals("site_domains", "example.com\nexample.com/subdir\nhttp.cat\nmünchen.de/path");
 
     $this->assertNotContains('filter_format', $this->config('entity_usage.settings')->get('track_enabled_source_entity_types'));
     // Enable all source entity types.
@@ -363,13 +376,40 @@ class ConfigurationFormTest extends EntityUsageJavascriptTestBase {
     $this->rebuildAll();
     $this->assertContains('filter_format', $this->config('entity_usage.settings')->get('track_enabled_source_entity_types'));
     $this->assertContains('entity_usage_test', $this->config('entity_usage.settings')->get('track_enabled_plugins'));
+    $this->assertSame([
+      ['host' => 'example.com', 'path' => ''],
+      ['host' => 'example.com', 'path' => '/subdir'],
+      ['host' => 'http.cat', 'path' => ''],
+      ['host' => 'xn--mnchen-3ya.de', 'path' => '/path'],
+    ], $this->config('entity_usage.settings')->get('site_domains'));
 
     // Disable the entity_usage_test module to ensure that the source entity
     // options are then restrict to content entity types only.
     \Drupal::service('module_installer')->uninstall(['entity_usage_test']);
     $this->rebuildAll();
-    $this->assertNotContains('filter_format', $this->config('entity_usage.settings')->get('track_enabled_source_entity_types'));
-    $this->assertNotContains('entity_usage_test', $this->config('entity_usage.settings')->get('track_enabled_plugins'));
+
+    // Ensure 'filter_format' is not listed, but the other entity types are
+    // unchanged.
+    $this->assertSame([
+      'file',
+      'media',
+      'node',
+      'path_alias',
+      'user',
+    ], $this->config('entity_usage.settings')->get('track_enabled_source_entity_types'));
+    // Ensure 'entity_usage_test' is not listed, but the other plugins are
+    // unchanged.
+    $this->assertSame([
+      'block_field',
+      'ckeditor_image',
+      'dynamic_entity_reference',
+      'entity_embed',
+      'html_link',
+      'layout_builder',
+      'link',
+      'linkit',
+      'media_embed',
+    ], $this->config('entity_usage.settings')->get('track_enabled_plugins'));
     $this->drupalGet('/admin/config/entity-usage/settings');
     foreach ($entity_types as $entity_type_id => $entity_type) {
       $field_name = "track_enabled_source_entity_types[entity_types][$entity_type_id]";

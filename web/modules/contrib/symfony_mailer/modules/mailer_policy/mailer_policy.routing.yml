@@ -1,0 +1,38 @@
+entity.mailer_policy.collection:
+  path: '/admin/config/system/mailer/policy'
+  defaults:
+    _entity_list: 'mailer_policy'
+    _title: 'Mailer policy'
+  requirements:
+    _permission: 'administer mailer'
+
+entity.mailer_policy.add_form:
+  path: '/admin/config/system/mailer/policy/add'
+  defaults:
+    _entity_form: 'mailer_policy.add'
+    _title: 'Add policy'
+  requirements:
+    _permission: 'administer mailer'
+
+entity.mailer_policy.add_id_form:
+  path: '/admin/config/system/mailer/policy/add/{policy_id}'
+  defaults:
+    _controller: '\Drupal\mailer_policy\Controller\MailerPolicyController::createPolicy'
+  requirements:
+    _permission: 'administer mailer'
+
+entity.mailer_policy.edit_form:
+  path: '/admin/config/system/mailer/policy/{mailer_policy}'
+  defaults:
+    _entity_form: 'mailer_policy.edit'
+    _title: 'Edit policy'
+  requirements:
+    _entity_access: 'mailer_policy.update'
+
+entity.mailer_policy.delete_form:
+  path: '/admin/config/system/mailer/policy/{mailer_policy}/delete'
+  defaults:
+    _entity_form: 'mailer_policy.delete'
+    _title: 'Delete policy'
+  requirements:
+    _entity_access: 'mailer_policy.delete'

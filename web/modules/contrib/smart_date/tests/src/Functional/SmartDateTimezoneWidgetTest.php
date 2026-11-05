@@ -161,6 +161,24 @@ class SmartDateTimezoneWidgetTest extends SmartDateTestBase {
   }
 
   /**
+   * Tests that the source order of the inputs matches their visual order.
+   *
+   * The end value is displayed as time then date, so the DOM must match for
+   * keyboard focus order to follow the visual order (WCAG 2.4.3).
+   */
+  public function testSmartdateTimezoneWidgetFocusOrder() {
+    $this->drupalGet('/node/add/smart_date_content');
+    $inputs = $this->getSession()->getPage()->findAll('xpath', '//input[starts-with(@name, "field_date[0][time_wrapper]")]');
+    $names = array_map(fn($input) => $input->getAttribute('name'), $inputs);
+    $this->assertSame([
+      'field_date[0][time_wrapper][value][date]',
+      'field_date[0][time_wrapper][value][time]',
+      'field_date[0][time_wrapper][end_value][time]',
+      'field_date[0][time_wrapper][end_value][date]',
+    ], $names);
+  }
+
+  /**
    * Loads a node by title.
    *
    * @param string $title

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\symfony_mailer\Processor;
 
 use Drupal\symfony_mailer\EmailInterface;
@@ -10,47 +12,25 @@ use Drupal\symfony_mailer\EmailInterface;
 interface EmailProcessorInterface {
 
   /**
-   * Mapping from phase to default function name.
+   * Process emails during the initialise phase.
    *
-   * @var string[]
-   */
-  public const FUNCTION_NAMES = [
-    EmailInterface::PHASE_BUILD => 'build',
-    EmailInterface::PHASE_PRE_RENDER => 'preRender',
-    EmailInterface::PHASE_POST_RENDER => 'postRender',
-    EmailInterface::PHASE_POST_SEND => 'postSend',
-  ];
-
-  /**
-   * Initializes an email to call this email processor.
+   * Set processors, parameters, theme and destination addresses.
    *
    * @param \Drupal\symfony_mailer\EmailInterface $email
    *   The email to initialize.
    */
-  public function init(EmailInterface $email);
+  public function init(EmailInterface $email): void;
 
   /**
    * Process emails during the build phase.
    *
-   * Must not trigger any rendering because cannot yet rely on the correct
-   * language, theme, and account. For example, must not cast a translatable
-   * string into a plain string, or replace tokens.
+   * Construct the email. The language, theme, and account are now correct. The
+   * body is not yet rendered and stored as a Drupal render array.
    *
    * @param \Drupal\symfony_mailer\EmailInterface $email
    *   The email to process.
    */
-  public function build(EmailInterface $email);
-
-  /**
-   * Process emails during the pre-render phase.
-   *
-   * Not normally needed. Only if there is a rendering step that needs to be
-   * done before the main rendering call.
-   *
-   * @param \Drupal\symfony_mailer\EmailInterface $email
-   *   The email to process.
-   */
-  public function preRender(EmailInterface $email);
+  public function build(EmailInterface $email): void;
 
   /**
    * Process emails during the post-render phase.
@@ -60,7 +40,7 @@ interface EmailProcessorInterface {
    * @param \Drupal\symfony_mailer\EmailInterface $email
    *   The email to process.
    */
-  public function postRender(EmailInterface $email);
+  public function postRender(EmailInterface $email): void;
 
   /**
    * Process emails during the post-send phase.
@@ -70,7 +50,7 @@ interface EmailProcessorInterface {
    * @param \Drupal\symfony_mailer\EmailInterface $email
    *   The email to process.
    */
-  public function postSend(EmailInterface $email);
+  public function postSend(EmailInterface $email): void;
 
   /**
    * Gets the weight of the email processor.
@@ -81,7 +61,7 @@ interface EmailProcessorInterface {
    * @return int
    *   The weight.
    */
-  public function getWeight(int $phase);
+  public function getWeight(int $phase): int;
 
   /**
    * Gets the ID of the email processor.
@@ -89,6 +69,6 @@ interface EmailProcessorInterface {
    * @return string
    *   The ID.
    */
-  public function getId();
+  public function getId(): string;
 
 }

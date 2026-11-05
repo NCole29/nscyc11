@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Mailer policy module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function mailer_policy_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'entity.mailer_policy.collection':
+      return '<p>' . t('Configure Mailer Policy to customise outgoing emails in many different ways. There are many possible policies to apply including: subject; body; addresses (from, to, ...); theme; transport; convert to plain text. Each policy can be set globally or for emails of a specific type.') . '</p>';
+  }
+}

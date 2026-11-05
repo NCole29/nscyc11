@@ -14,7 +14,7 @@
         element.parentElement.style.display = 'none';
       }
 
-      function durationClick(element) {
+      function applyDuration(element) {
         const wrapper = element.closest('.smartdate--widget');
         const durationSelect = wrapper.querySelector('select.field-duration');
         const duration = element.dataset.value;
@@ -27,10 +27,6 @@
           const e = new Event('change');
           durationSelect.dispatchEvent(e);
         }
-        /* eslint-disable-next-line no-use-before-define */
-        convertDuration(wrapper);
-        const endDate = wrapper.querySelector('.time-end.form-time');
-        endDate.focus();
       }
 
       function removeDurationList(wrapper) {
@@ -44,6 +40,20 @@
           const endDate = wrapper.querySelector('.time-end.form-time');
           endDate.setAttribute('aria-expanded', 'false');
         }
+      }
+
+      // Hide the list until the end time loses and then regains focus.
+      function dismissDurationList(wrapper) {
+        wrapper.dataset.durationDismissed = 1;
+        removeDurationList(wrapper);
+      }
+
+      function durationClick(element) {
+        const wrapper = element.closest('.smartdate--widget');
+        applyDuration(element);
+        dismissDurationList(wrapper);
+        const endDate = wrapper.querySelector('.time-end.form-time');
+        endDate.focus();
       }
 
       function convertDuration(wrapper) {
@@ -119,14 +129,30 @@
 
       function durationKeys(event) {
         const keyName = event.key;
-        if (keyName !== 'ArrowUp' && keyName !== 'ArrowDown') {
+        if (
+          keyName !== 'ArrowUp' &&
+          keyName !== 'ArrowDown' &&
+          keyName !== 'Enter'
+        ) {
           return;
         }
-        const wrapper = event.srcElement.closest('.smartdate--widget');
+        const wrapper = event.target.closest('.smartdate--widget');
         const DurationList = wrapper.querySelectorAll(
           '.smart-date--duration-list li',
         );
-        if (!DurationList) {
+        if (DurationList.length === 0) {
+          // Reopen a dismissed list without changing the time.
+          if (keyName !== 'Enter') {
+            event.preventDefault();
+            delete wrapper.dataset.durationDismissed;
+            convertDuration(wrapper);
+          }
+          return;
+        }
+        // Prevent the browser from also changing the time or submitting.
+        event.preventDefault();
+        if (keyName === 'Enter') {
+          dismissDurationList(wrapper);
           return;
         }
         const values = [];
@@ -155,8 +181,8 @@
             activeIndex = 0;
           }
         }
-        const e = new Event('click');
-        links[activeIndex].dispatchEvent(e);
+        applyDuration(links[activeIndex]);
+        convertDuration(wrapper);
       }
 
       function checkEndDate(wrapper) {
@@ -374,9 +400,6 @@
           return;
         }
         const durationSelect = wrapper.querySelector('select.field-duration');
-        if (+durationSelect.dataset.overlay === 1) {
-          convertDuration(wrapper);
-        }
         // Store the numeric value in a property so it can be used programmatically.
         durationSelect.dataset.duration = duration;
         // Update the select to show the appropriate value.
@@ -387,6 +410,12 @@
           durationSelect.value = duration;
         } else {
           durationSelect.value = 'custom';
+        }
+        if (
+          +durationSelect.dataset.overlay === 1 &&
+          !wrapper.dataset.durationDismissed
+        ) {
+          convertDuration(wrapper);
         }
       }
 
@@ -495,10 +524,41 @@
         }
       }
 
+      // Let "a" or "p" set the meridiem from any part of a 12-hour time input.
+      function meridiemKeys(event) {
+        const keyName = event.key.toLowerCase();
+        if (
+          (keyName !== 'a' && keyName !== 'p') ||
+          event.ctrlKey ||
+          event.metaKey ||
+          event.altKey
+        ) {
+          return;
+        }
+        const element = event.target;
+        if (!element.value || element.readOnly) {
+          return;
+        }
+        event.preventDefault();
+        const timeArray = element.value.split(':');
+        let hours = parseInt(timeArray[0], 10);
+        if (keyName === 'a' && hours >= 12) {
+          hours -= 12;
+        } else if (keyName === 'p' && hours < 12) {
+          hours += 12;
+        } else {
+          return;
+        }
+        timeArray[0] = pad(hours, 2);
+        element.value = timeArray.join(':');
+        element.dispatchEvent(new Event('input', { bubbles: true }));
+        element.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+
       function implementDurationOverlay() {
         once(
           'smartDateDurationList',
-          '.smartdate--widget .time-end input[type="time"]',
+          '.smartdate--widget:not(.smartdate--date-only) .time-end input[type="time"]',
           context,
         ).forEach(function (element) {
           const wrapper = element.closest('.smartdate--widget');
@@ -506,7 +566,9 @@
           element.addEventListener(
             'focus',
             function () {
-              convertDuration(wrapper);
+              if (!wrapper.dataset.durationDismissed) {
+                convertDuration(wrapper);
+              }
               element.addEventListener('keydown', durationKeys, false);
             },
             false,
@@ -514,6 +576,7 @@
           element.addEventListener(
             'focusout',
             function () {
+              delete wrapper.dataset.durationDismissed;
               const existingDurationList = wrapper.querySelectorAll(
                 '.smart-date--duration-list',
               );
@@ -534,7 +597,7 @@
 
       once(
         'smartDateDuration',
-        '.smartdate--widget select.field-duration',
+        '.smartdate--widget:not(.smartdate--date-only) select.field-duration',
         context,
       ).forEach(function (element) {
         setInitialDuration(element);
@@ -564,10 +627,16 @@
       });
       once(
         'smartDateHideSeconds',
-        '.smartdate--widget input[type="time"]',
+        '.smartdate--widget:not(.smartdate--date-only) input[type="time"]',
         context,
       ).forEach(function (element) {
         element.step = 60;
+        const uses12Hour = new Intl.DateTimeFormat(navigator.language, {
+          hour: 'numeric',
+        }).resolvedOptions().hour12;
+        if (uses12Hour) {
+          element.addEventListener('keydown', meridiemKeys, false);
+        }
         // For browsers that don't respect the step value, trim empty seconds.
         if (
           element.defaultValue &&
@@ -578,7 +647,7 @@
       });
       once(
         'smartDateStartChange',
-        '.smartdate--widget .time-start input',
+        '.smartdate--widget:not(.smartdate--date-only) .time-start input',
         context,
       ).forEach(function (element) {
         element.addEventListener(
@@ -591,7 +660,7 @@
       });
       once(
         'smartDateEndChange',
-        '.smartdate--widget .time-end',
+        '.smartdate--widget:not(.smartdate--date-only) .time-end',
         context,
       ).forEach(function (element) {
         element.addEventListener(

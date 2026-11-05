@@ -34,7 +34,7 @@ regions:
   footer_menu: 'Footer Menu Container'
   hidden: 'Hidden Region'
 
-# Information added by Drupal.org packaging script on 2026-10-12
-version: '1.0.37'
+# Information added by Drupal.org packaging script on 2026-10-22
+version: '1.0.39'
 project: 'solo'
-datestamp: 1791765632
+datestamp: 1792629374

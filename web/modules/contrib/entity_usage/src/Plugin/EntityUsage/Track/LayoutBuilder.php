@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\entity_usage\Plugin\EntityUsage\Track;
 
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
-use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\entity_usage\Attribute\EntityUsageTrack;
@@ -19,7 +20,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
   label: new TranslatableMarkup('Layout Builder'),
   description: new TranslatableMarkup("Tracks relationships in layout builder layouts."),
   field_types: ["layout_section"],
-  source_entity_class: FieldableEntityInterface::class,
 )]
 class LayoutBuilder extends EntityUsageTrackBase {
 
@@ -33,7 +33,7 @@ class LayoutBuilder extends EntityUsageTrackBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $plugin = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $plugin->blockManager = $container->get('plugin.manager.block');
     return $plugin;
@@ -116,14 +116,14 @@ class LayoutBuilder extends EntityUsageTrackBase {
    *   - Non-loadable entities will be filtered out.
    *   - The ":" character will be replaced by the "|" character.
    */
-  private function prepareEntityBrowserBlockIds(array $ebbContentIds) {
+  private function prepareEntityBrowserBlockIds(array $ebbContentIds): array {
     $return = $ids = [];
 
     // Keys the IDs by entity type.
     foreach ($ebbContentIds as $id) {
       // Entity Browser Block stores each entity in "entity_ids" in the format:
       // "{$entity_type_id}:{$entity_id}".
-      [$entity_type_id, $entity_id] = explode(":", $id);
+      [$entity_type_id, $entity_id] = explode(":", $id, 2);
       $ids[$entity_type_id][] = $entity_id;
     }
 
@@ -153,14 +153,14 @@ class LayoutBuilder extends EntityUsageTrackBase {
    *   - The UUID will be converted to a regular ID.
    *   - The ":" character will be replaced by the "|" character.
    */
-  private function prepareContentDependencyIds(array $dependency_ids) {
+  private function prepareContentDependencyIds(array $dependency_ids): array {
     $return = $ids = [];
 
     // Keys the UUIDs by entity type.
     foreach ($dependency_ids as $id) {
       // Content dependencies are stored in the format:
       // "{$entity_type_id}:{$bundle_id}:{$entity_uuid}".
-      [$entity_type_id, , $entity_uuid] = explode(':', $id);
+      [$entity_type_id, , $entity_uuid] = explode(':', $id, 3);
       $ids[$entity_type_id][] = $entity_uuid;
     }
 

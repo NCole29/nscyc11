@@ -1,0 +1,16 @@
+entity.mailer_policy.collection:
+  title: Policy
+  description: 'Listing of Mailer policy.'
+  base_route: symfony_mailer.verify
+  route_name: entity.mailer_policy.collection
+
+entity.mailer_policy.edit_form:
+  title: Edit
+  route_name: entity.mailer_policy.edit_form
+  base_route: entity.mailer_policy.edit_form
+
+entity.mailer_policy.delete_form:
+  title: Delete
+  route_name: entity.mailer_policy.delete_form
+  base_route: entity.mailer_policy.edit_form
+  weight: 10

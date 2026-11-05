@@ -1,7 +1,7 @@
-test:
+verify:
   css:
     theme:
-      css/test.email.css: {}
+      css/verify.email.css: {}
 
 contact:
   css:

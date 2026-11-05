@@ -1,11 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\entity_usage\FunctionalJavascript;
 
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\node\NodeInterface;
 use Drupal\Tests\entity_usage\Traits\EntityUsageLastEntityQueryTrait;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the integration with the Dynamic Entity Reference module.
@@ -14,6 +19,8 @@ use Drupal\field\Entity\FieldStorageConfig;
  *
  * @group entity_usage
  */
+#[Group('entity_usage')]
+#[RunTestsInSeparateProcesses]
 class DynamicEntityReferenceTest extends EntityUsageJavascriptTestBase {
 
   use EntityUsageLastEntityQueryTrait;
@@ -109,7 +116,7 @@ class DynamicEntityReferenceTest extends EntityUsageJavascriptTestBase {
     $node1 = $this->getLastEntityOfType('node', TRUE);
 
     // Create user 1.
-    $user1 = $this->drupalCreateUser([]);
+    $user1 = $this->drupalCreateUser();
 
     // Create Node 2, referencing Node 1 and User 1.
     $this->drupalGet('/node/add/eu_test_ct');
@@ -126,6 +133,7 @@ class DynamicEntityReferenceTest extends EntityUsageJavascriptTestBase {
     $this->saveHtmlOutput();
     $assert_session->pageTextContains('Entity Usage test content Node 2 has been created.');
     $node2 = $this->getLastEntityOfType('node', TRUE);
+    assert($node2 instanceof NodeInterface);
     // Check that the usage of Node 1 points to Node 2.
     $usage = $usage_service->listSources($node1);
     $expected = [
@@ -133,7 +141,7 @@ class DynamicEntityReferenceTest extends EntityUsageJavascriptTestBase {
         $node2->id() => [
           0 => [
             'source_langcode' => 'en',
-            'source_vid' => $node2->getRevisionId(),
+            'source_vid' => (int) $node2->getRevisionId(),
             'method' => 'dynamic_entity_reference',
             'field_name' => 'field_der1',
             'count' => 1,
@@ -161,7 +169,7 @@ class DynamicEntityReferenceTest extends EntityUsageJavascriptTestBase {
         $node2->id() => [
           0 => [
             'source_langcode' => 'en',
-            'source_vid' => $node2->getRevisionId(),
+            'source_vid' => (int) $node2->getRevisionId(),
             'method' => 'dynamic_entity_reference',
             'field_name' => 'field_der1',
             'count' => 1,

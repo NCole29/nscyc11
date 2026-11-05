@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Mailer Policy module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\mailer_policy\Entity\MailerPolicy;
+
+/**
+ * Correction to policy config dependencies.
+ */
+function mailer_policy_update_20001() {
+  foreach (MailerPolicy::loadMultiple() as $policy) {
+    $policy->calculateDependencies()->save();
+  }
+}

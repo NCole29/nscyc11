@@ -1,0 +1,12 @@
+# Schema for the configuration files of the Mailer Override module.
+
+mailer_override.settings:
+  type: config_object
+  label: 'Mailer Override settings'
+  mapping:
+    override:
+      type: sequence
+      label: 'Override settings'
+      sequence:
+        type: integer
+        label: 'State'

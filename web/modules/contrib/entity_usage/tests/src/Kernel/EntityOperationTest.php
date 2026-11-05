@@ -7,16 +7,21 @@ namespace Drupal\Tests\entity_usage\Kernel;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\entity_test\Entity\EntityTest;
+use Drupal\entity_usage\Hook\EntityUsageEntityHooks;
 use Drupal\filter\Entity\FilterFormat;
 use Drupal\KernelTests\Core\Entity\EntityKernelTestBase;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the usage operation added to entity listings.
  *
  * @group entity_usage
  *
- * @see entity_usage_entity_operation()
+ * @see \Drupal\entity_usage\Hook\EntityUsageEntityHooks::entityOperation()
  */
+#[Group('entity_usage')]
+#[RunTestsInSeparateProcesses]
 class EntityOperationTest extends EntityKernelTestBase {
 
   /**
@@ -84,15 +89,17 @@ class EntityOperationTest extends EntityKernelTestBase {
   public function testUsageOperationCacheability(): void {
     $this->setUpCurrentUser([], ['view test entity', 'access entity usage statistics']);
 
+    $hooks = $this->container->get(EntityUsageEntityHooks::class);
+
     $cacheability = new CacheableMetadata();
-    entity_usage_entity_operation($this->entity, $cacheability);
+    $hooks->entityOperation($this->entity, $cacheability);
     $this->assertContains('user.permissions', $cacheability->getCacheContexts());
     $this->assertContains('config:entity_usage.settings', $cacheability->getCacheTags());
 
     // Entity types without a usage page still depend on the configuration.
     $this->setLocalTaskEntityTypes(['filter_format']);
     $cacheability = new CacheableMetadata();
-    entity_usage_entity_operation($this->entity, $cacheability);
+    $hooks->entityOperation($this->entity, $cacheability);
     $this->assertSame(['config:entity_usage.settings'], $cacheability->getCacheTags());
   }
 

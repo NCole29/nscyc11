@@ -101,6 +101,73 @@ abstract class SmartDateWidgetBase extends DateTimeWidgetBase {
   /**
    * {@inheritdoc}
    */
+  public function form(FieldItemListInterface $items, array &$form, FormStateInterface $form_state, $get_delta = NULL) {
+    if ($get_delta === NULL) {
+      $this->collapseRecurringInstances($items);
+    }
+    return parent::form($items, $form, $form_state, $get_delta);
+  }
+
+  /**
+   * Reduce each recurring rule to its first instance in the item list.
+   *
+   * Only the first instance of a rule is editable in the widget; the rest are
+   * regenerated from the rule on save. Leaving them in the list made the
+   * widget's items_count include rows that are never shown, so deltas no
+   * longer lined up with the visible rows. Where submitted values are copied
+   * back into the entity during an AJAX rebuild (e.g. Paragraphs), the hidden
+   * instances came back as blank rows when using "Add another item" or
+   * "Remove".
+   *
+   * @param \Drupal\Core\Field\FieldItemListInterface $items
+   *   The field items, altered in place.
+   */
+  protected function collapseRecurringInstances(FieldItemListInterface $items) {
+    if ($this->fieldDefinition->getType() != 'smartdate' || !$this->allowsRecurring()) {
+      return;
+    }
+    $seen = [];
+    $to_remove = [];
+    foreach ($items as $delta => $item) {
+      $rrule_id = $item->rrule;
+      if (!$rrule_id) {
+        continue;
+      }
+      if (!isset($seen[$rrule_id])) {
+        // Match formElement(), which only hides instances of existing rules.
+        $seen[$rrule_id] = (bool) SmartDateRule::load($rrule_id);
+        continue;
+      }
+      if ($seen[$rrule_id]) {
+        $to_remove[] = $delta;
+      }
+    }
+    // Remove from the end so earlier deltas stay valid.
+    foreach (array_reverse($to_remove) as $delta) {
+      $items->removeItem($delta);
+    }
+  }
+
+  /**
+   * Check whether the field is configured to allow recurring dates.
+   *
+   * @return bool
+   *   TRUE if recurring dates are allowed.
+   */
+  protected function allowsRecurring() {
+    $field_def = $this->fieldDefinition;
+    if ($field_def instanceof FieldConfigInterface) {
+      return (bool) $field_def->getThirdPartySetting('smart_date_recur', 'allow_recurring');
+    }
+    if ($field_def instanceof BaseFieldDefinition) {
+      return (bool) $field_def->getSetting('allow_recurring');
+    }
+    return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element = parent::formElement($items, $delta, $element, $form, $form_state);
     $values = [];
@@ -196,7 +263,7 @@ abstract class SmartDateWidgetBase extends DateTimeWidgetBase {
     }
 
     $values['storage'] = $field_type;
-    $form['#attached']['library'][] = 'smart_date/smart_date';
+    $element['#attached']['library'][] = 'smart_date/smart_date';
     $element['#attributes']['class'][] = 'smartdate--widget';
 
     $this->createWidget($element, $values, $defaults);
@@ -581,6 +648,13 @@ abstract class SmartDateWidgetBase extends DateTimeWidgetBase {
     switch ($cardinality) {
       case FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED:
         $field_state = static::getWidgetState($parents, $field_name, $form_state);
+        // When the extra row is suppressed, an empty field still shows one
+        // row. Count it as an item so the first "Add another item" click
+        // adds a second row instead of being absorbed by the suppression.
+        if (!$this->getSetting('show_extra') && $field_state['items_count'] < 1) {
+          $field_state['items_count'] = 1;
+          static::setWidgetState($parents, $field_name, $form_state, $field_state);
+        }
         $max = $field_state['items_count'];
         $is_unlimited_not_programmed = !$form_state->isProgrammed();
         break;

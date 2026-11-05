@@ -1,25 +1,32 @@
 # Configuration file for PHPStan static code checking.
 
 parameters:
-
   level: 1
   reportUnmatchedIgnoredErrors: false
 
   ignoreErrors:
     # new static() is a best practice in Drupal, so we cannot fix that.
     # @see https://www.drupal.org/docs/develop/development-tools/phpstan/handling-unsafe-usage-of-new-static
-    - "#^Unsafe usage of new static#"
+    - identifier: new.static
 
     # Dependency injection leads to huge amounts of dull boiler plate code,
     # and BC problems so we don't always do it.
-    - "#Drupal calls should be avoided in classes, use dependency injection instead#"
+    - identifier: globalDrupalDependencyInjection.useDependencyInjection
 
-    # The next two come in MailManagerReplacement and any attempt to ignore
-    # them with comments seems to just generate other warnings.
-    - "#^Plugin definitions cannot be altered.#"
-    - "#^Missing cache backend declaration for performance.#"
+    # The next comes in MailManagerReplacement and any attempt to ignore
+    # it with comments seems to just generate other warnings.
+    - identifier: pluginManagerSetsCacheBackend.missingCacheBackend
 
-    # We've already fixed all D11 deprecations. We're not concerned with D12
+    # We've already fixed all D12 deprecations. We're not concerned with D13
     # deprecations yet, and they will keep appearing. We'll deal with them
-    # closer to D12 availability.
-    - identifier: method.deprecated
+    # closer to D13 availability.
+    - identifier: function.deprecated
+
+    # This one comes from Drupal Core: https://www.drupal.org/project/drupal/issues/3424344
+    - identifier: dependencySerializationTraitProperty.unsupportedReadOnlyProperty
+
+    # The Core base class doesn't yet have the extra param, leading to another warning if we try to pass it.
+    - identifier: drupal.entityListBuilderMissingCacheabilityParameter
+
+    # The Core base class ConfigEntityListBuilder requires a storage so this is impossible to fix.
+    - identifier: drupal.entityStorageDirectInjection

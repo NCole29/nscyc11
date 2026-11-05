@@ -40,6 +40,11 @@ class TranslationTest extends KernelTestBase {
   protected const TRANSLATION_UNAVAILABLE_ERROR = 'The content this layout was opened for is no longer available in this language.';
 
   /**
+   * The error shown when a layout was opened before the site was updated.
+   */
+  protected const OPENED_BEFORE_UPDATE_ERROR = 'This layout was opened before the site was updated.';
+
+  /**
    * The modules to enable.
    *
    * @var array
@@ -353,12 +358,7 @@ class TranslationTest extends KernelTestBase {
     $this->doRequest(Request::create($path));
     $data = $this->getBuilderFormFields();
 
-    $save = [
-      'op' => 'Save',
-      '_triggering_element_name' => 'op',
-      '_triggering_element_value' => 'Save',
-    ];
-    $response = $this->doRequest($this->createAjaxRequest($path . self::AJAX_QUERY, $data + $save));
+    $response = $this->saveThroughDialog($path, $data);
     $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
     $this->assertStringContainsString('has been updated', $response->getContent());
 
@@ -391,7 +391,7 @@ class TranslationTest extends KernelTestBase {
 
     $response = $this->doRequest(Request::create($path, 'POST', $data + ['op' => 'Save']));
     $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
-    $this->assertText(self::ROUTE_MISMATCH_ERROR);
+    $this->assertText(self::OPENED_BEFORE_UPDATE_ERROR);
 
     $this->assertEquals(['en' => 1000, 'de' => 1000], $this->loadChangedTimes($node));
   }
@@ -569,16 +569,11 @@ class TranslationTest extends KernelTestBase {
     $path = '/de/layout-paragraphs-builder/formatter/node/' . $node->id() . '/field_content/full';
     $this->doRequest(Request::create($path));
     $data = $this->getBuilderFormFields();
-    $save = [
-      'op' => 'Save',
-      '_triggering_element_name' => 'op',
-      '_triggering_element_value' => 'Save',
-    ];
-    $response = $this->doRequest($this->createAjaxRequest($path . self::AJAX_QUERY, $data + $save));
+    $response = $this->saveThroughDialog($path, $data);
     $this->assertStringContainsString('has been updated', $response->getContent());
 
     $this->editFirstComponentText($data['layout_paragraphs_storage_key'], 'DE text edited');
-    $response = $this->doRequest($this->createAjaxRequest($path . self::AJAX_QUERY, $data + $save));
+    $response = $this->saveThroughDialog($path, $data);
     $this->assertStringContainsString('has been updated', $response->getContent());
     $this->assertStringContainsString('You are in translation mode.', $response->getContent());
 
@@ -603,12 +598,7 @@ class TranslationTest extends KernelTestBase {
     $data = $this->getBuilderFormFields();
     $data['form_build_id'] = $this->closeBuilder($path, $data);
 
-    $save = [
-      'op' => 'Save',
-      '_triggering_element_name' => 'op',
-      '_triggering_element_value' => 'Save',
-    ];
-    $response = $this->doRequest($this->createAjaxRequest($path . self::AJAX_QUERY, $data + $save));
+    $response = $this->saveThroughDialog($path, $data);
     $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
     $this->assertStringContainsString('has been updated', $response->getContent());
     $this->assertStringNotContainsString(self::ROUTE_MISMATCH_ERROR, $response->getContent());
@@ -842,6 +832,31 @@ class TranslationTest extends KernelTestBase {
   }
 
   /**
+   * Tests the change detector on a translation with untranslated paragraphs.
+   *
+   * Opening the builder on the German route prepares a German translation of
+   * the paragraph. That alone is not a change: closing the builder must not
+   * ask about unsaved changes. Editing the component is.
+   */
+  public function testPreparedParagraphTranslationIsNoChange() {
+    $node = $this->createNodeWithUntranslatedParagraph();
+    $this->setUpEditor();
+
+    $path = '/de/layout-paragraphs-builder/formatter/node/' . $node->id() . '/field_content/full';
+    $this->doRequest(Request::create($path));
+    $storage_key = $this->getBuilderFormFields()['layout_paragraphs_storage_key'];
+    $tempstore = $this->container->get('layout_paragraphs.tempstore_repository');
+    $change_detector = $this->container->get('layout_paragraphs.change_detector');
+
+    $layout = $tempstore->getWithStorageKey($storage_key);
+    $this->assertTrue($layout->getParagraphsReferenceField()->get(0)->entity->isNewTranslation());
+    $this->assertFalse($change_detector->hasChanges($layout));
+
+    $this->editFirstComponentText($storage_key, 'DE text');
+    $this->assertTrue($change_detector->hasChanges($tempstore->getWithStorageKey($storage_key)));
+  }
+
+  /**
    * Tests that saving one translation leaves the other ones unchanged.
    *
    * The builder is opened on the German translation and saved once, with no
@@ -907,6 +922,267 @@ class TranslationTest extends KernelTestBase {
     $inserted_ids = array_values(array_diff($paragraph_ids['de'], [$german_paragraph_id]));
     $this->assertCount(1, $inserted_ids);
     $this->assertEquals('de', $this->loadParagraphLangcode($inserted_ids[0]));
+  }
+
+  /**
+   * Tests the builder of a translation when untranslatable fields are hidden.
+   *
+   * The reference field is untranslatable, so every language shares its
+   * structure. With the host bundle hiding untranslatable fields on its
+   * translation forms, a translation cannot change that structure: the builder
+   * says so, offers no move controls, does not make the components sortable,
+   * and the reorder route is denied. The same layout stays editable in the
+   * original language.
+   */
+  public function testBuilderLocksLayoutWhileTranslatingWithHiddenUntranslatableFields() {
+    $node = $this->createNodeWithTwoTranslatedParagraphs();
+    $this->hideUntranslatableFields();
+    $this->setUpEditor();
+
+    $path = '/layout-paragraphs-builder/formatter/node/' . $node->id() . '/field_content/full';
+    $response = $this->doRequest(Request::create('/de' . $path));
+    $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    $this->assertText('You are in translation mode. You cannot add, remove or reorder items while translating.');
+    $this->assertFalse($this->getBuilderSetting('layout_change_access'));
+    $controls = $this->getComponentControlsMarkup();
+    $this->assertStringContainsString('lpb-edit', $controls);
+    $this->assertStringNotContainsString('lpb-drag', $controls);
+    $this->assertStringNotContainsString('lpb-up', $controls);
+    $this->assertStringNotContainsString('lpb-down', $controls);
+
+    $storage_key = $this->getBuilderFormFields()['layout_paragraphs_storage_key'];
+    $response = $this->postReversedOrder('/de', $storage_key);
+    $this->assertEquals(Response::HTTP_FORBIDDEN, $response->getStatusCode());
+    $this->assertEquals(['DE first', 'DE second'], $this->loadLayoutTexts($storage_key, 'de'));
+
+    // The original language changes the structure for every language.
+    $response = $this->doRequest(Request::create('/en' . $path));
+    $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    $this->assertNoText('You are in translation mode.');
+    $this->assertTrue($this->getBuilderSetting('layout_change_access'));
+    $this->assertStringContainsString('lpb-drag', $this->getComponentControlsMarkup());
+
+    $storage_key = $this->getBuilderFormFields()['layout_paragraphs_storage_key'];
+    $response = $this->postReversedOrder('/en', $storage_key);
+    $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    $this->assertEquals(['EN second', 'EN first'], $this->loadLayoutTexts($storage_key, 'en'));
+  }
+
+  /**
+   * Tests the builder of a translation when untranslatable fields are shown.
+   *
+   * Without the host bundle hiding untranslatable fields, a translation may
+   * still reorder the shared structure, and the builder warns that this
+   * affects every language.
+   */
+  public function testBuilderAllowsReorderWhileTranslatingWithVisibleUntranslatableFields() {
+    $node = $this->createNodeWithTwoTranslatedParagraphs();
+    $this->setUpEditor();
+
+    $path = '/de/layout-paragraphs-builder/formatter/node/' . $node->id() . '/field_content/full';
+    $response = $this->doRequest(Request::create($path));
+    $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    $this->assertText('You are in translation mode. You cannot add or remove items while translating. Reordering items will affect all languages.');
+    $this->assertTrue($this->getBuilderSetting('layout_change_access'));
+    $controls = $this->getComponentControlsMarkup();
+    $this->assertStringContainsString('lpb-drag', $controls);
+    $this->assertStringContainsString('lpb-up', $controls);
+    $this->assertStringContainsString('lpb-down', $controls);
+
+    $storage_key = $this->getBuilderFormFields()['layout_paragraphs_storage_key'];
+    $response = $this->postReversedOrder('/de', $storage_key);
+    $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    $this->assertEquals(['DE second', 'DE first'], $this->loadLayoutTexts($storage_key, 'de'));
+  }
+
+  /**
+   * Tests that the node form of a locked translation keeps the structure.
+   *
+   * With the host bundle hiding untranslatable fields, a translation must not
+   * change the untranslatable reference field, whose order every language
+   * shares. A layout whose order changed in the tempstore anyway, for example
+   * through a reorder request sent before the lock applied, is saved with the
+   * original order and the edited component values, instead of reordering the
+   * components of every language.
+   */
+  public function testWidgetKeepsStructureWhileTranslatingWithHiddenUntranslatableFields() {
+    $node = $this->createNodeWithTwoTranslatedParagraphs();
+    $paragraph_ids = $this->loadReferencedParagraphIds($node);
+    $this->hideUntranslatableFields();
+    // The translation form falls back to the anonymous user as the translation
+    // author, which a kernel test does not create.
+    $this->entityTypeManager->getStorage('user')->create([
+      'uid' => 0,
+      'name' => '',
+      'status' => 0,
+    ])->save();
+    $this->setUpEditor();
+
+    $uri = '/de/node/' . $node->id() . '/edit';
+    $response = $this->doRequest(Request::create($uri));
+    $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    $inputs = $this->cssSelect('input[name="field_content[layout_paragraphs_storage_key]"]');
+    $this->assertCount(1, $inputs);
+    $storage_key = (string) $inputs[0]->attributes()->value[0];
+    // Submit the form as rendered, with the values of all its text and hidden
+    // inputs, such as the translation author.
+    $data = ['op' => 'Save (this translation)'];
+    foreach ($this->cssSelect('form.node-form input[type="text"], form.node-form input[type="hidden"]') as $input) {
+      $data[(string) $input['name']] = (string) $input['value'];
+    }
+    $this->assertEquals($storage_key, $data['field_content[layout_paragraphs_storage_key]']);
+
+    $this->editFirstComponentText($storage_key, 'DE first edited');
+    $tempstore = $this->container->get('layout_paragraphs.tempstore_repository');
+    $layout = $tempstore->getWithStorageKey($storage_key);
+    $uuids = array_map(fn ($component) => $component->getEntity()->uuid(), $layout->getComponents());
+    $layout->reorderComponents(array_map(fn ($uuid) => [
+      'uuid' => $uuid,
+      'parentUuid' => NULL,
+      'region' => NULL,
+    ], array_reverse($uuids)));
+    $tempstore->set($layout);
+
+    // Nest the bracketed input names, as PHP does for a browser's form POST.
+    parse_str(http_build_query($data), $data);
+    $response = $this->doRequest(Request::create($uri, 'POST', $data));
+    $this->assertEquals(303, $response->getStatusCode(), $this->getTextContent());
+
+    $this->assertEquals($paragraph_ids, $this->loadReferencedParagraphIds($node));
+    $this->assertEquals(['en' => 'EN first', 'de' => 'DE first edited'], $this->loadParagraphTexts($paragraph_ids['de'][0]));
+  }
+
+  /**
+   * Creates a node with a German translation and two translated paragraphs.
+   *
+   * @return \Drupal\node\NodeInterface
+   *   The node.
+   */
+  protected function createNodeWithTwoTranslatedParagraphs() {
+    $paragraphs = [];
+    foreach (['first', 'second'] as $position) {
+      $paragraph = $this->entityTypeManager->getStorage('paragraph')->create([
+        'type' => 'text',
+        'field_text' => 'EN ' . $position,
+      ]);
+      $paragraph->addTranslation('de', [
+        'field_text' => 'DE ' . $position,
+      ]);
+      $paragraph->save();
+      $paragraphs[] = $paragraph;
+    }
+
+    $node = $this->entityTypeManager->getStorage('node')->create([
+      'type' => 'page',
+      'title' => 'Node title',
+      'field_content' => $paragraphs,
+    ]);
+    $node->save();
+    $node->addTranslation('de', [
+      'title' => 'Node title DE',
+    ]);
+    $node->save();
+
+    return $node;
+  }
+
+  /**
+   * Hides the untranslatable fields of pages on their translation forms.
+   *
+   * Content translation then lets only the original language change the
+   * untranslatable fields, the paragraphs reference field among them.
+   */
+  protected function hideUntranslatableFields() {
+    $this->container->get('content_translation.manager')
+      ->setBundleTranslationSettings('node', 'page', ['untranslatable_fields_hide' => TRUE]);
+    $this->container->get('entity_type.bundle.info')->clearCachedBundles();
+  }
+
+  /**
+   * Returns a setting of the builder in the current content.
+   *
+   * @param string $name
+   *   The setting name.
+   *
+   * @return mixed
+   *   The value of the setting, or NULL if the builder has no such setting.
+   */
+  protected function getBuilderSetting(string $name) {
+    $scripts = $this->cssSelect('script[data-drupal-selector="drupal-settings-json"]');
+    $this->assertCount(1, $scripts);
+    $settings = json_decode((string) $scripts[0], TRUE);
+    $builders = array_diff_key($settings['lpBuilder'], ['uiElements' => TRUE]);
+    $this->assertCount(1, $builders);
+    return reset($builders)[$name] ?? NULL;
+  }
+
+  /**
+   * Returns the markup of every component's controls in the current content.
+   *
+   * The builder hands the controls to its JavaScript in drupalSettings.
+   *
+   * @return string
+   *   The concatenated markup.
+   */
+  protected function getComponentControlsMarkup(): string {
+    $scripts = $this->cssSelect('script[data-drupal-selector="drupal-settings-json"]');
+    $this->assertCount(1, $scripts);
+    $settings = json_decode((string) $scripts[0], TRUE);
+    $this->assertNotEmpty($settings['lpBuilder']['uiElements']);
+    $markup = '';
+    foreach ($settings['lpBuilder']['uiElements'] as $elements) {
+      $markup .= $elements['controls']['element'] ?? '';
+    }
+    $this->assertNotEmpty($markup);
+    return $markup;
+  }
+
+  /**
+   * Posts the components of a layout in reverse order to the reorder route.
+   *
+   * @param string $prefix
+   *   The language prefix of the route.
+   * @param string $storage_key
+   *   The layout's tempstore storage key.
+   *
+   * @return \Symfony\Component\HttpFoundation\Response
+   *   The response.
+   */
+  protected function postReversedOrder(string $prefix, string $storage_key): Response {
+    $layout = $this->container->get('layout_paragraphs.tempstore_repository')
+      ->getWithStorageKey($storage_key);
+    $components = [];
+    foreach (array_reverse($layout->getComponents()) as $component) {
+      $components[] = [
+        'uuid' => $component->getEntity()->uuid(),
+        'parentUuid' => NULL,
+        'region' => NULL,
+      ];
+    }
+    $uri = $prefix . '/layout-paragraphs-builder/' . $storage_key . '/reorder' . self::AJAX_QUERY;
+    return $this->doRequest($this->createAjaxRequest($uri, ['components' => json_encode($components)]));
+  }
+
+  /**
+   * Loads the component texts of a layout in the tempstore, in order.
+   *
+   * @param string $storage_key
+   *   The layout's tempstore storage key.
+   * @param string $langcode
+   *   The language of the texts.
+   *
+   * @return string[]
+   *   The texts.
+   */
+  protected function loadLayoutTexts(string $storage_key, string $langcode): array {
+    $layout = $this->container->get('layout_paragraphs.tempstore_repository')
+      ->getWithStorageKey($storage_key);
+    $texts = [];
+    foreach ($layout->getComponents() as $component) {
+      $paragraph = $component->getEntity();
+      $texts[] = $paragraph->getTranslation($langcode)->get('field_text')->value;
+    }
+    return $texts;
   }
 
   /**
@@ -1209,6 +1485,45 @@ class TranslationTest extends KernelTestBase {
       $revision_ids[$langcode] = array_map('intval', array_column($values, 'target_revision_id'));
     }
     return $revision_ids;
+  }
+
+  /**
+   * Saves the builder through its AJAX Save button and the save dialog.
+   *
+   * The first Save opens the dialog. The answer is recorded on the layout as
+   * the dialog's own submit records it, and the second Save saves.
+   *
+   * @param string $uri
+   *   The builder URI, without the AJAX query parameters.
+   * @param array $data
+   *   The builder form fields.
+   * @param bool $new_revision
+   *   Whether to create a new revision.
+   * @param string $log
+   *   The revision log message.
+   *
+   * @return \Symfony\Component\HttpFoundation\Response
+   *   The response to the second Save.
+   */
+  protected function saveThroughDialog(string $uri, array $data, bool $new_revision = FALSE, string $log = ''): Response {
+    $save = [
+      'op' => 'Save',
+      '_triggering_element_name' => 'op',
+      '_triggering_element_value' => 'Save',
+    ];
+    $response = $this->doRequest($this->createAjaxRequest($uri . self::AJAX_QUERY, $data + $save));
+    $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    $this->assertContains('openDialog', array_column(json_decode($response->getContent(), TRUE), 'command'));
+
+    $tempstore = $this->container->get('layout_paragraphs.tempstore_repository');
+    $layout = $tempstore->getWithStorageKey($data['layout_paragraphs_storage_key']);
+    $layout->setThirdPartySetting('layout_paragraphs', 'revision', [
+      'create' => $new_revision,
+      'log' => $log,
+    ]);
+    $tempstore->set($layout);
+
+    return $this->doRequest($this->createAjaxRequest($uri . self::AJAX_QUERY, $data + $save));
   }
 
   /**

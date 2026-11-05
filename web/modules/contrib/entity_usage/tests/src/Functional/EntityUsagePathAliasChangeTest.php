@@ -1,16 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\entity_usage\Functional;
 
+use PHPUnit\Framework\Attributes\TestWith;
 use Drupal\filter\Entity\FilterFormat;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\Traits\Core\CronRunTrait;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests changing a path alias and what happens.
  *
  * @group entity_usage
  */
+#[Group('entity_usage')]
+#[RunTestsInSeparateProcesses]
 class EntityUsagePathAliasChangeTest extends BrowserTestBase {
   use CronRunTrait;
 
@@ -51,13 +58,11 @@ class EntityUsagePathAliasChangeTest extends BrowserTestBase {
     ]);
     $basic_html_format->save();
 
-    $current_request = \Drupal::request();
     $this->config('entity_usage.settings')
       ->set('local_task_enabled_entity_types', ['node'])
       ->set('track_enabled_source_entity_types', ['node'])
       ->set('track_enabled_target_entity_types', ['node'])
       ->set('track_enabled_plugins', ['html_link'])
-      ->set('site_domains', [$current_request->getHttpHost() . $current_request->getBasePath()])
       ->save();
 
     /** @var \Drupal\Core\Routing\RouteBuilderInterface $routerBuilder */
@@ -71,10 +76,9 @@ class EntityUsagePathAliasChangeTest extends BrowserTestBase {
 
   /**
    * Tests tracking with path aliases changing.
-   *
-   * @testWith [false]
-   *           [true]
    */
+  #[TestWith([FALSE])]
+  #[TestWith([TRUE])]
   public function testTrackingAliasChange(bool $use_cron): void {
     if ($use_cron) {
       \Drupal::service('module_installer')->install(['entity_usage_url_updater_test']);

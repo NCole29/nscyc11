@@ -136,7 +136,7 @@ class SmartDateTokensHooks {
         // Get the requested property and apply the provided format.
         if ($name_parts && $prop_needed = array_pop($name_parts)) {
           $field_ts = $field->get($prop_needed)->getValue();
-          $replacements[$original] = $this->dateFormatter->format($field_ts, '', $format_value);
+          $replacements[$original] = $this->dateFormatter->format($field_ts, 'custom', $format_value);
         }
       }
       elseif ($approach == 'format') {

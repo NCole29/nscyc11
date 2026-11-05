@@ -1,0 +1,10 @@
+services:
+  _defaults:
+    autowire: true
+  Drupal\mailer_policy\EmailAdjusterManagerInterface:
+    class: Drupal\mailer_policy\EmailAdjusterManager
+    parent: default_plugin_manager
+    tags:
+      - { name: symfony_mailer.add_processor }
+  Drupal\mailer_policy\PolicyHelperInterface:
+    class: Drupal\mailer_policy\PolicyHelper

@@ -89,11 +89,73 @@ describe('Layout Paragraphs Builder Tests', () => {
       .click();
 
     cy.lpFindComponent('Some arbitrary text');
-    // Edit the component. Scope to the selected component: hovering it also
-    // reveals the parent section's controls, so an unscoped .lpb-edit matches
-    // more than one.
-    cy.get('@selectedComponent').find('a.lpb-edit').first().click({ force: true });
+    // Edit the component
+    cy.get('a.lpb-edit:visible').click();
     cy.get('.ui-dialog-title').should('contain', 'Edit Text');
+  });
+
+  it('double-clicks to edit a component', () => {
+    cy.lpCreateTestPage('Test Double Click Edit');
+
+    // Add a section and text component
+    cy.lpAddSection('layout_threecol_25_50_25', '.lpb-btn--add');
+    cy.lpAddTextComponent(
+      'Text to double-click',
+      '.layout__region--first .lpb-btn--add',
+    );
+
+    // Save and go to edit mode
+    cy.lpSavePage();
+
+    cy.visit('/admin/content');
+    cy.get('a[aria-label="Edit Test Double Click Edit"]')
+      .first()
+      .scrollIntoView()
+      .click();
+
+    // Select the component, then double-click it.
+    cy.lpFindComponent('Text to double-click');
+    cy.get('@selectedComponent').dblclick();
+
+    // Double-clicking a selected component should open the edit form.
+    cy.get('.ui-dialog-title').should('contain', 'Edit Text');
+  });
+
+  it('does not edit on double-click when it is turned off', () => {
+    cy.drush(
+      'config:set',
+      ['layout_paragraphs.builder_settings', 'double_click_to_edit', 'false'],
+      { 'input-format': 'yaml' },
+    );
+    cy.lpCreateTestPage('Test Double Click Off');
+
+    cy.lpAddSection('layout_threecol_25_50_25', '.lpb-btn--add');
+    cy.lpAddTextComponent(
+      'Text not to double-click',
+      '.layout__region--first .lpb-btn--add',
+    );
+
+    cy.lpSavePage();
+
+    cy.visit('/admin/content');
+    cy.get('a[aria-label="Edit Test Double Click Off"]')
+      .first()
+      .scrollIntoView()
+      .click();
+
+    cy.intercept('/layout-paragraphs-builder/*/edit/*').as('editForm');
+    cy.lpFindComponent('Text not to double-click');
+    cy.get('@selectedComponent').dblclick();
+    // Give a double-click time to request the edit form before checking.
+    cy.wait(1000);
+    cy.get('@editForm.all').should('have.length', 0);
+    cy.get('.ui-dialog').should('not.exist');
+
+    cy.drush(
+      'config:set',
+      ['layout_paragraphs.builder_settings', 'double_click_to_edit', 'true'],
+      { 'input-format': 'yaml' },
+    );
   });
 
   it('deletes a component', () => {
@@ -118,7 +180,7 @@ describe('Layout Paragraphs Builder Tests', () => {
 
     // Delete the component
     cy.lpFindComponent('Text to delete');
-    cy.get('@selectedComponent').find('a.lpb-delete').first().click({ force: true });
+    cy.get('a.lpb-delete:visible').click();
     cy.get('.ui-dialog-title').should('contain', 'Delete component');
     cy.get('button.lpb-btn--confirm-delete').click();
 
@@ -147,7 +209,7 @@ describe('Layout Paragraphs Builder Tests', () => {
 
     // Start delete but cancel
     cy.lpFindComponent('Text to keep');
-    cy.get('@selectedComponent').find('a.lpb-delete').first().click({ force: true });
+    cy.get('a.lpb-delete:visible').click();
     cy.get('.ui-dialog-title').should('contain', 'Delete component');
     cy.get('button.dialog-cancel').click();
 
@@ -171,18 +233,19 @@ describe('Layout Paragraphs Builder Tests', () => {
       .scrollIntoView()
       .click();
 
-    // Add second component after the first. Hovering reveals its add buttons.
+    // Add second component after the first
     cy.lpFindComponent('First text');
-    cy.get('@selectedComponent').realHover();
+    // Hover over the active component.
+    cy.get('[data-active="true"]').trigger('mouseover');
 
     cy.lpAddTextComponent(
       'Second text',
       '[data-type="lp_test_text"] .lpb-btn--add.after',
     );
 
-    // Move the second component up. Scope the control to the selected component.
+    // Move the second component up
     cy.lpFindComponent('Second text');
-    cy.get('@selectedComponent').find('.lpb-up').first().click({ force: true });
+    cy.get('.lpb-up:visible').click();
 
     // Save the page
     cy.lpSavePage();
@@ -233,11 +296,8 @@ describe('Layout Paragraphs Builder Tests', () => {
   }
   /**
    * @todo Remove the `.skip` when keyboard navigation tests are finished.
-   *   The arrow-key focus assertions are flaky on the CI Electron build (the
-   *   layout radio does not always receive focus in time), so this stays
-   *   skipped until the keyboard navigation is stabilized.
    */
-  it.skip('creates a basic layout with keyboard navigation', () => {
+  it('creates a basic layout with keyboard navigation', () => {
     cy.visit('node/add/lp_test_ct');
     cy.get('body').realPress('Tab');
     pressUntil('Tab', 'input[name="title[0][value]"]');
@@ -322,8 +382,12 @@ describe('Layout Paragraphs Builder Tests', () => {
 
     // Verify all three components are present on the saved page
     cy.contains('Text added via keyboard navigation').should('be.visible');
-    cy.contains('Second text added via keyboard navigation').should('be.visible');
-    cy.contains('Third text added via keyboard navigation').should('be.visible');
+    cy.contains('Second text added via keyboard navigation').should(
+      'be.visible',
+    );
+    cy.contains('Third text added via keyboard navigation').should(
+      'be.visible',
+    );
   });
 
   // @todo: Add test for reordering components via keyboard navigation

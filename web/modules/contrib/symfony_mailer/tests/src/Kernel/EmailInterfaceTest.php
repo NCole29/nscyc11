@@ -6,6 +6,7 @@ use Drupal\TestTools\Random;
 use Drupal\Tests\symfony_mailer\DummyHttpsWrapper;
 use Drupal\symfony_mailer\Address;
 use Drupal\symfony_mailer\Attachment;
+use Drupal\symfony_mailer\EmailInterface;
 
 /**
  * Tests \Drupal\symfony_mailer\EmailInterface.
@@ -32,26 +33,26 @@ class EmailInterfaceTest extends SymfonyMailerKernelTestBase {
     DummyHttpsWrapper::register(['settings.php' => FALSE]);
 
     // Send.
-    $this->emailFactory->newTypedEmail('symfony_mailer', 'test', $this->addressTo)
-      ->attach(Attachment::fromData('Blue cheese', 'cheese.txt', 'text/plain'))
-      ->attachFromPath('public://image.jpg')
-      ->attachFromPath('private://image.jpg')
-      ->attachFromPath('/root/image.jpg')
-      ->attach(Attachment::fromPath('sites/default/settings.php'))
-      ->attach(Attachment::fromPath('http://zzz'))
-      ->removeAttachment('http://zzz')
-      ->send();
+    $this->testMailer->addCallback(function (EmailInterface $email) {
+      $email->attach(Attachment::fromData('Blue cheese', 'cheese.txt', 'text/plain'))
+        ->attachFromPath('public://image.jpg')
+        ->attachFromPath('private://image.jpg')
+        ->attachFromPath('/root/image.jpg')
+        ->attach(Attachment::fromPath('sites/default/settings.php'))
+        ->attach(Attachment::fromPath('http://zzz'))
+        ->removeAttachment('http://zzz');
+    });
+    $this->testMailer->verify($this->addressTo);
 
     // Check.
     $this->readMail();
-    $this->assertNoError();
     $this->assertAttachment(NULL, 'cheese.txt', 'text/plain');
-    $this->assertAttachment('public://image.jpg', 'image.jpg', 'image/jpeg');
-    $this->assertAttachment('private://image.jpg', 'image.jpg', 'image/jpeg', FALSE);
-    $this->assertAttachment('/root/image.jpg', 'image.jpg', 'image/jpeg', FALSE);
-    $this->assertAttachment("$base_url/sites/default/settings.php", 'settings.php', access: FALSE);
-    $this->assertAttachment("$base_url$logo_uri", 'logo.png', 'image/png', embed: TRUE);
-    $this->assertCount(6, $this->email->getAttachments());
+    $this->assertAttachment('public://image.jpg', NULL, 'image/jpeg');
+    $this->assertNoAttachment('private://image.jpg');
+    $this->assertNoAttachment('/root/image.jpg');
+    $this->assertNoAttachment(name: 'settings.php');
+    $this->assertAttachment("$base_url$logo_uri", NULL, 'image/png', TRUE);
+    $this->assertCount(3, $this->email->getAttachments());
   }
 
   /**
@@ -63,30 +64,31 @@ class EmailInterfaceTest extends SymfonyMailerKernelTestBase {
    * @dataProvider emailAddressesProvider
    */
   public function testEmailAddresses($addresses) {
-    $email = $this->emailFactory->newTypedEmail('symfony_mailer', 'test', $this->addressTo);
+    $this->testMailer->addCallback(function (EmailInterface $email) use ($addresses) {
+      // Sets a random header value to ensure its overrides works correctly.
+      foreach (['from', 'reply-to', 'cc', 'bcc'] as $name) {
+        $email->setAddress($name, $this->randomMachineName() . '@example.com');
+      }
 
-    // Sets a random header value to ensure its overrides works correctly.
-    foreach (['from', 'reply-to', 'cc', 'bcc'] as $name) {
-      $email->setAddress($name, $this->randomMachineName() . '@example.com');
-    }
-
-    // Set and get each address field.
-    $count = is_array($addresses) ? count($addresses) : (is_null($addresses) ? 0 : 1);
-    $email->setFrom($addresses);
-    $this->assertEquals($count, count($email->getFrom()));
-    $email->setReplyTo($addresses);
-    $this->assertEquals($count, count($email->getReplyTo()));
-    $email->setCc($addresses);
-    $this->assertEquals($count, count($email->getCc()));
-    $email->setBcc($addresses);
-    $this->assertEquals($count, count($email->getBcc()));
-    $email->send();
+      // Set and get each address field.
+      $count = is_array($addresses) ? count($addresses) : (is_null($addresses) ? 0 : 1);
+      $email->setFrom($addresses);
+      $this->assertCount($count, $email->getFrom());
+      $email->setReplyTo($addresses);
+      $this->assertCount($count, $email->getReplyTo());
+      $this->assertCount(1, $email->getTo());
+      $email->setCc($addresses);
+      $this->assertCount($count, $email->getCc());
+      $email->setBcc($addresses);
+      $this->assertCount($count, $email->getBcc());
+    });
+    $this->testMailer->verify($this->addressTo);
 
     // Assert a test email with header exists.
     $this->readMail();
-    $this->assertNoError();
+    $s_addresses = $addresses ? array_map(fn($a) => $a->getSymfony(), Address::convert($addresses)) : NULL;
     foreach (['from', 'reply-to', 'cc', 'bcc'] as $name) {
-      $this->assertAddress($name, $addresses);
+      $this->assertAddress($name, $s_addresses);
     }
   }
 

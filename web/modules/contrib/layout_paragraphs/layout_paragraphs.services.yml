@@ -23,6 +23,10 @@ services:
     class: \Drupal\layout_paragraphs\EventSubscriber\LayoutParagraphsUpdateLayoutSubscriber
     tags:
       - { name: 'event_subscriber' }
+  layout_paragraphs.change_detector:
+    class: Drupal\layout_paragraphs\LayoutChangeDetector
+    arguments:
+      - '@entity_type.manager'
   layout_paragraphs.builder_access:
     class: Drupal\layout_paragraphs\Access\LayoutParagraphsBuilderAccess
     arguments:

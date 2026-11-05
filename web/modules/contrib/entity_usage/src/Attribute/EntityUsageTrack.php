@@ -28,7 +28,9 @@ class EntityUsageTrack extends Plugin {
    * @param array $field_types
    *   The field types that this plugin is able to track.
    * @param class-string $source_entity_class
-   *   Determines what source entities the plugins support.
+   *   Determines what source entities the plugins support. Defaults to
+   *   \Drupal\Core\Entity\FieldableEntityInterface as this is what
+   *   \Drupal\entity_usage\EntityUsageTrackBase requires.
    * @param class-string|null $deriver
    *   (optional) The deriver class.
    */

@@ -2,6 +2,10 @@ Solo Sub-theme is a start up theme for your customization.
 
 ## Creating your own sub-theme from this folder
 
+**Quickest:** with the Solo Utilities module (1.0.10 or later) enabled, run
+`drush solo:subtheme my_theme`. It does every step below for you. To do it
+by hand instead:
+
 Copy this folder out of the Solo theme (for example to
 `themes/custom/my_theme`), then replace **every** `solo_subtheme` with your
 theme's machine name. Your machine name uses lowercase letters, numbers and

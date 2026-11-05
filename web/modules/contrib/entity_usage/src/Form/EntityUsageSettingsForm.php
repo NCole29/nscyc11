@@ -1,68 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\entity_usage\Form;
 
-use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
+use Drupal\Core\Form\ConfigTarget;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Routing\RouteBuilderInterface;
+use Drupal\Core\Form\RedundantEditableConfigNamesTrait;
 use Drupal\entity_usage\Controller\ListUsageController;
 use Drupal\entity_usage\EntityUsageTrackManager;
+use Drupal\entity_usage\SiteDomains;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form to configure entity_usage settings.
  */
 class EntityUsageSettingsForm extends ConfigFormBase {
+  use RedundantEditableConfigNamesTrait;
 
-  /**
-   * The Entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
-
-  /**
-   * The router builder.
-   *
-   * @var \Drupal\Core\Routing\RouteBuilderInterface
-   */
-  protected $routerBuilder;
-
-  /**
-   * The Cache Render.
-   *
-   * @var \Drupal\Core\Cache\CacheBackendInterface
-   */
-  protected $cacheRender;
-
-  /**
-   * The Entity Usage Track Manager service.
-   *
-   * @var \Drupal\entity_usage\EntityUsageTrackManager
-   */
-  protected $usageTrackManager;
-
-  /**
-   * {@inheritdoc}
-   */
   public function __construct(
     ConfigFactoryInterface $config_factory,
     TypedConfigManagerInterface $typed_config_manager,
-    EntityTypeManagerInterface $entity_type_manager,
-    RouteBuilderInterface $router_builder,
-    CacheBackendInterface $cache_render,
-    EntityUsageTrackManager $usage_track_manager,
+    protected EntityTypeManagerInterface $entityTypeManager,
+    protected EntityUsageTrackManager $usageTrackManager,
   ) {
     parent::__construct($config_factory, $typed_config_manager);
-    $this->entityTypeManager = $entity_type_manager;
-    $this->routerBuilder = $router_builder;
-    $this->cacheRender = $cache_render;
-    $this->usageTrackManager = $usage_track_manager;
   }
 
   /**
@@ -73,8 +40,6 @@ class EntityUsageSettingsForm extends ConfigFormBase {
       $container->get('config.factory'),
       $container->get('config.typed'),
       $container->get('entity_type.manager'),
-      $container->get('router.builder'),
-      $container->get('cache.render'),
       $container->get('plugin.manager.entity_usage.track')
     );
   }
@@ -82,23 +47,14 @@ class EntityUsageSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId(): string {
     return 'entity_usage_settings_form';
   }
 
   /**
    * {@inheritdoc}
    */
-  protected function getEditableConfigNames(): array {
-    return ['entity_usage.settings'];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('entity_usage.settings');
-
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $all_entity_types = $this->entityTypeManager->getDefinitions();
     $content_entity_types = [];
 
@@ -130,6 +86,15 @@ class EntityUsageSettingsForm extends ConfigFormBase {
     unset($content_entity_types['file']);
     unset($content_entity_types['user']);
 
+    // Inline entity types (e.g. paragraphs) are handled by their respective
+    // inline entity usage tracking plugins, so they should never be configured
+    // as source or target entities.
+    foreach ($this->usageTrackManager->getInlineEntityTypeIds() as $inline_entity_type_id) {
+      unset($content_entity_types[$inline_entity_type_id]);
+      unset($entity_type_options[$inline_entity_type_id]);
+      unset($source_options[$inline_entity_type_id]);
+    }
+
     // Tabs configuration.
     $form['local_task_enabled_entity_types'] = [
       '#type' => 'details',
@@ -142,7 +107,7 @@ class EntityUsageSettingsForm extends ConfigFormBase {
       '#type' => 'checkboxes',
       '#title' => $this->t('Local task entity types'),
       '#options' => $tabs_options,
-      '#default_value' => $config->get('local_task_enabled_entity_types'),
+      '#config_target' => new ConfigTarget('entity_usage.settings', 'local_task_enabled_entity_types', toConfig: fn($value) => array_values(array_filter($value))),
     ];
 
     // Entity types (source).
@@ -157,8 +122,13 @@ class EntityUsageSettingsForm extends ConfigFormBase {
       '#type' => 'checkboxes',
       '#title' => $this->t('Source entity types'),
       '#options' => $source_options,
-      // If no custom settings exist, content entities are tracked by default.
-      '#default_value' => $config->get('track_enabled_source_entity_types') ?: array_keys($content_entity_types),
+      '#config_target' => new ConfigTarget(
+        'entity_usage.settings',
+        'track_enabled_source_entity_types',
+        // If no custom settings exist, content entities are tracked by default.
+        fn($value) => $value ?? array_keys($content_entity_types),
+        fn($value) => array_values(array_filter($value))
+      ),
       '#required' => TRUE,
     ];
 
@@ -174,8 +144,13 @@ class EntityUsageSettingsForm extends ConfigFormBase {
       '#type' => 'checkboxes',
       '#title' => $this->t('Target entity types'),
       '#options' => $entity_type_options,
-      // If no custom settings exist, content entities are tracked by default.
-      '#default_value' => $config->get('track_enabled_target_entity_types') ?: array_keys($content_entity_types),
+      '#config_target' => new ConfigTarget(
+        'entity_usage.settings',
+        'track_enabled_target_entity_types',
+        // If no custom settings exist, content entities are tracked by default.
+        fn($value) => $value ?? array_keys($content_entity_types),
+        fn($value) => array_values(array_filter($value))
+      ),
       '#required' => TRUE,
     ];
 
@@ -193,12 +168,22 @@ class EntityUsageSettingsForm extends ConfigFormBase {
     foreach ($plugins as $plugin) {
       $plugin_options[$plugin['id']] = $plugin['label'];
     }
+    // Remove inline entity usage tracking plugins from the options — they are
+    // always enabled.
+    foreach ($this->usageTrackManager->getInlinePluginIds() as $inline_plugin_id) {
+      unset($plugin_options[$inline_plugin_id]);
+    }
     natcasesort($plugin_options);
     $form['track_enabled_plugins']['plugins'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Tracking plugins'),
       '#options' => $plugin_options,
-      '#default_value' => $config->get('track_enabled_plugins') ?: array_keys($plugin_options),
+      '#config_target' => new ConfigTarget(
+        'entity_usage.settings',
+        'track_enabled_plugins',
+        fn($value) => $value ?? array_keys($plugin_options),
+        fn($value) => array_values(array_filter($value))
+      ),
       '#required' => TRUE,
     ];
     // Add descriptions to all plugins that defined it.
@@ -220,7 +205,12 @@ class EntityUsageSettingsForm extends ConfigFormBase {
       '#type' => 'checkboxes',
       '#title' => $this->t('Entity types to show warning on edit form'),
       '#options' => $entity_type_options,
-      '#default_value' => $config->get('edit_warning_message_entity_types') ?: [],
+      '#config_target' => new ConfigTarget(
+        'entity_usage.settings',
+        'edit_warning_message_entity_types',
+        fn($value) => $value ?? [],
+        fn($value) => array_values(array_filter($value))
+      ),
       '#required' => FALSE,
     ];
 
@@ -236,7 +226,12 @@ class EntityUsageSettingsForm extends ConfigFormBase {
       '#type' => 'checkboxes',
       '#title' => $this->t('Entity types to show warning on delete form'),
       '#options' => $entity_type_options,
-      '#default_value' => $config->get('delete_warning_message_entity_types') ?: [],
+      '#config_target' => new ConfigTarget(
+        'entity_usage.settings',
+        'delete_warning_message_entity_types',
+        fn($value) => $value ?? [],
+        fn($value) => array_values(array_filter($value))
+      ),
       '#required' => FALSE,
     ];
 
@@ -264,19 +259,28 @@ class EntityUsageSettingsForm extends ConfigFormBase {
       '#type' => 'checkbox',
       '#title' => $this->t('Track referencing basefields'),
       '#description' => $this->t('If enabled, relationships generated through non-configurable fields (basefields) will also be tracked.'),
-      '#default_value' => (bool) $config->get('track_enabled_base_fields'),
+      '#config_target' => 'entity_usage.settings:track_enabled_base_fields',
     ];
     $form['generic_settings']['site_domains'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Domains for this website'),
       '#description' => $this->t("A list of domain names for this website. Absolute URLs in content are matched against these domains to identify internal links and track their usage. If Drupal is installed in a subdirectory, include the path: <em>example.com/subdir</em>. Enter one value per line, e.g. <em>example.com</em> or <em>example.com/blog</em>."),
-      '#default_value' => implode("\r\n", $config->get('site_domains') ?: []),
+      '#config_target' => new ConfigTarget(
+        'entity_usage.settings',
+        'site_domains',
+        self::domainsConfigToForm(...),
+        self::domainsFormToConfig(...),
+      ),
     ];
     $form['generic_settings']['usage_controller_items_per_page'] = [
       '#type' => 'number',
       '#title' => $this->t('Items per page'),
       '#description' => $this->t('Define here the number of items per page that should be shown on the usage page.'),
-      '#default_value' => $config->get('usage_controller_items_per_page') ?: ListUsageController::ITEMS_PER_PAGE_DEFAULT,
+      '#config_target' => new ConfigTarget(
+        'entity_usage.settings',
+        'usage_controller_items_per_page',
+        fn($value) => $value ?? ListUsageController::ITEMS_PER_PAGE_DEFAULT,
+      ),
       '#min' => 1,
       '#step' => 1,
     ];
@@ -285,34 +289,31 @@ class EntityUsageSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Callback to convert config to form for the site domains config target.
+   *
+   * @param array|null $domains
+   *   The site domains config.
+   *
+   * @return string
+   *   The site domains config as a string.
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    $form_state->cleanValues();
-    $config = $this->config('entity_usage.settings');
+  private static function domainsConfigToForm(?array $domains): string {
+    $domains = array_map(fn ($domain) => rtrim(idn_to_utf8($domain['host'], IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46) . $domain['path'], '/'), $domains ?? []);
+    return implode("\r\n", $domains);
+  }
 
-    $local_tasks_updated = array_filter($config->get('local_task_enabled_entity_types')) !== array_filter($form_state->getValue('local_task_enabled_entity_types')['entity_types']);
-
-    $site_domains = preg_replace('/[\s, ]/', ',', $form_state->getValue('site_domains'));
-    $site_domains = array_values(array_filter(explode(',', $site_domains)));
-
-    $config->set('track_enabled_base_fields', (bool) $form_state->getValue('track_enabled_base_fields'))
-      ->set('local_task_enabled_entity_types', array_values(array_filter($form_state->getValue('local_task_enabled_entity_types')['entity_types'])))
-      ->set('track_enabled_source_entity_types', array_values(array_filter($form_state->getValue('track_enabled_source_entity_types')['entity_types'])))
-      ->set('track_enabled_target_entity_types', array_values(array_filter($form_state->getValue('track_enabled_target_entity_types')['entity_types'])))
-      ->set('edit_warning_message_entity_types', array_values(array_filter($form_state->getValue('edit_warning_message_entity_types')['entity_types'])))
-      ->set('delete_warning_message_entity_types', array_values(array_filter($form_state->getValue('delete_warning_message_entity_types')['entity_types'])))
-      ->set('track_enabled_plugins', array_values(array_filter($form_state->getValue('track_enabled_plugins')['plugins'])))
-      ->set('site_domains', $site_domains)
-      ->set('usage_controller_items_per_page', $form_state->getValue('usage_controller_items_per_page'))
-      ->save();
-
-    if ($local_tasks_updated) {
-      $this->routerBuilder->rebuild();
-      $this->cacheRender->invalidateAll();
-    }
-
-    parent::submitForm($form, $form_state);
+  /**
+   * Callback to convert form to config for the site domains config target.
+   *
+   * @param string $domains
+   *   The site domains form data.
+   *
+   * @return list<array{host:string, path:string}>
+   *   The site domains config as an array.
+   */
+  private static function domainsFormToConfig(string $domains): array {
+    $domains = array_values(array_filter(explode(',', preg_replace('/[\s, ]/', ',', $domains))));
+    return SiteDomains::stringsToConfig($domains);
   }
 
 }

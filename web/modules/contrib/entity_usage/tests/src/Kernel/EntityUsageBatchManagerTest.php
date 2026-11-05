@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\entity_usage\Kernel;
 
 use Drupal\Core\Database\Connection;
@@ -11,14 +13,19 @@ use Drupal\entity_usage_test\TestEntityUsageBatchManager;
 use Drupal\entity_usage_test\TestLogger;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\entity_usage\EntityUsageInterface;
 use Drupal\KernelTests\Core\Entity\EntityKernelTestBase;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
- * Tests the entity_usage.batch_manager service's entity type scoping.
+ * Tests \Drupal\entity_usage\EntityUsageBatchManager.
  *
  * @group entity_usage
+ *
+ * @package Drupal\Tests\entity_usage\Kernel
  */
+#[Group('entity_usage')]
+#[RunTestsInSeparateProcesses]
 class EntityUsageBatchManagerTest extends EntityKernelTestBase {
 
   /**
@@ -42,6 +49,57 @@ class EntityUsageBatchManagerTest extends EntityKernelTestBase {
 
     $this->installSchema('entity_usage', ['entity_usage']);
     $this->installConfig('entity_usage');
+  }
+
+  /**
+   * Tests creating new data while a bulk recreate is in progress.
+   *
+   * @covers \Drupal\entity_usage\EntityUsageBatchManager::copyBulkTable
+   * @covers \Drupal\entity_usage\EntityUsageBatchManager::restoreNewData
+   */
+  public function testRestoreNewData(): void {
+    /** @var \Drupal\entity_usage\EntityUsage $entity_usage */
+    $entity_usage = $this->container->get('entity_usage.usage');
+    /** @var \Drupal\Core\Database\Connection $database */
+    $database = $this->container->get('database');
+
+    $context = [];
+    // Create bulk and backup tables.
+    EntityUsageBatchManager::createBulkTable($context);
+
+    // Simulate bulk recreate.
+    $entity_usage->enableBulkInsert(EntityUsageBatchManager::BULK_TABLE_NAME);
+    $entity_usage->registerUsage(11, 'test', 1, 'foo', 'en', 1, 'entity_reference', 'body', 2);
+    $entity_usage->registerUsage(12, 'test', 1, 'foo', 'en', 1, 'entity_reference', 'body');
+    $entity_usage->registerUsage(13, 'test', 1, 'foo', 'en', 1, 'entity_reference', 'body');
+    $entity_usage->registerUsage(17, 'test', 1, 'foo', 'en', 1, 'entity_reference', 'body');
+    $entity_usage->bulkInsert();
+
+    // Simulate usage data being creating while the recreate is in progress.
+    $entity_usage->enableBulkInsert('entity_usage');
+    // The next usage being inserted is also in the bulk table. This could occur
+    // if a user saves a node without creating a new revision.
+    $entity_usage->registerUsage(13, 'test', 1, 'foo', 'en', 1, 'entity_reference', 'body');
+    $entity_usage->registerUsage(14, 'test', 1, 'foo', 'en', 1, 'entity_reference', 'body');
+    $entity_usage->registerUsage(15, 'test', 1, 'foo', 'en', 1, 'entity_reference', 'body');
+    $entity_usage->bulkInsert();
+
+    $this->assertSame(3, (int) $database->select('entity_usage')->countQuery()->execute()->fetchField());
+    $this->assertSame(4, (int) $database->select(EntityUsageBatchManager::BULK_TABLE_NAME)->countQuery()->execute()->fetchField());
+    $this->assertSame(0, (int) $database->select(EntityUsageBatchManager::BACKUP_TABLE_NAME)->countQuery()->execute()->fetchField());
+
+    EntityUsageBatchManager::copyBulkTable($context);
+    $this->assertSame(4, (int) $database->select('entity_usage')->countQuery()->execute()->fetchField());
+    $this->assertSame(4, (int) $database->select(EntityUsageBatchManager::BULK_TABLE_NAME)->countQuery()->execute()->fetchField());
+    $this->assertSame(3, (int) $database->select(EntityUsageBatchManager::BACKUP_TABLE_NAME)->countQuery()->execute()->fetchField());
+
+    EntityUsageBatchManager::restoreNewData($context);
+    $this->assertSame(6, (int) $database->select('entity_usage')->countQuery()->execute()->fetchField());
+    $this->assertSame(4, (int) $database->select(EntityUsageBatchManager::BULK_TABLE_NAME)->countQuery()->execute()->fetchField());
+    $this->assertSame(3, (int) $database->select(EntityUsageBatchManager::BACKUP_TABLE_NAME)->countQuery()->execute()->fetchField());
+
+    $data = array_keys($database->select('entity_usage')->fields('entity_usage', ['target_id'])->orderby('target_id')->execute()->fetchAllAssoc('target_id'));
+    $this->assertSame([11, 12, 13, 14, 15, 17], $data);
   }
 
   /**
@@ -94,18 +152,22 @@ class EntityUsageBatchManagerTest extends EntityKernelTestBase {
 
     // Seed a fake usage record for the entity type we are about to scope the
     // rebuild to, and one for an entity type outside the scope.
-    $eu_service = $this->container->get(EntityUsageInterface::class);
+    $eu_service = $this->container->get('entity_usage.usage');
     $eu_service->registerUsage(999, 'node', $entity->id(), 'entity_test', 'en', 1, 'entity_reference', 'field_test', 1);
     $eu_service->registerUsage(999, 'node', 1, 'user', 'en', 1, 'entity_reference', 'field_test', 1);
 
     // Call the batch worker methods directly rather than driving the whole
     // batch returned by generateBatch(): a fresh $context per call mirrors
-    // how the Batch API itself invokes each operation.
+    // how the Batch API itself invokes each operation. Pass TRUE for
+    // $keep_existing_records to updateSourcesBatchWorker() so it takes the
+    // direct (non-bulk) code path and writes straight to the entity_usage
+    // table, rather than requiring the entity_usage_bulk table set up by
+    // createBulkTable().
     $context = ['sandbox' => [], 'results' => [], 'finished' => 0, 'message' => ''];
     EntityUsageBatchManager::deleteSourcesForEntityType('entity_test', $context);
 
     $context = ['sandbox' => [], 'results' => [], 'finished' => 0, 'message' => ''];
-    EntityUsageBatchManager::updateSourcesBatchWorker('entity_test', FALSE, $context);
+    EntityUsageBatchManager::updateSourcesBatchWorker('entity_test', TRUE, $context);
 
     $database = $this->container->get(Connection::class);
     $entity_test_count = $database->select('entity_usage', 'e')

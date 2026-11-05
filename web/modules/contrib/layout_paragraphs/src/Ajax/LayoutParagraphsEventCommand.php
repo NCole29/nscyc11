@@ -31,12 +31,20 @@ class LayoutParagraphsEventCommand implements CommandInterface {
   protected $eventName;
 
   /**
+   * Extra data to pass to the event.
+   *
+   * @var array
+   */
+  protected $extra;
+
+  /**
    * Constructor.
    */
-  public function __construct($layout, $component_uuid, $event_name) {
+  public function __construct($layout, $component_uuid, $event_name, $extra = []) {
     $this->layout = $layout;
     $this->componentUuid = $component_uuid;
     $this->eventName = $event_name;
+    $this->extra = $extra;
   }
 
   /**
@@ -51,6 +59,7 @@ class LayoutParagraphsEventCommand implements CommandInterface {
       'layoutId' => $this->layout->id(),
       'componentUuid' => $this->componentUuid,
       'eventName' => $this->eventName,
+      'extra' => $this->extra,
     ];
   }
 

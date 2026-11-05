@@ -5,8 +5,10 @@ namespace Drupal\Tests\smart_date\Kernel;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormState;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\entity_test\Entity\EntityTest;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -146,6 +148,70 @@ class SmartDateRecurKernelTest extends FieldKernelTestBase {
   }
 
   /**
+   * Tests the widget counts one row per rule rather than one per instance.
+   */
+  public function testWidgetCollapsesRecurringInstances(): void {
+    $values = $this->massageRecurringValues(['repeat-end-count' => 5]);
+    $field_values = array_map([$this, 'filterFieldValue'], $values);
+    $this->assertCount(5, $field_values);
+    // Add a one-off date after the recurring instances.
+    $field_values[] = [
+      'value' => strtotime('2026-02-01 09:00:00 UTC'),
+      'end_value' => strtotime('2026-02-01 10:00:00 UTC'),
+      'duration' => 60,
+    ];
+
+    $entity = EntityTest::create([
+      'name' => $this->randomMachineName(),
+      $this->fieldName => $field_values,
+    ]);
+    $entity->save();
+
+    $widget = $this->createWidget();
+    $items = $entity->get($this->fieldName);
+    $form = ['#parents' => []];
+    $form_state = new FormState();
+    $elements = $widget->form($items, $form, $form_state);
+
+    $this->assertCount(2, $items);
+    $this->assertSame($field_values[0]['rrule'], $items[0]->rrule);
+    $this->assertEmpty($items[1]->rrule);
+    $field_state = SmartDateDefaultWidget::getWidgetState([], $this->fieldName, $form_state);
+    $this->assertSame(2, $field_state['items_count']);
+    // Every rendered row is a visible one, at contiguous deltas.
+    $this->assertSame([0, 1], array_values(array_filter(array_keys($elements['widget']), 'is_int')));
+  }
+
+  /**
+   * Creates a Smart Date widget for the test field with stubbed rows.
+   *
+   * Rows are stubbed so the multiple-value handling can be exercised without
+   * building a full date widget form tree.
+   *
+   * @return \Drupal\smart_date\Plugin\Field\FieldWidget\SmartDateDefaultWidget
+   *   The widget.
+   */
+  protected function createWidget(): SmartDateDefaultWidget {
+    return new class(
+      'smartdate_default',
+      ['multiple_values' => FALSE],
+      $this->field,
+      SmartDateDefaultWidget::defaultSettings(),
+      [],
+      $this->container->get('entity_type.manager')
+    ) extends SmartDateDefaultWidget {
+
+      /**
+       * {@inheritdoc}
+       */
+      protected function formSingleElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+        return $element + ['#markup' => 'item-' . $delta];
+      }
+
+    };
+  }
+
+  /**
    * Massages a recurring Smart Date value through the field widget.
    *
    * @param array $overrides
@@ -161,7 +227,7 @@ class SmartDateRecurKernelTest extends FieldKernelTestBase {
       $this->field,
       [],
       [],
-      $this->container->get('entity_type.manager')->getStorage('date_format')
+      $this->container->get('entity_type.manager')
     );
 
     $outer_entity = $this->createStub(EntityInterface::class);

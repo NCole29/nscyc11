@@ -85,6 +85,16 @@ class ChooseComponentController extends ControllerBase {
     // sibling's region.
     if ($context['sibling_uuid']) {
       $sibling = $layout_paragraphs_layout->getComponentByUuid($context['sibling_uuid']);
+      if (!$sibling) {
+        $error_details = [
+          'sibling_uuid' => $context['sibling_uuid'],
+          'request_url' => $request->getUri(),
+          'request_params' => $request->query->all(),
+          'full_context' => $context,
+          'layout_id' => $layout_paragraphs_layout->id(),
+        ];
+        throw new \InvalidArgumentException('The sibling component with UUID ' . $context['sibling_uuid'] . ' does not exist. Request details: ' . json_encode($error_details));
+      }
       $context['region'] = $sibling->getRegion();
     }
     $types = $this->getAllowedComponentTypes($layout_paragraphs_layout, $context);

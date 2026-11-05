@@ -1,0 +1,9 @@
+name: Mailer Override
+type: module
+description: Override sending legacy emails to use Mailer Plus.
+core_version_requirement: ^11.3
+package: Mail
+dependencies:
+  - symfony_mailer:symfony_mailer
+  - symfony_mailer:mailer_policy
+  - symfony_mailer:mailer_transport

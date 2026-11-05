@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\entity_usage\FunctionalJavascript;
 
 use Drupal\Tests\entity_usage\Traits\EntityUsageLastEntityQueryTrait;
@@ -8,6 +10,8 @@ use Drupal\block_content\Entity\BlockContentType;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\user\Entity\Role;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests tracking of config entities.
@@ -16,6 +20,8 @@ use Drupal\user\Entity\Role;
  *
  * @group entity_usage
  */
+#[Group('entity_usage')]
+#[RunTestsInSeparateProcesses]
 class ConfigEntityTrackingTest extends EntityUsageJavascriptTestBase {
 
   use EntityUsageLastEntityQueryTrait;
@@ -218,8 +224,8 @@ class ConfigEntityTrackingTest extends EntityUsageJavascriptTestBase {
     // Create a node referencing this view through a Block Field field.
     $this->drupalGet('/node/add/eu_test_ct');
     $page->fillField('title[0][value]', 'Node that points to a block with a view');
-    $assert_session->optionExists('field_eu_test_related_views[0][plugin_id]', "views_block:{$view_name}-block_1");
-    $page->selectFieldOption('field_eu_test_related_views[0][plugin_id]', "views_block:{$view_name}-block_1");
+    $assert_session->optionExists('field_eu_test_related_views[0][plugin_id]', "views_block:$view_name-block_1");
+    $page->selectFieldOption('field_eu_test_related_views[0][plugin_id]', "views_block:$view_name-block_1");
     $assert_session->assertWaitOnAjaxRequest();
     $this->saveHtmlOutput();
     $page->pressButton('Save');
@@ -235,7 +241,7 @@ class ConfigEntityTrackingTest extends EntityUsageJavascriptTestBase {
         $host_node->id() => [
           [
             'source_langcode' => $host_node->language()->getId(),
-            'source_vid' => $host_node->getRevisionId(),
+            'source_vid' => (int) $host_node->getRevisionId(),
             'method' => 'block_field',
             'field_name' => 'field_eu_test_related_views',
             'count' => 1,
@@ -259,7 +265,7 @@ class ConfigEntityTrackingTest extends EntityUsageJavascriptTestBase {
     $first_row_field_label = $this->xpath('//table/tbody/tr[1]/td[4]')[0];
     $this->assertEquals('Related Views', $first_row_field_label->getText());
     $first_row_status = $this->xpath('//table/tbody/tr[1]/td[5]')[0];
-    $this->assertEquals('Published', $first_row_status->getText());
+    $this->assertEquals('Published revision', $first_row_status->getText());
   }
 
   /**
@@ -352,7 +358,7 @@ class ConfigEntityTrackingTest extends EntityUsageJavascriptTestBase {
         $host_node->id() => [
           [
             'source_langcode' => $host_node->language()->getId(),
-            'source_vid' => $host_node->getRevisionId(),
+            'source_vid' => (int) $host_node->getRevisionId(),
             'method' => 'block_field',
             'field_name' => 'field_eu_test_related_blocks',
             'count' => 1,
@@ -375,7 +381,7 @@ class ConfigEntityTrackingTest extends EntityUsageJavascriptTestBase {
     $first_row_field_label = $this->xpath('//table/tbody/tr[1]/td[4]')[0];
     $this->assertEquals('Related Blocks', $first_row_field_label->getText());
     $first_row_status = $this->xpath('//table/tbody/tr[1]/td[5]')[0];
-    $this->assertEquals('Published', $first_row_status->getText());
+    $this->assertEquals('Published revision', $first_row_status->getText());
   }
 
 }

@@ -1,5 +1,5 @@
 (function (Drupal, drupalSettings, once) {
-  Drupal.behaviors.smartDate = {
+  Drupal.behaviors.smartDateOnly = {
     attach(context, settings) {
       // eslint-disable-next-line no-extend-native
       Date.prototype.addDays = function (days) {
@@ -54,8 +54,8 @@
 
       // Update the end values when the start is changed.
       once(
-        'smartDateStartChange',
-        '.smartdate--widget .time-start input',
+        'smartDateOnlyStartChange',
+        '.smartdate--date-only .time-start input',
         context,
       ).forEach(function (element) {
         element.addEventListener(
@@ -67,8 +67,8 @@
         );
       });
       once(
-        'smartDateEndChange',
-        '.smartdate--widget .time-end input',
+        'smartDateOnlyEndChange',
+        '.smartdate--date-only .time-end input',
         context,
       ).forEach(function (element) {
         // Set initial duration.

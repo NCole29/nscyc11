@@ -1,0 +1,39 @@
+entity.mailer_transport.collection:
+  path: '/admin/config/system/mailer/transport'
+  defaults:
+    _entity_list: 'mailer_transport'
+    _title: 'Mailer transport'
+  requirements:
+    _permission: 'administer mailer'
+
+entity.mailer_transport.add_form:
+  path: '/admin/config/system/mailer/transport/add/{plugin_id}'
+  defaults:
+    _entity_form: 'mailer_transport.add'
+    _title: 'Add transport'
+  requirements:
+    _permission: 'administer mailer'
+
+entity.mailer_transport.edit_form:
+  path: '/admin/config/system/mailer/transport/{mailer_transport}'
+  defaults:
+    _entity_form: 'mailer_transport.edit'
+    _title: 'Edit transport'
+  requirements:
+    _entity_access: 'mailer_transport.update'
+
+entity.mailer_transport.delete_form:
+  path: '/admin/config/system/mailer/transport/{mailer_transport}/delete'
+  defaults:
+    _entity_form: 'mailer_transport.delete'
+    _title: 'Delete transport'
+  requirements:
+    _entity_access: 'mailer_transport.delete'
+
+entity.mailer_transport.set_default:
+  path: '/admin/config/system/mailer/transport/{mailer_transport}/set-default'
+  defaults:
+    _controller: '\Drupal\mailer_transport\Controller\MailerTransportController::setAsDefault'
+  requirements:
+    _permission: 'administer mailer'
+    _csrf_token: 'TRUE'

@@ -4,6 +4,7 @@ namespace Drupal\Tests\symfony_mailer\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\Tests\RandomGeneratorTrait;
+use Drupal\symfony_mailer\Component\VerifyMailerInterface;
 use Drupal\symfony_mailer_test\MailerTestTrait;
 
 /**
@@ -18,33 +19,29 @@ abstract class SymfonyMailerKernelTestBase extends KernelTestBase {
 
   /**
    * Email address for the tests.
-   *
-   * @var string
    */
   protected string $addressTo = 'symfony-mailer-to@example.com';
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  protected static $modules = ['symfony_mailer', 'symfony_mailer_test', 'system', 'user', 'filter'];
+  protected static $modules = ['symfony_mailer', 'symfony_mailer_test', 'mailer_policy', 'mailer_transport', 'system', 'user', 'filter'];
 
   /**
-   * The email factory.
+   * The test mailer.
    *
-   * @var \Drupal\symfony_mailer\EmailFactoryInterface
+   * @var \Drupal\symfony_mailer\Component\TestMailerInterface
    */
-  protected $emailFactory;
+  protected $testMailer;
 
   /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->installConfig(['symfony_mailer']);
+    $this->installConfig(['symfony_mailer', 'mailer_policy']);
     $this->installEntitySchema('user');
-    $this->emailFactory = $this->container->get('email_factory');
+    $this->testMailer = $this->container->get(VerifyMailerInterface::class);
     $this->config('system.site')
       ->set('name', 'Example')
       ->set('mail', 'sender@example.com')

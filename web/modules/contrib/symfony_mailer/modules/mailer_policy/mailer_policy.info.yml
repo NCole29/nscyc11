@@ -1,0 +1,8 @@
+name: Mailer Policy
+type: module
+description: Configurable email for Mailer Plus.
+core_version_requirement: ^11.3
+package: Mail
+configure: entity.mailer_policy.collection
+dependencies:
+  - symfony_mailer:symfony_mailer

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\entity_usage;
 
 use Drupal\Core\Entity\EntityInterface;
@@ -32,7 +34,7 @@ interface EntityUsageInterface {
    *   The source entity type.
    * @param string $source_langcode
    *   The source entity language code.
-   * @param int|string $source_vid
+   * @param int $source_vid
    *   The source entity revision ID.
    * @param string $method
    *   The method used to relate source entity with the target entity. Normally
@@ -42,7 +44,7 @@ interface EntityUsageInterface {
    * @param int $count
    *   (optional) The number of references to add to the object. Defaults to 1.
    */
-  public function registerUsage($target_id, $target_type, $source_id, $source_type, $source_langcode, $source_vid, $method, $field_name, $count = 1): void;
+  public function registerUsage(int|string $target_id, string $target_type, int|string $source_id, string $source_type, string $source_langcode, int $source_vid, string $method, string $field_name, int $count = 1): void;
 
   /**
    * Remove all records of a given target entity type.
@@ -50,7 +52,7 @@ interface EntityUsageInterface {
    * @param string $target_type
    *   The target entity type.
    */
-  public function bulkDeleteTargets($target_type): void;
+  public function bulkDeleteTargets(string $target_type): void;
 
   /**
    * Remove all records of a given source entity type.
@@ -58,7 +60,7 @@ interface EntityUsageInterface {
    * @param string $source_type
    *   The source entity type.
    */
-  public function bulkDeleteSources($source_type): void;
+  public function bulkDeleteSources(string $source_type): void;
 
   /**
    * Delete all records for a given field_name + source_type.
@@ -69,7 +71,7 @@ interface EntityUsageInterface {
    *   The name of the field in the source entity using the
    *   target entity.
    */
-  public function deleteByField($source_type, $field_name): void;
+  public function deleteByField(string $source_type, string $field_name): void;
 
   /**
    * Delete all records for a given source entity.
@@ -78,12 +80,12 @@ interface EntityUsageInterface {
    *   The source entity ID.
    * @param string $source_type
    *   The source entity type.
-   * @param string $source_langcode
+   * @param string|null $source_langcode
    *   (optional) The source entity language code. Defaults to NULL.
-   * @param string $source_vid
+   * @param int|null $source_vid
    *   (optional) The source entity revision ID. Defaults to NULL.
    */
-  public function deleteBySourceEntity($source_id, $source_type, $source_langcode = NULL, $source_vid = NULL): void;
+  public function deleteBySourceEntity(int|string $source_id, string $source_type, ?string $source_langcode = NULL, ?int $source_vid = NULL): void;
 
   /**
    * Delete all records for a given target entity.
@@ -93,7 +95,7 @@ interface EntityUsageInterface {
    * @param string $target_type
    *   The target entity type.
    */
-  public function deleteByTargetEntity($target_id, $target_type): void;
+  public function deleteByTargetEntity(int|string $target_id, string $target_type): void;
 
   /**
    * Provide a list of all referencing source entities for a target entity.
@@ -152,14 +154,14 @@ interface EntityUsageInterface {
    *   $nest_results is FALSE, the returned array will be an indexed array where
    *   values are arrays containing all DB columns for the records.
    */
-  public function listSources(EntityInterface $target_entity, $nest_results = TRUE, int $limit = 0): array;
+  public function listSources(EntityInterface $target_entity, bool $nest_results = TRUE, int $limit = 0): array;
 
   /**
    * Provide a list of all referenced target entities for a source entity.
    *
    * @param \Drupal\Core\Entity\EntityInterface $source_entity
    *   The source entity to check for references.
-   * @param int $vid
+   * @param int|null $vid
    *   (optional) The revision id to return the references for.
    *   Defaults to all revisions.
    *
@@ -171,7 +173,7 @@ interface EntityUsageInterface {
    *
    * @see \Drupal\entity_usage\EntityUsageInterface::listSources()
    */
-  public function listTargets(EntityInterface $source_entity, $vid = NULL): array;
+  public function listTargets(EntityInterface $source_entity, ?int $vid = NULL): array;
 
   /**
    * Determines where an entity is used (deprecated).
@@ -200,7 +202,7 @@ interface EntityUsageInterface {
    *
    * @see https://www.drupal.org/project/entity_usage/issues/3445394
    */
-  public function listUsage(EntityInterface $entity, $include_method = FALSE): array;
+  public function listUsage(EntityInterface $entity, bool $include_method = FALSE): array;
 
   /**
    * Determines referenced entities (deprecated).
@@ -235,7 +237,7 @@ interface EntityUsageInterface {
    *   The source entity type.
    * @param string $source_langcode
    *   The source entity language code.
-   * @param string|int $source_vid
+   * @param int $source_vid
    *   The source entity revision ID.
    * @param string $method
    *   The method used to relate source entity with the target entity. Normally
@@ -250,6 +252,6 @@ interface EntityUsageInterface {
    *
    * @see \Drupal\entity_usage\EntityUsageTrackInterface::getTargetEntities()
    */
-  public function listTargetEntitiesByFieldAndMethod(string|int $source_id, string $source_entity_type_id, string $source_langcode, string|int $source_vid, string $method, string $field_name): array;
+  public function listTargetEntitiesByFieldAndMethod(string|int $source_id, string $source_entity_type_id, string $source_langcode, int $source_vid, string $method, string $field_name): array;
 
 }

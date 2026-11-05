@@ -1,6 +1,6 @@
-# Drupal Symfony Mailer
+# Mailer Plus
 
-This module provides a new mail-system based on the popular
+This module provides an enhanced Drupal integration of the the popular
 [Symfony Mailer library] giving full support of HTML mails, file attachments,
 embedded images, 3rd-party delivery integrations, load-balancing/failover,
 signing/encryption, async sending and more. Other libraries add capability for
@@ -46,8 +46,8 @@ set globally or for emails of a specific type.
 
 ### Mailer Transport
 
-By default, Symfony Mailer uses the *sendmail* transport. You can configure a
-different transport such as SMTP at "Configuration » System » Mailer »
+By default, this module uses the *sendmail* transport. You can configure a
+different transport such as SMTP at "Configuration » System » Mailer Plus »
 Transport".
 
 This module provides a GUI for the built-in [Symfony transports]. 3rd-party

@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+  Drupal\mailer_override\OverrideManagerInterface:
+    class: Drupal\mailer_override\OverrideManager
+    parent: autowire_default_plugin_manager
+  Drupal\mailer_override\ImportHelperInterface:
+    class: Drupal\mailer_override\ImportHelper
+  Drupal\mailer_override\LegacyMailerHelperInterface:
+    class: Drupal\mailer_override\LegacyMailerHelper
+  Drupal\mailer_override\MailerConfigOverride:
+    tags:
+      - {name: config.factory.override}

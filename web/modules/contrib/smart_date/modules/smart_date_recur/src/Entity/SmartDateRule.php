@@ -1004,7 +1004,7 @@ class SmartDateRule extends ContentEntityBase {
         if ($interval->invert === 1) {
           $form_state->setError($element['repeat-end-date'], t('The %stop-title date must come after the %start-title date.', [
             '%stop-title' => $element['repeat-end-date']['#title'],
-            '%start-title' => $element['time_wrapper']['value']['#title'],
+            '%start-title' => $element['time_wrapper']['value']['#title'] ?? $element['value']['#title'],
           ]));
         }
       }

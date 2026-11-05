@@ -24,24 +24,26 @@ use Drupal\Core\TypedData\DataDefinition;
  *   list_class = "\Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList",
  *   constraints = {
  *     "ComplexData" = {
- *       "value" = {
- *         "Range" = {
- *           "min" = "-9223372036854775807",
- *           "max" = "9223372036854775807",
- *         }
- *       },
- *       "end_value" = {
- *         "Range" = {
- *           "min" = "-9223372036854775807",
- *           "max" = "9223372036854775807",
- *         }
- *       },
- *       "duration" = {
- *         "Range" = {
- *           "min" = "0",
- *           "max" = "2147483647",
- *         }
- *       },
+ *       "properties" = {
+ *         "value" = {
+ *           "Range" = {
+ *             "min" = "-9223372036854775807",
+ *             "max" = "9223372036854775807",
+ *           }
+ *         },
+ *         "end_value" = {
+ *           "Range" = {
+ *             "min" = "-9223372036854775807",
+ *             "max" = "9223372036854775807",
+ *           }
+ *         },
+ *         "duration" = {
+ *           "Range" = {
+ *             "min" = "0",
+ *             "max" = "2147483647",
+ *           }
+ *         },
+ *       }
  *     }
  *   }
  * )

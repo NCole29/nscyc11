@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\entity_usage;
 
 use Drupal\Core\Url;
@@ -12,7 +14,7 @@ interface UrlToEntityInterface {
   /**
    * The entity route regex pattern.
    */
-  const ENTITY_ROUTE_PATTERN = '/^entity\.([a-z][a-z0-9_]*)\./';
+  const string ENTITY_ROUTE_PATTERN = '/^entity\.([a-z][a-z0-9_]*)\./';
 
   /**
    * Try to retrieve entity information from a URL string.

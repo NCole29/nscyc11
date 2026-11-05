@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\entity_usage;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -13,7 +15,6 @@ use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\Core\Url;
 use Drupal\Core\Utility\Error;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -134,7 +135,6 @@ abstract class EntityUsageTrackBase extends PluginBase implements EntityUsageTra
     ?array $always_track_base_fields = NULL,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->configuration += $this->defaultConfiguration();
     $this->usageService = $usage_service;
     $this->entityTypeManager = $entity_type_manager;
     $this->entityFieldManager = $entity_field_manager;
@@ -161,7 +161,7 @@ abstract class EntityUsageTrackBase extends PluginBase implements EntityUsageTra
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     return new static(
       $configuration,
       $plugin_id,
@@ -175,13 +175,6 @@ abstract class EntityUsageTrackBase extends PluginBase implements EntityUsageTra
       $container->get(UrlToEntityInterface::class),
       $container->getParameter('entity_usage')['always_track_base_fields'] ?? []
     );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function defaultConfiguration(): array {
-    return [];
   }
 
   /**
@@ -246,7 +239,7 @@ abstract class EntityUsageTrackBase extends PluginBase implements EntityUsageTra
         $target_entities = array_unique($target_entities);
         foreach ($target_entities as $target_entity) {
           [$target_type, $target_id] = explode("|", $target_entity);
-          $source_vid = ($source_entity instanceof RevisionableInterface && $source_entity->getRevisionId()) ? $source_entity->getRevisionId() : 0;
+          $source_vid = ($source_entity instanceof RevisionableInterface && $source_entity->getRevisionId()) ? (int) $source_entity->getRevisionId() : 0;
           $this->usageService->registerUsage($target_id, $target_type, $source_entity->id(), $source_entity->getEntityTypeId(), $source_entity->language()->getId(), $source_vid, $this->pluginId, $field_name);
         }
       }
@@ -257,13 +250,12 @@ abstract class EntityUsageTrackBase extends PluginBase implements EntityUsageTra
    * {@inheritdoc}
    */
   public function trackOnEntityUpdate(EntityInterface $source_entity): void {
-    // We depend on $source_entity->original to do anything useful here.
-    if (empty($source_entity->original) || !($source_entity instanceof FieldableEntityInterface)) {
+    if (!($source_entity instanceof FieldableEntityInterface)) {
       return;
     }
 
     // New revisions should be tracked the same way as new entities.
-    if ($source_entity instanceof RevisionableInterface && $source_entity->getRevisionId() != $source_entity->original->getRevisionId()) {
+    if ($source_entity instanceof RevisionableInterface && $source_entity->isNewRevision()) {
       $this->trackOnEntityCreation($source_entity);
       return;
     }
@@ -287,7 +279,7 @@ abstract class EntityUsageTrackBase extends PluginBase implements EntityUsageTra
     $source_entity_type_id = $source_entity->getEntityTypeId();
     $all_fields_on_bundle = $this->entityFieldManager->getFieldDefinitions($source_entity_type_id, $source_entity->bundle());
     foreach ($all_fields_on_bundle as $field_name => $field) {
-      if (in_array($field->getType(), $field_types)) {
+      if (in_array($field->getType(), $field_types, TRUE)) {
         $referencing_fields_on_bundle[$field_name] = $field;
       }
     }
@@ -328,7 +320,7 @@ abstract class EntityUsageTrackBase extends PluginBase implements EntityUsageTra
     }
 
     $source_entity_langcode = $source_entity->language()->getId();
-    $source_vid = ($source_entity instanceof RevisionableInterface && $source_entity->getRevisionId()) ? $source_entity->getRevisionId() : 0;
+    $source_vid = ($source_entity instanceof RevisionableInterface && $source_entity->getRevisionId()) ? (int) $source_entity->getRevisionId() : 0;
     $original_targets = $this->usageService->listTargetEntitiesByFieldAndMethod($source_entity->id(), $source_entity->getEntityTypeId(), $source_entity_langcode, $source_vid, $this->pluginId, $field_name);
 
     // If a field references the same target entity, we record only one usage.
@@ -346,172 +338,6 @@ abstract class EntityUsageTrackBase extends PluginBase implements EntityUsageTra
       [$target_type, $target_id] = explode('|', $removed_entity);
       $this->usageService->registerUsage($target_id, $target_type, $source_entity->id(), $source_entity->getEntityTypeId(), $source_entity_langcode, $source_vid, $this->pluginId, $field_name, 0);
     }
-  }
-
-  /**
-   * Process the url to a Url object.
-   *
-   * @param string $url
-   *   A relative or absolute URL string.
-   *
-   * @return \Drupal\Core\Url|false
-   *   The Url object
-   *
-   * @deprecated in entity_usage:8.x-2.0-beta18 and is removed from entity_usage:5.0.0. Use the
-   *   Drupal\entity_usage\UrlToEntityInterface service instead.
-   *
-   * @see https://www.drupal.org/project/entity_usage/issues/3341932
-   */
-  protected function processUrl($url) {
-    @trigger_error('\Drupal\entity_usage\EntityUsageTrackBase::processUrl() is deprecated in entity_usage:8.x-2.0-beta18 and is removed from entity_usage:5.0.0. Use the Drupal\entity_usage\UrlToEntityInterface service instead. See https://www.drupal.org/project/entity_usage/issues/3341932', E_USER_DEPRECATED);
-    // Strip off the scheme and host, so we only get the path.
-    $site_domains = $this->config->get('site_domains') ?: [];
-    foreach ($site_domains as $site_domain) {
-      $site_domain = rtrim($site_domain, "/");
-      $host_pattern = str_replace('.', '\.', $site_domain) . "/";
-      $host_pattern = "/" . str_replace("/", '\/', $host_pattern) . "/";
-      if (preg_match($host_pattern, $url)) {
-        // Strip off everything that is not the internal path.
-        $url = parse_url($url, PHP_URL_PATH);
-
-        if (preg_match('/^[^\/]+(\/.+)/', $site_domain, $matches)) {
-          $sub_directory = $matches[1];
-          if (str_starts_with($url, $sub_directory)) {
-            $url = substr($url, strlen($sub_directory));
-          }
-        }
-
-        break;
-      }
-    }
-
-    return $this->pathValidator()->getUrlIfValidWithoutAccessCheck($url);
-  }
-
-  /**
-   * Try to retrieve an entity from an URL string.
-   *
-   * @param string $url
-   *   A relative or absolute URL string.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface|null
-   *   The entity object that corresponds to the received URL, or NULL if no
-   *   entity could be retrieved.
-   *
-   * @deprecated in entity_usage:8.x-2.0-beta18 and is removed from entity_usage:5.0.0. Use the
-   *   Drupal\entity_usage\UrlToEntityInterface service instead.
-   *
-   * @see https://www.drupal.org/project/entity_usage/issues/3341932
-   */
-  protected function findEntityByUrlString($url) {
-    @trigger_error('\Drupal\entity_usage\EntityUsageTrackBase::findEntityByUrlString() is deprecated in entity_usage:8.x-2.0-beta18 and is removed from entity_usage:5.0.0. Use the Drupal\entity_usage\UrlToEntityInterface service instead. See https://www.drupal.org/project/entity_usage/issues/3341932', E_USER_DEPRECATED);
-    $entity_info = $this->findEntityIdByUrlString($url);
-    if (is_array($entity_info)) {
-      ['type' => $entity_type_id, 'id' => $entity_id] = $entity_info;
-      return $this->entityTypeManager->getStorage($entity_type_id)->load($entity_id);
-    }
-
-    return NULL;
-  }
-
-  /**
-   * Try to retrieve entity information from a URL string.
-   *
-   * @param string $url
-   *   A URL string.
-   *
-   * @return string[]|null
-   *   An array with two values, the entity type and entity ID, or NULL if no
-   *   entity could be retrieved.
-   *
-   * @deprecated in entity_usage:8.x-2.0-beta18 and is removed from entity_usage:5.0.0. Use the
-   *   Drupal\entity_usage\UrlToEntityInterface service instead.
-   *
-   * @see https://www.drupal.org/project/entity_usage/issues/3341932
-   */
-  protected function findEntityIdByUrlString(string $url): ?array {
-    @trigger_error('\Drupal\entity_usage\EntityUsageTrackBase::findEntityIdByUrlString() is deprecated in entity_usage:8.x-2.0-beta18 and is removed from entity_usage:5.0.0. Use the Drupal\entity_usage\UrlToEntityInterface service instead. See https://www.drupal.org/project/entity_usage/issues/3341932', E_USER_DEPRECATED);
-    return $this->urlToEntity->findEntityIdByUrl($url);
-  }
-
-  /**
-   * Try to retrieve an entity from an URL object.
-   *
-   * @param \Drupal\Core\Url $url
-   *   A URL object.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface|null
-   *   The entity object that corresponds to the URL object, or NULL if no
-   *   entity could be retrieved.
-   *
-   * @deprecated in entity_usage:8.x-2.0-beta18 and is removed from entity_usage:5.0.0. Use the
-   *   Drupal\entity_usage\UrlToEntityInterface service instead.
-   *
-   * @see https://www.drupal.org/project/entity_usage/issues/3341932
-   */
-  protected function findEntityByRoutedUrl(Url $url): ?EntityInterface {
-    @trigger_error('\Drupal\entity_usage\EntityUsageTrackBase::findEntityByRoutedUrl() is deprecated in entity_usage:8.x-2.0-beta18 and is removed from entity_usage:5.0.0. Use the Drupal\entity_usage\UrlToEntityInterface service instead. See https://www.drupal.org/project/entity_usage/issues/3341932', E_USER_DEPRECATED);
-    $entity_info = $this->findEntityIdByRoutedUrl($url);
-    if (is_array($entity_info)) {
-      ['type' => $entity_type_id, 'id' => $entity_id] = $entity_info;
-      return $this->entityTypeManager->getStorage($entity_type_id)->load($entity_id);
-    }
-
-    return NULL;
-  }
-
-  /**
-   * Try to retrieve entity information from a URL object.
-   *
-   * @param \Drupal\Core\Url $url
-   *   A URL object.
-   *
-   * @return string[]|null
-   *   An array with two values, the entity type and entity ID, or NULL if no
-   *   entity could be retrieved.
-   *
-   * @deprecated in entity_usage:8.x-2.0-beta18 and is removed from entity_usage:5.0.0. Use the
-   *   Drupal\entity_usage\UrlToEntityInterface service instead.
-   *
-   * @see https://www.drupal.org/project/entity_usage/issues/3341932
-   */
-  protected function findEntityIdByRoutedUrl(Url $url): ?array {
-    @trigger_error('\Drupal\entity_usage\EntityUsageTrackBase::findEntityIdByRoutedUrl() is deprecated in entity_usage:8.x-2.0-beta18 and is removed from entity_usage:5.0.0. Use the Drupal\entity_usage\UrlToEntityInterface service instead. See https://www.drupal.org/project/entity_usage/issues/3341932', E_USER_DEPRECATED);
-    return $this->urlToEntity->findEntityIdByRoutedUrl($url);
-  }
-
-  /**
-   * Returns the path validator service.
-   *
-   * @return \Drupal\Core\Path\PathValidatorInterface
-   *   The path validator.
-   *
-   * @deprecated in entity_usage:8.x-2.0-beta18 and is removed from entity_usage:5.0.0. There is no
-   *   replacement.
-   *
-   * @see https://www.drupal.org/project/entity_usage/issues/3341932
-   */
-  protected function pathValidator() {
-    @trigger_error('\Drupal\entity_usage\EntityUsageTrackBase::pathValidator() is deprecated in entity_usage:8.x-2.0-beta18 and is removed from entity_usage:5.0.0. There is no replacement. See https://www.drupal.org/project/entity_usage/issues/3341932', E_USER_DEPRECATED);
-    // @phpstan-ignore-next-line
-    return $this->pathValidator;
-  }
-
-  /**
-   * Return the public file directory path.
-   *
-   * @return string
-   *   The public file directory path.
-   *
-   * @deprecated in entity_usage:8.x-2.0-beta18 and is removed from entity_usage:5.0.0. There is no
-   *   replacement.
-   *
-   * @see https://www.drupal.org/project/entity_usage/issues/3341932
-   */
-  protected function publicFileDirectory() {
-    @trigger_error('\Drupal\entity_usage\EntityUsageTrackBase::publicFileDirectory() is deprecated in entity_usage:8.x-2.0-beta18 and is removed from entity_usage:5.0.0. There is no replacement. See https://www.drupal.org/project/entity_usage/issues/3341932', E_USER_DEPRECATED);
-    // @phpstan-ignore-next-line
-    return \Drupal::service('stream_wrapper.public')->getDirectoryPath();
   }
 
   /**

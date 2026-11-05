@@ -14,6 +14,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\smart_date_recur\Entity\SmartDateRule;
+use Drupal\smart_date_recur\Form\RecurWidgetElements;
 
 /**
  * Implements hook_help().
@@ -173,8 +174,9 @@ function smart_date_recur_widget_extra_fields(&$element, $item, $context) {
   }
   $element['#attached']['library'][] = 'smart_date_recur/smart_date_recur';
 
-  $select_repeat = 'select[name$="[' . $element['#delta'] . '][repeat]"]';
-  $select_repeat_end = 'select[name$="[' . $element['#delta'] . '][repeat-end]"]';
+  // The #states depend on the names of the repeat selects, which are only
+  // known once the form is built.
+  $element['#after_build'][] = [RecurWidgetElements::class, 'afterBuild'];
   $element['repeat-label'] = [
     '#type' => 'label',
     '#title' => t('Repeats') . ' ',
@@ -193,12 +195,6 @@ function smart_date_recur_widget_extra_fields(&$element, $item, $context) {
     '#step' => 1,
     '#placeholder' => t('# of'),
     '#default_value' => $defaults['interval'],
-    '#states' => [
-      // Show this textarea only if the 'repeat' select has a value.
-      'invisible' => [
-        $select_repeat => ['value' => ''],
-      ],
-    ],
   ];
   $repeat_labels = [
     'MINUTELY' => t('by minute'),
@@ -232,12 +228,6 @@ function smart_date_recur_widget_extra_fields(&$element, $item, $context) {
       'COUNT' => t('After'),
       'UNTIL' => t('On Date'),
     ],
-    '#states' => [
-      // Show this textarea only if the 'repeat' select has a value.
-      'invisible' => [
-        $select_repeat => ['value' => ''],
-      ],
-    ],
     '#default_value' => $limit_type,
   ];
   $element['repeat-end-count'] = [
@@ -248,26 +238,12 @@ function smart_date_recur_widget_extra_fields(&$element, $item, $context) {
     '#step' => 1,
     '#field_suffix' => t('times'),
     '#placeholder' => t('# of'),
-    '#states' => [
-      // Show this textarea only if the 'repeat' select has a value.
-      'visible' => [
-        $select_repeat => ['!value' => ''],
-        $select_repeat_end => ['value' => 'COUNT'],
-      ],
-    ],
     '#default_value' => $default_end_count,
   ];
   $element['repeat-end-date'] = [
     '#type' => 'date',
     '#title' => t('Ends on date'),
     '#title_display' => t('invisible'),
-    '#states' => [
-      // Show this textarea only if the 'repeat' select has a value.
-      'visible' => [
-        $select_repeat => ['!value' => ''],
-        $select_repeat_end => ['value' => 'UNTIL'],
-      ],
-    ],
     '#default_value' => $default_end_date,
     '#attributes' => [
       'class' => ['repeat-end-date'],
@@ -278,12 +254,6 @@ function smart_date_recur_widget_extra_fields(&$element, $item, $context) {
     '#type' => 'details',
     '#title' => t('Advanced'),
     '#open' => $defaults['interval'] || $defaults['which'] || $defaults['day'] || $defaults['byday'],
-    '#states' => [
-      // Show this textarea only if the 'repeat' select has a value.
-      'invisible' => [
-        [$select_repeat => ['value' => '']],
-      ],
-    ],
   ];
   // Checkboxes to select which weekdays for weekly repeats.
   $days = [
@@ -313,15 +283,6 @@ function smart_date_recur_widget_extra_fields(&$element, $item, $context) {
     '#options' => $days_by_config,
     // Populate with any existing values.
     '#default_value' => $defaults['byday'],
-    '#states' => [
-      // Show only if the repeat select has an appropriate value.
-      'visible' => [
-        [$select_repeat => ['value' => 'MINUTELY']],
-        [$select_repeat => ['value' => 'HOURLY']],
-        [$select_repeat => ['value' => 'DAILY']],
-        [$select_repeat => ['value' => 'WEEKLY']],
-      ],
-    ],
     '#attributes' => ['class' => ['container-inline', 'byday-checkboxes']],
   ];
   $element['repeat-advanced']['which'] = [
@@ -337,13 +298,6 @@ function smart_date_recur_widget_extra_fields(&$element, $item, $context) {
       '-1' => t('Last', [], ['context' => 'date_ordinal']),
     ],
     '#default_value' => $defaults['which'],
-    '#states' => [
-      // Show this textarea only if the repeat select has an appropriate value.
-      'visible' => [
-        [$select_repeat => ['value' => 'MONTHLY']],
-        [$select_repeat => ['value' => 'YEARLY']],
-      ],
-    ],
   ];
   $element['repeat-advanced']['weekday'] = [
     '#type' => 'select',
@@ -363,25 +317,11 @@ function smart_date_recur_widget_extra_fields(&$element, $item, $context) {
       'SA,SU' => t('Weekend day'),
     ],
     '#default_value' => $defaults['day'],
-    '#states' => [
-      // Show this textarea only if the repeat select has an appropriate value.
-      'visible' => [
-        [$select_repeat => ['value' => 'MONTHLY']],
-        [$select_repeat => ['value' => 'YEARLY']],
-      ],
-    ],
   ];
   $element['repeat-advanced']['restrict-hours'] = [
     '#type' => 'details',
     '#title' => t('Restrict to Specific Hours'),
     '#open' => $defaults['byhour'],
-    '#states' => [
-      // Show this textarea only if the repeat select has an appropriate value.
-      'visible' => [
-        [$select_repeat => ['value' => 'MINUTELY']],
-        [$select_repeat => ['value' => 'HOURLY']],
-      ],
-    ],
   ];
   $hour_options = [];
   for ($i = 0; $i < 24; $i++) {
@@ -395,25 +335,12 @@ function smart_date_recur_widget_extra_fields(&$element, $item, $context) {
     '#options' => $hour_options,
     // Populate with any existing values.
     '#default_value' => $defaults['byhour'],
-    '#states' => [
-      // Show only if the repeat select has an appropriate value.
-      'visible' => [
-        [$select_repeat => ['value' => 'MINUTELY']],
-        [$select_repeat => ['value' => 'HOURLY']],
-      ],
-    ],
     '#attributes' => ['class' => ['smart-date--hours', 'clearfix']],
   ];
   $element['repeat-advanced']['restrict-minutes'] = [
     '#type' => 'details',
     '#title' => t('Restrict to Specific Minutes on the Hour'),
     '#open' => $defaults['byminute'],
-    '#states' => [
-      // Show this textarea only if the repeat select has an appropriate value.
-      'visible' => [
-        [$select_repeat => ['value' => 'MINUTELY']],
-      ],
-    ],
   ];
   $minute_options = [];
   for ($i = 0; $i < 60; $i++) {
@@ -427,12 +354,6 @@ function smart_date_recur_widget_extra_fields(&$element, $item, $context) {
     '#options' => $minute_options,
     // Populate with any existing values.
     '#default_value' => $defaults['byminute'],
-    '#states' => [
-      // Show only if the repeat select has an appropriate value.
-      'visible' => [
-        [$select_repeat => ['value' => 'MINUTELY']],
-      ],
-    ],
     '#attributes' => ['class' => ['smart-date--minutes', 'clearfix']],
   ];
   $element['#element_validate'][] = [

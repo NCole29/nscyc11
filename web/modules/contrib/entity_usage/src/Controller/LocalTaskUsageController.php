@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\entity_usage\Controller;
 
 use Drupal\Core\Access\AccessResultInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Controller for our local tasks.
@@ -45,13 +48,15 @@ class LocalTaskUsageController extends ListUsageController {
    *
    * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
    *   A RouteMatch object.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
    *
    * @return mixed[]
    *   The page build to be rendered.
    */
-  public function listUsageLocalTask(RouteMatchInterface $route_match): array {
+  public function listUsageLocalTask(RouteMatchInterface $route_match, Request $request): array {
     $entity = $this->getEntityFromRouteMatch($route_match);
-    return parent::listUsagePage($entity->getEntityTypeId(), $entity->id());
+    return parent::listUsagePage($entity->getEntityTypeId(), $entity->id(), $request);
   }
 
   /**
@@ -60,10 +65,10 @@ class LocalTaskUsageController extends ListUsageController {
    * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
    *   The route match.
    *
-   * @return \Drupal\Core\Entity\EntityInterface|null
+   * @return \Drupal\Core\Entity\EntityInterface
    *   The entity object as determined from the passed-in route match.
    */
-  protected function getEntityFromRouteMatch(RouteMatchInterface $route_match): ?EntityInterface {
+  protected function getEntityFromRouteMatch(RouteMatchInterface $route_match): EntityInterface {
     $parameter_name = $route_match->getRouteObject()->getOption('_entity_usage_entity_type_id');
     return $route_match->getParameter($parameter_name);
   }

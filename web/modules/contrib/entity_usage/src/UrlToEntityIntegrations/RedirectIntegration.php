@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\entity_usage\UrlToEntityIntegrations;
 
 use Drupal\Component\Utility\UrlHelper;
@@ -15,15 +17,15 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * An event subscriber to find redirect entities from URLs.
  */
-class RedirectIntegration implements EventSubscriberInterface {
+readonly class RedirectIntegration implements EventSubscriberInterface {
 
   /**
    * Redirect configuration.
    */
-  private readonly Config $config;
+  private Config $config;
 
   public function __construct(
-    private readonly Connection $connection,
+    private Connection $connection,
     ConfigFactoryInterface $configFactory,
   ) {
     $this->config = $configFactory->get('redirect.settings');
@@ -88,7 +90,7 @@ class RedirectIntegration implements EventSubscriberInterface {
    *
    * @see \Drupal\redirect\RedirectRepository::findMatchingRedirect()
    */
-  private function findMatchingRedirect($source_path, array $query, string $language): ?int {
+  private function findMatchingRedirect(string $source_path, array $query, string $language): ?int {
     $source_path = trim($source_path, '/');
     $hashes = [Redirect::generateHash($source_path, $query, $language)];
     if ($language != LanguageInterface::LANGCODE_NOT_SPECIFIED) {

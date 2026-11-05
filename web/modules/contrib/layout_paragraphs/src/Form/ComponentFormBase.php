@@ -14,11 +14,14 @@ use Drupal\field_group\FormatterHelper;
 use Drupal\Core\Ajax\CloseDialogCommand;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Ajax\AjaxFormHelperTrait;
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\layout_paragraphs\Utility\Dialog;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Form\WorkspaceSafeFormInterface;
 use Drupal\paragraphs\ParagraphInterface;
+use Drupal\paragraphs\Plugin\Field\FieldWidget\ParagraphsWidget;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\layout_paragraphs\Contracts\ComponentFormInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -30,7 +33,7 @@ use Drupal\layout_paragraphs\LayoutParagraphsLayoutTempstoreRepository;
  *
  * Base form for Layout Paragraphs component forms.
  */
-abstract class ComponentFormBase extends FormBase implements ComponentFormInterface {
+abstract class ComponentFormBase extends FormBase implements ComponentFormInterface, WorkspaceSafeFormInterface {
 
   use AjaxFormHelperTrait;
   use LayoutParagraphsLayoutRefreshTrait;
@@ -90,6 +93,13 @@ abstract class ComponentFormBase extends FormBase implements ComponentFormInterf
    * @var string
    */
   protected $formMode = 'default';
+
+  /**
+   * The form display the component form was built with.
+   *
+   * @var \Drupal\Core\Entity\Display\EntityFormDisplayInterface|null
+   */
+  protected $formDisplay;
 
   /**
    * {@inheritdoc}
@@ -170,6 +180,7 @@ abstract class ComponentFormBase extends FormBase implements ComponentFormInterf
 
     $this->initFormLangcodes($form_state);
     $display = EntityFormDisplay::collectRenderDisplay($this->paragraph, $form_display_mode);
+    $this->formDisplay = $display;
     $display->buildForm($this->paragraph, $form, $form_state);
     $this->paragraphType = $this->paragraph->getParagraphType();
     $lp_config = $this->config('layout_paragraphs.settings');
@@ -265,51 +276,31 @@ abstract class ComponentFormBase extends FormBase implements ComponentFormInterf
       }
     }
 
-    $original_language = $this->paragraph->getUntranslated()->language()->getId();
-    // Get current translation.
-    $editing_language = $this->paragraph->language()->getId();
-
-    $isTranslating = $original_language != $editing_language;
-    $hide_untranslatable_fields = $this->paragraph->isDefaultTranslationAffectedOnly();
-
-    foreach (Element::children($form) as $field) {
-      if ($this->paragraph->hasField($field)) {
-        $field_definition = $this->paragraph->get($field)->getFieldDefinition();
-
-        // Do a check if we have to add a class to the form element. We need
-        // those classes (paragraphs-content and paragraphs-behavior) to show
-        // and hide elements, depending of the active perspective.
-        // We need them to filter out entity reference revisions fields that
-        // reference paragraphs, cause otherwise we have problems with showing
-        // and hiding the right fields in nested paragraphs.
-        $is_paragraph_field = FALSE;
-        if ($field_definition->getType() == 'entity_reference_revisions') {
-          // Check if we are referencing paragraphs.
-          if ($field_definition->getSetting('target_type') == 'paragraph') {
-            $is_paragraph_field = TRUE;
-          }
+    // Untranslatable fields are shared by every translation, so they are
+    // hidden or labeled as such while translating, as in ParagraphsWidget.
+    if (!$this->paragraph->isDefaultTranslation()) {
+      $hide_untranslatable_fields = $this->paragraph->isDefaultTranslationAffectedOnly();
+      foreach (Element::children($form) as $field_name) {
+        if (!$this->paragraph->hasField($field_name)) {
+          continue;
         }
-
-        if (!$is_paragraph_field) {
-          $form[$field]['#attributes']['class'][] = 'paragraphs-content';
+        $field_definition = $this->paragraph->getFieldDefinition($field_name);
+        $is_paragraph_field = $field_definition->getType() === 'entity_reference_revisions'
+          && $field_definition->getSetting('target_type') === 'paragraph';
+        if ($field_definition->isTranslatable() || $is_paragraph_field) {
+          continue;
         }
-        $translatable = $field_definition->isTranslatable();
-        // Hide untranslatable fields when configured to do so except
-        // paragraph fields.
-        if (!$translatable && $isTranslating && !$is_paragraph_field) {
-          if ($hide_untranslatable_fields) {
-            $form[$field]['#access'] = FALSE;
-          }
-          else {
-            $form[$field]['widget']['#after_build'][] = [
-              static::class,
-              'addTranslatabilityClue',
-            ];
-          }
+        if ($hide_untranslatable_fields) {
+          $form[$field_name]['#access'] = FALSE;
+        }
+        else {
+          $form[$field_name]['widget']['#after_build'][] = [
+            ParagraphsWidget::class,
+            'addTranslatabilityClue',
+          ];
         }
       }
     }
-
     return $form;
   }
 
@@ -454,12 +445,7 @@ abstract class ComponentFormBase extends FormBase implements ComponentFormInterf
     $subform_state = SubformState::createForSubform($element, $form, $form_state);
     if ($layout_paragraphs_plugin_form = $layout_paragraphs_plugin->buildBehaviorForm($this->paragraph, $element, $subform_state)) {
       $element = $layout_paragraphs_plugin_form;
-      // Adjust the Ajax callback to include the entire layout paragraphs form.
-      $element_id = Html::getId('layout-paragraphs-element');
-      $element['#prefix'] = '<div id="' . $element_id . '">';
-      $element['#suffix'] = '</div>';
       $element['layout']['#ajax']['callback'] = [$this, 'ajaxCallback'];
-      $element['layout']['#ajax']['wrapper'] = $element_id;
     }
     return $element;
   }
@@ -511,11 +497,19 @@ abstract class ComponentFormBase extends FormBase implements ComponentFormInterf
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    *
-   * @return array
-   *   The render array.
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   *   The ajax response.
    */
   public function ajaxCallback(array $form, FormStateInterface $form_state) {
-    return $form['layout_paragraphs'];
+    $response = new AjaxResponse();
+    if (!empty($form['layout_paragraphs']['config'])) {
+      $selector = $form['layout_paragraphs']['config']['#attributes']['data-drupal-selector'];
+      $response->addCommand(new ReplaceCommand(
+        '[data-drupal-selector="' . $selector . '"]',
+        $form['layout_paragraphs']['config']
+      ));
+    }
+    return $response;
   }
 
   /**
@@ -570,10 +564,14 @@ abstract class ComponentFormBase extends FormBase implements ComponentFormInterf
    *   The paragraph render array.
    */
   protected function renderParagraph(string $uuid) {
+    $this->layoutParagraphsLayout->setComponent($this->paragraph);
     return [
       '#type' => 'layout_paragraphs_builder',
       '#layout_paragraphs_layout' => $this->layoutParagraphsLayout,
       '#uuid' => $uuid,
+      '#cache' => [
+        'max-age' => 0,
+      ],
     ];
   }
 
@@ -680,6 +678,29 @@ abstract class ComponentFormBase extends FormBase implements ComponentFormInterf
    */
   public function setFormMode($view_mode) {
     $this->formMode = $view_mode;
+  }
+
+  /**
+   * Gets the paragraph entity.
+   *
+   * @return \Drupal\paragraphs\ParagraphInterface
+   *   The paragraph entity.
+   */
+  public function getEntity() {
+    return $this->paragraph;
+  }
+
+  /**
+   * Gets the form display the component form was built with.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   *
+   * @return \Drupal\Core\Entity\Display\EntityFormDisplayInterface|null
+   *   The form display, or NULL if the form has not been built yet.
+   */
+  public function getFormDisplay(FormStateInterface $form_state) {
+    return $this->formDisplay;
   }
 
 }

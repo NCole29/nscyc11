@@ -127,7 +127,7 @@ describe('Layout Paragraphs Display Mode Tests', () => {
 
     // Open the edit dialog for the text component.
     cy.lpFindComponent('Alternative form mode text');
-    cy.get('@selectedComponent').find('a.lpb-edit').first().click({ force: true });
+    cy.get('a.lpb-edit:visible').click();
 
     // The "Authored on" (created) field should appear in the alternative form mode.
     cy.get('.ui-dialog').should('contain', 'Authored on');

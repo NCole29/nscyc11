@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\entity_usage\Functional;
 
 use Drupal\Core\Url;
@@ -14,6 +16,8 @@ use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
 use Drupal\layout_builder\Plugin\SectionStorage\OverridesSectionStorage;
 use Drupal\layout_builder\Section;
 use Drupal\layout_builder\SectionComponent;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests layout builder usage through Inline Blocks displays in UI.
@@ -22,6 +26,9 @@ use Drupal\layout_builder\SectionComponent;
  * @group layout_builder
  * @coversDefaultClass \Drupal\entity_usage\Plugin\EntityUsage\Track\LayoutBuilder
  */
+#[Group('entity_usage')]
+#[Group('layout_builder')]
+#[RunTestsInSeparateProcesses]
 class EntityUsageLayoutBuilderTest extends BrowserTestBase {
 
   /**
@@ -162,14 +169,14 @@ class EntityUsageLayoutBuilderTest extends BrowserTestBase {
     // but its name, link, and status should be that of its host entity (the
     // layout builder node) since inline blocks don't exist outside their
     // host entity (similar to paragraphs).
-    $this->assertInnerEntityUsage($innerEntityReferencedByInlineBlock, $layoutBuilderNode->label(), $layoutBuilderNode->toUrl()->toString(), 'Published');
+    $this->assertInnerEntityUsage($innerEntityReferencedByInlineBlock, $layoutBuilderNode->label(), $layoutBuilderNode->toUrl()->toString(), 'Published revision');
 
     // The reusable block should be displayed as a usage of its referenced
     // entity, but its name and status should be that of the block and NOT
     // the layout builder node that uses the block. We don't jump the reference
     // to layout builder node using the reusable block because this block can
     // be used by MANY layout builder nodes.
-    $this->assertInnerEntityUsage($innerEntityReferencedByReusableBlock, $reusableBlock->label(), NULL, 'Published');
+    $this->assertInnerEntityUsage($innerEntityReferencedByReusableBlock, $reusableBlock->label(), NULL, 'Published revision');
 
     // Unpublish the parent node and verify that the "Status" column for the
     // inline block usage updates accordingly.
@@ -177,8 +184,8 @@ class EntityUsageLayoutBuilderTest extends BrowserTestBase {
     $layoutBuilderNode->setUnpublished();
     $layoutBuilderNode->save();
 
-    $this->assertInnerEntityUsage($innerEntityReferencedByInlineBlock, $layoutBuilderNode->label(), $layoutBuilderNode->toUrl()->toString(), 'Unpublished');
-    $this->assertInnerEntityUsage($innerEntityReferencedByReusableBlock, $reusableBlock->label(), NULL, 'Published');
+    $this->assertInnerEntityUsage($innerEntityReferencedByInlineBlock, $layoutBuilderNode->label(), $layoutBuilderNode->toUrl()->toString(), 'Draft revision');
+    $this->assertInnerEntityUsage($innerEntityReferencedByReusableBlock, $reusableBlock->label(), NULL, 'Published revision');
 
     $layoutBuilderNode->delete();
 
@@ -190,7 +197,7 @@ class EntityUsageLayoutBuilderTest extends BrowserTestBase {
 
     // The usage data for the entity referenced by the reusable block should
     // not show any differences than before.
-    $this->assertInnerEntityUsage($innerEntityReferencedByReusableBlock, $reusableBlock->label(), NULL, 'Published');
+    $this->assertInnerEntityUsage($innerEntityReferencedByReusableBlock, $reusableBlock->label(), NULL, 'Published revision');
   }
 
   /**

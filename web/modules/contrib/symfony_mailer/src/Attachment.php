@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\symfony_mailer;
 
 use Drupal\Core\Access\AccessResult;
@@ -22,11 +24,6 @@ class Attachment extends DataPart implements AttachmentInterface {
    * The path, converted to a full URL with a scheme where possible.
    */
   protected ?string $path = NULL;
-
-  /**
-   * For __sleep, only used in tests.
-   */
-  private array $dataPart;
 
   /**
    * {@inheritdoc}
@@ -71,7 +68,7 @@ class Attachment extends DataPart implements AttachmentInterface {
   /**
    * {@inheritdoc}
    */
-  public function setAccess(AccessResultInterface $access): self {
+  public function setAccess(AccessResultInterface $access): static {
     $this->access = $this->access->orIf($access);
     return $this;
   }
@@ -92,34 +89,22 @@ class Attachment extends DataPart implements AttachmentInterface {
 
   /**
    * {@inheritdoc}
+   *
+   * Serialization is intended only for testing.
+   *
+   * @internal
    */
-  public function __sleep(): array {
-    $sleep = ['path', 'dataPart'];
-    $p_sleep = parent::__sleep();
-    foreach ($p_sleep as $name) {
-      if ($name[0] == '_') {
-        $sleep[] = $name;
-      }
-      else {
-        $r = new \ReflectionProperty(DataPart::class, $name);
-        $this->dataPart[$name] = $r->getValue($this);
-      }
-    }
-
-    return $sleep;
+  public function __serialize(): array {
+    return [$this->getName(), $this->path, $this->hasAccess()];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function __wakeup(): void {
-    foreach (array_keys($this->dataPart) as $name) {
-      $r = new \ReflectionProperty(DataPart::class, $name);
-      $r->setValue($this, $this->dataPart[$name]);
-    }
-    unset($this->dataPart);
-
-    parent::__wakeup();
+  public function __unserialize(array $data): void {
+    [$name, $this->path, $access] = $data;
+    $this->setName($name);
+    $this->access = $access ? AccessResult::allowed() : AccessResult::forbidden();
   }
 
 }

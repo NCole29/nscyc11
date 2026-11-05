@@ -40,6 +40,8 @@ class SmartDateFieldItemList extends DateTimeFieldItemList {
 
       return $element;
     }
+
+    return [];
   }
 
   /**

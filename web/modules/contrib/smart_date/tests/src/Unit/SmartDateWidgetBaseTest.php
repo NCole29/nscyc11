@@ -8,6 +8,7 @@ use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
@@ -396,6 +397,37 @@ class SmartDateWidgetBaseTest extends UnitTestCase {
 
     $this->assertCount(1, $this->elementRows($result),
       'show_extra=false with 0 items must still render 1 row so new values can be entered.');
+  }
+
+  /**
+   * @covers ::formMultipleElements
+   */
+  public function testAddAnotherItemOnEmptyFieldAddsRowOnFirstClick(): void {
+    // Regression test for 3634815: on an empty field with show_extra=false,
+    // the first "Add another item" click must render a second row.
+    $field_def = $this->buildFieldDefinition('smartdate', []);
+    $widget    = $this->buildWidget(FALSE, $field_def);
+    $entity    = $this->createMock(FieldableEntityInterface::class);
+    $items     = $this->buildItemsMock(0, $entity);
+    $form      = ['#parents' => []];
+
+    // A real FormState so widget state changes persist between builds.
+    $form_state = new FormState();
+    SmartDateWidgetBase::setWidgetState([], 'field_date', $form_state, ['items_count' => 0]);
+
+    // Initial build: one visible row, which must be counted as an item.
+    $result = $this->formMultipleElements->invokeArgs($widget, [$items, &$form, $form_state]);
+    $this->assertCount(1, $this->elementRows($result));
+    $field_state = SmartDateWidgetBase::getWidgetState([], 'field_date', $form_state);
+    $this->assertSame(1, $field_state['items_count'],
+      'The visible row on an empty field must be counted as an item.');
+
+    // Simulate addMoreSubmit(), which increments items_count, then rebuild.
+    $field_state['items_count']++;
+    SmartDateWidgetBase::setWidgetState([], 'field_date', $form_state, $field_state);
+    $result = $this->formMultipleElements->invokeArgs($widget, [$items, &$form, $form_state]);
+    $this->assertCount(2, $this->elementRows($result),
+      'The first "Add another item" click must render a second row.');
   }
 
   // ---------------------------------------------------------------------------

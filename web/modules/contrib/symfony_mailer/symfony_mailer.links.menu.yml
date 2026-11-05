@@ -1,5 +1,5 @@
-symfony_mailer.mailer_transport.collection:
-  title: 'Mailer'
+symfony_mailer.config:
+  title: 'Mailer Plus'
   parent: system.admin_config_system
-  description: 'Configure Mailer'
-  route_name: entity.mailer_policy.collection
+  description: 'Mailer verification'
+  route_name: symfony_mailer.verify

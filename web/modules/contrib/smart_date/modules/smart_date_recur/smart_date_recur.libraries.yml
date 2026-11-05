@@ -7,3 +7,4 @@ smart_date_recur:
     js/smart_date_recur.js: {}
   dependencies:
     - core/drupal
+    - core/once

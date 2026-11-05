@@ -14,6 +14,6 @@ class TestEntityUsageBatchManager extends EntityUsageBatchManager {
   /**
    * The number of revisions or entities to load when in bulk mode.
    */
-  const BULK_BATCH_SIZE = 2;
+  const int BULK_BATCH_SIZE = 2;
 
 }

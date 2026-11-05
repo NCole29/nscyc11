@@ -112,8 +112,8 @@ class SmartDateOverrideForm extends FormBase {
     SmartDateWidgetBase::createWidget($element, $values, $defaults);
     // Add the wrapper class for the Smart Date field so JS and CSS apply.
     $element['#attributes']['class'][] = 'smartdate--widget';
+    $element['#attached']['library'][] = 'smart_date/smart_date';
     $form['override'] = $element;
-    $form['#attached']['library'][] = 'smart_date/smart_date';
 
     // Pass in values to identify the override.
     $form['rrule'] = [

@@ -1,0 +1,5 @@
+mailer_override.status:
+  title: Override
+  description: 'Override status.'
+  base_route: symfony_mailer.verify
+  route_name: mailer_override.status

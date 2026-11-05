@@ -4,11 +4,49 @@ Solo is the third generation of the W3CSS Theme and has been thoroughly
 revamped. This version does not rely on jQuery, making the inclusion of
 the w3.css library optional.
 
-Should you wish to construct a more intricate website, consider utilizing
+Should you wish to construct a more complex website, consider using
 the [Paragraphs Bundles](https://www.drupal.org/project/paragraphs_bundles)
-module. This module equips you with robust capabilities to create complex
+module. This module equips you with strong capabilities to create complex
 components such as 3D cards, slideshows, 3D carousel, tabs, cards,
 accordions, and more.
+
+## Install, and when you need a sub-theme
+
+Install Solo with `composer require drupal/solo`, then click **Install and
+set as default** under **Appearance**. No sub-theme is needed for most
+sites:
+
+- **Everything you set in the theme settings** (colors, layout, menus,
+  regions) is stored in your site's configuration, so updating Solo never
+  overwrites it.
+- **Your own CSS and JavaScript** go in the theme settings too, under
+  **Global Site Settings > Custom Code**: *CSS Injector*, *CSS Dynamic* and
+  *JavaScript Dynamic*. They are saved with your settings, or to files in
+  `sites/*/files/solo/`, never inside Solo's folder.
+
+**Create a sub-theme when you need to override Twig templates.** Never
+edit Solo's own files: the next update replaces them.
+
+The quickest way is one Drush command from the
+[Solo Utilities](https://www.drupal.org/project/solo_utilities) module
+(1.0.10 or later, Drush 12 or later). It copies the starter to
+`themes/custom/my_theme` and renames everything for you:
+
+```
+drush solo:subtheme my_theme
+```
+
+Or do it by hand from the starter Solo ships, the `solo_subtheme` folder:
+
+1. Copy it to `themes/custom/my_theme` and rename it as described in
+   `solo_subtheme/README.md`. Every `solo_subtheme` must become your
+   theme's machine name, including inside the PHP files.
+2. Clear the cache (`drush cr`), then install your sub-theme and set it as
+   the default theme under **Appearance**. Drupal installs Solo with it
+   as its base theme.
+
+Full guide:
+[Solo how-to: install Solo theme](https://www.drupal.org/docs/extending-drupal/themes/contributed-themes/solo/solo-how-to#install-solo-theme).
 
 ## Features
 
@@ -110,7 +148,7 @@ Load-based preloader: displays while the page is loading and hides when ready.
 No minimum display time—fast loads show it briefly; slow loads keep it until
 complete. Configurable **max display time** (3–60 seconds) acts as a fallback
 only if the load event never fires. **Visibility:** enable/disable, **hide
-trigger** (“Page appears” via `DOMContentLoaded` — default, or “Page fully
+trigger** (“Page appears” via `DOMContentLoaded`; default, or “Page fully
 loaded” via `window.load`), max display (sec), “Force show for testing” (30s),
 disable on admin routes, disable for authenticated users, and **path
 include/exclude rules** (one path per line; prefix with minus to exclude, e.g.
@@ -230,9 +268,9 @@ that the colors of the regions will override the global colors.
 ## Blueprint
 
 The blueprint for the Solo theme regions is a structured layout that defines
-the various sections of a web page. Here's a brief description of each region:
+the various sections of a web page. A brief description of each region follows:
 
-- `highlighted`: This block is for highlighted or important content.
+- `highlighted`: This block is for featured or important content.
 - `popup_login_block`: This is a block that pops up for user login.
 - `fixed_search_block`: This block is for the search bar, fixed in place.
 - `header`: The topmost part of the webpage, usually with the logo and
@@ -256,7 +294,7 @@ blocks.
 Each of these regions can contain various types of content, such as text,
 images, links, and more, depending on the needs of the website.
 
-This blueprint serves as a starting point and guide for developers, designers,
+This blueprint is a starting point and guide for developers, designers,
 and other site builders involved in the development process.
 
 ## Global Site Settings
@@ -410,8 +448,8 @@ page:
   attributes, no `eval()` or `new Function()`. Nothing here requires
   `script-src 'unsafe-inline'`.
 - **23 inline `style="..."` attributes** across 22 templates. These need
-  `style-src-attr 'unsafe-inline'`. A nonce cannot authorise a style
-  *attribute* — nonces apply only to `<script>` and `<style>` elements.
+  `style-src-attr 'unsafe-inline'`. A nonce cannot authorize a style
+  *attribute*; nonces apply only to `<script>` and `<style>` elements.
 - **One inline `<style>` element**, and only when you use it: the
   **CSS injector** theme setting emits whatever CSS you put in it. Leave that
   setting empty and no inline `<style>` is produced at all. This is the one
@@ -426,6 +464,6 @@ not discover them automatically and your policy has to allow them explicitly:
 | Generated `solo-js-dynamic.js`, as `<script src="…">` | *Dynamic JS* setting enabled | `script-src 'self'` |
 | Google Font stylesheet `<link>` | *Import Google Font* setting used | `style-src` + `font-src` for `fonts.googleapis.com` / `fonts.gstatic.com` |
 
-The script tag is an external same-origin reference, not inline code — it is
+The script tag is an external same-origin reference, not inline code; it is
 attached this way because the locale module rejects stream-wrapper URIs for
 library JS assets.

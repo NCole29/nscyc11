@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\entity_usage\UrlToEntityIntegrations;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StreamWrapper\LocalStream;
 use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Drupal\entity_usage\Events\Events;
 use Drupal\entity_usage\Events\UrlToEntityEvent;
+use Drupal\entity_usage\SiteDomains;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -21,39 +23,28 @@ class PublicFileIntegration implements EventSubscriberInterface {
    */
   private string $publicFilePattern;
 
+  /**
+   * The external URL of the public files directory.
+   *
+   * @var string
+   */
+  private string $externalUrl;
+
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
     #[Autowire(service: 'stream_wrapper.public')]
     StreamWrapperInterface $publicStream,
-    ConfigFactoryInterface $configFactory,
+    SiteDomains $siteDomains,
   ) {
-    $baseUrl = $publicStream->getExternalUrl();
-    $parsed = parse_url($baseUrl);
-
-    if (isset($parsed['path'])) {
-      // If the public stream is a local stream, we need to remove the base path
-      // if Drupal is installed in a subdirectory.
-      if ($publicStream instanceof LocalStream) {
-        $config = $configFactory->get('entity_usage.settings');
-        foreach ($config->get('site_domains') ?? [] as $site_domain) {
-          $site_domain = rtrim($site_domain, "/");
-          $host_pattern = str_replace('.', '\.', $site_domain) . "/";
-          $host_pattern = "/" . str_replace("/", '\/', $host_pattern) . "/";
-          if (preg_match($host_pattern, $baseUrl)) {
-            if (preg_match('/^[^\/]+(\/.+)/', $site_domain, $matches)) {
-              $sub_directory = $matches[1];
-              if (str_starts_with($parsed['path'], $sub_directory)) {
-                $parsed['path'] = substr($parsed['path'], strlen($sub_directory));
-              }
-            }
-            break;
-          }
-        }
+    $this->externalUrl = rtrim(mb_strtolower($publicStream->getExternalUrl()), '/');
+    if ($publicStream instanceof LocalStream) {
+      $internal_url = $siteDomains->getInternalUrl($this->externalUrl);
+      if (is_string($internal_url) && strlen($internal_url) > 0) {
+        $this->publicFilePattern = '{^' . preg_quote(rtrim($internal_url, '/'), '{}') . '/}';
       }
-      $this->publicFilePattern = '{^' . preg_quote(rtrim($parsed['path'], '/'), '{}') . '/}';
-    }
-    else {
-      throw new \LogicException('The public stream wrapper does not provide a valid external URL.');
+      else {
+        throw new \LogicException('The public stream wrapper does not provide a valid external URL.');
+      }
     }
 
   }
@@ -76,10 +67,18 @@ class PublicFileIntegration implements EventSubscriberInterface {
       return;
     }
 
-    $url = $event->getRequest()->getPathInfo();
-    if (preg_match($this->publicFilePattern, $url)) {
-      // Check if we can map the link to a public file.
-      $file_uri = preg_replace($this->publicFilePattern, 'public://', urldecode($url));
+    if (str_starts_with($event->unprocessedUrl, $this->externalUrl . '/')) {
+      $file_uri = 'public://' . ltrim(urldecode(substr($event->unprocessedUrl, strlen($this->externalUrl))), '/');
+    }
+
+    if (!isset($file_uri) && isset($this->publicFilePattern)) {
+      $url = $event->getRequest()->getPathInfo();
+      if (preg_match($this->publicFilePattern, $url)) {
+        // Check if we can map the link to a public file.
+        $file_uri = preg_replace($this->publicFilePattern, 'public://', urldecode($url));
+      }
+    }
+    if (isset($file_uri)) {
       $files = $this->entityTypeManager->getStorage('file')
         ->getQuery()
         ->accessCheck(FALSE)

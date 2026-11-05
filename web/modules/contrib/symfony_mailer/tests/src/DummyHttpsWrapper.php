@@ -16,9 +16,8 @@ class DummyHttpsWrapper {
    * Configuration.
    *
    * @var bool[]
-   *   The configuration.
    */
-  protected static $config;
+  protected static array $config;
 
   /**
    * Register the dummy HTTPS wrapper.
@@ -27,7 +26,7 @@ class DummyHttpsWrapper {
    *   The configuration. Array keys are base file names and values indicate
    *   whether to allow the open.
    */
-  public static function register(array $config) {
+  public static function register(array $config = []) {
     self::$config = $config;
     stream_wrapper_unregister('http');
     stream_wrapper_register('http', self::class, STREAM_IS_URL);

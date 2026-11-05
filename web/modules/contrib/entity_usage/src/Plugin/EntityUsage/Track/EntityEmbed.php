@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\entity_usage\Plugin\EntityUsage\Track;
 
 use Drupal\Component\Utility\Html;
-use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\entity_usage\Attribute\EntityUsageTrack;
 
@@ -15,14 +16,13 @@ use Drupal\entity_usage\Attribute\EntityUsageTrack;
   label: new TranslatableMarkup('Entity Embed'),
   description: new TranslatableMarkup("Tracks relationships created with 'Entity Embed' in formatted text fields."),
   field_types: ["text", "text_long", "text_with_summary"],
-  source_entity_class: FieldableEntityInterface::class,
 )]
 class EntityEmbed extends TextFieldEmbedBase {
 
   /**
    * {@inheritdoc}
    */
-  public function parseEntitiesFromText($text) {
+  public function parseEntitiesFromText(string $text): array {
     $dom = Html::load($text);
     $xpath = new \DOMXPath($dom);
     $entities = [];

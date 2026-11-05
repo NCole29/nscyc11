@@ -1,271 +1,182 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\symfony_mailer;
 
-use Drupal\Component\Render\MarkupInterface;
-use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Asset\AttachedAssets;
+use Drupal\Core\Asset\AssetResolverInterface;
+use Drupal\Core\Asset\AssetOptimizerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Theme\ThemeManagerInterface;
-use Drupal\user\Entity\User;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\symfony_mailer\Processor\CallbackEmailProcessor;
+use Drupal\symfony_mailer\Processor\EmailProcessorInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Mime\Email as SymfonyEmail;
 
 /**
  * Defines the email class.
  */
-class Email implements InternalEmailInterface {
+class Email extends BaseEmail implements InternalEmailInterface {
 
-  use BaseEmailTrait;
-
-  /**
-   * The mailer.
-   *
-   * @var \Drupal\symfony_mailer\MailerInterface
-   */
-  protected $mailer;
+  use AutowireTrait;
 
   /**
-   * The renderer.
-   *
-   * @var \Drupal\Core\Render\RendererInterface
+   * The unrendered body array.
    */
-  protected $renderer;
-
-  /**
-   * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
-
-  /**
-   * The theme manager.
-   *
-   * @var \Drupal\Core\Theme\ThemeManagerInterface
-   */
-  protected $themeManager;
-
-  /**
-   * The config factory.
-   *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
-   */
-  protected $configFactory;
-
-  /**
-   * The type.
-   *
-   * @var string
-   */
-  protected $type;
-
-  /**
-   * The subtype.
-   *
-   * @var string
-   */
-  protected $subType;
-
-  /**
-   * The config entity.
-   *
-   * @var \Drupal\Core\Config\Entity\ConfigEntityInterface
-   */
-  protected $entity;
-
-  /**
-   * Current phase, one of the PHASE_ constants.
-   *
-   * @var int
-   */
-  protected $phase = self::PHASE_INIT;
-
-  /**
-   * The body array.
-   *
-   * @var array
-   */
-  protected $body = [];
-
-  /**
-   * The email subject.
-   *
-   * @var \Drupal\Component\Render\MarkupInterface|string
-   */
-  protected $subject;
-
-  /**
-   * Whether to replace variables in the email subject.
-   *
-   * @var bool
-   */
-  protected $subjectReplace;
+  protected array $body = [];
 
   /**
    * The processors.
-   *
-   * @var array
    */
-  protected $processors = [];
+  protected array $processors = [];
+
+  /**
+   * The processors remaining to process in the current phase.
+   */
+  protected array $processorQueue = [];
+
+  /**
+   * Set to TRUE to re-sort the processor queue.
+   */
+  protected bool $processorSort = FALSE;
 
   /**
    * The language code.
-   *
-   * @var string
    */
-  protected $langcode;
+  protected string $langcode;
 
   /**
    * The params.
    *
    * @var string[]
    */
-  protected $params = [];
+  protected array $params = [];
 
   /**
    * The variables.
    *
    * @var string[]
    */
-  protected $variables = [];
+  protected array $variables = [];
 
   /**
    * The account for the recipient (can be anonymous).
-   *
-   * @var \Drupal\Core\Session\AccountInterface
    */
-  protected $account;
+  protected AccountInterface $account;
 
   /**
    * The theme.
-   *
-   * @var string
    */
-  protected $theme = '';
+  protected string $theme = '';
 
   /**
    * The libraries.
-   *
-   * @var array
    */
-  protected $libraries = [];
-
-  /**
-   * The mail transport DSN.
-   *
-   * @var string
-   */
-  protected $transportDsn = '';
+  protected array $libraries = [];
 
   /**
    * The error message from sending.
-   *
-   * @var string
    */
-  protected $errorMessage;
+  protected string $errorMessage = '';
 
   /**
    * Constructs the Email object.
    *
-   * @param \Drupal\symfony_mailer\MailerInterface $mailer
+   * @param \Drupal\symfony_mailer\MailerPlusInterface $mailer
    *   Mailer service.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
-   * @param \Drupal\Core\Theme\ThemeManagerInterface $theme_manager
+   * @param \Drupal\Core\Theme\ThemeManagerInterface $themeManager
    *   The theme manager.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The configuration factory.
-   * @param string $type
-   *   Type. @see self::getType()
-   * @param string $sub_type
-   *   Sub-type. @see self::getSubType()
-   * @param \Drupal\Core\Config\Entity\ConfigEntityInterface|null $entity
-   *   (optional) Entity. @see self::getEntity()
+   * @param \Drupal\Core\Asset\AssetResolverInterface $assetResolver
+   *   The asset resolver.
+   * @param \Drupal\Core\Asset\AssetOptimizerInterface $cssOptimizer
+   *   The Drupal CSS optimizer.
+   * @param string $tag
+   *   Tag used to identify the type or source of this email.
+   *   @see self::getTag()
+   *
+   * @internal
    */
-  public function __construct(MailerInterface $mailer, RendererInterface $renderer, EntityTypeManagerInterface $entity_type_manager, ThemeManagerInterface $theme_manager, ConfigFactoryInterface $config_factory, string $type, string $sub_type, ?ConfigEntityInterface $entity) {
-    $this->mailer = $mailer;
-    $this->renderer = $renderer;
-    $this->entityTypeManager = $entity_type_manager;
-    $this->themeManager = $theme_manager;
-    $this->configFactory = $config_factory;
-    $this->type = $type;
-    $this->subType = $sub_type;
-    $this->entity = $entity;
+  public function __construct(
+    protected readonly MailerPlusInterface $mailer,
+    protected readonly RendererInterface $renderer,
+    protected readonly EntityTypeManagerInterface $entityTypeManager,
+    protected readonly ThemeManagerInterface $themeManager,
+    protected readonly ConfigFactoryInterface $configFactory,
+    protected readonly AssetResolverInterface $assetResolver,
+    #[Autowire(service: 'asset.css.optimizer')]
+    protected readonly AssetOptimizerInterface $cssOptimizer,
+    protected readonly string $tag,
+  ) {
     $this->inner = new SymfonyEmail();
   }
 
   /**
-   * Creates an email object.
-   *
-   * Use EmailFactory instead of calling this directly.
-   *
-   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-   *   The current service container.
-   * @param string $type
-   *   Type. @see self::getType()
-   * @param string $sub_type
-   *   Sub-type. @see self::getSubType()
-   * @param \Drupal\Core\Config\Entity\ConfigEntityInterface|null $entity
-   *   (optional) Entity. @see self::getEntity()
-   *
-   * @return static
-   *   A new email object.
+   * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, string $type, string $sub_type, ?ConfigEntityInterface $entity = NULL) {
-    return new static(
-      $container->get('symfony_mailer'),
-      $container->get('renderer'),
-      $container->get('entity_type.manager'),
-      $container->get('theme.manager'),
-      $container->get('config.factory'),
-      $type,
-      $sub_type,
-      $entity
-    );
+  public function getPhase(): int {
+    return $this->phase;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function addProcessor(callable $function, int $phase = self::PHASE_BUILD, int $weight = self::DEFAULT_WEIGHT, ?string $id = NULL) {
-    @trigger_error('Email::addProcessor() is deprecated in symfony_mailer:1.6.0 and is removed from symfony_mailer:2.0.0. Instead you should use Email::addCallback(). See https://www.drupal.org/node/3501754', E_USER_DEPRECATED);
-    return $this->addCallback($function, $phase, $weight, $id);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function addCallback(callable $function, int $phase = self::PHASE_BUILD, int $weight = self::DEFAULT_WEIGHT, ?string $id = NULL) {
-    $this->valid(self::PHASE_INIT, self::PHASE_INIT);
-    $this->processors[$phase][] = [
-      'function' => $function,
-      'weight' => $weight,
-      'id' => $id,
-    ];
+  public function addProcessor(EmailProcessorInterface $processor): static {
+    $this->valid(self::PHASE_INIT);
+    $this->processors[$processor->getId()] = $processor;
+    $this->processorQueue[] = $processor;
+    $this->processorSort = TRUE;
     return $this;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getLangcode() {
-    $this->valid(self::PHASE_POST_SEND, self::PHASE_PRE_RENDER);
+  public function addCallback(callable $function, int $phase = self::PHASE_BUILD, int $weight = self::DEFAULT_WEIGHT, ?string $id = NULL): static {
+    $this->addProcessor((new CallbackEmailProcessor($weight, $id))->setCallback($function, $phase));
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function removeProcessor(string $id): static {
+    $this->valid(self::PHASE_INIT);
+    unset($this->processors[$id]);
+    $this->processorQueue = array_filter($this->processorQueue, fn(EmailProcessorInterface $processor) => ($processor->id() != $id));
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getProcessors(): array {
+    return $this->processors;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLangcode(): string {
     return $this->langcode;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setParams(array $params = []) {
-    $this->valid(self::PHASE_INIT, self::PHASE_INIT);
+  public function setParams(array $params = []): static {
+    $this->valid(min_phase: self::PHASE_INIT);
     $this->params = $params;
     return $this;
   }
@@ -273,8 +184,8 @@ class Email implements InternalEmailInterface {
   /**
    * {@inheritdoc}
    */
-  public function setParam(string $key, $value) {
-    $this->valid(self::PHASE_INIT, self::PHASE_INIT);
+  public function setParam(string $key, $value): static {
+    $this->valid(min_phase: self::PHASE_INIT);
     $this->params[$key] = $value;
     return $this;
   }
@@ -282,7 +193,14 @@ class Email implements InternalEmailInterface {
   /**
    * {@inheritdoc}
    */
-  public function getParams() {
+  public function setEntityParam(EntityInterface $entity): static {
+    return $this->setParam($entity->getEntityTypeId(), $entity);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getParams(): array {
     return $this->params;
   }
 
@@ -296,24 +214,23 @@ class Email implements InternalEmailInterface {
   /**
    * {@inheritdoc}
    */
-  public function send() {
-    $this->valid(self::PHASE_BUILD);
+  public function send(): bool {
+    $this->valid(self::PHASE_INIT);
     return $this->mailer->send($this);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getAccount() {
-    $this->valid(self::PHASE_POST_SEND, self::PHASE_PRE_RENDER);
+  public function getAccount(): AccountInterface {
     return $this->account;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setBody($body) {
-    $this->valid(self::PHASE_PRE_RENDER);
+  public function setBody(array $body): static {
+    $this->valid(self::PHASE_BUILD);
     $this->body = $body;
     return $this;
   }
@@ -321,44 +238,15 @@ class Email implements InternalEmailInterface {
   /**
    * {@inheritdoc}
    */
-  public function setBodyEntity(EntityInterface $entity, $view_mode = 'full') {
-    $this->valid(self::PHASE_PRE_RENDER);
-    $build = $this->entityTypeManager->getViewBuilder($entity->getEntityTypeId())
-      ->view($entity, $view_mode);
-    $this->setBody($build);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getBody() {
-    $this->valid(self::PHASE_PRE_RENDER);
+  public function getBody(): array {
+    $this->valid(self::PHASE_BUILD);
     return $this->body;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setSubject($subject, bool $replace = FALSE) {
-    // We must not force conversion of the subject to a string as this could
-    // cause translation before switching to the correct language.
-    $this->subject = $subject;
-    $this->subjectReplace = $replace;
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getSubject() {
-    return $this->subject;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setVariables(array $variables) {
+  public function setVariables(array $variables): static {
     $this->valid(self::PHASE_BUILD, self::PHASE_INIT);
     $this->variables = $variables;
     return $this;
@@ -367,7 +255,7 @@ class Email implements InternalEmailInterface {
   /**
    * {@inheritdoc}
    */
-  public function setVariable(string $key, $value) {
+  public function setVariable(string $key, $value): static {
     $this->valid(self::PHASE_BUILD, self::PHASE_INIT);
     $this->variables[$key] = $value;
     return $this;
@@ -376,40 +264,37 @@ class Email implements InternalEmailInterface {
   /**
    * {@inheritdoc}
    */
-  public function getVariables() {
+  public function setEntityVariable(string $key, $view_mode = 'email'): static {
+    $this->valid(self::PHASE_BUILD);
+    $entity = $this->getParam($key);
+    $build = $this->entityTypeManager->getViewBuilder($entity->getEntityTypeId())
+      ->view($entity, $view_mode);
+    $this->setVariable($key, $build);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getVariables(): array {
     return $this->variables;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getType() {
-    return $this->type;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getSubType() {
-    return $this->subType;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getEntity() {
-    return $this->entity;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getSuggestions(string $initial, string $join) {
-    $part_array = [$this->type, $this->subType];
-    if (isset($this->entity)) {
-      $part_array[] = $this->entity->id();
+  public function getTag(?int $part = NULL): string {
+    if (is_null($part)) {
+      return $this->tag;
     }
+    return explode('.', $this->tag)[$part] ?? '';
+  }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getSuggestions(string $initial, string $join): array {
+    $part_array = explode('.', $this->tag);
     $part = $initial ?: array_shift($part_array);
     $suggestions[] = $part;
 
@@ -424,11 +309,8 @@ class Email implements InternalEmailInterface {
   /**
    * {@inheritdoc}
    */
-  public function setTheme(string $theme_name) {
-    $this->valid(self::PHASE_BUILD, self::PHASE_INIT);
-    if ($this->phase == self::PHASE_BUILD) {
-      @trigger_error('Calling \Drupal\symfony_mailer\Email::setTheme() in the build phase is deprecated in symfony_mailer:1.6.0 and will fail in symfony_mailer:2.0.0. Call it in the initialisation phase instead. See https://www.drupal.org/node/3501754', E_USER_DEPRECATED);
-    }
+  public function setTheme(string $theme_name): static {
+    $this->valid(self::PHASE_INIT);
     $this->theme = $theme_name;
     return $this;
   }
@@ -436,7 +318,7 @@ class Email implements InternalEmailInterface {
   /**
    * {@inheritdoc}
    */
-  public function getTheme() {
+  public function getTheme(): string {
     if (!$this->theme) {
       $this->theme = $this->themeManager->getActiveTheme()->getName();
     }
@@ -446,7 +328,8 @@ class Email implements InternalEmailInterface {
   /**
    * {@inheritdoc}
    */
-  public function addLibrary(string $library) {
+  public function addLibrary(string $library): static {
+    $this->valid(self::PHASE_BUILD);
     $this->libraries[] = $library;
     return $this;
   }
@@ -454,52 +337,88 @@ class Email implements InternalEmailInterface {
   /**
    * {@inheritdoc}
    */
-  public function getLibraries() {
+  public function getLibraries(): array {
     return $this->libraries;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setTransportDsn(string $dsn) {
-    $this->transportDsn = $dsn;
+  public function setTransport(string $transport): static {
+    $this->valid();
+    $this->getHeaders()->addHeader('X-Transport', $transport);
     return $this;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getTransportDsn() {
-    return $this->transportDsn;
+  public function getTransport(): string {
+    return $this->getHeaders()->getHeaderBody('X-Transport');
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setError(string $error) {
-    $this->valid(self::PHASE_POST_SEND, self::PHASE_POST_SEND);
-    $this->errorMessage = $error;
-    return $this;
+  public function getCss(): string {
+    $assets = (new AttachedAssets())->setLibraries($this->getLibraries());
+    $css = '';
+    foreach ($this->assetResolver->getCssAssets($assets, FALSE) as $asset) {
+      if (($asset['type'] == 'file') && $asset['preprocess']) {
+        // Optimize to process @import.
+        $css .= $this->cssOptimizer->optimize($asset);
+      }
+      else {
+        $css .= file_get_contents($asset['data']);
+      }
+    }
+
+    return $css;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getError() {
+  public function getError(): string {
     return $this->errorMessage;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function process() {
-    $processors = $this->processors[$this->phase] ?? [];
-    usort($processors, function ($a, $b) {
-      return $a['weight'] <=> $b['weight'];
-    });
+  public function process(): static {
+    $this->processorQueue = $this->getProcessors();
+    $this->processorSort = TRUE;
 
-    foreach ($processors as $processor) {
-      call_user_func($processor['function'], $this);
+    // While processing PHASE_INIT, each processor may add or remove others.
+    // Therefore we use a queue and a while loop rather than a for loop.
+    while ($this->processorQueue) {
+      if ($this->processorSort) {
+        usort($this->processorQueue, function ($a, $b) {
+          return $a->getWeight($this->phase) <=> $b->getWeight($this->phase);
+        });
+        $this->processorSort = FALSE;
+      }
+
+      $processor = array_shift($this->processorQueue);
+
+      switch ($this->phase) {
+        case self::PHASE_INIT:
+          $processor->init($this);
+          break;
+
+        case self::PHASE_BUILD:
+          $processor->build($this);
+          break;
+
+        case self::PHASE_POST_RENDER:
+          $processor->postRender($this);
+          break;
+
+        case self::PHASE_POST_SEND:
+          $processor->postSend($this);
+          break;
+      }
     }
 
     return $this;
@@ -508,8 +427,10 @@ class Email implements InternalEmailInterface {
   /**
    * {@inheritdoc}
    */
-  public function initDone() {
-    $this->valid(self::PHASE_INIT, self::PHASE_INIT);
+  public function customize(string $langcode, AccountInterface $account): static {
+    $this->valid(self::PHASE_INIT);
+    $this->langcode = $langcode;
+    $this->account = $account;
     $this->phase = self::PHASE_BUILD;
     return $this;
   }
@@ -517,39 +438,13 @@ class Email implements InternalEmailInterface {
   /**
    * {@inheritdoc}
    */
-  public function customize(string $langcode, AccountInterface $account) {
+  public function render(): static {
     $this->valid(self::PHASE_BUILD);
-    $this->langcode = $langcode;
-    $this->account = $account;
-    $this->phase = self::PHASE_PRE_RENDER;
-    return $this;
-  }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function render() {
-    $this->valid(self::PHASE_PRE_RENDER, self::PHASE_PRE_RENDER);
-
-    // Render subject.
-    if ($this->subjectReplace && $this->variables) {
-      $subject = [
-        '#type' => 'inline_template',
-        '#template' => $this->subject,
-        '#context' => $this->variables,
-      ];
-      $this->subject = $this->renderer->renderInIsolation($subject);
-    }
-
-    if ($this->subject instanceof MarkupInterface) {
-      $this->subject = PlainTextOutput::renderFromHtml($this->subject);
-    }
-
-    // Render body.
     $body = ['#theme' => 'email', '#email' => $this];
     $html = $this->renderer->renderInIsolation($body);
     $this->phase = self::PHASE_POST_RENDER;
-    $this->setHtmlBody($html);
+    $this->setHtmlBody((string) $html);
     $this->body = [];
 
     return $this;
@@ -558,23 +453,11 @@ class Email implements InternalEmailInterface {
   /**
    * {@inheritdoc}
    */
-  public function getPhase() {
-    return $this->phase;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getSymfonyEmail() {
-    $this->valid(self::PHASE_POST_RENDER, self::PHASE_POST_RENDER);
+  public function getSymfonyEmail(): SymfonyEmail {
+    $this->valid(min_phase: self::PHASE_POST_RENDER);
     $this->phase = self::PHASE_POST_SEND;
 
-    if ($this->subject) {
-      $this->inner->subject($this->subject);
-    }
-
     // Addresses.
-    $this->inner->sender($this->sender->getSymfony());
     $headers = $this->getHeaders();
     foreach ($this->addresses as $name => $addresses) {
       $value = [];
@@ -582,8 +465,12 @@ class Email implements InternalEmailInterface {
         $value[] = $address->getSymfony();
       }
       if ($value) {
-        // Convert headers to camel case.
-        $headers->addMailboxListHeader(ucwords($name, '-'), $value);
+        if ($name === 'sender') {
+          $this->inner->sender($value[0]);
+          continue;
+        }
+
+        $headers->addMailboxListHeader($name, $value);
       }
     }
 
@@ -618,59 +505,12 @@ class Email implements InternalEmailInterface {
   }
 
   /**
-   * Checks that a function was called in the correct phase.
-   *
-   * @param int $max_phase
-   *   Latest allowed phase, one of the PHASE_ constants.
-   * @param int $min_phase
-   *   (Optional) Earliest allowed phase, one of the PHASE_ constants.
-   *
-   * @return $this
+   * {@inheritdoc}
    */
-  protected function valid(int $max_phase, int $min_phase = self::PHASE_BUILD) {
-    $valid = ($this->phase <= $max_phase) && ($this->phase >= $min_phase);
-
-    if (!$valid) {
-      $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['function'];
-      throw new \LogicException("$caller function is only valid in phases $min_phase-$max_phase, called in $this->phase.");
-    }
+  public function setError(string $error): static {
+    $this->valid(self::PHASE_POST_SEND, self::PHASE_POST_SEND);
+    $this->errorMessage = $error;
     return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   *
-   * Serialization is intended only for testing.
-   *
-   * @internal
-   */
-  public function __serialize() {
-    // Exclude $this->params, $this->variables as they may not serialize.
-    return [$this->type, $this->subType,
-      $this->entity ? $this->entity->id() : '',
-      $this->phase, $this->subject, $this->langcode,
-      $this->account ? $this->account->id() : '', $this->theme,
-      $this->libraries, $this->transportDsn, $this->inner,
-      $this->addresses, $this->sender,
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __unserialize(array $data) {
-    [$this->type, $this->subType, $entity_id, $this->phase,
-      $this->subject, $this->langcode, $account_id, $this->theme,
-      $this->libraries, $this->transportDsn, $this->inner,
-      $this->addresses, $this->sender,
-    ] = $data;
-
-    if ($entity_id) {
-      $this->entity = $this->configFactory->get($entity_id);
-    }
-    if ($account_id) {
-      $this->account = User::load($account_id);
-    }
   }
 
 }

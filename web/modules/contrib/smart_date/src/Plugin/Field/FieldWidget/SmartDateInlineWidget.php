@@ -2,8 +2,10 @@
 
 namespace Drupal\smart_date\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Security\Attribute\TrustedCallback;
 
 /**
  * Plugin implementation of the 'smartdate_inline' widget.
@@ -51,10 +53,30 @@ class SmartDateInlineWidget extends SmartDateDefaultWidget {
     $separator = empty($this->getSetting('separator')) ? $this->t('to') : $this->getSetting('separator');
     $element['time_wrapper']['separator']['#markup'] = '<span class="smartdate--separator">' . $separator . '</span>';
     $element['time_wrapper']['end_value'] = (isset($element['end_value'])) ? $element['end_value'] : $element['value'];
+    // The end value is displayed as time then date, so the source order must
+    // match for keyboard focus to follow the visual order.
+    $element['time_wrapper']['end_value']['#date_time_callbacks'][] = [self::class, 'endTimeBeforeDate'];
     unset($element['value']);
     unset($element['end_value']);
 
     return $element;
+  }
+
+  /**
+   * Datetime time callback: places the end time before the end date.
+   *
+   * @param array $element
+   *   The end datetime form element, with its date and time inputs.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   * @param \Drupal\Core\Datetime\DrupalDateTime|null $date
+   *   The date object, or NULL if the element has no value.
+   */
+  #[TrustedCallback]
+  public static function endTimeBeforeDate(array &$element, FormStateInterface $form_state, ?DrupalDateTime $date): void {
+    if (isset($element['date'])) {
+      $element['time']['#weight'] = ($element['date']['#weight'] ?? 0) - 1;
+    }
   }
 
   /**

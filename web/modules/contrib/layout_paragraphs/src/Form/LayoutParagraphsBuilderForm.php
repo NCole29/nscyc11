@@ -2,13 +2,19 @@
 
 namespace Drupal\layout_paragraphs\Form;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\MessageCommand;
+use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
+use Drupal\Core\Entity\RevisionableEntityBundleInterface;
+use Drupal\Core\Entity\TranslatableRevisionableInterface;
+use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\RevisionLogInterface;
 use Drupal\Core\Entity\RevisionableInterface;
@@ -17,9 +23,12 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Form\WorkspaceSafeFormInterface;
 use Drupal\layout_paragraphs\Ajax\LayoutParagraphsEventCommand;
+use Drupal\layout_paragraphs\LayoutChangeDetector;
 use Drupal\layout_paragraphs\LayoutParagraphsLayout;
 use Drupal\layout_paragraphs\LayoutParagraphsTranslationHandlerInterface;
+use Drupal\layout_paragraphs\Utility\Dialog;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\layout_paragraphs\LayoutParagraphsLayoutTempstoreRepository;
 
@@ -29,7 +38,7 @@ use Drupal\layout_paragraphs\LayoutParagraphsLayoutTempstoreRepository;
  * Builds a Layout Paragraphs Builder form with save / cancel buttons
  * for saving the host entity.
  */
-class LayoutParagraphsBuilderForm extends FormBase {
+class LayoutParagraphsBuilderForm extends FormBase implements WorkspaceSafeFormInterface {
 
   /**
    * A layout paragraphs layout object.
@@ -60,6 +69,27 @@ class LayoutParagraphsBuilderForm extends FormBase {
   protected $translationHandler;
 
   /**
+   * The form builder service.
+   *
+   * @var \Drupal\Core\Form\FormBuilderInterface
+   */
+  protected $formBuilder;
+
+  /**
+   * The time service.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected $time;
+
+  /**
+   * The layout change detector service.
+   *
+   * @var \Drupal\layout_paragraphs\LayoutChangeDetector
+   */
+  protected $changeDetector;
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
@@ -72,11 +102,23 @@ class LayoutParagraphsBuilderForm extends FormBase {
   public function __construct(
     LayoutParagraphsLayoutTempstoreRepository $tempstore,
     EntityTypeManagerInterface $entity_type_manager,
-    LayoutParagraphsTranslationHandlerInterface $translation_handler,
+    ?LayoutParagraphsTranslationHandlerInterface $translation_handler = NULL,
+    ?FormBuilderInterface $form_builder = NULL,
+    ?TimeInterface $time = NULL,
+    ?LayoutChangeDetector $change_detector = NULL,
   ) {
     $this->tempstore = $tempstore;
     $this->entityTypeManager = $entity_type_manager;
-    $this->translationHandler = $translation_handler;
+    // Subclasses and direct instantiations that predate the translation
+    // handler argument get the handler from the container.
+    // phpcs:ignore DrupalPractice.Objects.GlobalDrupal.GlobalDrupal, Drupal.Commenting.PostStatementComment.Found
+    $this->translationHandler = $translation_handler ?? \Drupal::service('layout_paragraphs.translation_handler'); // @phpstan-ignore globalDrupalDependencyInjection.useDependencyInjection
+    // phpcs:ignore DrupalPractice.Objects.GlobalDrupal.GlobalDrupal, Drupal.Commenting.PostStatementComment.Found
+    $this->formBuilder = $form_builder ?? \Drupal::formBuilder(); // @phpstan-ignore globalDrupalDependencyInjection.useDependencyInjection
+    // phpcs:ignore DrupalPractice.Objects.GlobalDrupal.GlobalDrupal, Drupal.Commenting.PostStatementComment.Found
+    $this->time = $time ?? \Drupal::time(); // @phpstan-ignore globalDrupalDependencyInjection.useDependencyInjection
+    // phpcs:ignore DrupalPractice.Objects.GlobalDrupal.GlobalDrupal, Drupal.Commenting.PostStatementComment.Found
+    $this->changeDetector = $change_detector ?? \Drupal::service('layout_paragraphs.change_detector'); // @phpstan-ignore globalDrupalDependencyInjection.useDependencyInjection
   }
 
   /**
@@ -86,7 +128,10 @@ class LayoutParagraphsBuilderForm extends FormBase {
     return new static(
       $container->get('layout_paragraphs.tempstore_repository'),
       $container->get('entity_type.manager'),
-      $container->get('layout_paragraphs.translation_handler')
+      $container->get('layout_paragraphs.translation_handler'),
+      $container->get('form_builder'),
+      $container->get('datetime.time'),
+      $container->get('layout_paragraphs.change_detector')
     );
   }
 
@@ -200,6 +245,55 @@ class LayoutParagraphsBuilderForm extends FormBase {
   }
 
   /**
+   * Returns the response that opens the unsaved changes dialog.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   *   The ajax response.
+   */
+  protected function openCloseDialog() {
+    $close_form = $this->formBuilder->getForm(
+      CloseLayoutForm::class,
+      $this->layoutParagraphsLayout
+    );
+    return $this->openModalDialog($this->t('Unsaved changes'), $close_form);
+  }
+
+  /**
+   * Returns the response that opens the save dialog.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   *   The ajax response.
+   */
+  protected function openSaveDialog() {
+    $save_form = $this->formBuilder->getForm(
+      SaveLayoutForm::class,
+      $this->layoutParagraphsLayout,
+      $this->getNewRevisionDefault($this->layoutParagraphsLayout->getEntity())
+    );
+    return $this->openModalDialog($this->t('Save layout'), $save_form);
+  }
+
+  /**
+   * Returns the response that opens a modal dialog.
+   *
+   * @param \Drupal\Core\StringTranslation\TranslatableMarkup $title
+   *   The dialog title.
+   * @param array $content
+   *   The dialog content.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   *   The ajax response.
+   */
+  protected function openModalDialog(TranslatableMarkup $title, array $content) {
+    $options = Dialog::dialogSettings();
+    $options['classes']['ui-dialog'] = $options['dialogClass'];
+    unset($options['dialogClass']);
+    $response = new AjaxResponse();
+    $response->addCommand(new OpenModalDialogCommand($title, $content, $options));
+    return $response;
+  }
+
+  /**
    * Ajax callback.
    *
    * Closes the builder and returns the rendered layout, or displays the form
@@ -216,6 +310,11 @@ class LayoutParagraphsBuilderForm extends FormBase {
   public function close(array $form, FormStateInterface $form_state) {
     if ($error_response = $this->buildErrorResponse($form_state)) {
       return $error_response;
+    }
+    $this->reloadLayout();
+    $discarding = $this->layoutParagraphsLayout->getThirdPartySetting('layout_paragraphs', 'discard');
+    if (!$discarding && $this->changeDetector->hasChanges($this->layoutParagraphsLayout)) {
+      return $this->openCloseDialog();
     }
     $this->tempstore->delete($this->layoutParagraphsLayout);
     $view_mode = $this->layoutParagraphsLayout->getSetting('reference_field_view_mode', 'default');
@@ -243,6 +342,9 @@ class LayoutParagraphsBuilderForm extends FormBase {
   public function save(array $form, FormStateInterface $form_state) {
     if ($error_response = $this->buildErrorResponse($form_state)) {
       return $error_response;
+    }
+    if ($form_state->get('lpb_needs_save_dialog')) {
+      return $this->openSaveDialog();
     }
     $entity = $this->getHostTranslation($form_state);
     $response = new AjaxResponse();
@@ -297,7 +399,10 @@ class LayoutParagraphsBuilderForm extends FormBase {
    */
   public function validateRouteBinding(array &$element, FormStateInterface $form_state, array &$complete_form) {
     $error = NULL;
-    if (!$this->isBuiltForRouteEntity($form_state)) {
+    if ($this->layoutParagraphsLayout instanceof LayoutParagraphsLayout && !is_string($this->layoutParagraphsLayout->getThirdPartySetting('layout_paragraphs', 'langcode'))) {
+      $error = $this->t('This layout was opened before the site was updated. Reopen the builder and try again.');
+    }
+    elseif (!$this->isBuiltForRouteEntity($form_state)) {
       $error = $this->t('This layout was opened for another content item or translation. Reopen the builder and try again.');
     }
     else {
@@ -326,12 +431,29 @@ class LayoutParagraphsBuilderForm extends FormBase {
    *   The form state object.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $this->reloadLayout();
+    $form_state->set('lpb_needs_save_dialog', FALSE);
+    $revision = $this->layoutParagraphsLayout->getThirdPartySetting('layout_paragraphs', 'revision');
+    if ($revision === NULL) {
+      if ($this->getRequest()->query->has(FormBuilderInterface::AJAX_FORM_REQUEST)) {
+        $form_state->set('lpb_needs_save_dialog', TRUE);
+        return;
+      }
+      $revision = [
+        'create' => $this->getNewRevisionDefault($this->layoutParagraphsLayout->getEntity()),
+        'log' => '',
+      ];
+    }
+    $new_revision = !empty($revision['create']);
+    $this->layoutParagraphsLayout->unsetThirdPartySetting('layout_paragraphs', 'revision');
+    $this->tempstore->set($this->layoutParagraphsLayout);
+
     // The entity may have been altered by another process, and needs to be
     // loaded from storage to ensure edits to other fields are not overwritten.
     // @see https://www.drupal.org/project/layout_paragraphs/issues/3275179
     $entity = $this->loadStoredHost();
     if ($entity instanceof RevisionableInterface) {
-      $entity->setNewRevision(FALSE);
+      $entity->setNewRevision($new_revision);
     }
     // Storage returns the default translation. The translation to save is the
     // one the form was built for, which validation ensured exists.
@@ -340,11 +462,17 @@ class LayoutParagraphsBuilderForm extends FormBase {
     $entity = $entity->getTranslation($langcode);
     $field_name = $this->layoutParagraphsLayout->getFieldName();
     if ($entity instanceof EntityChangedInterface) {
-      $entity->setChangedTime(time());
+      $entity->setChangedTime($this->time->getRequestTime());
     }
-    if ($entity instanceof RevisionLogInterface) {
-      $entity->setRevisionCreationTime(time());
-      $entity->setRevisionLogMessage($this->t('Updated with the Layout Paragraphs Frontend Builder.'));
+    if ($new_revision) {
+      if ($entity instanceof RevisionLogInterface) {
+        $entity->setRevisionCreationTime($this->time->getRequestTime());
+        $entity->setRevisionLogMessage($revision['log'] ?? '');
+        $entity->setRevisionUserId($this->currentUser()->id());
+      }
+      if ($entity instanceof TranslatableRevisionableInterface) {
+        $entity->setRevisionTranslationAffected(TRUE);
+      }
     }
     $entity->$field_name = $this->layoutParagraphsLayout->getParagraphsReferenceField();
     $entity->save();
@@ -356,6 +484,33 @@ class LayoutParagraphsBuilderForm extends FormBase {
     $is_translating = $this->translationHandler->isTranslating($host, $langcode);
     $this->translationHandler->initTranslations($this->layoutParagraphsLayout, $is_translating, $langcode);
     $this->tempstore->set($this->layoutParagraphsLayout);
+  }
+
+  /**
+   * Reloads the layout from the tempstore.
+   *
+   * A cached form keeps the layout as it was when the form was cached.
+   */
+  protected function reloadLayout(): void {
+    $this->layoutParagraphsLayout = $this->tempstore->get($this->layoutParagraphsLayout);
+  }
+
+  /**
+   * Returns whether the host's bundle creates a new revision by default.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The host entity.
+   *
+   * @return bool
+   *   TRUE if the bundle creates new revisions by default.
+   */
+  protected function getNewRevisionDefault(EntityInterface $entity): bool {
+    $bundle_entity_type = $entity->getEntityType()->getBundleEntityType();
+    if (!$bundle_entity_type) {
+      return FALSE;
+    }
+    $bundle_entity = $this->entityTypeManager->getStorage($bundle_entity_type)->load($entity->bundle());
+    return $bundle_entity instanceof RevisionableEntityBundleInterface && $bundle_entity->shouldCreateNewRevision();
   }
 
   /**

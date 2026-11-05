@@ -2,8 +2,9 @@
 
 namespace Drupal\smart_date\Plugin\FullcalendarViewProcessor;
 
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\fullcalendar_view\Plugin\FullcalendarViewProcessorBase;
-use Drupal\smart_date\SmartDatePluginTrait;
+use Drupal\smart_date\SmartDateTrait;
 
 /**
  * Smart Date plugin.
@@ -18,7 +19,7 @@ use Drupal\smart_date\SmartDatePluginTrait;
  */
 class SmartDateProcessor extends FullcalendarViewProcessorBase {
 
-  use SmartDatePluginTrait;
+  use SmartDateTrait, StringTranslationTrait;
 
   /**
    * Process retrieved values before being passed to Fullcalendar.

@@ -2,8 +2,10 @@
 
 /**
  * @file
- * Documentation of Symfony Mailer hooks.
+ * Documentation of Mailer Plus hooks.
  */
+
+declare(strict_types=1);
 
 use Drupal\symfony_mailer\EmailInterface;
 
@@ -15,13 +17,15 @@ use Drupal\symfony_mailer\EmailInterface;
  * @param \Drupal\symfony_mailer\EmailInterface $email
  *   The email.
  */
-function hook_mailer_PHASE(EmailInterface $email) {
+function hook_mailer_PHASE(EmailInterface $email): void {
   // hook_mailer_init():
   // - Add a class.
   // - Re-use an EmailAdjuster.
-  (new CustomEmailProcessor())->init($email);
+  $email->addProcessor(new CustomEmailProcessor());
   $config = ['message' => 'Unpopular user skipped'];
-  Drupal::service('plugin.manager.email_adjuster')->createInstance('email_skip_sending', $config)->init($email);
+  Drupal::service(EmailAdjusterManagerInterface::class)->createInstance('email_skip_sending', $config)->init($email);
+
+  // hook_mailer_init():
   $email->setTo('user@example.com');
 
   // hook_mailer_build():
@@ -45,7 +49,7 @@ function hook_mailer_PHASE(EmailInterface $email) {
  * @param \Drupal\symfony_mailer\EmailInterface $email
  *   The email.
  */
-function hook_mailer_TYPE_PHASE(EmailInterface $email) {
+function hook_mailer_TYPE_PHASE(EmailInterface $email): void {
 }
 
 /**
@@ -56,32 +60,14 @@ function hook_mailer_TYPE_PHASE(EmailInterface $email) {
  * @param \Drupal\symfony_mailer\EmailInterface $email
  *   The email.
  */
-function hook_mailer_TYPE__SUBTYPE_PHASE(EmailInterface $email) {
+function hook_mailer_TYPE__SUBTYPE_PHASE(EmailInterface $email): void {
 }
 
 /**
- * Alters email builder plug-in definitions.
+ * Alters mailer plug-in definitions.
  *
- * @param array $email_builders
- *   An associative array of all email builder definitions, keyed by the ID.
+ * @param array $mailers
+ *   An associative array of all mailer definitions, keyed by the ID.
  */
-function hook_mailer_builder_info_alter(array &$email_builders) {
-}
-
-/**
- * Alters mailer transport plug-in definitions.
- *
- * @param array $mailer_transports
- *   An associative array of all mailer transport definitions, keyed by the ID.
- */
-function hook_mailer_transport_info_alter(array &$mailer_transports) {
-}
-
-/**
- * Alters email adjusters plug-in definitions.
- *
- * @param array $mailer_adjusters
- *   An associative array of all email adjuster definitions, keyed by the ID.
- */
-function hook_mailer_adjuster_info_alter(array &$mailer_adjusters) {
+function hook_symfony_mailer_info_alter(array &$mailers): void {
 }

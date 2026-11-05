@@ -39,13 +39,13 @@ describe('Layout Paragraphs Altered Templates Tests', () => {
     // will not appear in the builder preview, so we cannot use
     // cy.lpAddTextComponent() which asserts text visibility after save.
     // Instead we add the component manually and skip that assertion.
-    cy.get('.layout__region--first .lpb-btn--add').first().click({ force: true });
+    cy.get('.layout__region--first .lpb-btn--add').first().click();
     cy.get('.lpb-component-list a').contains('Text').click();
     cy.lpSetCKEditor5Value('field_lp_test_text', 'First text');
     cy.get('button.lpb-btn--save:visible').click();
     cy.get('.ajax-progress').should('not.exist');
 
-    cy.get('.layout__region--first .lpb-btn--add').first().click({ force: true });
+    cy.get('.layout__region--first .lpb-btn--add').first().click();
     cy.get('.lpb-component-list a').contains('Text').click();
     cy.lpSetCKEditor5Value('field_lp_test_text', 'Second text');
     cy.get('button.lpb-btn--save:visible').click();
@@ -65,23 +65,12 @@ describe('Layout Paragraphs Altered Templates Tests', () => {
     });
   });
 
-  // @todo Rework without relying on visible text. The altered template renders
-  // content.field_text (absent on lp_test_text), so component text never shows
-  // in the preview — lpFindComponent(text) and the text-order assertion below
-  // cannot work here. A uuid-based reorder check is needed. Skipped for now.
-  it.skip('reorders components with an altered template', () => {
+  it('reorders components with an altered template', () => {
     cy.lpCreateTestPage('Altered Template Reorder Test');
 
-    // Add a section and first text component. The altered template renders
-    // content.field_text (which lp_test_text does not have), so the typed text
-    // never appears in the preview; add manually rather than via
-    // lpAddTextComponent(), which would assert the text is visible.
+    // Add a section and first text component (without text-visibility assertion).
     cy.lpAddSection('layout_threecol_25_50_25', '.lpb-btn--add');
-    cy.get('.layout__region--first .lpb-btn--add').first().click({ force: true });
-    cy.get('.lpb-component-list a').contains('Text').click();
-    cy.lpSetCKEditor5Value('field_lp_test_text', 'First text');
-    cy.get('button.lpb-btn--save:visible').click();
-    cy.get('.ajax-progress').should('not.exist');
+    cy.lpAddTextComponent('First text', '.layout__region--first .lpb-btn--add');
 
     // Save and capture the node view URL (new-node save has no destination param,
     // so Drupal redirects to the node view).
@@ -97,7 +86,7 @@ describe('Layout Paragraphs Altered Templates Tests', () => {
     // Activate the first text component (index 2 = querySelectorAll index 1)
     // and reveal its add-after button.
     cy.lpFindComponent('First text');
-    cy.get('@selectedComponent').realHover();
+    cy.get('[data-active="true"]').trigger('mouseover');
 
     // Add second text component using the add-after button.
     cy.lpAddTextComponent('Second text', '[data-type="lp_test_text"] .lpb-btn--add.after');
@@ -105,7 +94,7 @@ describe('Layout Paragraphs Altered Templates Tests', () => {
     // Move the second text component (lpFindComponent index 3) up.
     cy.lpFindComponent('Second text');
 
-    cy.get('@selectedComponent').find('.lpb-up').first().click({ force: true });
+    cy.get('.lpb-up:visible').click();
     cy.get('.ajax-progress').should('not.exist');
 
     // After reorder, 'Second text' should precede 'First text' in the DOM.

@@ -1,11 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\entity_usage\Kernel;
 
 use Drupal\Core\Url;
 use Drupal\entity_usage\UrlToEntityInterface;
 use Drupal\KernelTests\Core\Entity\EntityKernelTestBase;
 use Drupal\path_alias\Entity\PathAlias;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the \Drupal\entity_usage\UrlToEntity service.
@@ -17,6 +21,8 @@ use Drupal\path_alias\Entity\PathAlias;
  *
  * @see \Drupal\entity_usage\UrlToEntity
  */
+#[Group('entity_usage')]
+#[RunTestsInSeparateProcesses]
 class UrlToEntityTest extends EntityKernelTestBase {
 
   /**

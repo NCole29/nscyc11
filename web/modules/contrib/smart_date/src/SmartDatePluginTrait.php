@@ -214,8 +214,8 @@ trait SmartDatePluginTrait {
       if (!static::isAllDay($start_ts, $end_ts, $timezone) && $settings['site_time_toggle'] && $timezone && $timezone != $user_tz) {
         // Uses a custom timezone, so append time in default timezone.
         $no_date_format = $settings;
-        $default_date = \Drupal::service('date.formatter')->format($start_ts, '', $settings['date_format'], $timezone);
-        $user_date = \Drupal::service('date.formatter')->format($start_ts, '', $settings['date_format'], $user_tz);
+        $default_date = \Drupal::service('date.formatter')->format($start_ts, 'custom', $settings['date_format'], $timezone);
+        $user_date = \Drupal::service('date.formatter')->format($start_ts, 'custom', $settings['date_format'], $user_tz);
         // If the date is the same in both timezones, only display it once.
         if ($default_date == $user_date) {
           $no_date_format['date_format'] = '';

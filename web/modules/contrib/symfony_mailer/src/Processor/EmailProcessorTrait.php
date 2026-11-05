@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\symfony_mailer\Processor;
 
 use Drupal\symfony_mailer\EmailInterface;
@@ -12,47 +14,38 @@ trait EmailProcessorTrait {
   /**
    * {@inheritdoc}
    */
-  public function init(EmailInterface $email) {
-    foreach (self::FUNCTION_NAMES as $phase => $function) {
-      $email->addCallback([$this, $function], $phase, $this->getWeight($phase), $this->getId());
-    }
+  public function init(EmailInterface $email): void {
   }
 
   /**
    * {@inheritdoc}
    */
-  public function build(EmailInterface $email) {
+  public function build(EmailInterface $email): void {
   }
 
   /**
    * {@inheritdoc}
    */
-  public function preRender(EmailInterface $email) {
+  public function postRender(EmailInterface $email): void {
   }
 
   /**
    * {@inheritdoc}
    */
-  public function postRender(EmailInterface $email) {
+  public function postSend(EmailInterface $email): void {
   }
 
   /**
    * {@inheritdoc}
    */
-  public function postSend(EmailInterface $email) {
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getWeight(int $phase) {
+  public function getWeight(int $phase): int {
     return EmailInterface::DEFAULT_WEIGHT;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getId() {
+  public function getId(): string {
     return static::class;
   }
 

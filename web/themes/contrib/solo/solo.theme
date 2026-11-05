@@ -15,13 +15,26 @@
  * itself through \Drupal\solo\SoloIncludes::load(), so Solo works fully
  * without this file -- which is what #[ExtensionFileIsConverted] below states
  * to core. tests/src/Unit/ThemeFileIndependenceTest.php keeps that true.
+ *
+ * This file must not use any Drupal\solo\ class while it is being included.
+ * Core includes it before the theme's src/ namespace is registered on some
+ * requests (the CSS/JS aggregate route, which initializes the theme from
+ * cache), and a class reference here was a fatal there in 1.0.37
+ * (https://www.drupal.org/project/solo/issues/3628961). So the include files
+ * are listed again below, in SoloIncludes::FILES order;
+ * tests/src/Unit/ThemeFileIncludesTest.php keeps the two lists equal.
  */
 
 use Drupal\Core\Hook\Attribute\ExtensionFileIsConverted;
 use Drupal\Core\Hook\Attribute\LegacyHook;
-use Drupal\solo\SoloIncludes;
 
-SoloIncludes::load();
+require_once __DIR__ . '/includes/_theme_settings_helper_functions.inc';
+require_once __DIR__ . '/includes/_solo_preloader.inc';
+require_once __DIR__ . '/includes/_solo_theme_preprocess.inc';
+require_once __DIR__ . '/includes/_solo_theme_suggestions.inc';
+require_once __DIR__ . '/includes/_solo_theme_alter.inc';
+require_once __DIR__ . '/includes/_solo_theme_misc.inc';
+require_once __DIR__ . '/includes/_solo_theme_settings.inc';
 
 /**
  * Marks solo.theme as converted to classes for Drupal >= 11.3.

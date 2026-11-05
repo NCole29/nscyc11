@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\entity_usage\Kernel;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
@@ -8,12 +10,16 @@ use Drupal\entity_test\Entity\EntityTest;
 use Drupal\entity_usage_test\TestLogger;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests files and images tracking.
  *
  * @group entity_usage
  */
+#[Group('entity_usage')]
+#[RunTestsInSeparateProcesses]
 class EntityUsageTrackExceptionTest extends KernelTestBase {
 
   /**
@@ -44,6 +50,10 @@ class EntityUsageTrackExceptionTest extends KernelTestBase {
   protected function setUp(): void {
     parent::setUp();
 
+    $this->installEntitySchema('entity_test');
+    $this->installSchema('entity_usage', ['entity_usage']);
+    $this->installConfig(['entity_usage', 'filter']);
+
     FieldStorageConfig::create([
       'type' => 'text_long',
       'entity_type' => 'entity_test',
@@ -55,10 +65,6 @@ class EntityUsageTrackExceptionTest extends KernelTestBase {
       'field_name' => 'text',
       'label' => 'Text',
     ])->save();
-
-    $this->installEntitySchema('entity_test');
-    $this->installSchema('entity_usage', ['entity_usage']);
-    $this->installConfig(['entity_usage', 'filter']);
 
     $this->config('entity_usage.settings')
       ->set('track_enabled_source_entity_types', ['entity_test'])

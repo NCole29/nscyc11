@@ -185,11 +185,11 @@ trait SmartDateTrait {
     // Apply date format from the display config.
     if ($settings['date_format']) {
       $range['start']['date'] = [
-        'value' => \Drupal::service('date.formatter')->format($start_ts, '', $settings['date_format'], $timezone),
+        'value' => \Drupal::service('date.formatter')->format($start_ts, 'custom', $settings['date_format'], $timezone),
         '#format' => $settings['date_format'],
       ];
       $range['end']['date'] = [
-        'value' => \Drupal::service('date.formatter')->format($end_ts, '', $settings['date_format'], $timezone),
+        'value' => \Drupal::service('date.formatter')->format($end_ts, 'custom', $settings['date_format'], $timezone),
         '#format' => $settings['date_format'],
       ];
 
@@ -435,11 +435,11 @@ trait SmartDateTrait {
       }
     }
     $range['start']['date'] = [
-      'value' => \Drupal::service('date.formatter')->format($start_ts, '', $start_format, $timezone),
+      'value' => \Drupal::service('date.formatter')->format($start_ts, 'custom', $start_format, $timezone),
       '#format' => $start_format,
     ];
     $range['end']['date'] = [
-      'value' => \Drupal::service('date.formatter')->format($end_ts, '', $end_format, $timezone),
+      'value' => \Drupal::service('date.formatter')->format($end_ts, 'custom', $end_format, $timezone),
       '#format' => $end_format,
     ];
     return $range;
@@ -570,7 +570,7 @@ trait SmartDateTrait {
       $format = preg_replace('/\s*(?<![\\\\])[eOPTZ]/i', '', $format);
     }
     return [
-      'value' => \Drupal::service('date.formatter')->format($time, '', $format, $timezone),
+      'value' => \Drupal::service('date.formatter')->format($time, 'custom', $format, $timezone),
       '#format' => $format,
     ];
   }

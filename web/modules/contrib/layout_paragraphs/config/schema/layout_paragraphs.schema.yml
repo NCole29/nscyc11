@@ -10,6 +10,10 @@ layout_paragraphs.settings:
       type: integer
       label: 'Show Layout Labels'
       description: 'This option allows to show the Paragraphs Layout Label of each Item added in LP widget Sections/Layouts'
+    show_layout_plugin_labels:
+      type: integer
+      label: 'Show Layout Plugin Labels'
+      description: 'Show the Layout Plugin Label in the component controls interface'
     paragraph_behaviors_label:
       type: string
       label: 'Paragraph behaviors label'
@@ -22,6 +26,26 @@ layout_paragraphs.settings:
       type: string
       label: 'Empty Message'
       description: 'Message to display from the "Choose a component" dialog when the list of available components is empty.'
+    button_labels:
+      type: mapping
+      label: 'Button Labels Configuration'
+      mapping:
+        enable_tooltips:
+          type: boolean
+          label: 'Enable Tooltips'
+          description: 'Whether to show tooltips for the Add Component Button'
+        default:
+          type: string
+          label: 'Default Label'
+          description: 'Default label for the Add Component button when no specific label is set'
+        root:
+          type: string
+          label: 'Root Level Label'
+          description: 'Label for the Add Component button at the root level'
+        '*':
+          type: string
+          label: 'Paragraph Type Label'
+          description: 'Label for the Add Component button for a specific paragraph type'
 
 layout_paragraphs.modal_settings:
   type: config_object
@@ -39,6 +63,15 @@ layout_paragraphs.modal_settings:
       type: boolean
       label: 'Modal autoresize'
       description: 'If checked modal forms will automatically resize.'
+
+layout_paragraphs.builder_settings:
+  type: config_object
+  label: 'Layout Paragraphs builder settings'
+  mapping:
+    double_click_to_edit:
+      type: boolean
+      label: 'Double-click to edit'
+      description: 'Open the edit form of a component when it is double-clicked in the builder.'
 
 field.formatter.settings.layout_paragraphs:
   type: mapping
@@ -76,6 +109,9 @@ field.formatter.settings.layout_paragraphs_builder:
     empty_message:
       type: string
       label: 'Placeholder message to display when field is empty'
+    conversion:
+      type: boolean
+      label: 'Allow paragraph conversion'
 
 field.widget.settings.layout_paragraphs:
   type: mapping
@@ -99,6 +135,9 @@ field.widget.settings.layout_paragraphs:
     empty_message:
       type: string
       label: 'Placeholder message to display when field is empty'
+    conversion:
+      type: boolean
+      label: 'Allow paragraph conversion'
 
 paragraphs.behavior.settings.layout_paragraphs:
   type: paragraphs.behavior.settings_base

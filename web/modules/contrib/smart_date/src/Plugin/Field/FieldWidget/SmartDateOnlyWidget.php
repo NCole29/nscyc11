@@ -33,7 +33,8 @@ class SmartDateOnlyWidget extends SmartDateInlineWidget {
     $element['time_wrapper']['end_value']['#date_time_element'] = 'none';
 
     $element['duration']['#access'] = FALSE;
-    $form['#attached']['library'] = ['smart_date/date_only'];
+    $element['#attributes']['class'][] = 'smartdate--date-only';
+    $element['#attached']['library'][] = 'smart_date/date_only';
 
     return $element;
   }

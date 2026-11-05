@@ -1,0 +1,44 @@
+services:
+  _defaults:
+    autowire: true
+
+  # The main email transport service, which distributes emails amongst a
+  # collection of transports.
+  Symfony\Component\Mailer\Transport\TransportInterface:
+    class: Drupal\mailer_transport\MultiTransport
+
+  # The unified transport factory, which creates transports of any type.
+  Drupal\mailer_transport\UnifiedTransportFactoryInterface:
+    class: Drupal\mailer_transport\MultiTransport
+
+  # The manager for transport UI plugins. The plugins each provide a UI to
+  # configure the transport for a specific protocol.
+  Drupal\mailer_transport\TransportUIManagerInterface:
+    class: Drupal\mailer_transport\TransportUIManager
+    parent: default_plugin_manager
+
+  #############################################################################
+  # Drupal Core definitions
+  #
+  # These will be provided by Drupal Core when [#3379794] is released.
+  #############################################################################
+
+  Symfony\Component\Mailer\Transport\AbstractTransportFactory:
+    abstract: true
+    arguments:
+      - '@Psr\EventDispatcher\EventDispatcherInterface'
+      - '@?Symfony\Contracts\HttpClient\HttpClientInterface'
+  Symfony\Component\Mailer\Transport\SendmailTransportFactory:
+    parent: Symfony\Component\Mailer\Transport\AbstractTransportFactory
+    tags:
+      - { name: mailer.transport_factory }
+  Drupal\mailer_transport\SendmailCommandValidationTransportFactory:
+    decorates: Symfony\Component\Mailer\Transport\SendmailTransportFactory
+    arguments: ['@.inner']
+    public: false
+
+  # The email delivery service. This sits on top of the transport service to
+  # provide extra functions such as queueing. Application code should not use
+  # this directly but instead use Drupal\symfony_mailer\MailerPlusInterface.
+  mailer_transport.delivery:
+    class: Symfony\Component\Mailer\Mailer

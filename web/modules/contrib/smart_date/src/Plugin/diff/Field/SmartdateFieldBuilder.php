@@ -4,9 +4,10 @@ namespace Drupal\smart_date\Plugin\diff\Field;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\diff\FieldDiffBuilderBase;
 use Drupal\smart_date\Entity\SmartDateFormat;
-use Drupal\smart_date\SmartDatePluginTrait;
+use Drupal\smart_date\SmartDateTrait;
 
 /**
  * Plugin to diff text fields.
@@ -21,7 +22,7 @@ use Drupal\smart_date\SmartDatePluginTrait;
  */
 class SmartdateFieldBuilder extends FieldDiffBuilderBase {
 
-  use SmartDatePluginTrait;
+  use SmartDateTrait, StringTranslationTrait;
 
   /**
    * {@inheritdoc}

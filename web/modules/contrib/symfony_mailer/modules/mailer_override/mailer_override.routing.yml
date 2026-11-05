@@ -1,0 +1,15 @@
+mailer_override.status:
+  path: '/admin/config/system/mailer/override'
+  defaults:
+    _controller: '\Drupal\mailer_override\Controller\MailerOverrideController::overrideStatus'
+    _title: 'Override status'
+  requirements:
+    _permission: 'administer mailer'
+
+mailer_override.action:
+  path: '/admin/config/system/mailer/override/{id}/{action}'
+  defaults:
+    _form: '\Drupal\mailer_override\Form\OverrideActionForm'
+    _title: 'Override action'
+  requirements:
+    _permission: 'administer mailer'

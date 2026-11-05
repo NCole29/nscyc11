@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\entity_usage;
 
 use Drupal\Core\Entity\EntityInterface;
@@ -41,6 +43,6 @@ interface EntityUpdateManagerInterface {
    *
    * @throws \InvalidArgumentException
    */
-  public function trackUpdateOnDeletion(EntityInterface $entity, $type = 'default'): void;
+  public function trackUpdateOnDeletion(EntityInterface $entity, string $type = 'default'): void;
 
 }

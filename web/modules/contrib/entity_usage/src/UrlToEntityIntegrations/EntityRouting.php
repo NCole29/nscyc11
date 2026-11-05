@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\entity_usage\UrlToEntityIntegrations;
 
 use Drupal\Core\ParamConverter\ParamNotConvertedException;
@@ -22,12 +24,12 @@ use Symfony\Component\Routing\RequestContextAwareInterface;
 /**
  * Uses the routing system to determine if a URL points to an entity.
  */
-class EntityRouting implements EventSubscriberInterface {
+readonly class EntityRouting implements EventSubscriberInterface {
 
   public function __construct(
     #[Autowire(service: 'router.no_access_checks')]
-    private readonly RequestMatcherInterface&RequestContextAwareInterface $router,
-    private readonly UrlToEntityInterface $urlToEntity,
+    private RequestMatcherInterface&RequestContextAwareInterface $router,
+    private UrlToEntityInterface $urlToEntity,
   ) {
   }
 

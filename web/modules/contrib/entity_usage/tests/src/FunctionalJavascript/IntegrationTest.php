@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\entity_usage\FunctionalJavascript;
 
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -7,7 +9,11 @@ use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\link\LinkItemInterface;
+use Drupal\link\LinkTitleVisibility;
+use Drupal\node\NodeInterface;
 use Drupal\Tests\entity_usage\Traits\EntityUsageLastEntityQueryTrait;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Basic functional tests for the usage tracking.
@@ -18,6 +24,8 @@ use Drupal\Tests\entity_usage\Traits\EntityUsageLastEntityQueryTrait;
  *
  * @group entity_usage
  */
+#[Group('entity_usage')]
+#[RunTestsInSeparateProcesses]
 class IntegrationTest extends EntityUsageJavascriptTestBase {
 
   use EntityUsageLastEntityQueryTrait;
@@ -65,6 +73,7 @@ class IntegrationTest extends EntityUsageJavascriptTestBase {
     $this->saveHtmlOutput();
     $assert_session->pageTextContains('Entity Usage test content Node 1 has been created.');
     $node1 = $this->getLastEntityOfType('node', TRUE);
+    assert($node1 instanceof NodeInterface);
 
     // Nobody is using this guy for now.
     $usage = $usage_service->listSources($node1);
@@ -79,6 +88,7 @@ class IntegrationTest extends EntityUsageJavascriptTestBase {
     $this->saveHtmlOutput();
     $assert_session->pageTextContains('Entity Usage test content Node 2 has been created.');
     $node2 = $this->getLastEntityOfType('node', TRUE);
+    assert($node2 instanceof NodeInterface);
     // Check that we correctly registered the relation between N2 and N1.
     $usage = $usage_service->listSources($node1);
     $expected = [
@@ -86,7 +96,7 @@ class IntegrationTest extends EntityUsageJavascriptTestBase {
         $node2->id() => [
           [
             'source_langcode' => $node2->language()->getId(),
-            'source_vid' => $node2->getRevisionId(),
+            'source_vid' => (int) $node2->getRevisionId(),
             'method' => 'entity_reference',
             'field_name' => 'field_eu_test_related_nodes',
             'count' => 1,
@@ -121,7 +131,7 @@ class IntegrationTest extends EntityUsageJavascriptTestBase {
     $usage_url = Url::fromRoute('entity_usage.usage_list', [
       'entity_type' => 'node',
       'entity_id' => $node1->id(),
-    ])->toString();
+    ], ['query' => ['list_old_revisions' => 1]])->toString();
     $assert_session->linkByHrefExists($usage_url);
     $this->drupalGet("/node/{$node1->id()}/delete");
     $assert_session->pageTextContains('There are recorded usages of this entity');
@@ -147,7 +157,7 @@ class IntegrationTest extends EntityUsageJavascriptTestBase {
     $assert_session->linkExists('existing usages');
     $usage_url = Url::fromRoute("entity.node.entity_usage", [
       'node' => $node1->id(),
-    ])->toString();
+    ], ['query' => ['list_old_revisions' => 1]])->toString();
     $assert_session->linkByHrefExists($usage_url);
     // Re-set tabs to where they were.
     $this->drupalGet('/admin/config/entity-usage/settings');
@@ -273,6 +283,7 @@ class IntegrationTest extends EntityUsageJavascriptTestBase {
     $this->saveHtmlOutput();
     $assert_session->pageTextContains('Entity Usage test content Node 4 has been created.');
     $node4 = $this->getLastEntityOfType('node', TRUE);
+    assert($node4 instanceof NodeInterface);
     // Check that both of these relationships are tracked.
     $usage = $usage_service->listTargets($node4);
     $expected = [
@@ -340,7 +351,7 @@ class IntegrationTest extends EntityUsageJavascriptTestBase {
         $node4->id() => [
           [
             'source_langcode' => $node4->language()->getId(),
-            'source_vid' => $node4->getRevisionId(),
+            'source_vid' => (int) $node4->getRevisionId(),
             'method' => 'entity_reference',
             'field_name' => 'field_eu_test_related_nodes',
             'count' => 1,
@@ -380,7 +391,7 @@ class IntegrationTest extends EntityUsageJavascriptTestBase {
       'field_storage' => $field_storage,
       'bundle' => 'eu_test_ct',
       'settings' => [
-        'title' => DRUPAL_OPTIONAL,
+        'title' => LinkTitleVisibility::Optional->value,
         'link_type' => LinkItemInterface::LINK_GENERIC,
       ],
     ]);
@@ -413,6 +424,7 @@ class IntegrationTest extends EntityUsageJavascriptTestBase {
     $this->saveHtmlOutput();
     $assert_session->pageTextContains('Entity Usage test content Node 2 has been created.');
     $node2 = $this->getLastEntityOfType('node', TRUE);
+    assert($node2 instanceof NodeInterface);
     // Check that the usage of Node 1 points to Node 2.
     $usage = $usage_service->listSources($node1);
     $expected = [
@@ -420,7 +432,7 @@ class IntegrationTest extends EntityUsageJavascriptTestBase {
         $node2->id() => [
           0 => [
             'source_langcode' => 'en',
-            'source_vid' => $node2->getRevisionId(),
+            'source_vid' => (int) $node2->getRevisionId(),
             'method' => 'link',
             'field_name' => 'field_link1',
             'count' => 1,
@@ -456,7 +468,7 @@ class IntegrationTest extends EntityUsageJavascriptTestBase {
         $node2->id() => [
           0 => [
             'source_langcode' => 'en',
-            'source_vid' => $node2->getRevisionId(),
+            'source_vid' => (int) $node2->getRevisionId(),
             'method' => 'link',
             'field_name' => 'field_link1',
             'count' => 1,
@@ -471,13 +483,6 @@ class IntegrationTest extends EntityUsageJavascriptTestBase {
     $this->assertEquals([], $usage);
 
     // Create Node 3 referencing Node 1 with an absolute URL in the link field.
-    // Configure the local hostname so we can test absolute URLs.
-    $current_request = \Drupal::request();
-    $config = \Drupal::configFactory()->getEditable('entity_usage.settings');
-    $config->set('site_domains', [$current_request->getHttpHost() . $current_request->getBasePath()]);
-    $config->save();
-    // Changing site domains requires services to be reconstructed.
-    $this->rebuildAll();
     $this->drupalGet('/node/add/eu_test_ct');
     $page->fillField('title[0][value]', 'Node 3');
     $page->fillField('field_link1[0][uri]', $node1->toUrl()->setAbsolute()->toString());
@@ -488,6 +493,7 @@ class IntegrationTest extends EntityUsageJavascriptTestBase {
     $this->saveHtmlOutput();
     $assert_session->pageTextContains('Entity Usage test content Node 3 has been created.');
     $node3 = $this->getLastEntityOfType('node', TRUE);
+    assert($node3 instanceof NodeInterface);
     // Check that the usage of Node 1 points to Node 2.
     $usage = $usage_service->listSources($node1);
     $expected = [
@@ -495,7 +501,7 @@ class IntegrationTest extends EntityUsageJavascriptTestBase {
         $node3->id() => [
           0 => [
             'source_langcode' => 'en',
-            'source_vid' => $node3->getRevisionId(),
+            'source_vid' => (int) $node3->getRevisionId(),
             'method' => 'link',
             'field_name' => 'field_link1',
             'count' => 1,

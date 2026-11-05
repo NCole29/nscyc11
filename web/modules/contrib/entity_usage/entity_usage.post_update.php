@@ -3,7 +3,12 @@
 /**
  * @file
  * Post update functions for the Entity Usage module.
+ *
+ * Update function descriptions are allowed to be longer.
+ * @phpcs:disable Drupal.Files.LineLength.TooLong
  */
+
+declare(strict_types=1);
 
 /**
  * Implements hook_removed_post_updates().
@@ -65,6 +70,37 @@ function entity_usage_post_update_fix_local_task_enabled_entity_types(): void {
   $entity_types = $config->get('local_task_enabled_entity_types');
   if ($entity_types === NULL) {
     $config->set('local_task_enabled_entity_types', [])->save();
+  }
+}
+
+/**
+ * Remove paragraphs from tracked entities as they are tracking as inline entities.
+ */
+function entity_usage_post_update_remove_paragraph_tracking_for_inline_plugin(): void {
+  $config = \Drupal::configFactory()->getEditable('entity_usage.settings');
+  $changed = FALSE;
+
+  // Remove 'paragraph' from all entity type tracking lists.
+  $keys_to_clean = [
+    'track_enabled_source_entity_types',
+    'track_enabled_target_entity_types',
+    'edit_warning_message_entity_types',
+    'delete_warning_message_entity_types',
+  ];
+  foreach ($keys_to_clean as $key) {
+    $values = $config->get($key);
+    if (is_array($values) && in_array('paragraph', $values, TRUE)) {
+      $config->set($key, array_values(array_diff($values, ['paragraph'])));
+      $changed = TRUE;
+      // If the source list is empty, emit a warning.
+      if ($key === 'track_enabled_source_entity_types' && empty($config->get($key))) {
+        \Drupal::messenger()->addWarning('There are no source entity types configured for entity usage tracking. Please configure at least one source entity type to track.');
+      }
+    }
+  }
+
+  if ($changed) {
+    $config->save();
   }
 }
 

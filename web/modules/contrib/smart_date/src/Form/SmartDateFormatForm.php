@@ -2,7 +2,6 @@
 
 namespace Drupal\smart_date\Form;
 
-use Drupal\Core\Config\Entity\ConfigEntityStorageInterface;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
@@ -24,23 +23,13 @@ class SmartDateFormatForm extends EntityForm {
   protected $dateFormatter;
 
   /**
-   * The date format storage.
-   *
-   * @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface
-   */
-  protected $smartDateFormatStorage;
-
-  /**
    * Constructs a new date format form.
    *
    * @param \Drupal\Core\Datetime\DateFormatterInterface $date_formatter
    *   The date service.
-   * @param \Drupal\Core\Config\Entity\ConfigEntityStorageInterface $smart_date_format_storage
-   *   The smart date format storage.
    */
-  public function __construct(DateFormatterInterface $date_formatter, ConfigEntityStorageInterface $smart_date_format_storage) {
+  public function __construct(DateFormatterInterface $date_formatter) {
     $this->dateFormatter = $date_formatter;
-    $this->smartDateFormatStorage = $smart_date_format_storage;
   }
 
   /**
@@ -48,8 +37,7 @@ class SmartDateFormatForm extends EntityForm {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('date.formatter'),
-      $container->get('entity_type.manager')->getStorage('smart_date_format')
+      $container->get('date.formatter')
     );
   }
 
@@ -65,7 +53,7 @@ class SmartDateFormatForm extends EntityForm {
    *   TRUE if this format already exists, FALSE otherwise.
    */
   public function exists($entity_id, array $element) {
-    return (bool) $this->smartDateFormatStorage->load($entity_id);
+    return (bool) $this->entityTypeManager->getStorage('smart_date_format')->load($entity_id);
   }
 
   /**
@@ -231,6 +219,8 @@ class SmartDateFormatForm extends EntityForm {
         ]));
     }
     $form_state->setRedirect('entity.smart_date_format.collection');
+
+    return $status;
   }
 
 }

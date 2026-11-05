@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\symfony_mailer;
 
 use Drupal\Core\Session\AccountInterface;
-use Drupal\user\Entity\User;
 use Symfony\Component\Mime\Address as SymfonyAddress;
 
 /**
@@ -17,31 +18,23 @@ class Address implements AddressInterface {
 
   /**
    * The email address.
-   *
-   * @var string
    */
-  protected $email;
+  protected string $email;
 
   /**
-   * The display name, or NULL.
-   *
-   * @var string
+   * The display name.
    */
-  protected $displayName;
+  protected string $displayName;
 
   /**
-   * The language code, or NULL.
-   *
-   * @var string
+   * The language code.
    */
-  protected $langcode;
+  protected string $langcode;
 
   /**
    * The account, or NULL.
-   *
-   * @var \Drupal\Core\Session\AccountInterface
    */
-  protected $account;
+  protected ?AccountInterface $account = NULL;
 
   /**
    * Constructs an address object.
@@ -52,10 +45,10 @@ class Address implements AddressInterface {
    *   (Optional) The display name.
    * @param string $langcode
    *   (Optional) The language code.
-   * @param \Drupal\Core\Session\AccountInterface $account
+   * @param ?\Drupal\Core\Session\AccountInterface $account
    *   (Optional) The account.
    */
-  public function __construct(string $email, ?string $display_name = NULL, ?string $langcode = NULL, ?AccountInterface $account = NULL) {
+  public function __construct(string $email, string $display_name = '', string $langcode = '', ?AccountInterface $account = NULL) {
     $this->email = $email;
     $this->displayName = $display_name;
     $this->langcode = $langcode;
@@ -65,7 +58,7 @@ class Address implements AddressInterface {
   /**
    * {@inheritdoc}
    */
-  public static function create($address) {
+  public static function create($address): static {
     if ($address instanceof AddressInterface) {
       return $address;
     }
@@ -96,42 +89,49 @@ class Address implements AddressInterface {
   /**
    * {@inheritdoc}
    */
-  public function getEmail() {
+  public function getEmail(): string {
     return $this->email;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getDisplayName() {
+  public function getDisplayName(): string {
     return $this->displayName;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getLangcode() {
+  public function getLangcode(): string {
     return $this->langcode;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getAccount() {
+  public function getAccount(): ?AccountInterface {
     return $this->account;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getSymfony() {
-    return new SymfonyAddress($this->email, $this->displayName ?? '');
+  public function getSymfony(): SymfonyAddress {
+    return new SymfonyAddress($this->email, $this->displayName);
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function convert($addresses) {
+  public function toString(): string {
+    return $this->getSymfony()->toString();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function convert($addresses): array {
     $result = [];
 
     if (!is_array($addresses)) {
@@ -147,25 +147,13 @@ class Address implements AddressInterface {
 
   /**
    * {@inheritdoc}
-   *
-   * Serialization is intended only for testing.
-   *
-   * @internal
    */
-  public function __serialize() {
-    return [$this->email, $this->displayName, $this->langcode,
-      $this->account ? $this->account->id() : NULL,
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __unserialize(array $data) {
-    [$this->email, $this->displayName, $this->langcode, $account_id] = $data;
-    if ($account_id) {
-      $this->account = User::load($account_id);
+  public static function fromCurrent(string $email, string $display_name): static {
+    $user = \Drupal::currentUser();
+    if ($user->isAnonymous()) {
+      return new static($email, $display_name, \Drupal::languageManager()->getCurrentLanguage()->getId());
     }
+    return static::create($user);
   }
 
 }

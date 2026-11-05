@@ -251,16 +251,35 @@ Cypress.Commands.add('lpFindComponent', (expression) => {
 });
 
 /**
- * Selects a component by its UUID, revealing its controls.
- *
- * The 2.1.x builder has no persistent "active" state: a component's controls
- * (edit, delete, move) are hidden with opacity and shown on hover. A real hover
- * (via cypress-real-events) sets the CSS :hover state, which the browser keeps
- * until the pointer moves again, so the controls stay visible for the click
- * that follows — a synthetic mouseover event would not.
- *
+ * Selects a component by its UUID, activating it if necessary.
+ * This will click the component to activate it, and wait for the edit form to load.
+ * If the component is already active, it will simply hover over it.
+ * This command will retry clicking the component up to 10 times if it is not active.
  * @param {string} uuid The UUID of the component to select.
+ * @throws {Error} If the component cannot be activated after 10 attempts.
  */
 Cypress.Commands.add('lpSelectComponent', (uuid) => {
-  cy.get(`[data-uuid="${uuid}"]`).first().as('selectedComponent').realHover();
+  cy.get(`[data-uuid="${uuid}"]`).then((component) => {
+    const clickUntilActive = (i = 0) => {
+      if (i > 10) {
+        throw new Error(`Failed to activate component with UUID: ${uuid}`);
+      }
+      cy.get(component).then(($el) => {
+        $el[0].dispatchEvent(
+          new Event('mouseup', {
+            bubbles: true,
+            cancelable: true,
+          }),
+        );
+        if ($el.attr('data-active') !== 'true') {
+          clickUntilActive(i + 1);
+        }
+      });
+    };
+    if (component.attr('data-active') !== 'true') {
+      clickUntilActive();
+    }
+    cy.get(component).trigger('mouseover');
+    cy.get(component).as('selectedComponent');
+  });
 });

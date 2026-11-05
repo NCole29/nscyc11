@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\entity_usage\FunctionalJavascript;
 
 use Drupal\Tests\entity_usage\Traits\EntityUsageLastEntityQueryTrait;
@@ -9,12 +11,16 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\media\Entity\Media;
 use Drupal\user\Entity\Role;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Test integration with paragraphs.
  *
  * @group entity_usage
  */
+#[Group('entity_usage')]
+#[RunTestsInSeparateProcesses]
 class ParagraphsTest extends EntityUsageJavascriptTestBase {
 
   use ParagraphsTestBaseTrait;
@@ -198,6 +204,9 @@ class ParagraphsTest extends EntityUsageJavascriptTestBase {
     // Check the usage page for the media asset is what we expect.
     $this->drupalGet("/admin/content/entity-usage/media/{$media1->id()}");
     $assert_session->pageTextContains('Entity usage information for Media asset 1');
+    // There is one row: the paragraph references and the direct reference are
+    // counted together.
+    $assert_session->elementsCount('xpath', '//table/tbody/tr', 1);
     // The first row contains the direct reference from the host node.
     $first_row_title_link = $assert_session->elementExists('xpath', '//table/tbody/tr[1]/td[1]/a');
     $this->assertEquals('Node 1', $first_row_title_link->getText());
@@ -209,48 +218,19 @@ class ParagraphsTest extends EntityUsageJavascriptTestBase {
     $this->assertEquals('English', $first_row_langcode->getText());
     $first_row_field_label = $this->xpath('//table/tbody/tr[1]/td[4]')[0];
     $this->assertEquals('Direct media', $first_row_field_label->getText());
-    // The second row contains the reference from the first paragraph.
-    $second_row_title_link = $assert_session->elementExists('xpath', '//table/tbody/tr[2]/td[1]/a');
-    $this->assertStringContainsStringIgnoringCase('Node 1 > field_paragraphs', $second_row_title_link->getText());
-    // The link points to the host node.
-    $this->assertEquals($node1->toUrl()->toString(), $second_row_title_link->getAttribute('href'));
-    $second_row_type = $this->xpath('//table/tbody/tr[2]/td[2]')[0];
-    $this->assertEquals('Paragraph: single_media', $second_row_type->getText());
-    $second_row_langcode = $this->xpath('//table/tbody/tr[2]/td[3]')[0];
-    $this->assertEquals('English', $second_row_langcode->getText());
-    $second_row_field_label = $this->xpath('//table/tbody/tr[2]/td[4]')[0];
-    $this->assertEquals('Media assets', $second_row_field_label->getText());
-    // The third row contains the reference from the nested paragraph.
-    $third_row_title_link = $assert_session->elementExists('xpath', '//table/tbody/tr[3]/td[1]/a');
-    $this->assertStringContainsStringIgnoringCase('Node 1 > field_paragraphs', $third_row_title_link->getText());
-    // The link points to the host node.
-    $this->assertEquals($node1->toUrl()->toString(), $third_row_title_link->getAttribute('href'));
-    $third_row_type = $this->xpath('//table/tbody/tr[3]/td[2]')[0];
-    $this->assertEquals('Paragraph: single_media', $third_row_type->getText());
-    $third_row_langcode = $this->xpath('//table/tbody/tr[3]/td[3]')[0];
-    $this->assertEquals('English', $third_row_langcode->getText());
-    $third_row_field_label = $this->xpath('//table/tbody/tr[3]/td[4]')[0];
-    $this->assertEquals('Media assets', $third_row_field_label->getText());
-    // All three rows should show the status of the host node, not the media
-    // immediate parent (paragraphs).
     $first_row_status = $this->xpath('//table/tbody/tr[1]/td[5]')[0];
-    $this->assertEquals('Published', $first_row_status->getText());
-    $second_row_status = $this->xpath('//table/tbody/tr[2]/td[5]')[0];
-    $this->assertEquals('Published', $second_row_status->getText());
-    $third_row_status = $this->xpath('//table/tbody/tr[3]/td[5]')[0];
-    $this->assertEquals('Published', $third_row_status->getText());
+    $this->assertEquals('Published revision', $first_row_status->getText());
+
+    // This saves without creating a new revision. This is an important test of
+    // saving without creating a new revision.
     $node1->setUnpublished()->save();
     $this->drupalGet("/admin/content/entity-usage/media/{$media1->id()}");
+    $assert_session->elementsCount('xpath', '//table/tbody/tr', 1);
     $first_row_status = $this->xpath('//table/tbody/tr[1]/td[5]')[0];
-    $this->assertEquals('Unpublished', $first_row_status->getText());
-    $second_row_status = $this->xpath('//table/tbody/tr[2]/td[5]')[0];
-    $this->assertEquals('Unpublished', $second_row_status->getText());
-    $third_row_status = $this->xpath('//table/tbody/tr[3]/td[5]')[0];
-    $this->assertEquals('Unpublished', $third_row_status->getText());
+    $this->assertEquals('Draft revision', $first_row_status->getText());
     $node1->setPublished()->save();
 
-    // Remove references to the paragraphs, and check we don't show orphan
-    // paragraphs on the usage page.
+    // Remove references to the paragraphs.
     $this->drupalGet("/node/{$node1->id()}/edit");
     // Remove the first paragraph.
     $first_item = $assert_session->elementExists('css', 'div[data-drupal-selector="edit-field-paragraphs-0"]');
@@ -275,12 +255,13 @@ class ParagraphsTest extends EntityUsageJavascriptTestBase {
     $this->saveHtmlOutput();
     $assert_session->pageTextContains('paragraphed_test Node 1 has been updated.');
 
-    // The usage is still there.
-    $usage = $usage_service->listSources($media1);
-    $this->assertNotEmpty($usage['paragraph']);
-
-    // Assert how orphaned paragraphs on older revision are shown.
+    // Assert how orphaned paragraphs on older revisions are shown. The
+    // direct reference is still current, so the row stays even with old
+    // revisions hidden, but the old-revision detail itself does not.
     $this->drupalGet("/admin/content/entity-usage/media/{$media1->id()}");
+    // There is one row: the paragraph references and the direct reference are
+    // counted together.
+    $assert_session->elementsCount('xpath', '//table/tbody/tr', 1);
     // The first row contains the direct reference from the host node.
     $first_row_title_link = $assert_session->elementExists('xpath', '//table/tbody/tr[1]/td[1]/a');
     $this->assertEquals('Node 1', $first_row_title_link->getText());
@@ -291,11 +272,42 @@ class ParagraphsTest extends EntityUsageJavascriptTestBase {
     $this->assertEquals('English', $first_row_langcode->getText());
     $first_row_field_label = $this->xpath('//table/tbody/tr[1]/td[4]')[0];
     $this->assertEquals('Direct media', $first_row_field_label->getText());
+    $first_row_status = $this->xpath('//table/tbody/tr[1]/td[5]')[0];
+    $this->assertEquals('Published revision', $first_row_status->getText());
 
-    // The paragraphs are mentioned as used by previous revision.
-    $assert_session->pageTextContains('Node ' . $node1->id() . ' > field_paragraphs (previous revision) > Nested paragraphs');
-    $assert_session->pageTextContains('Node ' . $node1->id() . ' > field_paragraphs (previous revision)');
-    $assert_session->pageTextContains('Media assets');
+    // The old-revision detail is there once explicitly requested. HTMX
+    // submits on change, so there is no button to press.
+    $page->checkField('Show usage in old revisions');
+    $session->wait(500);
+    $first_row_status = $this->xpath('//table/tbody/tr[1]/td[5]')[0];
+    $this->assertEquals('Published revision 1 old revision', $first_row_status->getText());
+
+    // Make all the usages only in old revisions.
+    $this->drupalGet("/node/{$node1->id()}/edit");
+    $page->fillField('field_direct_media[0][target_id]', "");
+    $page->pressButton('Save');
+    $session->wait(500);
+    $this->saveHtmlOutput();
+    // With no current usage left at all, the row disappears by default.
+    $this->drupalGet("/admin/content/entity-usage/media/{$media1->id()}");
+    $assert_session->pageTextContains('There are no recorded usages');
+    $assert_session->pageTextNotContains('Node 1');
+
+    // It reappears, with the old-revision detail, once requested.
+    $page->checkField('Show usage in old revisions');
+    $session->wait(500);
+    $assert_session->elementsCount('xpath', '//table/tbody/tr', 1);
+    $first_row_title_link = $assert_session->elementExists('xpath', '//table/tbody/tr[1]/td[1]/a');
+    $this->assertEquals('Node 1', $first_row_title_link->getText());
+    $this->assertEquals($node1->toUrl()->toString(), $first_row_title_link->getAttribute('href'));
+    $first_row_type = $this->xpath('//table/tbody/tr[1]/td[2]')[0];
+    $this->assertEquals('Content: paragraphed_test', $first_row_type->getText());
+    $first_row_langcode = $this->xpath('//table/tbody/tr[1]/td[3]')[0];
+    $this->assertEquals('English', $first_row_langcode->getText());
+    $first_row_field_label = $this->xpath('//table/tbody/tr[1]/td[4]')[0];
+    $this->assertEquals('Direct media', $first_row_field_label->getText());
+    $first_row_status = $this->xpath('//table/tbody/tr[1]/td[5]')[0];
+    $this->assertEquals('2 old revisions', $first_row_status->getText());
   }
 
 }

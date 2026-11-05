@@ -149,7 +149,7 @@ class LayoutParagraphsWidget extends WidgetBase implements ContainerFactoryPlugi
     ConfigFactoryInterface $config_factory,
     EntityRepositoryInterface $entity_repository,
     $content_translation_manager,
-    LayoutParagraphsTranslationHandlerInterface $translation_handler,
+    ?LayoutParagraphsTranslationHandlerInterface $translation_handler = NULL,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
 
@@ -161,7 +161,10 @@ class LayoutParagraphsWidget extends WidgetBase implements ContainerFactoryPlugi
     $this->entityRepository = $entity_repository;
     $this->config = $config_factory->get('layout_paragraphs.settings');
     $this->contentTranslationManager = $content_translation_manager;
-    $this->translationHandler = $translation_handler;
+    // Subclasses and direct instantiations that predate the translation
+    // handler argument get the handler from the container.
+    // phpcs:ignore DrupalPractice.Objects.GlobalDrupal.GlobalDrupal, Drupal.Commenting.PostStatementComment.Found
+    $this->translationHandler = $translation_handler ?? \Drupal::service('layout_paragraphs.translation_handler'); // @phpstan-ignore globalDrupalDependencyInjection.useDependencyInjection
   }
 
   /**
@@ -199,7 +202,10 @@ class LayoutParagraphsWidget extends WidgetBase implements ContainerFactoryPlugi
     // If the form is being rendered for the first time, create a new Layout
     // Paragraphs Layout instance, save it to tempstore, and store the key.
     if (empty($layout_paragraphs_storage_key)) {
-      $this->layoutParagraphsLayout = new LayoutParagraphsLayout($items, $this->getSettings());
+      $settings = $this->getSettings() + [
+        'button_labels' => $this->config->get('button_labels') ?? [],
+      ];
+      $this->layoutParagraphsLayout = new LayoutParagraphsLayout($items, $settings);
       $this->tempstore->set($this->layoutParagraphsLayout);
       $layout_paragraphs_storage_key = $this->tempstore->getStorageKey($this->layoutParagraphsLayout);
     }
@@ -308,21 +314,57 @@ class LayoutParagraphsWidget extends WidgetBase implements ContainerFactoryPlugi
     if (!empty($layout_paragraphs_storage_key)) {
       $this->layoutParagraphsLayout = $this->tempstore->getWithStorageKey($layout_paragraphs_storage_key);
       $values = [];
-      foreach ($this->layoutParagraphsLayout->getParagraphsReferenceField() as $item) {
-        if ($item->entity) {
-          $entity = $item->entity;
-          // Set each paragraph langcode if we are not translating.
-          if (!$this->isTranslating($form_state)) {
-            $langcode_key = $entity->getEntityType()->getKey('langcode');
-            $entity->set($langcode_key, $items->getLangcode());
+      $seen_uuids = [];
+      // When translating an untranslatable paragraphs field, the layout
+      // structure cannot be changed (see ::layoutChangeAccess()). Rebuild from
+      // the original components and order, reusing the edited paragraph values
+      // from the tempstore, so the untranslatable host field is left unchanged
+      // and EntityUntranslatableFieldsConstraint is not triggered on save.
+      $structure_locked = $this->isTranslating($form_state) && !$this->layoutParagraphsLayout->layoutChangeAccess(FALSE);
+      $components = [];
+      if ($structure_locked) {
+        $edited = [];
+        foreach ($this->layoutParagraphsLayout->getParagraphsReferenceField() as $item) {
+          if ($item->entity) {
+            $edited[$item->entity->uuid()] = $item->entity;
           }
-          $entity->setNeedsSave(TRUE);
-          $values[] = [
-            'entity' => $entity,
-            'target_id' => $entity->id(),
-            'target_revision_id' => $entity->getRevisionId(),
-          ];
         }
+        foreach ($items as $item) {
+          if ($item->entity) {
+            $components[] = $edited[$item->entity->uuid()] ?? $item->entity;
+          }
+        }
+      }
+      else {
+        foreach ($this->layoutParagraphsLayout->getParagraphsReferenceField() as $item) {
+          if ($item->entity) {
+            $components[] = $item->entity;
+          }
+        }
+      }
+      foreach ($components as $entity) {
+        // Skip duplicate paragraphs (same UUID) to prevent integrity
+        // constraint violations during save.
+        $uuid = $entity->uuid();
+        if (isset($seen_uuids[$uuid])) {
+          continue;
+        }
+        $seen_uuids[$uuid] = TRUE;
+        // Set each paragraph langcode if we are not translating.
+        if (!$this->isTranslating($form_state)) {
+          $langcode_key = $entity->getEntityType()->getKey('langcode');
+          $entity->set($langcode_key, $items->getLangcode());
+        }
+        // Ensure existing paragraphs are not treated as new during save.
+        if ($entity->id()) {
+          $entity->enforceIsNew(FALSE);
+        }
+        $entity->setNeedsSave(TRUE);
+        $values[] = [
+          'entity' => $entity,
+          'target_id' => $entity->id(),
+          'target_revision_id' => $entity->getRevisionId(),
+        ];
       }
       $form_state->setValue($path, $values);
     }
@@ -373,6 +415,12 @@ class LayoutParagraphsWidget extends WidgetBase implements ContainerFactoryPlugi
       '#title' => $this->t('Placeholder message to display when field is empty'),
       '#default_value' => $this->getSetting('empty_message'),
     ];
+    $element['conversion'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Allow paragraph conversion'),
+      '#description' => $this->t('Allow editors to convert paragraphs using Paragraphs Conversion plugins.'),
+      '#default_value' => $this->getSetting('conversion'),
+    ];
     return $element;
   }
 
@@ -395,6 +443,9 @@ class LayoutParagraphsWidget extends WidgetBase implements ContainerFactoryPlugi
     else {
       $summary[] = $this->t('Layouts are optional.');
     }
+    $summary[] = $this->getSetting('conversion')
+      ? $this->t('Paragraph conversion: <b>enabled</b>')
+      : $this->t('Paragraph conversion: <b>disabled</b>');
     return $summary;
   }
 
@@ -413,6 +464,7 @@ class LayoutParagraphsWidget extends WidgetBase implements ContainerFactoryPlugi
       'form_display_mode' => 'default',
       'nesting_depth' => 0,
       'require_layouts' => 0,
+      'conversion' => TRUE,
     ];
     return $defaults;
   }

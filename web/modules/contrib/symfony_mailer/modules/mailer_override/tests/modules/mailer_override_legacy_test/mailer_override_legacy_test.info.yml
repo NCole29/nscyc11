@@ -1,0 +1,7 @@
+name: Mailer Override legacy email test
+type: module
+description: For testing of Mailer legacy emails.
+package: Testing
+hidden: true
+dependencies:
+  - symfony_mailer:mailer_override

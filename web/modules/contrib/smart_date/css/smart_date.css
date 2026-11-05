@@ -167,11 +167,6 @@ tr.even .smartdate--widget .form-type--select label {
   justify-content: center;
 }
 
-.smartdate--time-inline .form-datetime-wrapper:nth-of-type(2) .form-items-inline,
-.smartdate--time-inline div.time-end {
-  flex-wrap: wrap-reverse;
-}
-
 .smartdate--time-inline div.time-end .form-item {
   text-align: center;
 }
@@ -287,7 +282,6 @@ tr.even .smartdate--widget .form-type--select label {
   }
   .smartdate--time-inline .form-datetime-wrapper:nth-of-type(2) .form-items-inline,
   .smartdate--time-inline div.time-end {
-    flex-direction: row-reverse;
-    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 }

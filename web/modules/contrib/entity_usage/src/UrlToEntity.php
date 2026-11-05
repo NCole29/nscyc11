@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\entity_usage;
 
 use Drupal\Component\Utility\UrlHelper;
@@ -28,48 +30,14 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class UrlToEntity implements UrlToEntityInterface {
 
   /**
-   * The list of domains information considered to be part of the site.
-   *
-   * @var array<string, array{host_pattern:string, sub_directory:string|false}>
-   */
-  private array $siteDomains = [];
-
-  /**
    * The list of enabled entity types.
    *
    * @var string[]|null
    */
   private ?array $enabledTargetEntityTypes;
 
-  /**
-   * The site subdirectory if it is installed in one.
-   *
-   * @var string
-   */
-  private string $subPath = '';
-
-  public function __construct(private readonly InboundPathProcessorInterface $pathProcessor, ConfigFactoryInterface $configFactory, private readonly EventDispatcherInterface $eventDispatcher) {
-    $config = $configFactory->get('entity_usage.settings');
-
-    // Convert site domains into a regex pattern.
-    foreach ($config->get('site_domains') ?: [] as $site_domain) {
-      // Ensure the site domain ends with a single /.
-      $site_domain = rtrim($site_domain, '/') . '/';
-      $this->siteDomains[$site_domain]['host_pattern'] = '/' . preg_quote($site_domain, '/') . '/';
-      if (preg_match('#^[^/]+(/.+)#', $site_domain, $matches)) {
-        $this->siteDomains[$site_domain]['sub_directory'] = $matches[1];
-      }
-      else {
-        $this->siteDomains[$site_domain]['sub_directory'] = FALSE;
-      }
-      // If Drupal is installed in a subdirectory, we need to remove it from
-      // relative URLs. Assume we only have one base path to think about.
-      if ($this->subPath === '' && $this->siteDomains[$site_domain]['sub_directory'] !== FALSE) {
-        $this->subPath = $this->siteDomains[$site_domain]['sub_directory'];
-      }
-    }
-
-    $this->enabledTargetEntityTypes = $config->get('track_enabled_target_entity_types');
+  public function __construct(private readonly InboundPathProcessorInterface $pathProcessor, ConfigFactoryInterface $configFactory, private readonly EventDispatcherInterface $eventDispatcher, private readonly SiteDomains $siteDomains) {
+    $this->enabledTargetEntityTypes = $configFactory->get('entity_usage.settings')->get('track_enabled_target_entity_types');
   }
 
   /**
@@ -79,8 +47,11 @@ class UrlToEntity implements UrlToEntityInterface {
     if (empty($url)) {
       return NULL;
     }
+    // URLs are case-insensitive in Drupal.
+    $url = mb_strtolower($url);
 
-    $url = $this->makeUrlRelative($url);
+    $original_url = $url;
+    $url = $this->siteDomains->getInternalUrl($url);
     if ($url === NULL) {
       return NULL;
     }
@@ -100,7 +71,7 @@ class UrlToEntity implements UrlToEntityInterface {
     }
 
     $path_processed_url = $this->pathProcessor->processInbound('/' . $url, $request);
-    $event = new UrlToEntityEvent($request, $path_processed_url, $this->enabledTargetEntityTypes);
+    $event = new UrlToEntityEvent($request, $path_processed_url, $this->enabledTargetEntityTypes, $original_url);
     $this->eventDispatcher->dispatch($event, Events::URL_TO_ENTITY);
     return $event->getEntityInfo();
   }
@@ -124,37 +95,6 @@ class UrlToEntity implements UrlToEntityInterface {
     }
 
     return NULL;
-  }
-
-  /**
-   * Removes the domain from the url if it is considered to be part of the site.
-   *
-   * @param string $url
-   *   A relative or absolute URL string.
-   *
-   * @return string|null
-   *   A relative URL string or NULL if the url is not considered to be part of
-   *   the site.
-   */
-  private function makeUrlRelative(string $url): ?string {
-    if (UrlHelper::isExternal($url)) {
-      // Strip off the scheme and host, so we only get the path.
-      foreach ($this->siteDomains as $site_domain_info) {
-        if (preg_match($site_domain_info['host_pattern'], $url)) {
-          // Strip off everything that is not the internal path.
-          $url = parse_url($url, PHP_URL_PATH);
-          if ($site_domain_info['sub_directory'] !== FALSE && str_starts_with($url, $site_domain_info['sub_directory'])) {
-            $url = substr($url, strlen($site_domain_info['sub_directory']));
-          }
-          return $url;
-        }
-      }
-      return NULL;
-    }
-    elseif ($this->subPath !== '' && str_starts_with($url, $this->subPath)) {
-      $url = substr($url, strlen($this->subPath));
-    }
-    return $url;
   }
 
   /**

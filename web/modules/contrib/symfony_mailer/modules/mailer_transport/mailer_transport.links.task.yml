@@ -1,0 +1,5 @@
+mailer_transport.collection:
+  title: Transport
+  description: 'Listing of Mailer transports.'
+  base_route: symfony_mailer.verify
+  route_name: entity.mailer_transport.collection

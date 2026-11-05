@@ -2,8 +2,8 @@
 
 namespace Drupal\symfony_mailer_test;
 
-use Drupal\KernelTests\KernelTestBase;
-use Drupal\symfony_mailer\Address;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 
 /**
  * Tracks sent emails for testing.
@@ -11,39 +11,37 @@ use Drupal\symfony_mailer\Address;
 trait MailerTestTrait {
 
   /**
-   * The test service.
-   *
-   * @var \Drupal\symfony_mailer_test\MailerTestServiceInterface
-   */
-  protected $testService;
-
-  /**
    * The emails that have been sent and not yet checked.
    *
-   * @var \Drupal\symfony_mailer\EmailInterface[]
+   * @var \Symfony\Component\Mime\Email[]
    */
-  protected $emails;
+  protected ?array $emails = NULL;
 
   /**
    * The most recently sent email.
-   *
-   * @var \Drupal\symfony_mailer\EmailInterface
    */
-  protected $email;
+  protected Email $email;
+
+  /**
+   * An xpath for the most recently sent email HTML body.
+   */
+  protected ?\DOMXPath $xpath;
 
   /**
    * Gets the next email, removing it from the list.
    *
    * @param bool $last
-   *   (optional)TRUE if this is the last email.
+   *   (optional)TRUE to assert that this is the last email.
    *
    * @return \Symfony\Component\Mime\Email
    *   The email.
    */
-  public function readMail(bool $last = TRUE) {
+  public function readMail(bool $last = TRUE): Email {
     $this->init();
+    $this->assertNotEmpty($this->emails);
     $this->email = array_shift($this->emails);
-    $this->assertNotNull($this->email);
+    $this->xpath = NULL;
+
     if ($last) {
       $this->noMail();
     }
@@ -58,9 +56,49 @@ trait MailerTestTrait {
    *
    * @return $this
    */
-  public function assertBodyContains(string $value) {
+  public function assertBodyContains(string $value): static {
     $this->assertStringContainsString($value, $this->email->getHtmlBody());
     return $this;
+  }
+
+  /**
+   * Checks that the most recently sent email does not contain text.
+   *
+   * @param string $value
+   *   Text to check for.
+   *
+   * @return $this
+   */
+  public function assertBodyNotContains(string $value): static {
+    $this->assertStringNotContainsString($value, $this->email->getHtmlBody());
+    return $this;
+  }
+
+  /**
+   * Gets an XPath object for the HTML body.
+   *
+   * @return \DOMXPath
+   *   The XPath object.
+   */
+  public function getXpath(): \DOMXPath {
+    if (!$this->xpath) {
+      $dom = new \DOMDocument();
+      $dom->loadHTML($this->email->getHtmlBody());
+      $this->xpath = new \DOMXPath($dom);
+    }
+    return $this->xpath;
+  }
+
+  /**
+   * Finds the first link with the specified text.
+   *
+   * @return string
+   *   The link.
+   */
+  public function findLink(string $text): string {
+    $nodes = $this->getXpath()->query("//a[text()='$text']");
+    $this->assertNotEmpty($nodes->count());
+    return $nodes->item(0)->getAttribute('href');
   }
 
   /**
@@ -71,7 +109,7 @@ trait MailerTestTrait {
    *
    * @return $this
    */
-  public function assertSubject($value) {
+  public function assertSubject(string $value): static {
     $this->assertEquals($value, $this->email->getSubject());
     return $this;
   }
@@ -81,26 +119,32 @@ trait MailerTestTrait {
    *
    * @param string $name
    *   The address header.
-   * @param mixed $input_addresses
+   * @param mixed $expected
    *   The email addresses.
    *
    * @return $this
    */
-  public function assertAddress(string $name, $input_addresses) {
-    if (!is_countable($input_addresses)) {
-      $input_addresses = is_null($input_addresses) ? [] : [$input_addresses];
+  public function assertAddress(string $name, $expected): static {
+    $actual = $this->email->getHeaders()->getHeaderBody($name);
+    if (!$expected) {
+      $this->assertNull($actual);
     }
+    else {
+      if (!is_countable($expected)) {
+        $expected = [$expected];
+      }
+      if (!is_countable($actual)) {
+        $actual = [$actual];
+      }
+      $this->assertEquals(count($expected), count($actual));
 
-    $email_addressed = $this->email->getAddress($name);
-    $this->assertEquals(count($input_addresses), count($email_addressed));
+      foreach ($actual as $index => $loop_actual) {
+        // Index of the addresses must be preserved.
+        $loop_expected = Address::create($expected[$index]);
 
-    foreach ($email_addressed as $index => $email_address) {
-
-      // Index of the addresses must be preserved.
-      $input_address = Address::create($input_addresses[$index]);
-
-      $this->assertEquals($email_address->getEmail(), $input_address->getEmail());
-      $this->assertEquals($email_address->getDisplayName(), $input_address->getDisplayName());
+        $this->assertEquals($loop_expected->getAddress(), $loop_actual->getAddress());
+        $this->assertEquals($loop_expected->getName(), $loop_actual->getName());
+      }
     }
 
     return $this;
@@ -115,24 +159,84 @@ trait MailerTestTrait {
    *   The name.
    * @param ?string $mimeType
    *   The MIME type.
-   * @param bool $access
-   *   The access.
    * @param bool $embed
    *   If TRUE, then assert that this attachment is embedded.
    *
    * @return $this
    */
-  public function assertAttachment(?string $uri = NULL, ?string $name = NULL, ?string $mimeType = NULL, bool $access = TRUE, bool $embed = FALSE): static {
-    $attachment = current(array_filter($this->email->getAttachments(), fn($a) => (($a->getUri() == $uri) && ($a->getName() == $name))));
-    $this->assertNotFalse($attachment);
-    if ($mimeType) {
-      $this->assertEquals($mimeType, $attachment->getContentType());
-    }
-    $this->assertEquals($access, $attachment->hasAccess());
-    if ($embed) {
-      $this->assertBodyContains('src="cid:' . $attachment->getContentId());
+  public function assertAttachment(?string $uri = NULL, ?string $name = NULL, ?string $mimeType = NULL, bool $embed = FALSE): static {
+    if ($name == NULL) {
+      $name = basename($uri);
     }
 
+    foreach ($this->email->getAttachments() as $attachment) {
+      if (($attachment->getUri() == $uri) && ($attachment->getName() == $name)) {
+        if ($mimeType) {
+          $this->assertEquals($mimeType, $attachment->getContentType());
+        }
+        if ($embed) {
+          $this->assertBodyContains('src="cid:' . $attachment->getContentId());
+        }
+
+        return $this;
+      }
+
+      $message[] = '[' . $attachment->getFilename() . ',' . $attachment->getName() . ']';
+    }
+
+    $message = "Actual attachments: " . implode(',', $message ?? []);
+    $this->fail($message);
+  }
+
+  /**
+   * Checks an attachment is not included on the most recently sent email.
+   *
+   * @param ?string $uri
+   *   The URI that should not be included.
+   * @param ?string $name
+   *   The name that should not be included.
+   *
+   * @return $this
+   */
+  public function assertNoAttachment(?string $uri = NULL, ?string $name = NULL): static {
+    foreach ($this->email->getAttachments() as $attachment) {
+      if ($uri != NULL) {
+        $this->assertNotEquals($uri, $attachment->getFilename());
+      }
+      if ($name != NULL) {
+        $this->assertNotEquals($name, $attachment->getName());
+      }
+    }
+    return $this;
+  }
+
+  /**
+   * Checks 'sender' address of the most recently sent email.
+   *
+   * @param string $email
+   *   The email address.
+   * @param string $display_name
+   *   (Optional) The display name.
+   *
+   * @return $this
+   */
+  public function assertSender(string $email, string $display_name = ''): static {
+    $this->assertAddress('sender', new Address($email, $display_name));
+    return $this;
+  }
+
+  /**
+   * Checks 'reply-to' address of the most recently sent email.
+   *
+   * @param string $email
+   *   The email address.
+   * @param string $display_name
+   *   (Optional) The display name.
+   *
+   * @return $this
+   */
+  public function assertReplyTo(string $email, string $display_name = ''): static {
+    $this->assertAddress('reply-to', new Address($email, $display_name));
     return $this;
   }
 
@@ -146,7 +250,7 @@ trait MailerTestTrait {
    *
    * @return $this
    */
-  public function assertTo(string $email, string $display_name = '') {
+  public function assertTo(string $email, string $display_name = ''): static {
     $this->assertAddress('to', new Address($email, $display_name));
     return $this;
   }
@@ -161,7 +265,7 @@ trait MailerTestTrait {
    *
    * @return $this
    */
-  public function assertCc(string $email, string $display_name = '') {
+  public function assertCc(string $email, string $display_name = ''): static {
     $this->assertAddress('cc', new Address($email, $display_name));
     return $this;
   }
@@ -176,76 +280,70 @@ trait MailerTestTrait {
    *
    * @return $this
    */
-  public function assertBcc(string $email, string $display_name = '') {
+  public function assertBcc(string $email, string $display_name = ''): static {
     $this->assertAddress('bcc', new Address($email, $display_name));
     return $this;
   }
 
   /**
-   * Checks 'reply-to' address of the most recently sent email.
+   * Checks langcode of the most recently sent email.
    *
-   * @param string $email
-   *   The email address.
-   * @param string $display_name
-   *   (Optional) The display name.
+   * @param string $value
+   *   Text to check for.
    *
    * @return $this
    */
-  public function assertReplyTo(string $email, string $display_name = '') {
-    $this->assertAddress('reply-to', new Address($email, $display_name));
+  public function assertLangcode(string $value): static {
+    $this->assertEquals($value, $this->email->getLangcode());
     return $this;
   }
 
   /**
-   * Checks the error of the most recently sent email.
+   * Converts a URI to absolute.
    *
-   * @param string $error
-   *   The error.
+   * @param string $uri
+   *   The URI.
    *
-   * @return $this
+   * @return string
+   *   The absolute URI.
    */
-  public function assertError(string $error) {
-    $this->assertEquals($error, $this->email->getError());
-    return $this;
-  }
-
-  /**
-   * Checks the most recently sent email was successful.
-   *
-   * @return $this
-   */
-  public function assertNoError() {
-    $this->assertNull($this->email->getError());
-    return $this;
+  public function absoluteUri(string $uri): string {
+    // Match Attachment::fromPath().
+    if (!parse_url($uri, PHP_URL_SCHEME)) {
+      return \Drupal::request()->getSchemeAndHttpHost() . $uri;
+    }
+    return $uri;
   }
 
   /**
    * Checks there are no more emails.
    */
-  protected function noMail() {
+  protected function noMail(): void {
     $this->init();
     $this->assertCount(0, $this->emails, 'All emails have been checked.');
-    \Drupal::state()->delete(MailerTestServiceInterface::STATE_KEY);
     $this->emails = NULL;
   }
 
   /**
    * Initializes the list of emails.
    */
-  protected function init() {
+  protected function init(): void {
     if (is_null($this->emails)) {
-      if ($this instanceof KernelTestBase) {
-        // Kernel test.
-        if (!$this->testService) {
-          $this->testService = $this->container->get('symfony_mailer.test');
-        }
-        $this->emails = $this->testService->getEmails();
-      }
-      else {
-        // Functional test.
-        $this->emails = \Drupal::state()->get(MailerTestServiceInterface::STATE_KEY, []);
-      }
+      $this->emails = $this->getMails();
+      \Drupal::keyValue('symfony_mailer_test')->delete('emails');
     }
+  }
+
+  /**
+   * Gets an array containing all emails sent during this test case.
+   *
+   * @return \Symfony\Component\Mime\Email[]
+   *   An array containing email messages captured during the current test.
+   *
+   * @see \Drupal\symfony_mailer_test\Transport\CaptureTransport
+   */
+  protected function getMails(): array {
+    return \Drupal::keyValue('symfony_mailer_test')->get('emails', []);
   }
 
 }

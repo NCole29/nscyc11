@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\symfony_mailer;
 
 use Drupal\Core\Session\AccountInterface;
+use Symfony\Component\Mime\Email as SymfonyEmail;
 
 /**
  * Defines an extended Email interface that adds internal functions.
@@ -16,21 +19,12 @@ interface InternalEmailInterface extends EmailInterface {
    *
    * @return $this
    */
-  public function process();
-
-  /**
-   * Ends the initialization phase.
-   *
-   * Valid: initialisation.
-   *
-   * @return $this
-   */
-  public function initDone();
+  public function process(): static;
 
   /**
    * Customizes the email.
    *
-   * Valid: before rendering.
+   * Valid: initialisation.
    *
    * @param string $langcode
    *   The language code.
@@ -39,24 +33,33 @@ interface InternalEmailInterface extends EmailInterface {
    *
    * @return $this
    */
-  public function customize(string $langcode, AccountInterface $account);
+  public function customize(string $langcode, AccountInterface $account): static;
 
   /**
    * Renders the email.
    *
-   * Valid: before rendering.
+   * Valid: build.
    *
    * @return $this
    */
-  public function render();
+  public function render(): static;
 
   /**
-   * Get the phase of processing.
+   * Gets an array of 'suggestions'.
    *
-   * @return int
-   *   The phase, one of the PHASE_ constants.
+   * The suggestions are used to select mailers, templates and policy
+   * configuration in based on the email tag.
+   *
+   * @param string $initial
+   *   The initial suggestion.
+   * @param string $join
+   *   The 'glue' to join each suggestion part with.
+   *
+   * @return array
+   *   Suggestions, formed by taking the initial value and incrementally adding
+   *   the parts of the tag breaking at each dot.
    */
-  public function getPhase();
+  public function getSuggestions(string $initial, string $join): array;
 
   /**
    * Gets the inner Symfony email to send.
@@ -66,7 +69,7 @@ interface InternalEmailInterface extends EmailInterface {
    * @return \Symfony\Component\Mime\Email
    *   Inner Symfony email.
    */
-  public function getSymfonyEmail();
+  public function getSymfonyEmail(): SymfonyEmail;
 
   /**
    * Sets the error message from sending the email.
@@ -78,6 +81,6 @@ interface InternalEmailInterface extends EmailInterface {
    *
    * @return $this
    */
-  public function setError(string $error);
+  public function setError(string $error): static;
 
 }

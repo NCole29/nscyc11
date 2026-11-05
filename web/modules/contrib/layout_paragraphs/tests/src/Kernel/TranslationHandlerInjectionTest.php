@@ -17,11 +17,13 @@ use Drupal\layout_paragraphs\Plugin\Field\FieldWidget\LayoutParagraphsWidget;
 use Drupal\Tests\paragraphs\FunctionalJavascript\ParagraphsTestBaseTrait;
 
 /**
- * Tests how the widget and the builder form receive the translation handler.
+ * Tests how the widget and the builder form get the translation handler.
  *
- * The translation handler is a required constructor dependency, so direct
- * instantiations, subclasses, and the container factories all receive it
- * explicitly without relying on a global service locator.
+ * The translation handler is the last constructor parameter of both classes
+ * and it is optional, so code written before it existed keeps working: a
+ * direct instantiation and a subclass that passes the older argument list
+ * both get the handler from the container, without an error, a warning, or a
+ * deprecation, and so do the objects the container factories return.
  *
  * @group layout_paragraphs
  */
@@ -69,7 +71,7 @@ class TranslationHandlerInjectionTest extends KernelTestBase {
   /**
    * Tests that a directly built widget gets the handler from the container.
    */
-  public function testDirectlyConstructedWidgetGetsInjectedHandler(): void {
+  public function testDirectlyConstructedWidgetGetsHandlerFromContainer(): void {
     $arguments = $this->getWidgetConstructorArguments();
     $widget = $this->constructAndAssertNothingRaised(fn() => new LayoutParagraphsWidget(...$arguments));
 
@@ -83,7 +85,8 @@ class TranslationHandlerInjectionTest extends KernelTestBase {
     $arguments = $this->getWidgetConstructorArguments();
     $widget = $this->constructAndAssertNothingRaised(fn() => new class(...$arguments) extends LayoutParagraphsWidget {
 
-      // The subclass forwards the translation handler dependency.
+      // The constructor repeats the parent signature without the translation
+      // handler argument, which is what this test covers.
       // phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod
 
       /**
@@ -103,7 +106,6 @@ class TranslationHandlerInjectionTest extends KernelTestBase {
         ConfigFactoryInterface $config_factory,
         EntityRepositoryInterface $entity_repository,
         $content_translation_manager,
-        LayoutParagraphsTranslationHandlerInterface $translation_handler,
       ) {
         parent::__construct(
           $plugin_id,
@@ -118,8 +120,7 @@ class TranslationHandlerInjectionTest extends KernelTestBase {
           $entity_display_repository,
           $config_factory,
           $entity_repository,
-          $content_translation_manager,
-          $translation_handler,
+          $content_translation_manager
         );
       }
 
@@ -158,7 +159,7 @@ class TranslationHandlerInjectionTest extends KernelTestBase {
   /**
    * Tests that a directly built form gets the handler from the container.
    */
-  public function testDirectlyConstructedBuilderFormGetsInjectedHandler(): void {
+  public function testDirectlyConstructedBuilderFormGetsHandlerFromContainer(): void {
     $arguments = $this->getBuilderFormConstructorArguments();
     $form = $this->constructAndAssertNothingRaised(fn() => new LayoutParagraphsBuilderForm(...$arguments));
 
@@ -172,7 +173,8 @@ class TranslationHandlerInjectionTest extends KernelTestBase {
     $arguments = $this->getBuilderFormConstructorArguments();
     $form = $this->constructAndAssertNothingRaised(fn() => new class(...$arguments) extends LayoutParagraphsBuilderForm {
 
-      // The subclass forwards the translation handler dependency.
+      // The constructor repeats the parent signature without the translation
+      // handler argument, which is what this test covers.
       // phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod
 
       /**
@@ -181,9 +183,8 @@ class TranslationHandlerInjectionTest extends KernelTestBase {
       public function __construct(
         LayoutParagraphsLayoutTempstoreRepository $tempstore,
         EntityTypeManagerInterface $entity_type_manager,
-        LayoutParagraphsTranslationHandlerInterface $translation_handler,
       ) {
-        parent::__construct($tempstore, $entity_type_manager, $translation_handler);
+        parent::__construct($tempstore, $entity_type_manager);
       }
 
       // phpcs:enable Generic.CodeAnalysis.UselessOverridingMethod
@@ -233,7 +234,6 @@ class TranslationHandlerInjectionTest extends KernelTestBase {
       $this->container->get('config.factory'),
       $this->container->get('entity.repository'),
       $this->container->get('content_translation.manager'),
-      $this->container->get('layout_paragraphs.translation_handler'),
     ];
   }
 
@@ -247,7 +247,6 @@ class TranslationHandlerInjectionTest extends KernelTestBase {
     return [
       $this->container->get('layout_paragraphs.tempstore_repository'),
       $this->container->get('entity_type.manager'),
-      $this->container->get('layout_paragraphs.translation_handler'),
     ];
   }
 

@@ -1,0 +1,38 @@
+uuid: 0d0f2152-7f73-4085-8686-3e4f2004a333
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.media_library
+    - field.field.media.banner_short.field_image_category
+    - field.field.media.banner_short.field_media_image
+    - image.style.thumbnail_20_5
+    - media.type.banner_short
+  module:
+    - svg_image
+id: media.banner_short.media_library
+targetEntityType: media
+bundle: banner_short
+mode: media_library
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: thumbnail_20_5
+      image_loading:
+        attribute: lazy
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_image_category: true
+  field_media_image: true
+  name: true
+  uid: true

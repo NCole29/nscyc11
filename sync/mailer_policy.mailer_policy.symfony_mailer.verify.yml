@@ -1,0 +1,20 @@
+uuid: 652c9b7b-cb4f-4724-b684-9523798dd233
+langcode: en
+status: true
+dependencies:
+  module:
+    - symfony_mailer
+id: symfony_mailer.verify
+configuration:
+  email_body:
+    content:
+      value: |-
+        <h4>You have mail</h4>
+        <p>This is a test email from <a href="[site:url]">[site:name]</a>.</p>
+        <p>Have a great <span class="day">{{ day }}</span>!</p>
+        <h4 class="text-small">
+           <a href="https://www.drupal.org/project/symfony_mailer">Drupal Symfony Mailer</a>
+        </h4>
+      format: email_html
+  email_subject:
+    value: 'Test email from [site:name]'

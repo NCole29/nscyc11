@@ -59,17 +59,11 @@ settings:
           label: 'Regular text (100%)'
           element: '<p class="regular">'
         -
-          label: 'Light button'
-          element: '<p class="light-button">'
+          label: 'Large text (115%)'
+          element: '<p class="large">'
         -
-          label: 'Dark button'
-          element: '<p class="dark-button">'
-        -
-          label: 'Light centered'
-          element: '<p class="light-centered">'
-        -
-          label: 'Dark centered'
-          element: '<p class="dark-centered">'
+          label: Button
+          element: '<p class="button">'
     linkit_extension:
       linkit_enabled: true
       linkit_profile: default

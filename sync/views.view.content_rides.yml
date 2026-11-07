@@ -13,9 +13,9 @@ dependencies:
     - node.type.recurring_dates
     - node.type.recurring_ride
     - node.type.ride
-    - system.menu.main
     - taxonomy.vocabulary.activities
     - user.role.administrator
+    - user.role.board
     - user.role.ride_leader
     - user.role.rides_coordinator
     - user.role.site_admin
@@ -497,15 +497,12 @@ display:
           columns:
             node_bulk_form: node_bulk_form
             nid: nid
+            field_ride_picture: field_ride_picture
+            field_ride_picture_1: field_ride_picture_1
             title: title
-            type: type
-            field_location: field_location
             field_date_1: field_date_1
-            field_ride_leader_1: field_ride_leader_1
             name: name
             status: status
-            created: created
-            changed: changed
             operations: operations
           default: '-1'
           info:
@@ -521,21 +518,21 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            field_ride_picture:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_ride_picture_1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             title:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            type:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_location:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -549,11 +546,6 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_ride_leader_1:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             name:
               sortable: true
               default_sort_order: asc
@@ -563,20 +555,6 @@ display:
               responsive: ''
             status:
               sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            created:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            changed:
-              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1676,6 +1654,135 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_ride_picture:
+          id: field_ride_picture
+          table: node__field_ride_picture
+          field: field_ride_picture
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Ride picture'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: media_thumbnail
+          settings:
+            image_link: ''
+            image_style: thumbnail_16_9
+            image_loading:
+              attribute: lazy
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_ride_picture_1:
+          id: field_ride_picture_1
+          table: node__field_ride_picture
+          field: field_ride_picture
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Ride picture'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         title:
           id: title
           table: node_field_data
@@ -1989,135 +2096,6 @@ display:
           empty_zero: false
           hide_alter_empty: true
           destination: true
-        field_ride_picture:
-          id: field_ride_picture
-          table: node__field_ride_picture
-          field: field_ride_picture
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Ride picture'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: media_thumbnail
-          settings:
-            image_link: ''
-            image_style: thumbnail_16_9
-            image_loading:
-              attribute: lazy
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_ride_picture_1:
-          id: field_ride_picture_1
-          table: node__field_ride_picture
-          field: field_ride_picture
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Ride picture'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
       pager:
         type: full
         options:
@@ -2145,9 +2123,9 @@ display:
         options:
           role:
             administrator: administrator
-            ride_leader: ride_leader
             rides_coordinator: rides_coordinator
             site_admin: site_admin
+            board: board
       sorts:
         changed:
           id: changed
@@ -2166,6 +2144,48 @@ display:
           exposed: false
           granularity: minute
       filters:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            ride: ride
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         title:
           id: title
           table: node_field_data
@@ -2194,6 +2214,51 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_date_value:
+          id: field_date_value
+          table: node__field_date
+          field: field_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: datetime
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date_year
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_date_value_op
+            label: 'Ride date'
+            description: ''
+            use_operator: false
+            operator: field_date_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_date_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
             placeholder: ''
           is_grouped: false
           group_info:
@@ -2297,6 +2362,15 @@ display:
           admin_label: 'field_location: Content'
           plugin_id: standard
           required: false
+        field_ride_picture:
+          id: field_ride_picture
+          table: node__field_ride_picture
+          field: field_ride_picture
+          relationship: none
+          group_type: group
+          admin_label: 'field_ride_picture: Media'
+          plugin_id: standard
+          required: false
       group_by: false
       display_description: ''
       header:
@@ -2309,11 +2383,11 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: 'Displaying @start - @end of @total'
+          content: "Displaying @start - @end of @total\r\nThis report is available to Rides Coordinator and Board members."
       display_extenders: {  }
       path: admin/content/ride-pictures
       menu:
-        type: normal
+        type: none
         title: 'Ride pictures'
         description: ''
         weight: -10
@@ -4319,18 +4393,16 @@ display:
       group_by: false
       display_description: ''
       header:
-        area:
-          id: area
+        area_text_custom:
+          id: area_text_custom
           table: views
-          field: area
+          field: area_text_custom
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: text
-          empty: false
-          content:
-            value: "<strong>Before adding a ride with the above links, search to see if it exists.</strong><br>\r\nClone existing rides - select Clone under Operations or view the page and Clone. Do not change the ride name unless you are making substantial changes to the ride and routes. <br>Recurring ride dates are not shown."
-            format: basic_html
+          plugin_id: text_custom
+          empty: true
+          content: "<details class=\"info-details\">\r\n<summary>Adding a Ride Page (Ride Coordinators and Ride Leaders only)</summary>\r\nThere are two types of ride pages, listed under separate sub-tabs. They are identical except for the date field.\r\n<ul>\r\n<li><strong>Rides</strong> occur on a single date.</li>\r\n<li><strong>Recurring Rides</strong> repeat weekly, biweekly, monthly or at other intervals.</li>\r\n</ul> \r\n<p><strong>Moderated rides</strong> are saved as either Draft or Ready for Review. Only Ride Coordinators have permission to publish these pages.</p>\r\n<p><strong>How to Create a Ride Page</strong>\r\n<ul>\r\n<li><strong>Step 1: Check for an existing page.</strong><br>Always search the system first to see if a past version of this ride already exists.<br></li>\r\n<li><strong>Step 2: Clone or create the page.</strong>\r\n\t<ul>\r\n\t<li>If the ride exists: Click Clone under Operations. Change the date and other details. Only change the ride name if you are changing the starting location or routes.</li> \r\n\t<li>If the ride does not exist: Click the blue buttons at the top right of the page to create a brand-new ride page.</li>\r\n\t</ul>\r\n</li>\r\n<li><strong>Step 3: Save the page.</strong><br>Ride leaders cannot publish pages directly. Use the following options:\r\n\t<ul>\r\n\t<li>Save as Draft if the page still needs edits or more information.</li>\r\n\t<li>Save as Ready for Review when the page is complete. This automatically notifies a Ride Coordinator to review and publish it.</li>\r\n\t</ul>\r\nNOTE: RWGPS route information will not appear on the page until it is published so that Ride coordinators can review routes before they are saved to the website's route library.\r\n</li>\r\n<p>IMPORTANT! Please read the instructions regarding recurring ride dates and seek help if needed.</p>\r\n</details>\r\n<hr>"
           tokenize: false
         result:
           id: result
@@ -4879,9 +4951,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
+          type: entity_reference_entity_id
+          settings: {  }
           group_column: target_id
           group_columns: {  }
           group_rows: true
@@ -5541,18 +5612,16 @@ display:
       group_by: false
       display_description: ''
       header:
-        area:
-          id: area
+        area_text_custom:
+          id: area_text_custom
           table: views
-          field: area
+          field: area_text_custom
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: text
-          empty: false
-          content:
-            value: "<strong>Before adding a ride with the above links, search to see if it exists.</strong><br>\r\nClone existing rides - select Clone under Operations or view the page and Clone. Do not change the ride name unless you are making substantial changes to the ride and routes. <br>Recurring ride dates are not shown."
-            format: basic_html
+          plugin_id: text_custom
+          empty: true
+          content: "<details class=\"info-details\">\r\n<summary>Adding a Ride Page (Ride Coordinators and Ride Leaders only)</summary>\r\nThere are two types of ride pages, listed under separate sub-tabs. They are identical except for the date field.\r\n<ul>\r\n<li><strong>Rides</strong> occur on a single date.</li>\r\n<li><strong>Recurring Rides</strong> repeat weekly, biweekly, monthly or at other intervals.</li>\r\n</ul> \r\n<p><strong>Moderated rides</strong> are saved as either Draft or Ready for Review. Only Ride Coordinators have permission to publish these pages.</p>\r\n<p><strong>How to Create a Ride Page</strong>\r\n<ul>\r\n<li><strong>Step 1: Check for an existing page.</strong><br>Always search the system first to see if a past version of this ride already exists.<br></li>\r\n<li><strong>Step 2: Clone or create the page.</strong>\r\n\t<ul>\r\n\t<li>If the ride exists: Click Clone under Operations. Change the date and other details. Only change the ride name if you are changing the starting location or routes.</li> \r\n\t<li>If the ride does not exist: Click the blue buttons at the top right of the page to create a brand-new ride page.</li>\r\n\t</ul>\r\n</li>\r\n<li><strong>Step 3: Save the page.</strong><br>Ride leaders cannot publish pages directly. Use the following options:\r\n\t<ul>\r\n\t<li>Save as Draft if the page still needs edits or more information.</li>\r\n\t<li>Save as Ready for Review when the page is complete. This automatically notifies a Ride Coordinator to review and publish it.</li>\r\n\t</ul>\r\nNOTE: RWGPS route information will not appear on the page until it is published so that Ride coordinators can review routes before they are saved to the website's route library.\r\n</li>\r\n<p>IMPORTANT! Please read the instructions regarding recurring ride dates and seek help if needed.</p>\r\n</details>\r\n<hr>"
           tokenize: false
         result:
           id: result

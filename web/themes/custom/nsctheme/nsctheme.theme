@@ -30,8 +30,6 @@ function nsctheme_preprocess_paragraph(&$variables) {
     case 'callout':  
       $variables['border_color'] = theme_get_setting('nsctheme_callout_br', 'nsctheme');
       $variables['shade_color']  = theme_get_setting('nsctheme_callout_bg', 'nsctheme');
-      $variables['button_bg']    = theme_get_setting('nsctheme_callout_bt_bg', 'nsctheme');
-      $variables['button_tx']    = theme_get_setting('nsctheme_callout_bt_tx', 'nsctheme');
     break;
 
     case 'card':

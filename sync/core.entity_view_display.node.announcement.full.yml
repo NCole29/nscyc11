@@ -14,96 +14,12 @@ dependencies:
   module:
     - layout_builder
     - layout_builder_restrictions
+    - text
     - user
 third_party_settings:
   layout_builder:
-    enabled: true
+    enabled: false
     allow_custom: false
-    sections:
-      -
-        layout_id: layout_twocol_section
-        layout_settings:
-          label: ''
-          context_mapping: {  }
-          column_widths: 33-67
-        components:
-          4837ae4b-0d63-4e77-a26c-297e75afc7b0:
-            uuid: 4837ae4b-0d63-4e77-a26c-297e75afc7b0
-            region: first
-            configuration:
-              id: 'field_block:node:announcement:field_image'
-              label: Image
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: media_thumbnail
-                label: visually_hidden
-                settings:
-                  image_link: ''
-                  image_style: standard_16_9
-                  image_loading:
-                    attribute: lazy
-                third_party_settings: {  }
-            weight: 0
-            additional: {  }
-          312718d6-36e0-4b8b-8d5b-870a5f555f6c:
-            uuid: 312718d6-36e0-4b8b-8d5b-870a5f555f6c
-            region: second
-            configuration:
-              id: 'field_block:node:announcement:field_text'
-              label: Text
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: text_default
-                label: hidden
-                settings: {  }
-                third_party_settings: {  }
-            weight: 0
-            additional: {  }
-          1e25fd9c-5897-498f-a525-df040c8c1fec:
-            uuid: 1e25fd9c-5897-498f-a525-df040c8c1fec
-            region: first
-            configuration:
-              id: 'field_block:node:announcement:field_contact_us'
-              label: Contact
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: contact_admin_mailbox
-                label: above
-                settings: {  }
-                third_party_settings: {  }
-            weight: 1
-            additional: {  }
-          c35d44f4-4006-465e-ad37-d3b6de6f5e3e:
-            uuid: c35d44f4-4006-465e-ad37-d3b6de6f5e3e
-            region: first
-            configuration:
-              id: 'field_block:node:announcement:field_contact_person'
-              label: Contact
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: contact_person
-                label: above
-                settings: {  }
-                third_party_settings: {  }
-            weight: 2
-            additional: {  }
-        third_party_settings: {  }
   layout_builder_restrictions:
     allowed_block_categories: {  }
     entity_view_mode_restriction:
@@ -117,13 +33,37 @@ id: node.announcement.full
 targetEntityType: node
 bundle: announcement
 mode: full
-content: {  }
+content:
+  field_contact_person:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_contact_us:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_text:
+    type: text_default
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   content_moderation_control: true
-  field_contact_person: true
-  field_contact_us: true
   field_image: true
   field_resize_text_image: true
   field_summary: true
-  field_text: true
-  links: true

@@ -1,6 +1,6 @@
 uuid: 43fa67fb-203c-4d8c-991e-3c182f534e8f
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - views.view.who_s_online
@@ -12,7 +12,7 @@ dependencies:
 id: nsctheme_views_block__who_s_online_who_s_online_block
 theme: nsctheme
 region: hidden
-weight: -18
+weight: -16
 provider: null
 plugin: 'views_block:who_s_online-who_s_online_block'
 settings:

@@ -8,7 +8,7 @@ dependencies:
     - nsctheme
 id: nsctheme_powered
 theme: nsctheme
-region: bottom_first
+region: hidden
 weight: -15
 provider: null
 plugin: system_powered_by_block

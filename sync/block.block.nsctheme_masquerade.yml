@@ -1,6 +1,6 @@
 uuid: 72606f41-7b59-4fc8-bad5-2c0abf26bc8c
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - masquerade
@@ -11,7 +11,7 @@ dependencies:
 id: nsctheme_masquerade
 theme: nsctheme
 region: hidden
-weight: -19
+weight: -17
 provider: null
 plugin: masquerade
 settings:

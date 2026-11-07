@@ -194,7 +194,7 @@
     "drupal/simple_popup_blocks": "^3.5",
     "drupal/smart_date": "^4.3",
     "drupal/solo": "^1.0",
-    "drupal/svg_image": "^3.2",
+    "drupal/svg_image": "3.2.5",
     "drupal/symfony_mailer": "^2.0",
     "drupal/tac_lite": "^2.0",
     "drupal/tamper": "^1.0",
@@ -318,9 +318,6 @@
       "patches": {
         "drupal/core": {
             "Fix Drupal 11.4 circular reference on CLI logger commands": "https://www.drupal.org/files/issues/2026-07-08/core--block-manager-logger-circular-ref-11.4.patch"
-        },
-        "drupal/smart_date": {
-            "D10.2 Smart date list item must pass as array": "https://www.drupal.org/files/issues/2023-12-18/3409287.patch"
         }
       },
       "merge-plugin": {

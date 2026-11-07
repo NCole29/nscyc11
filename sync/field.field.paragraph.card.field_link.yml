@@ -14,7 +14,7 @@ field_name: field_link
 entity_type: paragraph
 bundle: card
 label: Link
-description: 'This link is attached to title and image or icon, if populated. It is not attached to text so that additional links may be placed in the text field.'
+description: 'This link is attached to title and image, if populated. It is not attached to text so that additional links may be placed in the text field.'
 required: false
 translatable: false
 default_value: {  }

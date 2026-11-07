@@ -4,16 +4,17 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.paragraph.preview
-    - field.field.paragraph.card.field_background
-    - field.field.paragraph.card.field_box_shadow
-    - field.field.paragraph.card.field_card_height
-    - field.field.paragraph.card.field_card_width
-    - field.field.paragraph.card.field_icon
+    - field.field.paragraph.card.field_full_height
     - field.field.paragraph.card.field_image
     - field.field.paragraph.card.field_link
-    - field.field.paragraph.card.field_text
+    - field.field.paragraph.card.field_ptext
+    - field.field.paragraph.card.field_shaded_background
     - field.field.paragraph.card.field_title
+    - image.style.large_4_3
     - paragraphs.paragraphs_type.card
+  module:
+    - media
+    - text
 _core:
   default_config_hash: gsTcoizSDi885C0EXow6wjLH2CnrXI1yYQdK3QBRGic
 id: paragraph.card.preview
@@ -21,20 +22,34 @@ targetEntityType: paragraph
 bundle: card
 mode: preview
 content:
-  field_title:
-    type: string
-    label: hidden
+  field_image:
+    type: media_thumbnail
+    label: visually_hidden
     settings:
-      link_to_entity: false
+      image_link: ''
+      image_style: large_4_3
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 0
     region: content
+  field_ptext:
+    type: text_default
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_title:
+    type: string
+    label: visually_hidden
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 1
+    region: content
 hidden:
-  field_background: true
-  field_box_shadow: true
-  field_card_height: true
-  field_card_width: true
-  field_icon: true
-  field_image: true
+  field_full_height: true
   field_link: true
-  field_text: true
+  field_shaded_background: true

@@ -1,0 +1,24 @@
+uuid: 87e6a286-955c-44fb-821c-bc7fc26aa963
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_ptext
+    - filter.format.basic_html
+    - paragraphs.paragraphs_type.card
+  module:
+    - text
+id: paragraph.card.field_ptext
+field_name: field_ptext
+entity_type: paragraph
+bundle: card
+label: Text
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - basic_html
+field_type: text_long

@@ -1,0 +1,38 @@
+uuid: 3b2c5621-d3c4-4d25-beef-9f5594967740
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.banner_short.field_image_category
+    - field.field.media.banner_short.field_media_image
+    - image.style.thumbnail_20_5
+    - media.type.banner_short
+  module:
+    - focal_point
+    - imce
+id: media.banner_short.default
+targetEntityType: media
+bundle: banner_short
+mode: default
+content:
+  field_media_image:
+    type: image_focal_point
+    weight: 0
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail_20_5
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings:
+      imce:
+        enabled: false
+hidden:
+  created: true
+  field_image_category: true
+  name: true
+  path: true
+  publish_on: true
+  status: true
+  uid: true
+  unpublish_on: true

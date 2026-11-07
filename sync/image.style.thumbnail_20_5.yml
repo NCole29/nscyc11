@@ -1,0 +1,23 @@
+uuid: 05b639f6-d38f-4dc9-9ca8-5d96c10c83c3
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: thumbnail_20_5
+label: 'Thumbnail 20:5'
+effects:
+  fcbaef7f-deb3-4a66-83f7-e5debf838150:
+    uuid: fcbaef7f-deb3-4a66-83f7-e5debf838150
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 400
+      height: 100
+      crop_type: focal_point
+  9c0099e8-bac7-4b7c-a8b9-e3fcfced5d94:
+    uuid: 9c0099e8-bac7-4b7c-a8b9-e3fcfced5d94
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

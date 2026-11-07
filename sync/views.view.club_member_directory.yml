@@ -764,10 +764,10 @@ display:
         type: normal
         title: 'Member directory'
         description: ''
-        weight: 0
+        weight: -50
         expanded: false
         menu_name: main
-        parent: 'menu_link_content:cbaa4cb1-8c81-455a-b17c-c243a2ce1960'
+        parent: 'menu_link_content:85a2f340-9d20-46d5-94e9-c3f26d2fb6ff'
         context: '0'
     cache_metadata:
       max-age: -1

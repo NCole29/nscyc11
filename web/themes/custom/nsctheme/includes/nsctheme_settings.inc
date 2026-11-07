@@ -65,17 +65,13 @@
       'class' => ['solo-color-panel'],
       'data-solo-panel' => 'colors',
     ],
-    "#description" => t('Design components (Drupal paragraphs types) may be added when selecting Type of page ="Page with section layouts and design components.
-    <p>A callout is a textbox with a left border that sets the information apart from the main text.</p> 
-    <p>A card contains a title, image, and text and is generally used to display a collection of items (e.g., board members, events, etc).</p>
-    Callouts and cards default to a white background unless users select a shaded background which employs the colors specified here'), 
   ];
   $attributes =  [
-    'callout_br' => t('Callout border'),
-    'callout_bt_bg' => t('Callout button background'),
-    'callout_bt_tx' => t('Callout button text'),
-    'callout_bg' => t('Callout background, shaded'),
-    'card_bg'    => t('Card background, shaded'),
+    'callout_br' => 'Callout border',
+    'callout_bt_bg' => 'Callout button background',
+    'callout_bt_tx' => 'Callout button text',
+    'callout_bg' => 'Callout background, shaded',
+    'card_bg'    => 'Card background, shaded',
   ];
   foreach ($attributes as $attribute_key => $attribute_label) {
     $settings_region[] = "{$prefix}_{$attribute_key}";

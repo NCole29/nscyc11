@@ -174,7 +174,6 @@ permissions:
   - 'edit any restricted_file media'
   - 'edit any ride content'
   - 'edit any webform content'
-  - 'edit club_route entity'
   - 'edit club_schedule entity'
   - 'edit contributions'
   - 'edit event participants'

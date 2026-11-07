@@ -35,7 +35,7 @@ class SvgResponsiveImageFormatter extends ResponsiveImageFormatter {
    *
    * @var \Drupal\Core\Logger\LoggerChannel
    */
-  private $logger;
+  protected $logger;
 
   /**
    * The file URL generator.

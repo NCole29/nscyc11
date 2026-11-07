@@ -79,6 +79,8 @@ module:
   linkit: 0
   magnific_popup: 0
   mail_login: 0
+  mailer_override: 0
+  mailer_policy: 0
   mailer_transport: 0
   markup: 0
   masquerade: 0

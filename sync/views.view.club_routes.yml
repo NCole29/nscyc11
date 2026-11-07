@@ -3,10 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_activity
     - field.storage.node.field_gravel_category
     - field.storage.node.field_location
-    - taxonomy.vocabulary.activities
     - user.role.administrator
     - user.role.events_coordinator
     - user.role.rides_coordinator
@@ -17,7 +15,6 @@ dependencies:
     - node
     - rest
     - serialization
-    - taxonomy
     - user
     - views_data_export
 _core:
@@ -702,197 +699,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: reverse__node__field_rwgps_routes
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: field
-          label: Ride
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_activity:
-          id: field_activity
-          table: node__field_activity
-          field: field_activity
-          relationship: reverse__node__field_rwgps_routes
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Ride type'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: false
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_gravel_category:
-          id: field_gravel_category
-          table: node__field_gravel_category
-          field: field_gravel_category
-          relationship: reverse__node__field_rwgps_routes
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Gravel category'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: false
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         distance:
           id: distance
           table: club_route
@@ -1025,19 +831,21 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        nothing_1:
-          id: nothing_1
-          table: views
-          field: nothing
+        unpaved:
+          id: unpaved
+          table: club_route
+          field: unpaved
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: custom
-          label: Download
-          exclude: true
+          entity_type: club_route
+          entity_field: unpaved
+          plugin_id: field
+          label: 'Unpaved pct'
+          exclude: false
           alter:
-            alter_text: true
-            text: '<a href="https://ridewithgps.com/routes/{{ rwgps_id }}.gpx?sub_format=track">Download GPX</a> or <a href="https://ridewithgps.com/routes/{{ rwgps_id }}/send_to_device">Send to device</a>'
+            alter_text: false
+            text: ''
             make_link: false
             path: ''
             absolute: false
@@ -1066,14 +874,29 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
           empty: ''
           hide_empty: false
           empty_zero: false
-          hide_alter_empty: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         ride_start:
           id: ride_start
           table: club_route
@@ -1269,55 +1092,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        nothing:
-          id: nothing
-          table: views
-          field: nothing
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: custom
-          label: Print
-          exclude: true
-          alter:
-            alter_text: true
-            text: '<a href="http://www.ridewithgps.com/routes/{{ rwgps_id }}/cue_sheet">Cue sheet</a>'
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: false
         created_at:
           id: created_at
           table: club_route
@@ -1907,51 +1681,87 @@ display:
                   min: ''
                   max: ''
                   value: '3000'
-        field_activity_target_id:
-          id: field_activity_target_id
-          table: node__field_activity
-          field: field_activity_target_id
-          relationship: reverse__node__field_rwgps_routes
+        unpaved:
+          id: unpaved
+          table: club_route
+          field: unpaved
+          relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value: {  }
+          entity_type: club_route
+          entity_field: unpaved
+          plugin_id: numeric
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: ''
           group: 1
           exposed: true
           expose:
-            operator_id: field_activity_target_id_op
-            label: 'Ride type'
-            description: ''
+            operator_id: unpaved_op
+            label: 'Unpaved pct'
+            description: null
             use_operator: false
-            operator: field_activity_target_id_op
+            operator: unpaved_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_activity_target_id
+            identifier: unpaved
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-            reduce: false
-          is_grouped: false
+            min_placeholder: null
+            max_placeholder: null
+            placeholder: null
+          is_grouped: true
           group_info:
-            label: ''
+            label: 'Unpaved pct'
             description: ''
-            identifier: ''
+            identifier: unpaved
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
             default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: activities
-          type: select
-          hierarchy: false
-          limit: true
-          error_message: true
+            group_items:
+              1:
+                title: 0-2%
+                operator: between
+                value:
+                  min: '0'
+                  max: '2'
+                  value: '2'
+              2:
+                title: 3-30%
+                operator: between
+                value:
+                  min: '3'
+                  max: '30'
+                  value: ''
+              3:
+                title: '>30%'
+                operator: '>'
+                value:
+                  min: ''
+                  max: ''
+                  value: '30'
+              4:
+                title: Unknown
+                operator: '='
+                value:
+                  min: ''
+                  max: ''
+                  value: '-1'
+              5:
+                title: Missing
+                operator: empty
+                value:
+                  min: ''
+                  max: ''
+                  value: ''
       filter_groups:
         operator: AND
         groups:
@@ -1971,34 +1781,22 @@ display:
         filter_groups: false
         header: false
         footer: false
-      relationships:
-        reverse__node__field_rwgps_routes:
-          id: reverse__node__field_rwgps_routes
-          table: club_route
-          field: reverse__node__field_rwgps_routes
-          relationship: none
-          group_type: group
-          admin_label: field_rwgps_routes
-          entity_type: club_route
-          plugin_id: entity_reverse
-          required: false
+      relationships: {  }
       css_class: ''
       use_ajax: true
-      group_by: true
+      group_by: false
       display_description: ''
       header:
-        area:
-          id: area
+        area_text_custom:
+          id: area_text_custom
           table: views
-          field: area
+          field: area_text_custom
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: text
+          plugin_id: text_custom
           empty: false
-          content:
-            value: "Routes are maintained at RideWithGPS and synced here as they appear on ride pages.\r\nClick RWGPS ID to open the RWGPS route page. Click route name to view route data or edit starting location (for orphaned routes without a ride page).\r\nClick column headers to sort the table. Best viewed in landscape on phones. "
-            format: basic_html
+          content: "<details class=\"info-details\">\r\n<summary>About Routes</summary>\r\n<p>Routes are maintained at RideWithGPS and automatically synced to the website database as they are added to ride pages. Each route appears here once, but may appear on multiple ride pages.\r\n<ul>\r\n<li>Click the RWGPS ID to view the route on RWGPS.</li>\r\n<li>Click the route name to view route data stored on the website.</li>\r\n<li>Click column headers to sort the table. Best viewed in landscape on phones.</li>\r\n<li>Use filters to find specific routes; Unpaved pct will identify gravel routes.</li>\r\n</ul>  \r\n</p>\r\n</details>\r\n<hr>"
           tokenize: false
         result:
           id: result
@@ -2035,9 +1833,7 @@ display:
         - url
         - url.query_args
         - user.roles
-      tags:
-        - 'config:field.storage.node.field_activity'
-        - 'config:field.storage.node.field_gravel_category'
+      tags: {  }
   data_export_1:
     id: data_export_1
     display_title: 'Data export'

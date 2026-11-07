@@ -1,0 +1,11 @@
+uuid: 93d1d66d-f3ad-42f2-a45f-03a3eed9f29e
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.banner_short
+label: Banner-short
+description: null
+targetEntityType: media
+cache: true

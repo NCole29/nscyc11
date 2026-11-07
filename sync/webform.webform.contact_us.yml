@@ -27,14 +27,21 @@ elements: |-
       invisible:
         ':input[name="id"]':
           value: '0'
-    '#markup': '<h3>Have a question?</h3><p>Are you a new member? Check out the <a href="/first-time-nsc-riders-qa"><u>First-time NSC Riders Q&amp;A.</u></a></p><p>Route your message to the appropriate club leader by selecting a topic in the "To" field.</p>'
+    '#markup': '<h3>Have a question?</h3><p>Are you a new member? Check out the <a href="/first-time-nsc-riders-qa"><u>First-time NSC Riders Q&amp;A.</u></a></p><p>Use the "To" field to route your message to the appropriate club leaders.</p>'
   treasurer:
     '#type': webform_message
     '#states':
       visible:
         ':input[name="to"]':
           value: '63'
-    '#message_message': '<p>Ride leaders: This form does not accept attachments. Please send receipts and ride reimbursement forms to <a href="mailto:treasurer@nscyc.org">treasurer@nscyc.org</a> from your email.&nbsp;</p>'
+    '#message_message': '<p><strong>Have receipts?</strong> This form does not accept attachments. Please send receipts and ride reimbursement forms to <a href="mailto:treasurer@nscyc.org">treasurer@nscyc.org</a> from your email.&nbsp;</p>'
+  moderators:
+    '#type': webform_message
+    '#states':
+      visible:
+        ':input[name="to"]':
+          value: '60'
+    '#message_message': '<p><strong>Ride leaders: </strong>If a ride cancellation notice is delayed, please text a moderator. You can find their phone numbers by logging in and going to the Members menu.</p>'
   to:
     '#type': webform_entity_select
     '#title': To

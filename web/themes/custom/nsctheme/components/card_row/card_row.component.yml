@@ -11,14 +11,11 @@ props:
       type: string
       label: The image URL or data.
     date:
-      type: string
+      type: ['string', 'null']
       label: Date
     location:
-      type: string
+      type: ['string', 'null']
       title: Location
-    link:
-      type: string
-      title: URL
 slots:
   content:
     title: Content

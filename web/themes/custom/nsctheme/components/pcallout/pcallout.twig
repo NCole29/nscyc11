@@ -1,0 +1,16 @@
+{#  pcallout.twig is "included" in nsctheme/templates/paragraphs/paragraph--callout.html.twig
+    which must be modified if fields are added.
+
+    Callout shade and border colors are set in Appearance > NSC SOLO subtheme > NSC theme settings > Design components.
+    And made available to twig by hook_preprocess_paragraph in nsctheme.theme.
+ #}
+
+<div class="pcallout" style="background-color: {{ shade_color|e('html_attr') }}; 
+  height: {{ height|e('html_attr') }}; border-left: 6px solid {{ border|e('html_attr') }};">
+
+  <div>
+    <h3><center>{{ title }}</center></h3>
+    {{ content }}
+  </div>
+
+</div>

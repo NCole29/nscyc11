@@ -1,0 +1,23 @@
+uuid: b5c8f488-3025-43de-8561-428a3edcc7ed
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: banner_short
+label: Banner-short
+effects:
+  8be6cac9-ea24-439c-b760-fedd57aa02d6:
+    uuid: 8be6cac9-ea24-439c-b760-fedd57aa02d6
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 2015
+      height: 500
+      crop_type: focal_point
+  a2e8cb9e-8f85-4437-806c-4a0cded5e933:
+    uuid: a2e8cb9e-8f85-4437-806c-4a0cded5e933
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

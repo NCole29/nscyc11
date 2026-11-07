@@ -1,0 +1,41 @@
+uuid: 9bc2e277-555a-4735-9bb5-d24ede81fc50
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.banner_short
+    - field.field.media.image_crop_20_7.field_image_category
+    - field.field.media.image_crop_20_7.field_media_image
+    - image.style.thumbnail_20_5
+    - media.type.image_crop_20_7
+  module:
+    - focal_point
+    - imce
+_core:
+  default_config_hash: qoT7oMQ4YFSQEMlQpxE5YLZlnN9E2n4uFyj8DbM_kfU
+id: media.image_crop_20_7.banner_short
+targetEntityType: media
+bundle: image_crop_20_7
+mode: banner_short
+content:
+  field_media_image:
+    type: image_focal_point
+    weight: 0
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail_20_5
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings:
+      imce:
+        enabled: false
+hidden:
+  created: true
+  field_image_category: true
+  name: true
+  path: true
+  publish_on: true
+  status: true
+  uid: true
+  unpublish_on: true

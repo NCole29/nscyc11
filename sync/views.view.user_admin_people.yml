@@ -7,12 +7,9 @@ dependencies:
     - user.role.board
     - user.role.civicrm
     - user.role.events_coordinator
-    - user.role.member
     - user.role.rides_coordinator
     - user.role.site_admin
   module:
-    - civicrm_entity
-    - options
     - role_delegation
     - user
 id: user_admin_people
@@ -710,95 +707,6 @@ display:
           fields:
             name: name
             mail: mail
-        name:
-          id: name
-          table: users_field_data
-          field: name
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: user
-          entity_field: name
-          plugin_id: string
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: name_op
-            label: Name
-            description: ''
-            use_operator: false
-            operator: name_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: name
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        status:
-          id: status
-          table: users_field_data
-          field: status
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: user
-          entity_field: status
-          plugin_id: boolean
-          operator: '='
-          value: '1'
-          group: 1
-          exposed: true
-          expose:
-            operator_id: ''
-            label: Active
-            description: null
-            use_operator: false
-            operator: status_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: status
-            required: true
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: true
-          group_info:
-            label: Status
-            description: ''
-            identifier: status
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items:
-              1:
-                title: Active
-                operator: '='
-                value: '1'
-              2:
-                title: Blocked
-                operator: '='
-                value: '0'
         roles_target_id:
           id: roles_target_id
           table: user__roles
@@ -886,6 +794,58 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        roles_target_id_1:
+          id: roles_target_id_1
+          table: user__roles
+          field: roles_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: user
+          entity_field: roles
+          plugin_id: user_roles
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: roles_target_id_1_op
+            label: Roles
+            description: null
+            use_operator: false
+            operator: roles_target_id_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: roles_target_id_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: true
+          group_info:
+            label: 'Expired member'
+            description: ''
+            identifier: roles_target_id_1
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: Expired
+                operator: not
+                value:
+                  member: member
+              2:
+                title: 'Not expired'
+                operator: or
+                value:
+                  member: member
+          reduce_duplicates: false
       filter_groups:
         operator: AND
         groups:
@@ -1575,6 +1535,17 @@ display:
         fields: false
         header: false
       header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text_custom
+          empty: false
+          content: "<details class=\"info-details\">\r\n<summary>Managing Ride Leaders (Ride Coordinators and Site Admins only)</summary>\r\nTo assign or remove a Ride Leader, you must update the CiviCRM ride leader mailing list group, then synchronize Drupal with CiviCRM. System updates flow one way (from CiviCRM to Drupal), so you cannot manage ride leaders directly within Drupal. Only users with the Ride Leader role in Drupal can be selected as leaders on ride pages.\r\n<p><strong>Step 1: Update the contact in CiviCRM</strong>\r\n<ul>\r\n<li><a href=\"/civicrm/contact/search?reset=1\" target=\"_blank\">Find the contact</a></li>\r\n<li>Add or remove the Ride Leader group.</li>\r\n</ul></p>\r\n<p><strong>Step 2: Sync changes to Drupal</strong>\r\n<ul>\r\n<li>Go to <a href=\"/admin/config/civicrm/civicrm-group-roles/manual-sync\" target=\"_blank\">People > CiviGroup Roles Sync</a></li>\r\n<li>Click \"Synchronize CiviCRM groups to Drupal Roles now\".</li>\r\n</ul></p>\r\n</details>\r\n<hr>"
+          tokenize: false
         result:
           id: result
           table: views
@@ -1584,7 +1555,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: true
-          content: "<h4>Displaying @start - @end of @total current and past members.</h4> \r\n<li>To view account,  click Username.</li>\r\n<li>To edit account, click Edit under Operations (subject to permission).</li>"
+          content: "<h4>Displaying @start - @end of @total current and past members.</h4> \r\n<ul>\r\n<li>To view account,  click Username.</li>\r\n<li>To edit account, click Edit under Operations (subject to permission).</li>\r\n</ul>"
       display_extenders: {  }
       path: admin/people/list
       menu:

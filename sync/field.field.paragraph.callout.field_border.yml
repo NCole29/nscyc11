@@ -1,0 +1,23 @@
+uuid: 39794a72-87fd-4224-ab3b-8cedac1b795c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_border
+    - paragraphs.paragraphs_type.callout
+id: paragraph.callout.field_border
+field_name: field_border
+entity_type: paragraph
+bundle: callout
+label: Border
+description: 'Left, thick border is on by default and can be turned off.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

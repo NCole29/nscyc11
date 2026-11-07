@@ -7,7 +7,6 @@ dependencies:
     - field.storage.node.field_activity
     - field.storage.node.field_location
     - field.storage.node.field_ride_leader
-    - system.menu.main
     - taxonomy.vocabulary.activities
     - user.role.administrator
     - user.role.board
@@ -16,7 +15,6 @@ dependencies:
     - user.role.rides_coordinator
     - user.role.site_admin
   module:
-    - address
     - club_ride_tools
     - datetime
     - node
@@ -1342,20 +1340,14 @@ display:
       display_extenders: {  }
       path: ride_schedule
       menu:
-        type: normal
+        type: none
         title: 'Ride schedules'
         description: ''
         weight: -47
-        enabled: false
         expanded: false
         menu_name: main
         parent: 'menu_link_content:cbaa4cb1-8c81-455a-b17c-c243a2ce1960'
         context: '0'
-        as_local_task: false
-        local_task_link_title: ''
-        local_task_parent: 'views_view:view.calendar.page_2'
-        local_task_weight: 0
-        local_task_custom_parent_route: ''
       tab_options:
         type: none
         title: ''

@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * Theme override of an image.
+
+ * Removed  'solo-image' from classes because it made images "jump" when hovering.
+ */
+#}
+{% set classes = [
+  style_name ? 'image-style-' ~ style_name|clean_class,
+]
+%}
+<img{{ attributes.addClass(classes) }} />

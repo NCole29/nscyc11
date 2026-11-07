@@ -1,0 +1,23 @@
+uuid: bebc3f1d-744e-4cbe-9e99-75e930f8cca1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_shaded_background
+    - paragraphs.paragraphs_type.callout
+id: paragraph.callout.field_shaded_background
+field_name: field_shaded_background
+entity_type: paragraph
+bundle: callout
+label: 'Shaded background'
+description: 'If unchecked, the background is white. The shaded background color is set at Appearance > NSC theme.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

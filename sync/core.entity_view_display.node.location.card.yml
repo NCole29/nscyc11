@@ -13,7 +13,6 @@ dependencies:
     - field.field.node.location.field_restrooms
     - node.type.location
   module:
-    - address
     - layout_builder
     - link
     - user
@@ -28,26 +27,20 @@ targetEntityType: node
 bundle: location
 mode: card
 content:
-  field_address:
-    type: address_plain
-    label: visually_hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
   field_google_map:
     type: link
     label: visually_hidden
     settings:
-      trim_length: null
+      trim_length: 80
       url_only: false
       url_plain: false
-      rel: '0'
-      target: '0'
+      rel: ''
+      target: ''
     third_party_settings: {  }
-    weight: 1
+    weight: 0
     region: content
 hidden:
+  field_address: true
   field_coordinates: true
   field_inactive: true
   field_location_info: true

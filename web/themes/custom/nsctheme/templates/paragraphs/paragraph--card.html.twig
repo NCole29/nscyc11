@@ -2,7 +2,7 @@
    and made available to Twig via a preprocess hook in nscheme.theme 
 #}
 
-{% set bg_color = paragraph.field_shaded_background.value ? shade_color: '#ededed' %}
+{% set bg_color = paragraph.field_shaded_background.value ? shade_color: '#ffffff' %}
 {% set height = paragraph.field_full_height.value ? '100%': 'auto' %}
 
 {{ include('nsctheme:pcard', {

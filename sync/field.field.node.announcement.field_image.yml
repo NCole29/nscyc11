@@ -14,7 +14,7 @@ field_name: field_image
 entity_type: node
 bundle: announcement
 label: Image
-description: 'An image is required. You can keep the default image, upload a new one, or choose one from the library. If you delete the default image, it will still be available in the library to add back later.'
+description: 'An image is required. You can keep the default image, upload a new one, or choose one from the library. If you delete the default image, it will be available in the library to add back later.'
 required: true
 translatable: false
 default_value:

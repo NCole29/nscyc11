@@ -1,0 +1,26 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: pcallout
+description: Paragraph callout
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Heading
+      examples:
+        - Section title
+    background:
+      title: Background
+      type: ['string', 'null']
+      default: "w3-white-background"
+    height:
+      title: Height
+      type: ['string', 'null']
+      default: "auto"
+    border:
+      title: "No border"
+      type: ['string', 'null']
+      default: "0"     
+slots:
+  content:
+    title: Content

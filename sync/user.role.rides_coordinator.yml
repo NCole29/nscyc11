@@ -69,7 +69,6 @@ permissions:
   - 'edit any location content'
   - 'edit any recurring_ride content'
   - 'edit any ride content'
-  - 'edit club_route entity'
   - 'edit club_schedule entity'
   - 'edit groups'
   - 'edit message templates'

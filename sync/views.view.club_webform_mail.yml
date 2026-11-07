@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - system.menu.main
+    - system.menu.club-reports
     - user.role.administrator
     - user.role.board
     - webform.webform.contact_us
@@ -880,15 +880,15 @@ display:
         filter_groups: false
       display_description: ''
       display_extenders: {  }
-      path: contactform-mail
+      path: report/contactform-mail
       menu:
         type: normal
         title: 'Contact form messages'
         description: ''
         weight: 0
         expanded: false
-        menu_name: main
-        parent: 'menu_link_content:cbaa4cb1-8c81-455a-b17c-c243a2ce1960'
+        menu_name: club-reports
+        parent: ''
         context: '0'
     cache_metadata:
       max-age: -1

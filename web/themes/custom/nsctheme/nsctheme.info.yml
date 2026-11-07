@@ -3,9 +3,10 @@ type: theme
 base theme: solo
 core_version_requirement: ^10 || ^11
 description: 'NSC subtheme of the SOLO theme.'
+ckeditor5-stylesheets:
+  - css/ckeditor5.css
 libraries:
   - nsctheme/nsctheme-global
-
 #Regions
 regions:
   highlighted: 'Highlighted'
@@ -14,13 +15,13 @@ regions:
   header: 'Header'
   primary_sidebar_menu: 'Primary Sidebar Menu'
   primary_menu: 'Primary Menu'
+  banner_pictures: 'Banner pictures'
   welcome_text: 'Welcome Text'
   top_first: 'Top First Container'
   top_second: 'Top Second Container'
   top_third: 'Top Third Container'
   system_messages: 'System Messages'
   page_title: 'Page Title'
-  banner_pictures: 'Banner pictures'
   breadcrumb: 'Breadcrumb'
   sidebar_first: 'Left Sidebar'
   content: 'Content'

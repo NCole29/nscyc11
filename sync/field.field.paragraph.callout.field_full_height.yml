@@ -1,0 +1,23 @@
+uuid: 17b499a9-7998-486b-b64c-2956233ad801
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_full_height
+    - paragraphs.paragraphs_type.callout
+id: paragraph.callout.field_full_height
+field_name: field_full_height
+entity_type: paragraph
+bundle: callout
+label: 'Full height'
+description: 'Height will fit contents by default. Select full height if you want multiple callouts or cards placed side-by-side to be the same height. '
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Full height (fill container)'
+  off_label: 'Fit contents'
+field_type: boolean

@@ -13,7 +13,7 @@ dependencies:
 id: nsctheme_rwgpsclubaccountsignuplink
 theme: nsctheme
 region: content
-weight: -12
+weight: -11
 provider: null
 plugin: 'block_content:66f91723-36c2-4b75-aee6-8bc3b0a3bc54'
 settings:

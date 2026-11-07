@@ -1,0 +1,182 @@
+/* CKEDITOR STYLES (for display in the editor) */
+/* Prefix ".ck-" applies within the editor */
+.ck-content, p {
+  min-height: 100%;
+  overflow-wrap: break-word;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 2rem;
+  font-weight: normal;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.ck-content h2,
+.ck-content h3 {
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin-block: 0.75rem;
+  margin-inline: 0;
+}
+.ck-content h2 {
+  font-size: 2rem;
+  color: #155295!important;
+  font-weight: 600!important;
+}
+
+.ck-content h3 {
+  font-size: 1.5rem;
+  color: #0d3158;
+  font-weight: 400;
+}
+
+.ck-content a,
+.ck-content a:link {
+  color: #155295;
+  text-decoration: none;
+  outline: none;
+}
+
+.ck-content table li {
+  list-style: disc !important;
+} 
+.ck-content table tr:nth-child(even) {
+  background-color: #f7f7f7 !important;
+}
+.ck-content table tr:nth-child(odd) {
+  background-color: #ffffff !important;
+}
+
+.ck-content table th {
+  background-color: #ededed !important;
+}
+
+p.small {
+  font-size: 85%;
+  line-height: 1.4;
+}
+p.medium {
+  font-size: 95%;
+  line-height: 1.5;
+}
+p.regular {
+  font-size: 100%;
+  line-height: 1.5;
+}
+p.large {
+  font-size: 115%;
+  line-height: 1.5;
+}
+
+p.button {
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 2rem;  
+  display: inline-block;
+  width: fit-content;
+  margin:auto;
+  border: 1px solid #134a84;
+  border-radius: 0.3rem;
+  padding: 0.25rem 0.5rem; 
+  margin-bottom: 1rem;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  color: #ffffff!important;
+  background-color: #134a84;
+}
+p.button a {
+  color: #ffffff!important;
+}
+p.button a:hover {
+  background-color: #134a84 ;
+  color: #c3dcf6!important; 
+}
+
+/* File icons - css from /core/themes/classy/css */
+/* Images in /core/themes/classy/images/icons copied to clubtheme/images */
+.file {
+  display: inline-block;
+  min-height: 16px;
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+.file__size {
+  color: #55565b;
+}
+.file--general,
+.file--application-octet-stream {
+  background-image: url(images/application-octet-stream.png);
+}
+.file--package-x-generic {
+  background-image: url(images/package-x-generic.png);
+}
+.file--x-office-spreadsheet {
+  background-image: url(images/x-office-spreadsheet.png);
+}
+.file--x-office-document {
+  background-image: url(images/x-office-document.png);
+}
+.file--x-office-presentation {
+  background-image: url(images/x-office-presentation.png);
+}
+.file--text-x-script {
+  background-image: url(images/text-x-script.png);
+}
+.file--text-html {
+  background-image: url(images/text-html.png);
+}
+.file--text-plain {
+  background-image: url(images/text-plain.png);
+}
+.file--application-pdf {
+  background-image: url(images/application-pdf.png);
+}
+.file--application-x-executable {
+  background-image: url(images/application-x-executable.png);
+}
+.file--audio {
+  background-image: url(images/audio-x-generic.png);
+}
+.file--video {
+  background-image: url(images/video-x-generic.png);
+}
+.file--text {
+  background-image: url(images/text-x-generic.png);
+}
+.file--image {
+  background-image: url(images/image-x-generic.png);
+}
+/*-----------------------------------------------------------------------
+  Blockquote - quoted text in smaller font size and with left border
+  ----------------------------------------------------------------------*/
+  .ck-content blockquote,
+  blockquote {
+    position: relative;
+    margin-right: 1rem !important;
+    margin-left: 2rem !important;
+    font-size: 0.9rem !important;
+    font-style: italic;
+    color: var(--bg-d3) !important;
+    border-left: 8px solid var(--bg-d3) !important;
+    border-width: 5px !important;
+    padding-left: 0.7rem !important;
+  }
+
+  [dir="rtl"] blockquote {
+    margin-right: 0.5rem;
+  }
+  blockquote::before {
+    position: absolute;
+    content: ''!important;
+    left: -0.9rem; /* LTR */
+    line-height: 1em;
+  }
+  [dir="rtl"] blockquote::before {
+    right: -0.5rem;
+  }
+  blockquote::after {
+    content: '';
+  }

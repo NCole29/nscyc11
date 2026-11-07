@@ -1,0 +1,31 @@
+uuid: 033d0ff6-dfdb-4418-8623-b926031966f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.preview
+    - field.field.paragraph.callout.field_border
+    - field.field.paragraph.callout.field_full_height
+    - field.field.paragraph.callout.field_ptext
+    - field.field.paragraph.callout.field_shaded_background
+    - field.field.paragraph.callout.field_title
+    - paragraphs.paragraphs_type.callout
+  module:
+    - text
+id: paragraph.callout.preview
+targetEntityType: paragraph
+bundle: callout
+mode: preview
+content:
+  field_ptext:
+    type: text_default
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  field_border: true
+  field_full_height: true
+  field_shaded_background: true
+  field_title: true

@@ -1,0 +1,18 @@
+uuid: ec48de90-b979-4d09-b8e9-d51f05ad82a4
+langcode: en
+status: true
+dependencies:
+  theme:
+    - nsctheme
+id: nsctheme_pagetitle
+theme: nsctheme
+region: page_title
+weight: 0
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

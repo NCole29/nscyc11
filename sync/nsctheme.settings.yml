@@ -784,3 +784,9 @@ solo_layout_footer_2col_statistic: solo-col-1-1
 solo_layout_footer_3col_statistic: solo-col-1-1-1
 solo_layout_footer_2col_webform: solo-col-1-1
 solo_layout_footer_3col_webform: solo-col-1-1-1
+nsctheme_rwgps_url: /ride-gps-club-account-0
+nsctheme_callout_br: '#134a85'
+nsctheme_callout_bt_bg: '#134a85'
+nsctheme_callout_bt_tx: '#ffffff'
+nsctheme_callout_bg: '#edf4fc'
+nsctheme_card_bg: '#F0F7FC'

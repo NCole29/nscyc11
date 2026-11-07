@@ -1,0 +1,39 @@
+uuid: 5c60aa31-e671-4033-813f-4a2f7b070f4f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.banner_short
+    - field.field.media.standard_16_9.field_image_category
+    - field.field.media.standard_16_9.field_media_image
+    - image.style.thumbnail_focal_16_9
+    - media.type.standard_16_9
+  module:
+    - focal_point
+    - imce
+id: media.standard_16_9.banner_short
+targetEntityType: media
+bundle: standard_16_9
+mode: banner_short
+content:
+  field_media_image:
+    type: image_focal_point
+    weight: 0
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail_focal_16_9
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings:
+      imce:
+        enabled: false
+hidden:
+  created: true
+  field_image_category: true
+  name: true
+  path: true
+  publish_on: true
+  status: true
+  uid: true
+  unpublish_on: true

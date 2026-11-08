@@ -33,7 +33,6 @@ dependencies:
     - layout_builder
     - media
     - menu_admin_per_menu
-    - navigation
     - node
     - paragraphs
     - quick_node_clone
@@ -56,7 +55,6 @@ permissions:
   - 'access files overview'
   - 'access help pages'
   - 'access media overview'
-  - 'access navigation'
   - 'access own webform configuration'
   - 'access shortcuts'
   - 'access taxonomy overview'

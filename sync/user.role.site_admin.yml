@@ -39,7 +39,6 @@ dependencies:
     - layout_builder
     - media
     - menu_admin_per_menu
-    - navigation
     - node
     - paragraphs
     - path
@@ -75,7 +74,6 @@ permissions:
   - 'access files overview'
   - 'access help pages'
   - 'access media overview'
-  - 'access navigation'
   - 'access shortcuts'
   - 'access taxonomy overview'
   - 'access user profiles'

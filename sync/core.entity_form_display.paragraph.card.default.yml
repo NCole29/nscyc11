@@ -57,7 +57,7 @@ third_party_settings:
     group_image:
       children:
         - field_image
-      label: 'Upload or select an image'
+      label: 'Upload or select an image (required)'
       region: content
       parent_name: group_content
       weight: 8
@@ -66,8 +66,9 @@ third_party_settings:
         classes: ''
         show_empty_fields: false
         id: ''
+        label_as_html: false
         open: false
-        description: ''
+        description: 'Use a callout if you are not placing an image.'
         required_fields: true
 _core:
   default_config_hash: Iuk-TBUoPgndy7aHxDLSiTz3XIVAPs6z7HzhTU_rFjM

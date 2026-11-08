@@ -12,7 +12,6 @@ dependencies:
     - comment
     - content_moderation
     - media
-    - navigation
     - node
     - quick_node_clone
     - smart_date_recur
@@ -25,7 +24,6 @@ is_admin: false
 permissions:
   - 'access comments'
   - 'access content overview'
-  - 'access navigation'
   - 'add club_route entity'
   - 'cancel smart date recur instances'
   - 'change own username'

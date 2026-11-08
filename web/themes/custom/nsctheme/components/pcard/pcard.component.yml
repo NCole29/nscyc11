@@ -23,7 +23,7 @@ slots:
     title: Content
   image:
     title: Image
-    type: ['string','null']
+    type: 'string'
     label: The image URL or data.
   link:
     title: URL

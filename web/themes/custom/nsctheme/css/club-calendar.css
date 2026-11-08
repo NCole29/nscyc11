@@ -1,9 +1,6 @@
 /* CALENDAR_VIEW module */
 
-/* Revise pager display and remove caption since it duplicates the pager */
-.calendar-view-pager li {
-  list-style-type: none; 
-}
+
 .calendar-view-pager__reset a,
 .calendar-view-pager .pager__item > * {
   padding: 2rem 0.5rem;
@@ -13,9 +10,11 @@
   font-weight: bold;
   text-decoration: none;
 }
+
 .pager__item a {
   border: 0 !important;
 }
+
 .calendar-view-table caption {
   display: none!important;
 }

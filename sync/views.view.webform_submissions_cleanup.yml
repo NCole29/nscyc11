@@ -4,14 +4,12 @@ status: true
 dependencies:
   config:
     - system.menu.admin
-    - system.menu.main
     - user.role.administrator
     - webform.webform.board_meeting_minutes
     - webform.webform.century
     - webform.webform.century_members_
     - webform.webform.change_log
     - webform.webform.club_reports
-    - webform.webform.contact_us
     - webform.webform.edit_contact_info
     - webform.webform.free_event
     - webform.webform.free_event_nologin
@@ -921,7 +919,7 @@ display:
         type: normal
         title: 'Webform submission cleanup'
         description: ''
-        weight: 0
+        weight: 15
         expanded: false
         menu_name: admin
         parent: system.admin_content

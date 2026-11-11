@@ -3,7 +3,7 @@
         'name' => 'drupal/recommended-project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'a49737d8b9559da31cc847b7bafc8036113a5de3',
+        'reference' => 'baa16cbc496c62da63deed9935745bbee22e8876',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -1210,7 +1210,7 @@
         'drupal/recommended-project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'a49737d8b9559da31cc847b7bafc8036113a5de3',
+            'reference' => 'baa16cbc496c62da63deed9935745bbee22e8876',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

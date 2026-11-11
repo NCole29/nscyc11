@@ -1,0 +1,35 @@
+.two-column-card {
+    display: grid;
+    grid-template-columns: 1fr 2fr; 
+    gap: 1rem;
+    max-width: 100%;
+    margin: 1rem auto;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 1rem;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.image-column img {
+  height: auto;
+  display: block; 
+  border-radius: .5rem;
+}
+
+.card-more {
+  text-align: right;
+  margin-right: 1rem;
+  font-size: 2rem;
+}
+
+/* Responsive design: Stack vertically on smaller screens */
+@media screen and (max-width: 768px) {
+  .two-column-card {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

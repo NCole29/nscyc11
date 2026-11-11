@@ -111,8 +111,17 @@ a:hover {
   color: #ffffff !important;
   background-color: #0f3967 !important;
   padding: 0.25rem 1rem;
-  margin: 0 -1rem 0 -1rem;
+  margin: 0 -1rem;
 }
+
+/* Reports added in the past 7 days */
+.view-header .large {
+  color: #ffffff !important;
+  background-color: #0f3967 !important;
+  padding: 0.25rem 1rem;
+  margin: -.5rem -.5rem .5rem -.5rem; /* change margin to fit in border */
+}
+
 /* Ride Start map header (CSS class is added in the View) */
 .map-header {
   padding: 1rem;

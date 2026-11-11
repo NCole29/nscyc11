@@ -1,13 +1,16 @@
 .pcard {
-  display: table;
+  display: grid;
+  gap: .8rem;
   clear: both;
   min-height: 25.6rem;
   width: auto;
   padding: 1rem 1rem 0 1rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin: 1rem;
 }
 .pcard-image {
   width: auto;
   padding: 0;
 }
+

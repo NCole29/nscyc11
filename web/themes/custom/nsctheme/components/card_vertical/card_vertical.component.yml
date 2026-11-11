@@ -1,24 +1,25 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
-name: summary
-description: Teasers arranged in rows.
+name: card_vertical
+description: Cards arranged vertically.
 props:
   type: object
   properties:
     heading:
       type: string
       title: Heading
-    url:
-      type: string
-      title: URL
     image:
       type: string
-      label: Image
+      label: The image URL or data.
     date:
-      type: string
+      type: 'string'
       label: Date
     location:
-      type: string
+      type: 'string'
       title: Location
+    link: 
+      type: string
+      title: Link to content
 slots:
   content:
     title: Content
+

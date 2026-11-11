@@ -12,9 +12,39 @@ function nsctheme_theme_suggestions_block_alter(array &$suggestions, array $vari
 }
 
 /**
+ * Implements hook_preprocess_block() to hide the "Reports added in the past 7 days" if empty.
+ */
+function nsctheme_preprocess_block(&$variables) {
+
+  // Check if this block is a Views block
+  if (isset($variables['elements']['#base_plugin_id']) && $variables['elements']['#base_plugin_id'] === 'views_block') {
+
+    // Extract the view ID and display ID
+    $derivative_id = $variables['elements']['#derivative_plugin_id'];
+    list($view_id, $display_id) = explode('-', $derivative_id, 2);
+
+    // Target the specific view
+    if ($view_id === 'club_file_uploads' and $display_id == 'recent_files') {
+
+      // Get the view executable from the elements
+      $view = !empty($variables['elements']['content']['#view']) ? $variables['elements']['content']['#view'] : null;
+      
+      // If the view exists and has no result, hide the block.
+      if ($view) {
+        $result = $view->result[0]; 
+        if (is_null($result->_entity)) {
+          $variables['content'] = [];
+        }
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_preprocess_page()
  */
 function nsctheme_preprocess_page(&$variables) {
+  /* Get the  settings entered through the UI at Appearance > NSC SOLO subtheme */
   $variables['sm_icon_rwgps'] = theme_get_setting('sm_icon_rwgps');
   $variables['sm_icon_strava'] = theme_get_setting('sm_icon_strava');
 }
@@ -26,12 +56,12 @@ function nsctheme_preprocess_paragraph(&$variables) {
   $paragraph = $variables['paragraph'];
   $ptype = $paragraph->getType();
 
+  /* Get the color settings entered through the UI at Appearance > NSC SOLO subtheme */
   switch($ptype) {
     case 'callout':  
       $variables['border_color'] = theme_get_setting('nsctheme_callout_br', 'nsctheme');
       $variables['shade_color']  = theme_get_setting('nsctheme_callout_bg', 'nsctheme');
     break;
-
     case 'card':
       $variables['shade_color']  = theme_get_setting('nsctheme_card_bg', 'nsctheme');
     break;
@@ -45,6 +75,7 @@ function nsctheme_preprocess_smart_date_recurring_text_rule(&$variables) {
   // Load the current node/entity from the route:
   $node = \Drupal::routeMatch()->getParameter('node');
 
+  /* Make the custom recurring repeat role available to twig */
   if ($node && $node->hasField('field_custom_repeat_rule')) {
     $variables['custom_rule'] = $node->get('field_custom_repeat_rule')->value;
   }

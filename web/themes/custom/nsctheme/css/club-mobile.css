@@ -1,4 +1,4 @@
-@media(max-width: 767px) {
+@media(width <= 767px) {
   h2 {
     font-size:20px!important;
     margin:0;
@@ -10,10 +10,15 @@
   p {
     margin-bottom: .5rem;
   }
+
   .site-logo-img {
-    height:auto!important;
-    width:auto;
-    padding-bottom: 1rem;
+    height:90%!important;
+    padding-bottom: .5rem;
+  }  
+
+  /* Reports added in the past 7 days */
+  .view-club-file-uploads {
+    margin-top: 1rem;
   }
 
   /* User account menu on top right of home page */
@@ -47,8 +52,7 @@
   }
 }
 
-
-@media(min-width: 690px) {
+@media(width >= 690px) {
   .layout--twocol-section.layout--twocol-section--50-50 > .layout__region--first,
   .layout--twocol-section.layout--twocol-section--50-50 > .layout__region--second {
     padding-right:1rem;

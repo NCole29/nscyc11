@@ -419,7 +419,7 @@ abstract class Properties
         }
 
         foreach ($elements as $keys) {
-            $reference = &$reference[$keys]; //* @phpstan-ignore offsetAccess.nonOffsetAccessible (I'm not sure what this is doing)
+            $reference = &$reference[$keys]; //* @phpstan-ignore-line
         }
 
         return $reference;
@@ -855,7 +855,7 @@ abstract class Properties
     public function setLineStyleProperty(string $propertyName, mixed $value): self
     {
         $this->activateObject();
-        $this->lineStyleProperties[$propertyName] = $value; //* @phpstan-ignore assign.propertyType (Too complicated)
+        $this->lineStyleProperties[$propertyName] = $value; //* @phpstan-ignore-line
 
         return $this;
     }

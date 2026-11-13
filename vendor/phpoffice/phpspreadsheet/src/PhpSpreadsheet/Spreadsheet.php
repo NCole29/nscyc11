@@ -528,7 +528,7 @@ class Spreadsheet implements JsonSerializable
      */
     public function getCalculationEngineOrNull(): ?Calculation
     {
-        if (!isset($this->calculationEngine)) { //* @phpstan-ignore isset.initializedProperty (may be null at destruct time)
+        if (!isset($this->calculationEngine)) { //* @phpstan-ignore-line
             return null;
         }
 
@@ -1157,7 +1157,7 @@ class Spreadsheet implements JsonSerializable
      */
     public function copy(): self
     {
-        return unserialize(serialize($this)); //* @phpstan-ignore return.type (phpstan is wrong)
+        return unserialize(serialize($this)); //* @phpstan-ignore-line
     }
 
     /**

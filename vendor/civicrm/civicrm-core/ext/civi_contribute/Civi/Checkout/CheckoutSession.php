@@ -127,7 +127,12 @@ class CheckoutSession {
       ->single();
 
     $this->totalAmount = $contribution['total_amount'];
-    $this->testMode = $contribution['is_test'];
+    // If we explicitly set TestMode then respect it. Otherwise use the value on the Contribution
+    // When using Afform Contribution in "Create" mode they will match.
+    // In "Update" mode they might not - eg. you are testing an "invoice payment workflow"
+    //   and want to do an end-to-end test but without taking a live payment.
+    $sessionTestMode = \Civi::service('civi.checkout')->isTestMode();
+    $this->testMode = $sessionTestMode ?: $contribution['is_test'];
 
     // set default messages
     // NOTE: we use "payment" instead of checkout
@@ -549,7 +554,7 @@ class CheckoutSession {
         ->addValue('contribution_id', $this->getContributionId())
         ->addValue('total_amount', $this->totalAmount)
         ->addValue('fee_amount', $this->feeAmount)
-        ->addValue('payment_processor_id', $this->getCheckoutOption()->getPaymentProcessorId())
+        ->addValue('payment_processor_id', $this->getCheckoutOption()->getPaymentProcessorId($this->isTestMode()))
         ->addValue('trxn_date', date('Ymd H:i:s'))
         ->addValue('trxn_id', $this->transactionId)
         ->addValue('order_reference', $this->orderReference)

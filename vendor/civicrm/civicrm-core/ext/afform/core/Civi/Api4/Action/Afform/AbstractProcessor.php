@@ -7,6 +7,7 @@ use Civi\Afform\Event\AfformPrefillEvent;
 use Civi\Afform\Event\AfformSubmitEvent;
 use Civi\Afform\FormDataModel;
 use Civi\API\Exception\UnauthorizedException;
+use Civi\Api4\AfformSubmission;
 use Civi\Api4\File;
 use Civi\Api4\Generic\Result;
 use Civi\Api4\Utils\CoreUtil;
@@ -48,6 +49,13 @@ abstract class AbstractProcessor extends \Civi\Api4\Generic\AbstractAction {
    * @var array
    */
   protected $_afform;
+
+  /**
+   * Contact id resolved by getSubmitterContactID(), or FALSE before it has been resolved.
+   *
+   * @var int|null|false
+   */
+  private $_submitterContactId = FALSE;
 
   /**
    * @var \Civi\Afform\FormDataModel
@@ -143,6 +151,53 @@ abstract class AbstractProcessor extends \Civi\Api4\Generic\AbstractAction {
   }
 
   /**
+   * Id of the stored submission being completed, if this is not a fresh submission.
+   *
+   * @return int|null
+   */
+  protected function getSubmissionId() {
+    return $this->args['sid'] ?? NULL;
+  }
+
+  /**
+   * Contact id that this form is being filled in on behalf of.
+   *
+   * Normally the logged-in user, but a stored submission is completed by someone else -
+   * an admin processing a form held back for manual processing, or the anonymous request
+   * behind an email-verification link. The values in it belong to the contact who
+   * submitted it, so resolving to whoever is processing it writes their answers onto the
+   * wrong contact.
+   *
+   * The lookup inherits this action's permission setting, so an untrusted request cannot
+   * act as another contact by passing their submission id.
+   *
+   * @return int|null
+   */
+  public function getSubmitterContactID(): ?int {
+    if ($this->_submitterContactId === FALSE) {
+      $submissionId = $this->getSubmissionId();
+      if (!$submissionId) {
+        $this->_submitterContactId = \CRM_Core_Session::getLoggedInContactID() ?: NULL;
+      }
+      else {
+        $submission = AfformSubmission::get($this->getCheckPermissions())
+          ->addSelect('contact_id')
+          ->addWhere('id', '=', $submissionId)
+          ->addWhere('afform_name', '=', $this->name)
+          ->execute()->first();
+        // Falling back to the current user here would write the submitted values onto
+        // whoever is processing the form, so refuse rather than act as the wrong contact
+        if (!$submission) {
+          throw new UnauthorizedException(E::ts('Submission %1 is not available to process.', [1 => $submissionId]));
+        }
+        // An anonymous submission has no contact, so nothing is autofilled
+        $this->_submitterContactId = $submission['contact_id'] ?: NULL;
+      }
+    }
+    return $this->_submitterContactId;
+  }
+
+  /**
    * Load all entities
    */
   protected function loadEntities() {
@@ -153,9 +208,9 @@ abstract class AbstractProcessor extends \Civi\Api4\Generic\AbstractAction {
     // When loading the whole form, process every entity in order of dependencies.
     // also when filling a single entity from an autocomplete, as that may affect other entities.
     else {
-      $sorter = new AfformEntitySortEvent($this->_afform, $this->_formDataModel, $this);
-      \Civi::dispatcher()->dispatch('civi.afform.sort.prefill', $sorter);
-      $entityNames = $sorter->getSortedEnties();
+      $sortEvent = new AfformEntitySortEvent($this->_afform, $this->_formDataModel, $this);
+      \Civi::dispatcher()->dispatch('civi.afform.sort.prefill', $sortEvent);
+      $entityNames = $sortEvent->getSorted();
     }
 
     foreach ($entityNames as $entityName) {
@@ -567,7 +622,7 @@ abstract class AbstractProcessor extends \Civi\Api4\Generic\AbstractAction {
   /**
    * @return string
    */
-  public function getName():string {
+  public function getName(): ?string {
     return $this->name;
   }
 
@@ -665,9 +720,12 @@ abstract class AbstractProcessor extends \Civi\Api4\Generic\AbstractAction {
           //   and must be run to pass the extra field values through to submit etc.
           continue;
         }
-        // Use default values from DisplayOnly fields + submittable fields on the form
+        // Use default values from DisplayOnly fields + submittable fields on the form.
+        // Hidden field defaults are appended last so they only fill fields the
+        // client omitted (submitted values take precedence over them).
         $values['fields'] = $this->getForcedDefaultValues($entity['fields']) +
-          array_intersect_key($values['fields'] ?? [], $submittableFields);
+          array_intersect_key($values['fields'] ?? [], $submittableFields) +
+          $this->getHiddenDefaultValues($entity['fields']);
         // Special handling for file fields
         foreach ($fileFields as $fileFieldName) {
           if (isset($values['fields'][$fileFieldName]) && is_array($values['fields'][$fileFieldName])) {
@@ -701,6 +759,8 @@ abstract class AbstractProcessor extends \Civi\Api4\Generic\AbstractAction {
             // As with the main entity, use default values from DisplayOnly fields + values from submittable fields
             $joinValues[$index] = $this->getForcedDefaultValues($entity['joins'][$joinEntity]['fields'] ?? []);
             $joinValues[$index] += array_intersect_key($vals, $allowedFields);
+            // Fill in Hidden field defaults the client omitted (does not override submitted values)
+            $joinValues[$index] += $this->getHiddenDefaultValues($entity['joins'][$joinEntity]['fields'] ?? []);
             // Unset prefilled file fields
             foreach ($fileFields as $fileFieldName) {
               if (isset($joinValues[$index][$fileFieldName]) && is_array($joinValues[$index][$fileFieldName])) {
@@ -781,11 +841,31 @@ abstract class AbstractProcessor extends \Civi\Api4\Generic\AbstractAction {
   }
 
   /**
+   * Get default values from Hidden fields
+   *
+   * @param array $fields
+   * @return array
+   */
+  protected function getHiddenDefaultValues(array $fields): array {
+    $values = [];
+    foreach ($fields as $field) {
+      $inputType = $field['defn']['input_type'] ?? NULL;
+      if ($inputType === 'Hidden' && isset($field['defn']['afform_default'])) {
+        $values[$field['name']] = $field['defn']['afform_default'];
+      }
+    }
+    return $values;
+  }
+
+  /**
    * Process form data
    */
   public function processFormData(array $entityValues) {
-    $entityWeights = \Civi\Afform\Utils::getEntityWeights($this->_formDataModel->getEntities(), $entityValues);
-    foreach ($entityWeights as $entityName) {
+    $sortEvent = new AfformEntitySortEvent($this->_afform, $this->_formDataModel, $this, $entityValues);
+    \Civi::dispatcher()->dispatch('civi.afform.sort.submit', $sortEvent);
+    $sortedEntityNames = $sortEvent->getSorted();
+
+    foreach ($sortedEntityNames as $entityName) {
       $entityType = $this->_formDataModel->getEntity($entityName)['type'];
       $records = $this->replaceReferences($entityName, $entityValues[$entityName]);
       $this->fillIdFields($records, $entityName);

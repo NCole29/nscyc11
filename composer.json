@@ -118,9 +118,9 @@
     "billboardjs/billboard": "3.4.1",
     "c3js/c3": "0.7.20",
     "civicrm/civicrm-asset-plugin": "^1.1",
-    "civicrm/civicrm-core": "~6.16.5",
-    "civicrm/civicrm-drupal-8": "~6.16.5",
-    "civicrm/civicrm-packages": "~6.16.5",
+    "civicrm/civicrm-core": "6.19.5",
+    "civicrm/civicrm-drupal-8": "6.19.5",
+    "civicrm/civicrm-packages": "6.19.5",
     "civicrm/cli-tools": "*",
     "civicrm/composer-downloads-plugin": "^3.0",
     "ckeditor/autogrow": "^4.18",
@@ -252,7 +252,11 @@
           "PKSA-x13r-n4wc-4gcr": "phpoffice/phpspreadsheet: same", 
           "PKSA-8cfg-tzhf-fr83": "phpoffice/phpspreadsheet: same", 
           "PKSA-hznc-gbby-6w16": "phpoffice/phpspreadsheet: same", 
-          "PKSA-jtdk-dcr5-f11n": "phpoffice/phpspreadsheet: same."
+          "PKSA-jtdk-dcr5-f11n": "phpoffice/phpspreadsheet: same.",
+          "PKSA-r15m-kszr-8n8q": "manually patched",
+          "PKSA-dxd5-wy68-pq29": "manually patched",
+          "PKSA-96jv-mtjg-g2v8": "manually patched",
+          "PKSA-zb3c-6qhx-m249": "manually patched"
       }
     },
     "source-fallback": false

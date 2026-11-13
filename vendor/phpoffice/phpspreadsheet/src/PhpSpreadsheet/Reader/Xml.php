@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use Composer\Pcre\Preg;
 use DateTime;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Cell\AddressHelper;
@@ -54,14 +53,9 @@ class Xml extends BaseReader
 
     public static function unentity(string $contents): string
     {
-        // fffe is invalid, replace with replacement char
-        $contents = str_replace("\u{fffe}", "\u{fffd}", $contents);
-        // use positive lookahead to "protect" valid xml entities
-        $contents = Preg::replace('/&(?=(?:amp|lt|gt|quot|apos|#[0-9]+|#x[0-9a-fA-F]+);)/', "\u{fffe}", trim($contents));
-        // now decode remaining html entities
+        $contents = preg_replace('/&(amp|lt|gt|quot|apos);/', "\u{fffe}\u{feff}\$1;", trim($contents)) ?? $contents;
         $contents = html_entity_decode($contents, ENT_NOQUOTES | ENT_SUBSTITUTE | ENT_HTML401, 'UTF-8');
-        // Escape remaining ampersands, restore those which were replaced with fffe
-        $contents = str_replace(['&', "\u{fffe}"], ['&amp;', '&'], $contents);
+        $contents = str_replace("\u{fffe}\u{feff}", '&', $contents);
 
         return $contents;
     }
@@ -657,7 +651,7 @@ class Xml extends BaseReader
                 }
                 $rangeCalculated = false;
                 if (isset($xmlX->WorksheetOptions->Panes->Pane->RangeSelection)) {
-                    if (Preg::isMatch('/^R(\d+)C(\d+):R(\d+)C(\d+)$/', (string) $xmlX->WorksheetOptions->Panes->Pane->RangeSelection, $selectionMatches)) {
+                    if (1 === preg_match('/^R(\d+)C(\d+):R(\d+)C(\d+)$/', (string) $xmlX->WorksheetOptions->Panes->Pane->RangeSelection, $selectionMatches)) {
                         $selectedCell = Coordinate::stringFromColumnIndex((int) $selectionMatches[2])
                             . $selectionMatches[1]
                             . ':'

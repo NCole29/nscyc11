@@ -206,20 +206,18 @@ class Format
             Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
 
             if (str_contains($value, ':')) {
-                /** @var DateTimeInterface|float|int|string */
                 $timeValue = Functions::scalar(DateTimeExcel\TimeValue::fromString($value));
                 if ($timeValue !== ExcelError::VALUE()) {
                     Functions::setReturnDateType($dateSetting);
 
-                    return $timeValue;
+                    return $timeValue; //* @phpstan-ignore-line
                 }
             }
-            /** @var DateTimeInterface|float|int|string */
             $dateValue = Functions::scalar(DateTimeExcel\DateValue::fromString($value));
             if ($dateValue !== ExcelError::VALUE()) {
                 Functions::setReturnDateType($dateSetting);
 
-                return $dateValue;
+                return $dateValue; //* @phpstan-ignore-line
             }
             Functions::setReturnDateType($dateSetting);
 

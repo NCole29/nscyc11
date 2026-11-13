@@ -163,8 +163,7 @@ class Averages extends AggregateBase
             sort($aArgs, SORT_NUMERIC);
             $valueCount = $valueCount / 2;
             if ($valueCount == floor($valueCount)) {
-                $valueCount = (int) $valueCount;
-                $returnValue = ($aArgs[$valueCount--] + $aArgs[$valueCount]) / 2;
+                $returnValue = ($aArgs[$valueCount--] + $aArgs[$valueCount]) / 2; //* @phpstan-ignore-line
             } else {
                 $valueCount = (int) floor($valueCount);
                 $returnValue = $aArgs[$valueCount];
@@ -244,7 +243,7 @@ class Averages extends AggregateBase
                         $maxfreqkey = $key;
                         $maxfreqdatum = $datum;
                     } elseif ($freq == $maxfreq) {
-                        if ($frequencyArray[$key]['index'] < $frequencyArray[$maxfreqkey]['index']) { //* @phpstan-ignore offsetAccess.notFound (not sure what phpstan wants)
+                        if ($frequencyArray[$key]['index'] < $frequencyArray[$maxfreqkey]['index']) { //* @phpstan-ignore-line
                             $maxfreqkey = $key;
                             $maxfreqdatum = $datum;
                         }

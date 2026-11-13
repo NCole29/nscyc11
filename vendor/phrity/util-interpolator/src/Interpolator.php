@@ -23,11 +23,11 @@ class Interpolator
 
     /**
      * @param string|Stringable $source
-     * @param array<array-key, mixed>|object $replacers
+     * @param mixed $replacers
      */
     public function interpolate(
         string|Stringable $source,
-        array|object $replacers = [],
+        mixed $replacers = [],
     ): string {
         return $this->traitInterpolate($source, $replacers, $this->separator, $this->transformer);
     }

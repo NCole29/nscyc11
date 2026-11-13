@@ -45,7 +45,9 @@ class PolynomialBestFit extends BestFit
     {
         $retVal = $this->getIntersect();
         $slope = $this->getSlope();
-        foreach ($slope as $key => $value) { //* @phpstan-ignore foreach.nonIterable (this whole class is a mess)
+        // Phpstan and Scrutinizer are both correct - getSlope returns float, not array.
+        // @phpstan-ignore-next-line
+        foreach ($slope as $key => $value) {
             /** @var float $value */
             if ($value != 0.0) {
                 /** @var int $key */
@@ -80,7 +82,8 @@ class PolynomialBestFit extends BestFit
 
         $equation = 'Y = ' . $intersect;
         // Phpstan and Scrutinizer are both correct - getSlope returns float, not array.
-        foreach ($slope as $key => $value) { //* @phpstan-ignore foreach.nonIterable (this whole class is a mess)
+        // @phpstan-ignore-next-line
+        foreach ($slope as $key => $value) {
             /** @var float|int $value */
             if ($value != 0.0) {
                 $equation .= ' + ' . $value . ' * X';
@@ -103,12 +106,14 @@ class PolynomialBestFit extends BestFit
     {
         if ($dp != 0) {
             $coefficients = [];
-            foreach ($this->slope as $coefficient) { //* @phpstan-ignore foreach.nonIterable (this whole class is a mess)
+            //* @phpstan-ignore-next-line
+            foreach ($this->slope as $coefficient) {
                 /** @var float|int $coefficient */
                 $coefficients[] = round($coefficient, $dp);
             }
 
-            return $coefficients; //* @phpstan-ignore return.type (this whole class is a mess)
+            // @phpstan-ignore-next-line
+            return $coefficients;
         }
 
         return $this->slope;
@@ -117,7 +122,9 @@ class PolynomialBestFit extends BestFit
     /** @return array<float|int> */
     public function getCoefficients(int $dp = 0): array
     {
-        return array_merge([$this->getIntersect($dp)], $this->getSlope($dp)); //* @phpstan-ignore return.type (this whole class is a mess), argument.type (ditto)
+        // Phpstan and Scrutinizer are both correct - getSlope returns float, not array.
+        // @phpstan-ignore-next-line
+        return array_merge([$this->getIntersect($dp)], $this->getSlope($dp));
     }
 
     /**
@@ -172,7 +179,9 @@ class PolynomialBestFit extends BestFit
         }
 
         $this->intersect = (float) array_shift($coefficients);
-        $this->slope = $coefficients; //* @phpstan-ignore assign.propertyType (this whole class is a mess)
+        // Phpstan is correct
+        //* @phpstan-ignore-next-line
+        $this->slope = $coefficients;
 
         $this->calculateGoodnessOfFit($x_sum, $y_sum, $xx_sum, $yy_sum, $xy_sum, 0, 0, 0);
         foreach ($this->xValues as $xKey => $xValue) {

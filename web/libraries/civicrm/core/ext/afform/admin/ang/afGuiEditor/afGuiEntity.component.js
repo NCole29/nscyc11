@@ -41,6 +41,8 @@
        * The UI always deals with IDs;
        * this function translates to and from suffixed values,
        * if the suffixed name is being used in the data object
+       * @todo switch to using :name suffixes throughout where
+       * available
        */
       $scope.entityDataGetterSetter = function(fieldName) {
         const parts = fieldName.split(':');
@@ -82,6 +84,43 @@
 
       $scope.getField = afGui.getField;
 
+      /**
+       * Field metadata for one of the entity's preset values.
+       *
+       * A dynamic foreign key only knows which entity it points to once its controlling
+       * field is set - e.g. ContactRole.entity_id is a Contact, an Event or whatever else
+       * entity_table names. Resolve it from the value alongside it so the input can offer
+       * the matching entities on this form.
+       */
+      // Resolved copies are cached so the object identity only changes when the target
+      // entity does; the input widget is rebuilt whenever it changes.
+      const dfkFields = {};
+
+      $scope.getValueField = function(fieldName) {
+        const field = afGui.getField(ctrl.getEntityType(), $scope.getUnsuffixedName(fieldName));
+        const controlField = field && field.input_attrs && field.input_attrs.control_field;
+        if (!field || !controlField || !field.dfk_entities) {
+          return field;
+        }
+        const fkEntity = field.dfk_entities[ctrl.entity.data[controlField]] || null;
+        if (!dfkFields[fieldName] || dfkFields[fieldName].fk_entity !== fkEntity) {
+          dfkFields[fieldName] = Object.assign({}, field, {fk_entity: fkEntity});
+        }
+        return dfkFields[fieldName];
+      };
+
+      /**
+       * A dynamic foreign key cannot be filled in until its controlling field has a value.
+       */
+      $scope.getUnsetControlField = function(fieldName) {
+        const field = afGui.getField(ctrl.getEntityType(), $scope.getUnsuffixedName(fieldName));
+        const controlField = field && field.input_attrs && field.input_attrs.control_field;
+        if (!controlField || !field.dfk_entities || ctrl.entity.data[controlField]) {
+          return null;
+        }
+        return $scope.getMeta().fields[controlField] ? $scope.getMeta().fields[controlField].label : controlField;
+      };
+
       $scope.valuesFields = () => {
         const fields = Object.values($scope.getMeta().fields).map(field => ({
           id: field.name,
@@ -122,7 +161,7 @@
               entityType: entityName,
               afJoin: entityName,
               label: ts('%1 Fields', {1: entity.label}),
-              fields: filterFields(entity.fields)
+              fields: entity.fields ? filterFields(entity.fields) : [],
             });
           }
         });
@@ -134,9 +173,14 @@
         }
 
         function fieldDefaults(field) {
+          let name = field.name;
+          // Use :name suffix if available (improves form portability)
+          if (field.options && Array.isArray(field.suffixes) && field.suffixes.includes('name')) {
+            name += ':name';
+          }
           const tag = {
             "#tag": "af-field",
-            name: field.name
+            name: name
           };
           return tag;
         }
@@ -204,12 +248,14 @@
 
       // Checks if a field is on the form or set as a value
       $scope.fieldInUse = (fieldName, joinEntity) => {
+        // normalise to unsuffixed for all checks
+        fieldName = $scope.getUnsuffixedName(fieldName);
         const data = ctrl.entity.data || {};
         const unsuffixedDataKeys = Object.keys(data).map(key => {
           return $scope.getUnsuffixedName(key);
         });
         if (!joinEntity) {
-          return (unsuffixedDataKeys.includes(fieldName)) || check(ctrl.editor.layout['#children'], {'#tag': 'af-field', name: fieldName});
+          return unsuffixedDataKeys.includes(fieldName) || check(ctrl.editor.layout['#children'], (item) => item['#tag'] === 'af-field' && $scope.getUnsuffixedName(item.name) === fieldName);
         }
         // Joins might support multiple instances per entity; first fetch them all
         const afJoinContainers = afGui.getFormElements(ctrl.editor.layout['#children'], {'af-join': joinEntity}, (item) => {
@@ -218,8 +264,8 @@
         // Check if ALL af-join containers are using the field
         let inUse = true;
         afJoinContainers.forEach((container) => {
-          if (inUse && !check(container['#children'], {'#tag': 'af-field', name: fieldName})) {
-            inUse = false;
+          if (inUse && !check(container['#children'], (item) => item['#tag'] === 'af-field' && $scope.getUnsuffixedName(item.name) === fieldName)) {
+             inUse = false;
           }
         });
         return inUse;

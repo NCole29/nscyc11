@@ -31,7 +31,6 @@ use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
-use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Throwable;
 use XMLReader;
@@ -40,10 +39,6 @@ use ZipArchive;
 class Ods extends BaseReader
 {
     const INITIAL_FILE = 'content.xml';
-
-    private ZipArchive $zip;
-
-    private string $filename;
 
     /**
      * Create a new Ods Reader instance.
@@ -214,7 +209,6 @@ class Ods extends BaseReader
                     if ($xml->name == 'table:table-row' && $xml->nodeType == XMLReader::ELEMENT) {
                         $rowspan = $xml->getAttribute('table:number-rows-repeated');
                         $rowspan = empty($rowspan) ? 1 : (int) $rowspan;
-                        self::checkRowsRepeated($currRow, $rowspan);
                         $currRow += $rowspan;
                         $currCol = 0;
                         // Step into the row
@@ -224,10 +218,6 @@ class Ods extends BaseReader
                             if ($xml->name == 'table:table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
                                 $mergeSize = $xml->getAttribute('table:number-columns-repeated');
                                 $mergeSize = empty($mergeSize) ? 1 : (int) $mergeSize;
-                                self::checkColumnsRepeatedInt(
-                                    $currCol,
-                                    $mergeSize
-                                );
                                 $currCol += $mergeSize;
                                 if (!$xml->isEmptyElement) {
                                     $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCol);
@@ -237,11 +227,6 @@ class Ods extends BaseReader
                                 }
                             } elseif ($xml->name == 'table:covered-table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
                                 $mergeSize = $xml->getAttribute('table:number-columns-repeated');
-                                $mergeSize = empty($mergeSize) ? 1 : (int) $mergeSize;
-                                self::checkColumnsRepeatedInt(
-                                    $currCol,
-                                    $mergeSize
-                                );
                                 $currCol += (int) $mergeSize;
                             }
                             if ($doread) {
@@ -327,8 +312,7 @@ class Ods extends BaseReader
     {
         File::assertFile($filename, self::INITIAL_FILE);
 
-        $this->zip = $zip = new ZipArchive();
-        $this->filename = $filename;
+        $zip = new ZipArchive();
         $zip->open($filename);
 
         // Meta
@@ -338,7 +322,7 @@ class Ods extends BaseReader
                 ->scan($zip->getFromName('meta.xml'))
         );
         if ($xml === false) {
-            throw new Exception("Unable to read data from {$filename}");
+            throw new Exception('Unable to read data from {$pFilename}');
         }
 
         /** @var array{meta?: string, office?: string, dc?: string} */
@@ -349,7 +333,11 @@ class Ods extends BaseReader
         // Styles
 
         $this->allStyles = $this->numberFormats = [];
-        $dom = $this->loadDom('styles.xml', $zip);
+        $dom = new DOMDocument('1.01', 'UTF-8');
+        $dom->loadXML(
+            $this->getSecurityScannerOrThrow()
+                ->scan($zip->getFromName('styles.xml'))
+        );
         $officeNs = (string) $dom->lookupNamespaceUri('office');
         $styleNs = (string) $dom->lookupNamespaceUri('style');
         $fontNs = (string) $dom->lookupNamespaceUri('fo');
@@ -415,7 +403,11 @@ class Ods extends BaseReader
 
         // Main Content
 
-        $dom = $this->loadDom(self::INITIAL_FILE, $zip);
+        $dom = new DOMDocument('1.01', 'UTF-8');
+        $dom->loadXML(
+            $this->getSecurityScannerOrThrow()
+                ->scan($zip->getFromName(self::INITIAL_FILE))
+        );
 
         $pageSettings->readStyleCrossReferences($dom);
 
@@ -825,7 +817,6 @@ class Ods extends BaseReader
         } else {
             $rowRepeats = 1;
         }
-        self::checkRowsRepeated($rowID, $rowRepeats);
         $worksheet = $spreadsheet->getSheetByName($worksheetName);
 
         $columnID = 'A';
@@ -839,8 +830,6 @@ class Ods extends BaseReader
             } else {
                 $colRepeats = 1;
             }
-            $columnIndex = Coordinate::columnIndexFromString($columnID);
-            self::checkColumnsRepeated($columnID, $colRepeats);
             $styleName = $cellData->getAttributeNS($tableNs, 'style-name');
             if ($styleName === '') {
                 if ($worksheet === null || !$worksheet->columnDimensionExists($columnID)) {
@@ -892,8 +881,6 @@ class Ods extends BaseReader
                 }
                 // Fall through to process the cell, with per-column filter checks
             }
-            $tempSpannedRange = "$columnID$rowID";
-            $spannedRange = '';
             if ($worksheet !== null && ($cellData->hasChildNodes() || ($cellData->nextSibling !== null)) && isset($this->allStyles[$styleName])) {
                 $spannedRange = "$columnID$rowID";
                 // the following is sufficient for ods,
@@ -990,8 +977,6 @@ class Ods extends BaseReader
                 // Filter text:p elements
                 if ($item->nodeName == 'text:p') {
                     $paragraphs[] = $item;
-                } elseif ($item->nodeName === 'draw:frame' && $worksheet !== null) {
-                    $this->processDrawFrame($spannedRange ?: $tempSpannedRange, $item, $worksheet);
                 }
             }
 
@@ -1096,20 +1081,17 @@ class Ods extends BaseReader
                         $type = DataType::TYPE_NUMERIC;
                         $value = $cellData->getAttributeNS($officeNs, 'date-value');
                         $dataValue = Date::convertIsoDate($value);
-                        $format15 = Preg::isMatch('/\d\d\d\d/', $allCellDataText) ? NumberFormat::FORMAT_DATE_XLSX15_YYYY : NumberFormat::FORMAT_DATE_XLSX15;
 
                         if (Preg::isMatch('/^\d\d\d\d-\d\d-\d\d$/', $allCellDataText)) {
                             $formatting = 'yyyy-mm-dd';
-                        } elseif (Preg::isMatch('/^\d\d\d\d-\d\d-\d\d \d\d:\d\d(:\d\d)?$/', $allCellDataText)) {
-                            $formatting = NumberFormat::FORMAT_DATE_DATETIME_BETTER;
                         } elseif (Preg::isMatch('/^\d\d?-[a-zA-Z]+-\d\d\d\d$/', $allCellDataText)) {
                             $formatting = 'd-mmm-yyyy';
-                        } elseif ($dataValue != floor($dataValue) || str_contains($allCellDataText, ':')) {
-                            $formatting = $format15
+                        } elseif ($dataValue != floor($dataValue)) {
+                            $formatting = NumberFormat::FORMAT_DATE_XLSX15
                                 . ' '
                                 . NumberFormat::FORMAT_DATE_TIME4;
                         } else {
-                            $formatting = $format15;
+                            $formatting = NumberFormat::FORMAT_DATE_XLSX15;
                         }
 
                         break;
@@ -1216,61 +1198,6 @@ class Ods extends BaseReader
             StringHelper::stringIncrement($columnID);
         }
         $rowID += $rowRepeats;
-    }
-
-    private function processDrawFrame(string $spannedRange, DOMElement $item, Worksheet $worksheet): void
-    {
-        $drawName = $item->getAttribute('draw:name');
-        $svgWidth = $item->getAttribute('svg:width');
-        $svgHeight = $item->getAttribute('svg:height');
-        $styleName = $item->getAttribute('draw:style-name');
-        $drawImage = null;
-        foreach ($item->childNodes as $node) {
-            // Check if the node is a standard element tag
-            if ($node->nodeType === XML_ELEMENT_NODE && $node->nodeName === 'draw:image') {
-                /** @var DOMElement */
-                $drawImage = $node;
-
-                break;
-            }
-        }
-
-        $xlinkHref = $xlinkType = $xlinkShow = '';
-        if ($drawImage !== null) {
-            $xlinkHref = $drawImage->getAttribute('xlink:href');
-            $xlinkType = $drawImage->getAttribute('xlink:type');
-            $xlinkShow = $drawImage->getAttribute('xlink:show');
-        }
-        if (
-            $drawName !== ''
-            && Preg::isMatch('/(\d+([.]\d+)?)(cm|in)/', $svgWidth, $matchWidth)
-            && Preg::isMatch('/(\d+([.]\d+)?)(cm|in)/', $svgHeight, $matchHeight)
-            //&& $styleName === 'gr1'
-            && (str_starts_with($xlinkHref, 'Pictures/') || str_starts_with($xlinkHref, 'media/'))
-            && $xlinkType === 'simple'
-            && $xlinkShow === 'embed'
-        ) {
-            $drawing = new Drawing();
-            $drawing->setPath(
-                "zip://{$this->filename}#$xlinkHref",
-                true,
-                $this->zip,
-                false
-            );
-            $unit = [
-                'cm' => HelperDimension::ABSOLUTE_UNITS[HelperDimension::UOM_CENTIMETERS],
-                'in' => HelperDimension::ABSOLUTE_UNITS[HelperDimension::UOM_INCHES],
-            ];
-            $width = ((float) $matchWidth[1]) * $unit[$matchWidth[3]];
-            $height = ((float) $matchHeight[1]) * $unit[$matchHeight[3]];
-            if ($drawing->getPath()) {
-                $drawing->setCoordinates($spannedRange)
-                    ->setWidth((int) $width)
-                    ->setHeight((int) $height)
-                    ->setName($drawName)
-                    ->setWorksheet($worksheet);
-            }
-        }
     }
 
     private static function extractNodeName(string $key): string
@@ -1386,19 +1313,17 @@ class Ods extends BaseReader
         bool $processStyles = true
     ): void {
         if ($childNode->hasAttributeNS($tableNs, 'number-columns-repeated')) {
-            $colRepeats = (int) $childNode->getAttributeNS($tableNs, 'number-columns-repeated');
+            $rowRepeats = (int) $childNode->getAttributeNS($tableNs, 'number-columns-repeated');
         } else {
-            $colRepeats = 1;
+            $rowRepeats = 1;
         }
-        // called routine expects index to be 1 less than it is
-        self::checkColumnsRepeatedInt($tableColumnIndex - 1, $colRepeats);
         $tableStyleName = $childNode->getAttributeNS($tableNs, 'style-name');
         if ($processWidths) {
             if (isset($columnWidths[$tableStyleName])) {
                 $columnWidth = new HelperDimension($columnWidths[$tableStyleName]);
                 $tableColumnIndex2 = $tableColumnIndex;
                 $tableColumnString = Coordinate::stringFromColumnIndex($tableColumnIndex2);
-                for ($colRepeats2 = $colRepeats; $colRepeats2 > 0 && $tableColumnIndex2 <= AddressRange::MAX_COLUMN_INT; --$colRepeats2) {
+                for ($rowRepeats2 = $rowRepeats; $rowRepeats2 > 0 && $tableColumnIndex2 <= AddressRange::MAX_COLUMN_INT; --$rowRepeats2) {
                     if (!$this->readEmptyCells && $tableColumnIndex2 > $this->highestDataIndex) {
                         break;
                     }
@@ -1417,7 +1342,7 @@ class Ods extends BaseReader
             if ($defaultStyleName !== 'Default' && isset($this->allStyles[$defaultStyleName])) {
                 $tableColumnIndex2 = $tableColumnIndex;
                 $tableColumnString = Coordinate::stringFromColumnIndex($tableColumnIndex2);
-                for ($colRepeats2 = $colRepeats; $colRepeats2 > 0 && $tableColumnIndex2 <= AddressRange::MAX_COLUMN_INT; --$colRepeats2) {
+                for ($rowRepeats2 = $rowRepeats; $rowRepeats2 > 0 && $tableColumnIndex2 <= AddressRange::MAX_COLUMN_INT; --$rowRepeats2) {
                     $spreadsheet->getActiveSheet()
                         ->getStyle($tableColumnString)
                         ->applyFromArray(
@@ -1430,12 +1355,16 @@ class Ods extends BaseReader
                 }
             }
         }
-        $tableColumnIndex += $colRepeats;
+        $tableColumnIndex += $rowRepeats;
     }
 
     private function processSettings(ZipArchive $zip, Spreadsheet $spreadsheet): void
     {
-        $dom = $this->loadDom('settings.xml', $zip);
+        $dom = new DOMDocument('1.01', 'UTF-8');
+        $dom->loadXML(
+            $this->getSecurityScannerOrThrow()
+                ->scan($zip->getFromName('settings.xml'))
+        );
         $configNs = (string) $dom->lookupNamespaceUri('config');
         $officeNs = (string) $dom->lookupNamespaceUri('office');
         $settings = $dom->getElementsByTagNameNS($officeNs, 'settings')
@@ -1822,7 +1751,7 @@ class Ods extends BaseReader
         $temp = $tableCellProperties->getAttributeNs($fontNs, 'border');
         $diagonalIndex = Borders::DIAGONAL_NONE;
         foreach (['bottom', 'left', 'right', 'top', 'diagonal-tl-br', 'diagonal-bl-tr'] as $direction) {
-            if ($direction === 'diagonal-tl-br' || $direction === 'diagonal-bl-tr') {
+            if (str_starts_with($direction, 'diagonal')) {
                 $directionIndex = 'diagonal';
                 $temp = $tableCellProperties->getAttributeNs($styleNs, $direction);
             } else {
@@ -1850,7 +1779,7 @@ class Ods extends BaseReader
             $borders['diagonalDirection'] = $diagonalIndex;
         }
 
-        return $borders;
+        return $borders; // @phpstan-ignore-line
     }
 
     protected function processSomeNumberFormats(?DOMElement $automaticStyle0, string $numberNs, string $styleNs): void
@@ -1871,56 +1800,5 @@ class Ods extends BaseReader
                 $this->numberFormats[$styleName] = str_repeat('0', $minIntegerDigits);
             }
         }
-    }
-
-    private static function checkRowsRepeated(int $rowID, int $rowRepeats): void
-    {
-        if ($rowRepeats < 1 || $rowID + $rowRepeats - 1 > AddressRange::MAX_ROW) {
-            throw new Exception("Invalid number-rows-repeated $rowRepeats following row $rowID");
-        }
-    }
-
-    private static function checkColumnsRepeated(string $colID, int $colRepeats): void
-    {
-        $colIndex = Coordinate::columnIndexFromString($colID);
-        if ($colRepeats < 1 || $colIndex + $colRepeats - 1 > AddressRange::MAX_COLUMN_INT) {
-            throw new Exception("Invalid number-columns-repeated $colRepeats following column $colID");
-        }
-    }
-
-    private static function checkColumnsRepeatedInt(int $colIndex, int $colRepeats): void
-    {
-        // We don't have column string at this point,
-        //    and colIndex is actually 1 less than it should be.
-        if ($colRepeats < 1 || $colIndex + $colRepeats > AddressRange::MAX_COLUMN_INT) {
-            throw new Exception("Invalid number-columns-repeated $colRepeats following column index $colIndex");
-        }
-    }
-
-    private function loadDom(string $file, ZipArchive $zip): DOMDocument
-    {
-        $dom = new DOMDocument('1.01', 'UTF-8');
-        $orig = false;
-
-        try {
-            $orig = libxml_use_internal_errors(true);
-            $result = $dom->loadXML(
-                $this->getSecurityScannerOrThrow()
-                    ->scan($zip->getFromName($file))
-            );
-            if ($result === false) {
-                $fatal = false;
-                foreach (libxml_get_errors() as $err) {
-                    if ($err->level === LIBXML_ERR_FATAL) {
-                        throw new Exception($err->message);
-                    }
-                }
-            }
-        } finally {
-            libxml_clear_errors();
-            libxml_use_internal_errors($orig);
-        }
-
-        return $dom;
     }
 }

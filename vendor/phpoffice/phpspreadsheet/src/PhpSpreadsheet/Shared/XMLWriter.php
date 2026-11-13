@@ -64,15 +64,7 @@ class XMLWriter extends \XMLWriter
         }
     }
 
-    /**
-     * Unserialization is not allowed. This needs to be enforced
-     * in the class before Php8.6, but, with that release,
-     * this method is no longer needed and will not be executed.
-     *
-     * @see https://github.com/php/php-src/pull/21694
-     *
-     * @param mixed[] $data
-     */
+    /** @param mixed[] $data */
     public function __unserialize(array $data): void
     {
         $this->tempFileName = '';

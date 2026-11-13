@@ -27,37 +27,6 @@ class Utils {
   use \Civi\Api4\Utils\AfformSaveTrait;
 
   /**
-   * Sorts entities according to references to each other
-   *
-   * Returns a list of entity names in order of when they should be processed,
-   * so that an entity being referenced is saved before the entity referencing it.
-   *
-   * @param $formEntities
-   * @param $entityValues
-   * @return string[]
-   */
-  public static function getEntityWeights($formEntities, $entityValues) {
-    $sorter = new \MJS\TopSort\Implementations\FixedArraySort();
-
-    $formEntityNames = array_keys($formEntities);
-    foreach ($formEntities as $entityName => $entity) {
-      $references = [];
-      foreach ($entityValues[$entityName] as $record) {
-        foreach ($record['fields'] as $fieldName => $fieldValue) {
-          foreach ((array) $fieldValue as $value) {
-            if (in_array($value, $formEntityNames, TRUE) && $value !== $entityName) {
-              $references[$value] = $value;
-            }
-          }
-        }
-      }
-      $sorter->add($entityName, $references);
-    }
-    // Return the list of entities ordered by weight
-    return $sorter->sort();
-  }
-
-  /**
    * Subset of APIv4 operators that are appropriate for use on Afforms
    *
    * This list may be further reduced by fields which declare a limited number of
@@ -269,6 +238,67 @@ class Utils {
 
       self::saveTranslations($form, $html);
     }
+  }
+
+  /**
+   * Names of the afforms embedded in a layout, resolved from their directive tags.
+   *
+   * @param string $html
+   * @param array $directiveNames
+   *   Map of directive name => afform name.
+   * @return string[]
+   */
+  public static function findEmbeddedAfforms(string $html, array $directiveNames): array {
+    $elements = array_keys(\Civi\Afform\Symbols::scan($html)->elements);
+    return array_values(array_intersect_key($directiveNames, array_flip($elements)));
+  }
+
+  /**
+   * Find a chain of embedded afforms leading from $name back to itself.
+   *
+   * An afform which embeds itself, directly or via other afforms, recurses forever
+   * when Angular compiles it and locks up the browser, so this has to be caught
+   * before the layout is written.
+   *
+   * @param string $name
+   *   The afform being saved.
+   * @param string $html
+   *   Its new layout.
+   * @return string[]
+   *   The cycle, starting and ending at $name; empty if there is none.
+   */
+  public static function findEmbedCycle(string $name, string $html): array {
+    /** @var \CRM_Afform_AfformScanner $scanner */
+    $scanner = \Civi::service('afform_scanner');
+    $directiveNames = [];
+    foreach (array_keys($scanner->findFilePaths()) as $afformName) {
+      $directiveNames[_afform_angular_module_name($afformName, 'dash')] = $afformName;
+    }
+    // Breadth-first, tracking the path taken so the error can name the chain.
+    $queue = [];
+    foreach (self::findEmbeddedAfforms($html, $directiveNames) as $embedded) {
+      $queue[] = [$name, $embedded];
+    }
+    $visited = [];
+    while ($queue) {
+      $path = array_shift($queue);
+      $current = end($path);
+      if ($current === $name) {
+        return $path;
+      }
+      if (isset($visited[$current])) {
+        continue;
+      }
+      $visited[$current] = TRUE;
+      $layoutPath = $scanner->findFilePath($current, \CRM_Afform_AfformScanner::LAYOUT_FILE);
+      if (!$layoutPath) {
+        continue;
+      }
+      foreach (self::findEmbeddedAfforms(file_get_contents($layoutPath), $directiveNames) as $embedded) {
+        $queue[] = array_merge($path, [$embedded]);
+      }
+    }
+    return [];
   }
 
   public static function getSearchDisplayTags(): array {

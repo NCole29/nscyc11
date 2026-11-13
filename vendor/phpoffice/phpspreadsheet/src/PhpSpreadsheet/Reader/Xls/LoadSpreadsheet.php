@@ -175,7 +175,6 @@ class LoadSpreadsheet extends Xls
             //        name in line with the formula, not the reverse
             $xls->phpSheet->setTitle($sheet['name'], false, false);
             $xls->phpSheet->setSheetState($sheet['sheetState']);
-            $xls->phpSheetTitle = $sheet['name'];
 
             $xls->pos = $sheet['offset'];
 
@@ -452,8 +451,10 @@ class LoadSpreadsheet extends Xls
                     }
 
                     // calculate the width and height of the shape
-                    [, $startRow, $startColumn] = Coordinate::indexesFromString($spContainer->getStartCoordinates());
-                    [, $endRow, $endColumn] = Coordinate::indexesFromString($spContainer->getEndCoordinates());
+                    /** @var int $startRow */
+                    [$startColumn, $startRow] = Coordinate::coordinateFromString($spContainer->getStartCoordinates());
+                    /** @var int $endRow */
+                    [$endColumn, $endRow] = Coordinate::coordinateFromString($spContainer->getEndCoordinates());
 
                     $startOffsetX = $spContainer->getStartOffsetX();
                     $startOffsetY = $spContainer->getStartOffsetY();
@@ -476,7 +477,7 @@ class LoadSpreadsheet extends Xls
 
                                 if (isset($xls->textObjects[$obj['idObjID']])) {
                                     $textObject = $xls->textObjects[$obj['idObjID']];
-                                    $xls->cellNotes[$obj['idObjID']]['objTextData'] = $textObject; //* @phpstan-ignore offsetAccess.nonOffsetAccessible (I don't know to fix this)
+                                    $xls->cellNotes[$obj['idObjID']]['objTextData'] = $textObject; //* @phpstan-ignore-line
                                 }
                             }
 
@@ -547,7 +548,8 @@ class LoadSpreadsheet extends Xls
             // treat SHAREDFMLA records
             if ($xls->version == self::XLS_BIFF8) {
                 foreach ($xls->sharedFormulaParts as $cell => $baseCell) {
-                    [, $row, $column] = Coordinate::indexesFromString($cell);
+                    /** @var int $row */
+                    [$column, $row] = Coordinate::coordinateFromString($cell);
                     /** @var string $baseCell */
                     if ($xls->readFilter->readCell($column, $row, $xls->phpSheet->getTitle())) {
                         /** @var string */

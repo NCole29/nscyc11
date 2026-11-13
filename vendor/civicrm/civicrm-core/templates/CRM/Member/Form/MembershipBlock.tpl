@@ -83,13 +83,13 @@
               </td>
           </tr>
           <tr id="requiredSignup" class="crm-member-membershipblock-form-block-is_required">
-              <td class="label"></td><td class="html-adjust">{$form.is_required.html}&nbsp;{$form.is_required.label} {help id="is_required"}</td>
+              <td class="label">{help id="is_required"}</td><td class="html-adjust">{$form.is_required.html}&nbsp;{$form.is_required.label}</td>
           </tr>
           <tr id="separatePayment" class="crm-member-membershipblock-form-block-is_separate_payment">
-              <td class="label"></td><td class="html-adjust">{$form.is_separate_payment.html}&nbsp;{$form.is_separate_payment.label} {help id="is_separate_payment"}</td>
+              <td class="label">{help id="is_separate_payment"}</td><td class="html-adjust">{$form.is_separate_payment.html}&nbsp;{$form.is_separate_payment.label}</td>
           </tr>
           <tr id="displayFee" class="crm-member-membershipblock-form-block-display_min_fee">
-              <td class="label"></td><td class="html-adjust">{$form.display_min_fee.html}&nbsp;{$form.display_min_fee.label} {help id="display_min_fee"}</td>
+              <td class="label">{help id="display_min_fee"}</td><td class="html-adjust">{$form.display_min_fee.html}&nbsp;{$form.display_min_fee.label}</td>
     </tr>
 
       </table>
@@ -156,7 +156,7 @@
         message: {/literal}"{ts escape='js'}Once you switch to using a Price Set, you won't be able to switch back to your existing settings below except by re-entering them. Are you sure you want to switch to a Price Set?{/ts}"{literal}
       }).on('crmConfirm:yes', function() {
         {/literal}
-        var dataUrl = '{crmURL p="civicrm/ajax/rest" h=0 q="className=CRM_Core_Page_AJAX&fnName=setIsQuickConfig&context=civicrm_contribution_page&id=$contributionPageID"}';
+        var dataUrl = '{crmURL p="civicrm/ajax/quickconfig" h=0 q="context=civicrm_contribution_page&id=$contributionPageID"}';
         {literal}
         $.getJSON(dataUrl).done(function(result) {window.location = CRM.url("civicrm/admin/price/field", {reset: 1, action: 'browse', sid: result});});
       });

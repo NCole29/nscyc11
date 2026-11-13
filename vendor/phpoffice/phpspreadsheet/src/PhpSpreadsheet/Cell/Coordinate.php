@@ -522,7 +522,8 @@ abstract class Coordinate
         }
 
         /** @var string[] */
-        $cellList = array_merge(...$cells); //* @phpstan-ignore argument.type (Unsure how to satisfy phpstan)
+        $cellList = array_merge(...$cells); //* @phpstan-ignore-line
+        // Unsure how to satisfy phpstan in line above
 
         $retVal = array_map(
             fn (string $cellAddress) => ($worksheet !== '') ? "{$quoted}{$worksheet}{$quoted}!{$cellAddress}" : $cellAddress,
@@ -646,8 +647,10 @@ abstract class Coordinate
 
             // Range...
             [$rangeStart, $rangeEnd] = $range;
-            [$startColumnIndex, $startRow, $startColumn] = self::indexesFromString($rangeStart);
-            [$endColumnIndex, $endRow, $endColumn] = self::indexesFromString($rangeEnd);
+            [$startColumn, $startRow] = self::coordinateFromString($rangeStart);
+            [$endColumn, $endRow] = self::coordinateFromString($rangeEnd);
+            $startColumnIndex = self::columnIndexFromString($startColumn);
+            $endColumnIndex = self::columnIndexFromString($endColumn);
             ++$endColumnIndex;
 
             // Current data
@@ -658,6 +661,8 @@ abstract class Coordinate
 
             // Loop cells
             while ($currentColumnIndex < $endColumnIndex) {
+                /** @var int $currentRow */
+                /** @var int $endRow */
                 while ($currentRow <= $endRow) {
                     $returnValue[] = self::stringFromColumnIndex($currentColumnIndex) . $currentRow;
                     ++$currentRow;

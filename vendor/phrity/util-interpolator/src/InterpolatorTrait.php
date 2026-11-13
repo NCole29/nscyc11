@@ -20,13 +20,13 @@ trait InterpolatorTrait
 {
     /**
      * @param string|Stringable $source
-     * @param array<array-key, mixed>|object $replacers
+     * @param mixed $replacers
      * @param non-empty-string $separator
      * @param TransformerInterface|null $transformer
      */
     public function interpolate(
         string|Stringable $source,
-        array|object $replacers = [],
+        mixed $replacers = [],
         string $separator = '.',
         TransformerInterface|null $transformer = null,
     ): string {

@@ -37,6 +37,7 @@ class ComposerStaticInitff6226cee62d5ae76e391017291157ee
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         '9e4824c5afbdc1482b6025ce3d4dfde8' => __DIR__ . '/..' . '/league/csv/src/functions_include.php',
         '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
+        'c15d4a1253e33e055d05e547c61dcb71' => __DIR__ . '/..' . '/smarty/smarty/src/functions.php',
         '5897ea0ac4cccf14d323035e65887801' => __DIR__ . '/..' . '/symfony/polyfill-php82/bootstrap.php',
         'bad842bce63596a608e2623519fb382c' => __DIR__ . '/..' . '/xkerman/restricted-unserialize/src/function.php',
         '23c7c9fb739a56c448f3bc838e8b186d' => __DIR__ . '/..' . '/civicrm/civicrm-core/functions.php',
@@ -146,6 +147,7 @@ class ComposerStaticInitff6226cee62d5ae76e391017291157ee
             'Svg\\' => 4,
             'Stripe\\' => 7,
             'Soundasleep\\' => 12,
+            'Smarty\\' => 7,
             'ScssPhp\\ScssPhp\\' => 16,
             'Sabberworm\\CSS\\' => 15,
         ),
@@ -166,8 +168,12 @@ class ComposerStaticInitff6226cee62d5ae76e391017291157ee
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
             'Pontedilana\\PhpWeasyPrint\\' => 26,
+            'Phrity\\Util\\Transformer\\' => 24,
+            'Phrity\\Util\\Interpolator\\' => 25,
             'Phrity\\Util\\' => 12,
             'Phrity\\Net\\' => 11,
+            'Phrity\\Http\\' => 12,
+            'Phrity\\Comparison\\' => 18,
             'PhpTuf\\ComposerStager\\' => 22,
             'PhpParser\\' => 10,
             'PhpOffice\\PhpWord\\' => 18,
@@ -182,6 +188,10 @@ class ComposerStaticInitff6226cee62d5ae76e391017291157ee
         'O' =>
         array (
             'OomphInc\\ComposerInstallersExtender\\' => 36,
+        ),
+        'N' =>
+        array (
+            'Nyholm\\Psr7\\' => 12,
         ),
         'M' =>
         array (
@@ -350,7 +360,7 @@ class ComposerStaticInitff6226cee62d5ae76e391017291157ee
         ),
         'WebSocket\\' =>
         array (
-            0 => __DIR__ . '/..' . '/phrity/websocket/lib',
+            0 => __DIR__ . '/..' . '/phrity/websocket/src',
         ),
         'Twig\\Extra\\Html\\' =>
         array (
@@ -536,6 +546,10 @@ class ComposerStaticInitff6226cee62d5ae76e391017291157ee
         array (
             0 => __DIR__ . '/..' . '/soundasleep/html2text/src',
         ),
+        'Smarty\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/smarty/smarty/src',
+        ),
         'ScssPhp\\ScssPhp\\' =>
         array (
             0 => __DIR__ . '/..' . '/scssphp/scssphp/src',
@@ -593,14 +607,31 @@ class ComposerStaticInitff6226cee62d5ae76e391017291157ee
         array (
             0 => __DIR__ . '/..' . '/pontedilana/php-weasyprint/src',
         ),
+        'Phrity\\Util\\Transformer\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/phrity/util-transformer/src',
+        ),
+        'Phrity\\Util\\Interpolator\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/phrity/util-interpolator/src',
+        ),
         'Phrity\\Util\\' =>
         array (
             0 => __DIR__ . '/..' . '/phrity/util-errorhandler/src',
+            1 => __DIR__ . '/..' . '/phrity/util-accessor/src',
         ),
         'Phrity\\Net\\' =>
         array (
             0 => __DIR__ . '/..' . '/phrity/net-uri/src',
             1 => __DIR__ . '/..' . '/phrity/net-stream/src',
+        ),
+        'Phrity\\Http\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/phrity/http/src',
+        ),
+        'Phrity\\Comparison\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/phrity/comparison/src',
         ),
         'PhpTuf\\ComposerStager\\' =>
         array (
@@ -645,6 +676,10 @@ class ComposerStaticInitff6226cee62d5ae76e391017291157ee
         'OomphInc\\ComposerInstallersExtender\\' =>
         array (
             0 => __DIR__ . '/..' . '/oomphinc/composer-installers-extender/src',
+        ),
+        'Nyholm\\Psr7\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/nyholm/psr7/src',
         ),
         'MimeTyper\\' =>
         array (
@@ -1143,7 +1178,7 @@ class ComposerStaticInitff6226cee62d5ae76e391017291157ee
         'SebastianBergmann\\Diff\\TimeEfficientLongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/sebastian/diff/src/TimeEfficientLongestCommonSubsequenceCalculator.php',
         'SensitiveParameter' => __DIR__ . '/..' . '/symfony/polyfill-php82/Resources/stubs/SensitiveParameter.php',
         'SensitiveParameterValue' => __DIR__ . '/..' . '/symfony/polyfill-php82/Resources/stubs/SensitiveParameterValue.php',
-        'SortDirection' => __DIR__ . '/..' . '/symfony/polyfill-php86/Resources/stubs/SortDirection.php',
+        'SortDirection' => __DIR__ . '/..' . '/league/csv/polyfill/SortDirection.php',
         'Stringable' => __DIR__ . '/..' . '/marc-mabe/php-enum/stubs/Stringable.php',
         'Symfony\\Component\\DependencyInjection\\ContainerInterface' => __DIR__ . '/..' . '/symfony/dependency-injection/ContainerInterface.php',
         'Symfony\\Component\\HttpFoundation\\FileBag' => __DIR__ . '/..' . '/symfony/http-foundation/FileBag.php',

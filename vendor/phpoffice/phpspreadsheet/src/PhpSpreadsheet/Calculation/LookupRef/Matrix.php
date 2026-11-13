@@ -125,7 +125,7 @@ class Matrix
         }
 
         $rowKeys = array_keys($matrix);
-        $columnKeys = @array_keys($matrix[$rowKeys[0]]); //* @phpstan-ignore argument.type (argument 1 of array_keys may be mixed not array)
+        $columnKeys = @array_keys($matrix[$rowKeys[0]]); //* @phpstan-ignore-line
 
         if ($columnNum > count($columnKeys)) {
             return ExcelError::REF();
@@ -135,14 +135,14 @@ class Matrix
             return self::extractRowValue($matrix, $rowKeys, $rowNum);
         }
 
-        $columnNum = $columnKeys[--$columnNum]; //* @phpstan-ignore offsetAccess.notFound (perhaps index --$columnNum does not exist)
+        $columnNum = $columnKeys[--$columnNum]; //* @phpstan-ignore-line
         if ($rowNum === 0) {
             return array_map(
                 fn ($value): array => [$value],
                 array_column($matrix, $columnNum)
             );
         }
-        $rowNum = $rowKeys[--$rowNum]; //* @phpstan-ignore offsetAccess.notFound (perhaps index --$rowNum does not exist)
+        $rowNum = $rowKeys[--$rowNum]; //* @phpstan-ignore-line
         /** @var mixed[][] $matrix */
 
         return $matrix[$rowNum][$columnNum];

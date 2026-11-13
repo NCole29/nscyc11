@@ -85,10 +85,6 @@ class Gamma extends GammaBase
      *
      * Returns the inverse of the Gamma distribution.
      *
-     * For a probability so far into the upper tail that the forward-CDF series
-     * approximation plateaus below it, the root cannot be bracketed; the result
-     * is capped at the alpha*beta*5 search ceiling rather than diverging.
-     *
      * @param mixed $probability Float probability at which you want to evaluate the distribution
      *                      Or can be an array of values
      * @param mixed $alpha Parameter to the distribution as a float
@@ -147,9 +143,6 @@ class Gamma extends GammaBase
             return ExcelError::NAN();
         }
 
-        $result = self::logGamma($value);
-
-        // logGamma returns its MAX_VALUE sentinel when the result would overflow.
-        return ($result >= self::MAX_VALUE) ? ExcelError::NAN() : $result;
+        return log(self::gammaValue($value));
     }
 }

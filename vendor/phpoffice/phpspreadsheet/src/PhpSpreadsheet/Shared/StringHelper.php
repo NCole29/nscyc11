@@ -787,34 +787,17 @@ class StringHelper
      * Php introduced str_increment with Php8.3,
      * but didn't issue deprecation notices till 8.5.
      *
-     * @param-out string $str
-     *
      * @codeCoverageIgnore
      */
     public static function stringIncrement(string &$str): string
     {
         if (function_exists('str_increment')) {
-            /** @var non-empty-string $str */
-            $str2 = str_increment($str);
+            $str = str_increment($str); // @phpstan-ignore-line
         } else {
-            $str1 = $str;
-            /**
-             * This is an outright lie, but I don't know how else to satisfy Phpstan for Php8.5+.
-             *
-             * @var numeric-string $str1
-             */
-            ++$str1;
-            $str2 = "$str1";
+            ++$str; // @phpstan-ignore-line
         }
 
-        /**
-         * This is demonstrably the case. I don't know why Phpstan thinks $str2 is mixed at this point.
-         *
-         * @var string $str2 set above by str_increment or ="..."
-         */
-        $str = $str2;
-
-        return $str;
+        return $str; // @phpstan-ignore-line
     }
 
     /** @internal */

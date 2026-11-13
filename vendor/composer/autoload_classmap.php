@@ -102,7 +102,7 @@ return array(
     'SebastianBergmann\\Diff\\TimeEfficientLongestCommonSubsequenceCalculator' => $vendorDir . '/sebastian/diff/src/TimeEfficientLongestCommonSubsequenceCalculator.php',
     'SensitiveParameter' => $vendorDir . '/symfony/polyfill-php82/Resources/stubs/SensitiveParameter.php',
     'SensitiveParameterValue' => $vendorDir . '/symfony/polyfill-php82/Resources/stubs/SensitiveParameterValue.php',
-    'SortDirection' => $vendorDir . '/symfony/polyfill-php86/Resources/stubs/SortDirection.php',
+    'SortDirection' => $vendorDir . '/league/csv/polyfill/SortDirection.php',
     'Stringable' => $vendorDir . '/marc-mabe/php-enum/stubs/Stringable.php',
     'Symfony\\Component\\DependencyInjection\\ContainerInterface' => $vendorDir . '/symfony/dependency-injection/ContainerInterface.php',
     'Symfony\\Component\\HttpFoundation\\FileBag' => $vendorDir . '/symfony/http-foundation/FileBag.php',

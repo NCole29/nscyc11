@@ -58,66 +58,42 @@ class ChainedBlockStream
 
         // 25 is length of "ole-chainedblockstream://"
         parse_str(substr($path, 25), $this->params);
-        if (!isset($this->params['oleInstanceId'], $this->params['blockId'], $GLOBALS['_OLE_INSTANCES'][$this->params['oleInstanceId']])) { //* @phpstan-ignore offsetAccess.nonOffsetAccessible (I don't know how to fix this)
+        if (!isset($this->params['oleInstanceId'], $this->params['blockId'], $GLOBALS['_OLE_INSTANCES'][$this->params['oleInstanceId']])) { //* @phpstan-ignore-line
             if ($options & STREAM_REPORT_ERRORS) {
                 trigger_error('OLE stream not found', E_USER_WARNING);
             }
 
             return false;
         }
-        $this->ole = $GLOBALS['_OLE_INSTANCES'][$this->params['oleInstanceId']]; //* @phpstan-ignore assign.propertyType (I don't know how to fix this)
-        if (!($this->ole instanceof OLE)) { //* @phpstan-ignore instanceof.alwaysTrue (I don't know how to fix this)
+        $this->ole = $GLOBALS['_OLE_INSTANCES'][$this->params['oleInstanceId']]; //* @phpstan-ignore-line
+        if (!($this->ole instanceof OLE)) { //* @phpstan-ignore-line
             throw new Exception('class is not OLE');
         }
 
-        $blockId = (int) $this->params['blockId'];
-        $size = isset($this->params['size']) ? (int) $this->params['size'] : null;
-        $isRoot = isset($this->params['isRoot']) && $this->params['isRoot'] === '1';
+        $blockId = $this->params['blockId'];
         $this->data = '';
-        if ($size !== null && $size < $this->ole->bigBlockThreshold && !$isRoot) {
+        if (isset($this->params['size']) && $this->params['size'] < $this->ole->bigBlockThreshold && $blockId != $this->ole->root->startBlock) {
             // Block id refers to small blocks
-            $rootData = '';
-            if ($this->ole->root->startBlock === null) {
-                throw new Exception('Invalid OLE root mini-stream chain.');
-            }
-            $rootBlockId = (int) $this->ole->root->startBlock;
-            $rootBlocks = [];
-            while ($rootBlockId !== -2) {
-                if (isset($rootBlocks[$rootBlockId], $this->ole->bbat[$rootBlockId])) {
-                    throw new Exception('Invalid OLE root mini-stream chain.');
-                }
-                $rootBlocks[$rootBlockId] = true;
-                fseek($this->ole->_file_handle, $this->ole->getBlockOffset($rootBlockId));
-                $rootData .= fread($this->ole->_file_handle, $this->ole->bigBlockSize);
-                $rootBlockId = self::nextBlock($this->ole->bbat, $rootBlockId, 'Invalid OLE root mini-stream chain.');
-            }
-
-            $smallBlocks = [];
+            $rootPos = $this->ole->getBlockOffset((int) $this->ole->root->startBlock);
             while ($blockId != -2) {
-                if (isset($smallBlocks[$blockId], $this->ole->sbat[$blockId])) {
-                    throw new Exception('Invalid OLE mini-stream chain.');
-                }
-                $smallBlocks[$blockId] = true;
-                $pos = $blockId * $this->ole->smallBlockSize;
-                $this->data .= substr($rootData, $pos, $this->ole->smallBlockSize);
-                $blockId = self::nextBlock($this->ole->sbat, $blockId, 'Invalid OLE mini-stream chain.');
+                /** @var int $blockId */
+                $pos = $rootPos + $blockId * $this->ole->bigBlockSize;
+                $blockId = $this->ole->sbat[$blockId];
+                fseek($this->ole->_file_handle, $pos);
+                $this->data .= fread($this->ole->_file_handle, $this->ole->bigBlockSize);
             }
         } else {
             // Block id refers to big blocks
-            $bigBlocks = [];
             while ($blockId != -2) {
-                if (isset($bigBlocks[$blockId], $this->ole->bbat[$blockId])) {
-                    throw new Exception('Invalid OLE stream chain.');
-                }
-                $bigBlocks[$blockId] = true;
+                /** @var int $blockId */
                 $pos = $this->ole->getBlockOffset($blockId);
                 fseek($this->ole->_file_handle, $pos);
                 $this->data .= fread($this->ole->_file_handle, $this->ole->bigBlockSize);
-                $blockId = self::nextBlock($this->ole->bbat, $blockId, 'Invalid OLE stream chain.');
+                $blockId = $this->ole->bbat[$blockId];
             }
         }
-        if ($size !== null) {
-            $this->data = substr($this->data, 0, $size);
+        if (isset($this->params['size'])) {
+            $this->data = substr($this->data, 0, $this->params['size']); //* @phpstan-ignore-line
         }
 
         if ($options & STREAM_USE_PATH) {
@@ -125,17 +101,6 @@ class ChainedBlockStream
         }
 
         return true;
-    }
-
-    /** @param mixed[] $allocationTable */
-    private static function nextBlock(array $allocationTable, int $blockId, string $message): int
-    {
-        $nextBlockId = $allocationTable[$blockId] ?? null;
-        if (!is_int($nextBlockId)) {
-            throw new Exception($message);
-        }
-
-        return $nextBlockId;
     }
 
     /**
@@ -186,10 +151,6 @@ class ChainedBlockStream
 
     /**
      * Implements support for fseek().
-     * Note that the first condition is always true, at least in
-     * the unit test suite. One consequence is that Phpstan's
-     * correct flagging of count($this->data) below is never
-     * executed, and would fail should it be executed.
      *
      * @param int $offset byte offset
      * @param int $whence SEEK_SET, SEEK_CUR or SEEK_END
@@ -200,7 +161,7 @@ class ChainedBlockStream
             $this->pos = $offset;
         } elseif ($whence == SEEK_CUR && -$offset <= $this->pos) {
             $this->pos += $offset;
-        } elseif ($whence == SEEK_END && -$offset <= count($this->data)) { // @phpstan-ignore argument.type (phpstan is correct - see docBlock above)
+        } elseif ($whence == SEEK_END && -$offset <= count($this->data)) { // @phpstan-ignore-line
             $this->pos = strlen($this->data) + $offset;
         } else {
             return false;

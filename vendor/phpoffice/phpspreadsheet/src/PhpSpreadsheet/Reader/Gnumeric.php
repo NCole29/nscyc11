@@ -50,14 +50,8 @@ class Gnumeric extends BaseReader
 
     private ReferenceHelper $referenceHelper;
 
-    /**
-     * @deprecated 5.10.0 No longer used, replaced by const which is not user-accessible.
-     *
-     * @var array{'dataType': string[]}
-     */
-    public static array $mappings = self::MAPPINGS;
-
-    private const MAPPINGS = [
+    /** @var array{'dataType': string[]} */
+    public static array $mappings = [
         'dataType' => [
             '10' => DataType::TYPE_NULL,
             '20' => DataType::TYPE_BOOL,
@@ -236,14 +230,10 @@ class Gnumeric extends BaseReader
         return $data;
     }
 
-    /**
-     * @return mixed[]
-     *
-     * @internal
-     */
+    /** @return mixed[] */
     public static function gnumericMappings(): array
     {
-        return array_merge(self::MAPPINGS, Styles::MAPPINGS);
+        return array_merge(self::$mappings, Styles::$mappings);
     }
 
     private function processComments(SimpleXMLElement $sheet): void
@@ -292,7 +282,8 @@ class Gnumeric extends BaseReader
 
         $gFileData = $this->gzfileGetContents($filename);
 
-        $securityScanner = $this->getSecurityScannerOrThrow();
+        /** @var XmlScanner */
+        $securityScanner = $this->securityScanner;
         $xml2 = simplexml_load_string($securityScanner->scan($gFileData));
         $xml = self::testSimpleXml($xml2);
 
@@ -620,8 +611,8 @@ class Gnumeric extends BaseReader
             $type = DataType::TYPE_FORMULA;
         } elseif ($isArrayFormula === false) {
             $vtype = (string) $ValueType;
-            if (array_key_exists($vtype, self::MAPPINGS['dataType'])) {
-                $type = self::MAPPINGS['dataType'][$vtype];
+            if (array_key_exists($vtype, self::$mappings['dataType'])) {
+                $type = self::$mappings['dataType'][$vtype];
             }
             if ($vtype === '20') { //    Boolean
                 $cell = $cell == 'TRUE';

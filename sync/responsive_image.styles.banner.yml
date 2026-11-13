@@ -1,0 +1,29 @@
+uuid: 38c0c906-cb75-4683-a0b1-d40259b61948
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.banner
+    - image.style.banner_short
+  theme:
+    - nsctheme
+id: banner
+label: 'Banner images'
+image_style_mappings:
+  -
+    image_mapping_type: image_style
+    image_mapping: banner_short
+    breakpoint_id: nsctheme.wide
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: banner_short
+    breakpoint_id: nsctheme.narrow
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: banner
+    breakpoint_id: nsctheme.mobile
+    multiplier: 1x
+breakpoint_group: nsctheme
+fallback_image_style: banner_short

@@ -1,16 +1,44 @@
 .pcard {
-  display: grid;
+  display: block;
   gap: .8rem;
   clear: both;
   min-height: 25.6rem;
   width: auto;
   padding: 1rem 1rem 0 1rem;
-  border-radius: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; /* #3 at https://getcssscan.com/css-box-shadow-examples */
   margin: 1rem;
 }
-.pcard-image {
-  width: auto;
-  padding: 0;
+
+.layout__region {
+  margin-block-end: 1rem;
 }
 
+.pcard-image {
+  display: flex;
+  justify-content: center; 
+  width: auto;
+  align-items: center;
+  padding: 0;
+}
+/*
+@media screen and (min-width: 40em) {
+  .paragraph .layout--threecol-33-34-33 > .layout__region {
+    flex: 0 1 100%;
+  }
+}
+
+@media screen and (min-width: 50em) {
+ .paragraph .layout--threecol-33-34-33 > .layout__region--first,
+ .paragraph .layout--threecol-33-34-33 > .layout__region--third {
+    flex: 0 1 33%;
+  }
+  .paragraph .layout--threecol-33-34-33 > .layout__region--second {
+    flex: 0 1 34%;
+  }
+}
+*/
+/** other options considered for .pcard
+  border-bottom-right-radius: 1rem;
+  border-bottom-left-radius: 1rem; 
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;  #40 at https://getcssscan.com/css-box-shadow-examples
+*/

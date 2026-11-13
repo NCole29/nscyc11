@@ -6,11 +6,11 @@ dependencies:
     - core.entity_view_mode.media.banner
     - field.field.media.image_crop_20_7.field_image_category
     - field.field.media.image_crop_20_7.field_media_image
-    - image.style.banner
     - media.type.image_crop_20_7
+    - responsive_image.styles.banner
   module:
     - layout_builder
-    - svg_image
+    - svg_image_responsive
 third_party_settings:
   layout_builder:
     enabled: false
@@ -23,11 +23,11 @@ bundle: image_crop_20_7
 mode: banner
 content:
   field_media_image:
-    type: image
+    type: responsive_image
     label: visually_hidden
     settings:
+      responsive_image_style: banner
       image_link: ''
-      image_style: banner
       image_loading:
         attribute: lazy
       svg_attributes:

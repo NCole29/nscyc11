@@ -5,10 +5,10 @@ dependencies:
   config:
     - field.field.media.image_crop_20_7.field_image_category
     - field.field.media.image_crop_20_7.field_media_image
-    - image.style.banner
     - media.type.image_crop_20_7
+    - responsive_image.styles.banner
   module:
-    - svg_image
+    - svg_image_responsive
 _core:
   default_config_hash: l2Vnueou0p_whx86REEST7xs67iB0N5PmEbgY_z_bHY
 id: media.image_crop_20_7.default
@@ -17,11 +17,11 @@ bundle: image_crop_20_7
 mode: default
 content:
   field_media_image:
-    type: image
+    type: responsive_image
     label: visually_hidden
     settings:
+      responsive_image_style: banner
       image_link: ''
-      image_style: banner
       image_loading:
         attribute: lazy
       svg_attributes:

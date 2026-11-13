@@ -1,0 +1,17 @@
+uuid: 13352606-2983-4abc-a70b-86aaaac98c93
+langcode: en
+status: false
+dependencies: {  }
+id: prod
+label: Prod
+description: "Enable syslog in production only. In dev, drush commands throw errors due to conflicts.\r\nIn production, activate this split via settings.php: $config['config_split.config_split.prod']['status'] = TRUE;\r\n\r\nImportant to enable syslog on production so log writes to file and not database!"
+weight: 0
+stackable: false
+no_patching: false
+storage: folder
+folder: ../sync_prod
+module:
+  syslog: 0
+theme: {  }
+complete_list: {  }
+partial_list: {  }

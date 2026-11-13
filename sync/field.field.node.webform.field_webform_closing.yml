@@ -11,7 +11,7 @@ id: node.webform.field_webform_closing
 field_name: field_webform_closing
 entity_type: node
 bundle: webform
-label: 'Webform will close on'
+label: 'Form will close on'
 description: "This field does not appear on the content edit form. It is filled programmatically to be the Scheduled closing date entered on the Registration tab.\r\nThis is because the webform closing date cannot be added to the content type displays. \r\nIt could be added to full page displays via a Views block with a contextual filter, but this block will not work in teasers."
 required: false
 translatable: false

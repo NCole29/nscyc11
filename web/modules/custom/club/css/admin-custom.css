@@ -7,6 +7,23 @@
   }
 }
 
+/* Changes to Gin media-library css */
+.media-library-item--grid .media-library-item__preview {
+  min-height:fit-content!important; /* min-height: 11.25rem; */
+}
+.media-library-item__name {
+  word-break:normal!important;
+}
+.media-library-item__click-to-select-checkbox .form-boolean {
+  width: 20px!important; /* width: 29px; */
+  height: 20px!important; /* height: 29px; */
+  border-radius: 0%!important;
+}
+
+.media-library-item__click-to-select-trigger {
+  height:auto!important; /* height: 100%; */
+}
+
 /* Custom background color (light blue:#e1eafc or yellow:#FFFDD0) for the details component */
 .info-details {
   background-color: #FFFDD0 !important;

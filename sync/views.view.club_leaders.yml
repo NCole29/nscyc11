@@ -6,15 +6,12 @@ dependencies:
     - field.storage.club_leader.field_end_date
     - field.storage.club_leader.field_start_date
     - field.storage.taxonomy_term.field_position_category
-    - field.storage.user.user_picture
-    - image.style.thumbnail
     - taxonomy.vocabulary.positions
   module:
     - club
     - club_leader
     - datetime
     - options
-    - svg_image
     - taxonomy
     - user
 _core:
@@ -2042,18 +2039,16 @@ display:
       css_class: ''
       display_description: ''
       header:
-        area:
-          id: area
+        area_text_custom:
+          id: area_text_custom
           table: views
-          field: area
+          field: area_text_custom
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: text
+          plugin_id: text_custom
           empty: false
-          content:
-            value: "Leaders are assigned a Drupal role based on position. See <a href=\"/admin/structure/taxonomy/manage/positions/overview\">default role per position.</a> The default role is removed based on end date. Additional roles may be assigned to a leader from the Drupal user account page (click their name in the Drupal user column), but must be cleared manually.<br>\r\nName is filled with the Drupal username but may be edited for the contacts page (click <strong>edit</strong> after saving entry).  \r\nPast leaders may appear on this page with a Drupal role if the person is also a current leader. "
-            format: basic_html
+          content: "<details class=\"info-details\">\r\n<summary>How to Add Club Leaders (Site Administrators only)</summary>\r\n\r\nClub Leaders include Board members (Officers and Directors) and Coordinators. They appear  publicly on the Officers and Coordinators page under separate Current and Past leader tabs.\r\n\r\n<p><strong>Step 1: Add Leader Records for a New Term</strong>\r\n\t\r\n<ol>\r\n<li>Click <strong>Add New Leader</strong> and input the leader’s name, position, and term dates. Ensure the person is an active member if their name does not appear. </li>\r\n<li><strong>Save the record.</strong> The system automatically assigns the Drupal role and permissions for that position. (See <a href=\"/admin/structure/taxonomy/manage/positions/overview\">default role per position.</a>) The system automatically removes this role on the term’s end date. </li>\r\n</ol></p>\r\n<p><strong>Step 2: Edit Leader Records (Optional)</strong>\r\n<ol>\r\n<li><strong>Format the display name.</strong> The system automatically fills Name with the Drupal username. Edit the leader record and update the “Uploaded or edited name” field to ensure consistent formatting.</li>\r\n<li><strong>Assign extra roles.</strong> Coordinator roles grant editing permissions. The Board role grants only view access to the Admin menu. Click the leader's name in the Drupal User column to manually add <strong>Content creator</strong> or <strong>Content editor</strong> roles if a Board member needs editing access.</li>\r\n</ol></p>\r\n</details>\r\n<hr>"
           tokenize: false
       display_extenders: {  }
       path: admin/people/club_leaders

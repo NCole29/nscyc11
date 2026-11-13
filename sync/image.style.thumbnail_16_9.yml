@@ -1,11 +1,7 @@
 uuid: c2d55e60-e6ff-497d-a2d9-86813ae3629c
 langcode: en
 status: true
-dependencies:
-  config:
-    - crop.type.crop_16_9
-  module:
-    - crop
+dependencies: {  }
 _core:
   default_config_hash: G72iaQX6BBUMMvRBXuU8fso7e0zMgiHNGOvcEuL0mvs
 name: thumbnail_16_9
@@ -14,20 +10,13 @@ effects:
   467c1be6-c206-4279-ba25-e93f53c5d7f1:
     uuid: 467c1be6-c206-4279-ba25-e93f53c5d7f1
     id: image_convert
-    weight: -8
+    weight: -9
     data:
       extension: webp
-  61a08079-eb9d-4a54-81cd-c4bad4e2c8fc:
-    uuid: 61a08079-eb9d-4a54-81cd-c4bad4e2c8fc
-    id: crop_crop
-    weight: -10
-    data:
-      crop_type: crop_16_9
-      automatic_crop_provider: null
-  cd56d1ed-49ec-4e7d-8930-3c3283709cb8:
-    uuid: cd56d1ed-49ec-4e7d-8930-3c3283709cb8
+  3d0e258f-de90-432b-93da-1bb52c6c1e9e:
+    uuid: 3d0e258f-de90-432b-93da-1bb52c6c1e9e
     id: image_scale
-    weight: -9
+    weight: -10
     data:
       width: 178
       height: 100

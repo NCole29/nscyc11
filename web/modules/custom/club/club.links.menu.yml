@@ -29,3 +29,13 @@ club_civiconfig.civigroups:
   route_name: civicrm_group_roles.admin_config_civicrm.civicrm_group_roles_manual_sync
   parent: entity.user.collection
   weight: 100
+
+# ----------------------------- 
+# Admin menu > Content 
+# -----------------------------
+club.ride_content:
+  title: 'Rides'
+  route_name: view.content_rides.rides
+  parent: system.admin_content
+  menu_name: admin
+  weight: 13

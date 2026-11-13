@@ -985,8 +985,17 @@ display:
           1: AND
       style:
         type: default
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
       row:
         type: fields
+        options:
+          default_field_elements: true
+          inline: {  }
+          separator: ''
+          hide_empty: false
       defaults:
         access: false
         title: false
@@ -1001,10 +1010,23 @@ display:
         filter_groups: false
         header: false
         footer: false
-      css_class: ''
+      css_class: solo-input
       group_by: true
       display_description: ''
-      header: {  }
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<p class="large">Reports added in the past 7 days</reports>'
+            format: basic_html
+          tokenize: false
       footer:
         area_text_custom:
           id: area_text_custom

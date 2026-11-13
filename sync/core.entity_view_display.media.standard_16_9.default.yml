@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.field.media.standard_16_9.field_image_category
     - field.field.media.standard_16_9.field_media_image
-    - image.style.standard_16_9
+    - image.style.thumbnail_focal_16_9
     - media.type.standard_16_9
   module:
     - svg_image
@@ -14,20 +14,12 @@ targetEntityType: media
 bundle: standard_16_9
 mode: default
 content:
-  field_image_category:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
-    region: content
   field_media_image:
     type: image
     label: visually_hidden
     settings:
       image_link: ''
-      image_style: standard_16_9
+      image_style: thumbnail_focal_16_9
       image_loading:
         attribute: lazy
       svg_attributes:
@@ -39,6 +31,7 @@ content:
     region: content
 hidden:
   created: true
+  field_image_category: true
   name: true
   thumbnail: true
   uid: true

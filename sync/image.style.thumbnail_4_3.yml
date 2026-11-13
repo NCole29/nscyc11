@@ -1,11 +1,7 @@
 uuid: ff360863-c950-4626-b140-7bf76f30bbc8
 langcode: en
 status: true
-dependencies:
-  config:
-    - crop.type.crop_4_3
-  module:
-    - crop
+dependencies: {  }
 _core:
   default_config_hash: Rs-4xyTa7Bjj1hjz4U_zVcW5YPloL9v-pZ-Ux3aAQb0
 name: thumbnail_4_3
@@ -17,13 +13,6 @@ effects:
     weight: -8
     data:
       extension: webp
-  a0c3d871-9989-444e-afb0-98f002f7a8f5:
-    uuid: a0c3d871-9989-444e-afb0-98f002f7a8f5
-    id: crop_crop
-    weight: -10
-    data:
-      crop_type: crop_4_3
-      automatic_crop_provider: null
   1ff2fa4e-d3af-4804-9d5d-0ea5b7e61355:
     uuid: 1ff2fa4e-d3af-4804-9d5d-0ea5b7e61355
     id: image_scale

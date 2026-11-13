@@ -795,7 +795,7 @@ display:
       style:
         type: grid_responsive
         options:
-          uses_fields: false
+          grouping: {  }
           columns: 3
           cell_min_width: 100
           grid_gutter: 10

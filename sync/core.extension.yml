@@ -117,7 +117,6 @@ module:
   svg_image: 0
   svg_image_responsive: 0
   symfony_mailer: 0
-  syslog: 0
   system: 0
   tamper: 0
   taxonomy: 0
@@ -155,4 +154,5 @@ theme:
   nsctheme: 0
   claro: 0
   gin: 0
+  default_admin: 0
 profile: minimal

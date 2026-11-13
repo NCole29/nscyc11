@@ -7,17 +7,17 @@ dependencies:
 name: thumbnail_20_5
 label: 'Thumbnail 20:5'
 effects:
-  fcbaef7f-deb3-4a66-83f7-e5debf838150:
-    uuid: fcbaef7f-deb3-4a66-83f7-e5debf838150
+  9c0099e8-bac7-4b7c-a8b9-e3fcfced5d94:
+    uuid: 9c0099e8-bac7-4b7c-a8b9-e3fcfced5d94
+    id: image_convert
+    weight: -9
+    data:
+      extension: webp
+  fdbda1ea-126e-451e-8ea2-eb6a44f95127:
+    uuid: fdbda1ea-126e-451e-8ea2-eb6a44f95127
     id: focal_point_scale_and_crop
-    weight: 1
+    weight: -10
     data:
       width: 400
       height: 100
       crop_type: focal_point
-  9c0099e8-bac7-4b7c-a8b9-e3fcfced5d94:
-    uuid: 9c0099e8-bac7-4b7c-a8b9-e3fcfced5d94
-    id: image_convert
-    weight: 2
-    data:
-      extension: webp

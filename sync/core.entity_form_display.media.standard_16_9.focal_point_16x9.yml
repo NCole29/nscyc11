@@ -9,22 +9,20 @@ dependencies:
     - image.style.thumbnail_focal_16_9
     - media.type.standard_16_9
   module:
-    - focal_point
     - imce
+    - svg_image
 id: media.standard_16_9.focal_point_16x9
 targetEntityType: media
 bundle: standard_16_9
 mode: focal_point_16x9
 content:
   field_media_image:
-    type: image_focal_point
+    type: image_image
     weight: 0
     region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail_focal_16_9
-      preview_link: true
-      offsets: '50,50'
     third_party_settings:
       imce:
         enabled: false

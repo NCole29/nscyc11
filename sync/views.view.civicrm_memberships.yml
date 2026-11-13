@@ -1045,7 +1045,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '<a href="/civicrm-membership/{{ id_1 }}/edit?destination=/admin/people/members">{{ sort_name }}</a>'
+            text: "<a href=\"/civicrm/contact/view?reset=1&cid={{ id }}\">{{ sort_name }}</a>\r\n"
             make_link: false
             path: ''
             absolute: false
@@ -1715,53 +1715,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        end_date:
-          id: end_date
-          table: civicrm_membership
-          field: end_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: civicrm_membership
-          entity_field: end_date
-          plugin_id: datetime
-          operator: '>'
-          value:
-            min: ''
-            max: ''
-            value: '2024-01-01'
-            type: date
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -1781,6 +1734,17 @@ display:
       group_by: true
       display_description: ''
       header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text_custom
+          empty: false
+          content: "<details class=\"info-details\">\r\n<summary>About this Display</summary>\r\nThe membership count on this page includes all members since the club adopted CiviCRM in 2009. This number is higher than the Drupal account total on the People > List tab because members were not given login access until April 2022.\r\n</details>\r\n<hr>"
+          tokenize: false
         result:
           id: result
           table: views
@@ -1790,7 +1754,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: "<h3>Displaying @start - @end of @total persons ever having a membership.</h3>\r\nFilter Status to view Current members. Click <strong>name</strong> to open the CiviCRM contact dashboard."
+          content: "<h3>Displaying @start - @end of @total persons</h3>\r\nFilter Status to view Current members. Click <strong>name</strong> to open the CiviCRM contact dashboard."
       display_extenders: {  }
       path: admin/people/members
       menu:

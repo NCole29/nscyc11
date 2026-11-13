@@ -1,5 +1,9 @@
-{# shaded is set in nsctheme theme settings (Appearance)
-   and made available to Twig via a preprocess hook in nscheme.theme 
+{# 
+/** 
+ * NSC: Include SDC (/components/pcard)
+ * Shaded color is set in nsctheme theme settings (Appearance)
+ *  and made available to Twig via a preprocess hook in nscheme.theme. 
+ */
 #}
 
 {% set bg_color = paragraph.field_shaded_background.value ? shade_color: '#ffffff' %}

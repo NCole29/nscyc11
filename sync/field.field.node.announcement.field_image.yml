@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_image
-    - media.type.ride_picture
+    - media.type.gallery
     - media.type.standard_16_9
     - node.type.announcement
   content:
@@ -26,11 +26,11 @@ settings:
   handler: 'default:media'
   handler_settings:
     target_bundles:
-      ride_picture: ride_picture
+      gallery: gallery
       standard_16_9: standard_16_9
     sort:
       field: created
       direction: DESC
     auto_create: false
-    auto_create_bundle: ride_picture
+    auto_create_bundle: gallery
 field_type: entity_reference

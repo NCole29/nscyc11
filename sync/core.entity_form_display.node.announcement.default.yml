@@ -102,7 +102,9 @@ content:
     weight: 2
     region: content
     settings:
-      media_types: {  }
+      media_types:
+        - standard_16_9
+        - gallery
     third_party_settings: {  }
   field_resize_text_image:
     type: markup

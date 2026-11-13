@@ -1,6 +1,6 @@
 uuid: 3266770d-44c2-45d8-9b6c-8c22214e3045
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.page.field_resize_text_image
     - field.field.node.page.field_text
     - field.field.node.page.field_type_of_page
+    - field.field.node.page.field_use_components
     - field.field.node.page.layout_builder__layout
     - node.type.page
   module:
@@ -41,5 +42,6 @@ hidden:
   field_resize_text_image: true
   field_text: true
   field_type_of_page: true
+  field_use_components: true
   layout_builder__layout: true
   links: true

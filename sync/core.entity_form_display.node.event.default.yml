@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.event.field_summary
     - field.field.node.event.field_text
     - field.field.node.event.field_type_of_page
+    - field.field.node.event.field_use_components
     - field.field.node.event.field_webform
     - field.field.node.event.field_webform_closing
     - field.field.node.event.field_webform_limit
@@ -60,12 +61,12 @@ third_party_settings:
         required_fields: true
     group_banner_image:
       children:
-        - banner_image
         - group_group_resize_banner
+        - banner_image
       label: 'Banner image'
       region: content
       parent_name: group_tabs
-      weight: 12
+      weight: 13
       format_type: tab
       format_settings:
         classes: ''
@@ -96,15 +97,16 @@ third_party_settings:
     group_page_content:
       children:
         - title
+        - field_date
+        - field_location
         - group_group_resize
         - field_image
         - field_type_of_page
         - field_text
         - field_components
-        - field_location
-        - field_date
         - field_page_access
         - moderation_state
+        - group_design_a_page
       label: 'Page content'
       region: content
       parent_name: group_tabs
@@ -122,9 +124,9 @@ third_party_settings:
         - field_contact_us
         - field_contact_person
       label: 'Contact link'
-      region: hidden
+      region: content
       parent_name: group_tabs
-      weight: 14
+      weight: 30
       format_type: details
       format_settings:
         classes: ''
@@ -140,7 +142,7 @@ third_party_settings:
       label: 'HOW TO ADD IMAGES'
       region: content
       parent_name: group_page_content
-      weight: 13
+      weight: 9
       format_type: details
       format_settings:
         classes: info-details
@@ -154,7 +156,7 @@ third_party_settings:
       children:
         - field_resize_banner_image
       label: 'HOW TO PREPARE BANNER IMAGES FOR UPLOAD'
-      region: hidden
+      region: content
       parent_name: group_banner_image
       weight: 29
       format_type: details
@@ -174,7 +176,7 @@ third_party_settings:
       label: Webform
       region: content
       parent_name: group_register
-      weight: 26
+      weight: 27
       format_type: details
       format_settings:
         classes: ''
@@ -192,7 +194,7 @@ third_party_settings:
       label: Registration
       region: content
       parent_name: group_tabs
-      weight: 13
+      weight: 14
       format_type: tab
       format_settings:
         classes: ''
@@ -200,6 +202,22 @@ third_party_settings:
         id: ''
         label_as_html: false
         formatter: closed
+        description: ''
+        required_fields: true
+    group_design_a_page:
+      children:
+        - field_use_components
+      label: 'HOW TO DESIGN A PAGE'
+      region: hidden
+      parent_name: group_page_content
+      weight: 11
+      format_type: details
+      format_settings:
+        classes: info-details
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: false
         description: ''
         required_fields: true
 id: node.event.default
@@ -216,7 +234,7 @@ content:
     third_party_settings: {  }
   field_components:
     type: layout_paragraphs
-    weight: 18
+    weight: 13
     region: content
     settings:
       view_mode: default
@@ -225,6 +243,7 @@ content:
       nesting_depth: 0
       require_layouts: 0
       empty_message: ''
+      conversion: true
     third_party_settings:
       conditional_fields:
         3363cdc8-719c-4695-a7f7-04edb09baf8e:
@@ -282,7 +301,7 @@ content:
     third_party_settings: {  }
   field_date:
     type: datetime_default
-    weight: 20
+    weight: 7
     region: content
     settings: {  }
     third_party_settings:
@@ -290,14 +309,16 @@ content:
         hide: true
   field_image:
     type: media_library_widget
-    weight: 15
+    weight: 10
     region: content
     settings:
-      media_types: {  }
+      media_types:
+        - standard_16_9
+        - gallery
     third_party_settings: {  }
   field_location:
     type: entity_reference_autocomplete
-    weight: 19
+    weight: 8
     region: content
     settings:
       match_operator: CONTAINS
@@ -307,13 +328,13 @@ content:
     third_party_settings: {  }
   field_page_access:
     type: options_select
-    weight: 21
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
   field_registration_link:
     type: link_default
-    weight: 27
+    weight: 28
     region: content
     settings:
       placeholder_url: '/civicrm/event/info?id=36&reset=1'
@@ -358,7 +379,7 @@ content:
     third_party_settings: {  }
   field_summary:
     type: text_textarea
-    weight: 17
+    weight: 16
     region: content
     settings:
       rows: 3
@@ -391,7 +412,7 @@ content:
             selector: ''
   field_text:
     type: text_textarea
-    weight: 17
+    weight: 12
     region: content
     settings:
       rows: 5
@@ -421,7 +442,13 @@ content:
             selector: ''
   field_type_of_page:
     type: options_buttons
-    weight: 16
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_use_components:
+    type: markup
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -443,7 +470,7 @@ content:
     third_party_settings: {  }
   field_webform_results:
     type: entity_reference_autocomplete
-    weight: 29
+    weight: 30
     region: content
     settings:
       match_operator: CONTAINS
@@ -451,6 +478,84 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  group_design_a_page:
+    weight: 55
+    region: content
+    settings: {  }
+    third_party_settings:
+      conditional_fields:
+        845b26dc-6f04-41d8-be62-ec72f7b58dae:
+          entity_type: node
+          bundle: event
+          dependee: field_type_of_page
+          settings:
+            state: visible
+            reset: false
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: '2'
+            effect: show
+            effect_options: {  }
+            selector: ''
+            inheritance:
+              propagate: '0'
+              apply_to_parent: '0'
+              recurse: '0'
+  group_group_resize:
+    weight: 54
+    region: content
+    settings: {  }
+    third_party_settings:
+      conditional_fields:
+        0516eae7-e42c-46a7-a1a6-007698c7e06e:
+          entity_type: node
+          bundle: event
+          dependee: field_type_of_page
+          settings:
+            state: visible
+            reset: false
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: '1'
+            effect: show
+            effect_options: {  }
+            selector: ''
+            inheritance:
+              propagate: '0'
+              apply_to_parent: '0'
+              recurse: '0'
+        b49cf12c-b5dd-4379-bde1-1cd7068cbe85:
+          entity_type: node
+          bundle: event
+          dependee: field_type_of_page
+          settings:
+            state: visible
+            reset: false
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: '1'
+            effect: show
+            effect_options: {  }
+            selector: ''
+            inheritance:
+              propagate: '0'
+              apply_to_parent: '0'
+              recurse: '0'
   group_group_webform:
     weight: 52
     region: content
@@ -479,6 +584,34 @@ content:
               propagate: '0'
               apply_to_parent: '0'
               recurse: '0'
+  group_how_to_use_components:
+    weight: 53
+    region: content
+    settings: {  }
+    third_party_settings:
+      conditional_fields:
+        b686210b-80e4-4541-a35a-6a6bb7e4a606:
+          entity_type: node
+          bundle: event
+          dependee: field_type_of_page
+          settings:
+            state: visible
+            reset: false
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: '2'
+            effect: show
+            effect_options: {  }
+            selector: ''
+            inheritance:
+              propagate: '0'
+              apply_to_parent: '0'
+              recurse: '0'
   group_registration:
     weight: 51
     region: content
@@ -487,13 +620,13 @@ content:
       conditional_fields: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 22
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -511,14 +644,14 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 4
+    weight: 2
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 16
+    weight: 15
     region: content
     settings:
       display_label: true
@@ -543,7 +676,7 @@ content:
             selector: ''
   title:
     type: string_textfield
-    weight: 12
+    weight: 6
     region: content
     settings:
       size: 60
@@ -551,7 +684,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 3
+    weight: 1
     region: content
     settings:
       match_operator: CONTAINS

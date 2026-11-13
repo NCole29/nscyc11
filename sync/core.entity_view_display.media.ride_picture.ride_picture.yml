@@ -1,6 +1,6 @@
 uuid: e8b8a2b9-a6a0-48bc-8443-e6006b5304c2
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.media.ride_picture

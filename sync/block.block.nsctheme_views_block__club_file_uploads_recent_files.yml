@@ -18,7 +18,7 @@ plugin: 'views_block:club_file_uploads-recent_files'
 settings:
   id: 'views_block:club_file_uploads-recent_files'
   label: ''
-  label_display: visible
+  label_display: '0'
   provider: views
   views_label: ''
   items_per_page: null

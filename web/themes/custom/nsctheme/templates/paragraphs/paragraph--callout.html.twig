@@ -1,5 +1,9 @@
-{# border_color and shade_colors are set in Appearance > NSC theme
-   and made available to Twig via a preprocess hook in nsctheme.theme 
+{# 
+/** 
+ * NSC: Include SDC (/components/pcallout)
+ * Border_color and shade_colors are set in Appearance > NSC theme
+ *  and made available to Twig via a preprocess hook in nsctheme.theme 
+ */
 #}
 
 {% set bg_color = paragraph.field_shaded_background.value ? shade_color: '#ffffff' %}

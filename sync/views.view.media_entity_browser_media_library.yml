@@ -3,7 +3,7 @@ langcode: und
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.media.media_library
+    - core.entity_view_mode.media.thumbnail
   module:
     - entity_browser
     - media
@@ -73,7 +73,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          view_mode: media_library
+          view_mode: thumbnail
         entity_browser_select:
           id: entity_browser_select
           table: media

@@ -5,11 +5,9 @@ keyboard_navigation_menus:
   admin: '0'
   civicrm-reference: '0'
   club-reports: '0'
-  content: '0'
   devel: '0'
   footer: '0'
   main: '0'
-  navigation-user-links: '0'
   tools: '0'
 site_reading_mode_content_type: {  }
 enable_px_based_widths: false
@@ -49,10 +47,6 @@ menu_template_assignments:
     template: ''
     menu_name: ''
     menu_id: club-reports
-  content:
-    template: ''
-    menu_name: ''
-    menu_id: content
   devel:
     template: ''
     menu_name: ''
@@ -65,10 +59,6 @@ menu_template_assignments:
     template: ''
     menu_name: ''
     menu_id: main
-  navigation-user-links:
-    template: ''
-    menu_name: ''
-    menu_id: navigation-user-links
   tools:
     template: ''
     menu_name: ''
@@ -204,7 +194,7 @@ popup_login_z_index: 10000
 popup_login_overlay_opacity: 50
 site_load_w3css_on: false
 site_font_google_local_on: false
-site_font_awesome_on: '0'
+site_font_awesome_on: '4'
 site_font_google_global_on: solo-open-sans
 site_font_google_heading_on: ''
 site_font_google_special_on: ''

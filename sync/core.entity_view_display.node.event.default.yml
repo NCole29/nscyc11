@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.event.field_summary
     - field.field.node.event.field_text
     - field.field.node.event.field_type_of_page
+    - field.field.node.event.field_use_components
     - field.field.node.event.field_webform
     - field.field.node.event.field_webform_closing
     - field.field.node.event.field_webform_limit
@@ -30,6 +31,7 @@ dependencies:
     - layout_builder
     - layout_builder_restrictions
     - layout_discovery
+    - markup
     - options
     - text
     - user
@@ -274,6 +276,21 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 3
             additional: {  }
+          eb6d6058-10da-4f67-af9e-24b269efc4f0:
+            uuid: eb6d6058-10da-4f67-af9e-24b269efc4f0
+            region: first
+            configuration:
+              id: 'field_block:node:event:field_use_components'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: markup
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 11
+            additional: {  }
         third_party_settings: {  }
       -
         layout_id: layout_onecol
@@ -382,6 +399,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 11
+    region: first
+  field_use_components:
+    type: markup
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 21
     region: first
   links:
     settings: {  }

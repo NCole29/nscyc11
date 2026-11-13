@@ -35,6 +35,10 @@ a:hover {
   text-align: center;
 }
 
+.button {
+  margin: 1rem 0;
+}
+
 /* CSS applied in templates and views */
 .w3-theme-d5 {
   color: #ffffff !important;
@@ -99,12 +103,6 @@ a:hover {
 .welcome-block a:hover {
   color: #000000!important;
 }
-
-/* Ride lists (CSS class is added in Config > Appearance > Top containers
-   Styling and design
-    rounding: 8px
-    Tick box to apply border to inside of regions
-*/
 
 /* Events & Announcements headers (CSS class is added in the View) */
 .view-header h3 {

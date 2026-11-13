@@ -1,9 +1,9 @@
-uuid: 3dcb8ada-84ce-4ad7-9279-ffb41127d6b5
+uuid: b841dc16-3133-44f6-854b-cd101151dd4b
 langcode: en
 status: true
 dependencies:
   content:
-    - 'block_content:paragraphs_block:072779c4-7fc3-4862-852b-91deb3d4c469'
+    - 'block_content:paragraphs_block:1e5978a4-2af1-48b6-a96a-d1af0edfb1c1'
   module:
     - block_content
     - system
@@ -12,11 +12,11 @@ dependencies:
 id: nsctheme_homepageicons
 theme: nsctheme
 region: full_width_blocks
-weight: -14
+weight: 0
 provider: null
-plugin: 'block_content:072779c4-7fc3-4862-852b-91deb3d4c469'
+plugin: 'block_content:1e5978a4-2af1-48b6-a96a-d1af0edfb1c1'
 settings:
-  id: 'block_content:072779c4-7fc3-4862-852b-91deb3d4c469'
+  id: 'block_content:1e5978a4-2af1-48b6-a96a-d1af0edfb1c1'
   label: 'Home page icons'
   label_display: '0'
   provider: block_content

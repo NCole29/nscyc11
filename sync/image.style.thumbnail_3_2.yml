@@ -9,17 +9,17 @@ _core:
 name: thumbnail_3_2
 label: 'Thumbnail 3:2'
 effects:
-  d3159feb-266b-4d81-aaae-ce4418ea9fb2:
-    uuid: d3159feb-266b-4d81-aaae-ce4418ea9fb2
-    id: focal_point_scale_and_crop
-    weight: -10
-    data:
-      width: 150
-      height: 100
-      crop_type: focal_point
   c99864fb-3bea-4853-b35b-8fd187155efb:
     uuid: c99864fb-3bea-4853-b35b-8fd187155efb
     id: image_convert
     weight: -9
     data:
       extension: webp
+  6c51ceba-3f8b-4d38-ad89-79977497083d:
+    uuid: 6c51ceba-3f8b-4d38-ad89-79977497083d
+    id: focal_point_scale_and_crop
+    weight: -10
+    data:
+      width: 150
+      height: 100
+      crop_type: focal_point

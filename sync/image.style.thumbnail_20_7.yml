@@ -9,17 +9,17 @@ _core:
 name: thumbnail_20_7
 label: 'Thumbnail 20:7'
 effects:
-  43d2c878-dac1-45e6-9972-9c7a3ad0de0a:
-    uuid: 43d2c878-dac1-45e6-9972-9c7a3ad0de0a
-    id: focal_point_scale_and_crop
-    weight: -10
-    data:
-      width: 286
-      height: 100
-      crop_type: focal_point
   a68a0e53-00cb-4596-a9aa-053101078b8e:
     uuid: a68a0e53-00cb-4596-a9aa-053101078b8e
     id: image_convert
     weight: -9
     data:
       extension: webp
+  1f8abcf9-a7b4-4d6e-bce1-ed82d4453c26:
+    uuid: 1f8abcf9-a7b4-4d6e-bce1-ed82d4453c26
+    id: focal_point_scale_and_crop
+    weight: -10
+    data:
+      width: 286
+      height: 100
+      crop_type: focal_point

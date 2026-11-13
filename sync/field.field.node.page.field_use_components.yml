@@ -1,0 +1,24 @@
+uuid: 93af055e-15c5-4d9f-a5ac-cb327316f16c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_use_components
+    - node.type.page
+  module:
+    - markup
+id: node.page.field_use_components
+field_name: field_use_components
+entity_type: node
+bundle: page
+label: 'How to Use Components'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: '<p>Design a multi-column or grid layout by clicking the + and adding a section. For a column layout, click Layout Options and select column widths.&nbsp;</p><p>Next, click the + sign in each column or row to add a callout, card, or text. When editing a saved page, click twice within a section to see the edit links for callout, card, or text.</p><ul><li data-list-item-id="ee1a063094222458dd6149486efcb98c4"><strong>Callouts </strong>are containers that contain text and optional title. By default, they have a white background, left border, and shadow to stand out from regular paragraphs. You may optionally use a shaded (blue) background and/or suppress the border.&nbsp;</li><li data-list-item-id="eab091778e287f09b7487fe788946957b"><strong>Cards </strong>are containers that contain an image (required), title (optional), and text. A shaded background is optional.</li><li data-list-item-id="eae04062c3dfc61370cbcd6109db902cb"><strong>Text </strong>containers are the same as on simple pages, but can be placed in a layout.</li></ul><p>See <a href="/page-columns-cards-and-text">example with cards</a> and <a href="/page-text-and-callouts">example with text and callouts</a>.</p><p><strong>Mobile devices</strong>: Always save as draft and view the page on a mobile device. When using columns, the left column is stacked on top of the right column and this may not make sense for the content flow. Also, 3 columns may or may not work depending on the amount of content in each column.</p><p>&nbsp;</p>'
+    format: basic_html
+field_type: markup

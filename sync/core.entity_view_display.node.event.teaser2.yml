@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.event.field_summary
     - field.field.node.event.field_text
     - field.field.node.event.field_type_of_page
+    - field.field.node.event.field_use_components
     - field.field.node.event.field_webform
     - field.field.node.event.field_webform_closing
     - field.field.node.event.field_webform_limit
@@ -283,6 +284,7 @@ hidden:
   field_resize_text_image: true
   field_text: true
   field_type_of_page: true
+  field_use_components: true
   field_webform: true
   field_webform_closing: true
   field_webform_limit: true

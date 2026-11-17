@@ -99,14 +99,14 @@ third_party_settings:
         - title
         - field_date
         - field_location
-        - group_group_resize
-        - field_image
         - field_type_of_page
         - field_text
+        - group_design_a_page
         - field_components
+        - group_group_resize
+        - field_image
         - field_page_access
         - moderation_state
-        - group_design_a_page
       label: 'Page content'
       region: content
       parent_name: group_tabs
@@ -142,7 +142,7 @@ third_party_settings:
       label: 'HOW TO ADD IMAGES'
       region: content
       parent_name: group_page_content
-      weight: 9
+      weight: 14
       format_type: details
       format_settings:
         classes: info-details
@@ -176,7 +176,7 @@ third_party_settings:
       label: Webform
       region: content
       parent_name: group_register
-      weight: 27
+      weight: 3
       format_type: details
       format_settings:
         classes: ''
@@ -309,7 +309,7 @@ content:
         hide: true
   field_image:
     type: media_library_widget
-    weight: 10
+    weight: 15
     region: content
     settings:
       media_types:
@@ -328,13 +328,13 @@ content:
     third_party_settings: {  }
   field_page_access:
     type: options_select
-    weight: 14
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
   field_registration_link:
     type: link_default
-    weight: 28
+    weight: 4
     region: content
     settings:
       placeholder_url: '/civicrm/event/info?id=36&reset=1'
@@ -361,7 +361,7 @@ content:
             selector: ''
   field_registration_type:
     type: options_select
-    weight: 25
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -379,7 +379,7 @@ content:
     third_party_settings: {  }
   field_summary:
     type: text_textarea
-    weight: 16
+    weight: 17
     region: content
     settings:
       rows: 3
@@ -412,7 +412,7 @@ content:
             selector: ''
   field_text:
     type: text_textarea
-    weight: 12
+    weight: 10
     region: content
     settings:
       rows: 5
@@ -442,13 +442,13 @@ content:
             selector: ''
   field_type_of_page:
     type: options_buttons
-    weight: 11
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
   field_use_components:
     type: markup
-    weight: 5
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -620,13 +620,13 @@ content:
       conditional_fields: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 15
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -644,14 +644,14 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 2
+    weight: 3
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 15
+    weight: 16
     region: content
     settings:
       display_label: true
@@ -684,7 +684,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 1
+    weight: 2
     region: content
     settings:
       match_operator: CONTAINS

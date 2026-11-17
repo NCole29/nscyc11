@@ -21,6 +21,8 @@ settings:
       - bulletedList
       - numberedList
       - alignment
+      - indent
+      - outdent
       - link
       - drupalMedia
       - style

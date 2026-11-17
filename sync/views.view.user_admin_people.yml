@@ -1555,7 +1555,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: true
-          content: "<h4>Displaying @start - @end of @total current and past members.</h4> \r\n<ul>\r\n<li>To view account,  click Username.</li>\r\n<li>To edit account, click Edit under Operations (subject to permission).</li>\r\n</ul>"
+          content: "<h4>Displaying @start - @end of @total current and past members with a Drupal user account.</h4> \r\n<ul>\r\n<li>To view account,  click Username.</li>\r\n<li>To edit account, click Edit under Operations (subject to permission).</li>\r\n</ul>"
       display_extenders: {  }
       path: admin/people/list
       menu:

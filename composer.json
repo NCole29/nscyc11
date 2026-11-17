@@ -121,7 +121,7 @@
     "civicrm/civicrm-core": "6.19.5",
     "civicrm/civicrm-drupal-8": "6.19.5",
     "civicrm/civicrm-packages": "6.19.5",
-    "civicrm/cli-tools": "*",
+    "civicrm/cli-tools": "^2026.10",
     "civicrm/composer-downloads-plugin": "^3.0",
     "ckeditor/autogrow": "^4.18",
     "ckeditor/link": "^4.18",

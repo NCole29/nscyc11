@@ -80,10 +80,25 @@ class ClubMenus {
     //$this->messenger->addStatus("Route: " . $route_name);
 
     switch($route_name) {
-      // Hide "Test" tab and rename "Results" to "Registrations".
+      // Hide test and hide or rename "Results" to "Registrations".
       case 'entity.node.canonical':
-        //unset($data['tabs'][0]['entity.node.webform.test_form']);
-        $data['tabs'][0]['entity.node.webform.results']['#link']['title'] = t('Registrations');
+        $data['tabs'][0]['entity.node.webform.test_form']['#access'] = FALSE;
+
+        // Check if the webform results tab exists.
+        if (isset($data['tabs'][0]['entity.node.webform.results'])) {
+
+          $node = \Drupal::routeMatch()->getParameter('node');
+
+          // Ensure the tab cache varies when the node is updated.
+          $cacheability->addCacheableDependency($node);
+
+          // Hide the tab if the webform field is empty else rename it.
+          if ($node->get('field_webform')->isEmpty()) {
+            $data['tabs'][0]['entity.node.webform.results']['#access'] = FALSE;
+          } else {
+            $data['tabs'][0]['entity.node.webform.results']['#link']['title'] = t('Registrations');
+          }
+        }
       break;
 
       // Remove tabs from the user account page.

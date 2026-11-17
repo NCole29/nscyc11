@@ -1128,23 +1128,23 @@
         },
         {
             "name": "civicrm/cli-tools",
-            "version": "v2026.03.20.1774037652",
-            "version_normalized": "2026.03.20.1774037652",
+            "version": "v2026.10.22.1792644823",
+            "version_normalized": "2026.10.22.1792644823",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-cli-tools.git",
-                "reference": "00a6b1cedfdd7ae3db53ec7c0b1d4d0b6fff7aa0"
+                "reference": "b05c5b9af976b7aeeaa206b140c8554e60b9c866"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/civicrm/civicrm-cli-tools/zipball/00a6b1cedfdd7ae3db53ec7c0b1d4d0b6fff7aa0",
-                "reference": "00a6b1cedfdd7ae3db53ec7c0b1d4d0b6fff7aa0",
+                "url": "https://api.github.com/repos/civicrm/civicrm-cli-tools/zipball/b05c5b9af976b7aeeaa206b140c8554e60b9c866",
+                "reference": "b05c5b9af976b7aeeaa206b140c8554e60b9c866",
                 "shasum": ""
             },
             "require": {
                 "civicrm/composer-downloads-plugin": "^3.0 || ^4.0"
             },
-            "time": "2026-03-20T20:14:14+00:00",
+            "time": "2026-10-22T04:53:44+00:00",
             "bin": [
                 "bin/civistrings",
                 "bin/civix",
@@ -1159,20 +1159,20 @@
                         "type": "phar"
                     },
                     "cv.phar": {
-                        "url": "https://download.civicrm.org/cv/cv-0.3.71.phar",
-                        "version": "0.3.71"
+                        "url": "https://download.civicrm.org/cv/cv-0.3.72.phar",
+                        "version": "0.3.72"
                     },
                     "civix.phar": {
-                        "url": "https://download.civicrm.org/civix/civix-26.02.0.phar",
-                        "version": "26.02.0"
+                        "url": "https://download.civicrm.org/civix/civix-26.10.3.phar",
+                        "version": "26.10.3"
                     },
                     "coworker.phar": {
                         "url": "https://download.civicrm.org/coworker/coworker-0.9.phar",
                         "version": "0.9"
                     },
                     "civistrings.phar": {
-                        "url": "https://download.civicrm.org/civistrings/civistrings.phar-2022-08-30-c035da67",
-                        "version": "2022-08-30-c035da67"
+                        "url": "https://download.civicrm.org/civistrings/civistrings.phar-2026-05-28-0ce9333d",
+                        "version": "2026-05-28-0ce9333d"
                     }
                 }
             },
@@ -1189,7 +1189,7 @@
             ],
             "support": {
                 "issues": "https://github.com/civicrm/civicrm-cli-tools/issues",
-                "source": "https://github.com/civicrm/civicrm-cli-tools/tree/v2026.03.20.1774037652"
+                "source": "https://github.com/civicrm/civicrm-cli-tools/tree/v2026.10.22.1792644823"
             },
             "install-path": "../civicrm/cli-tools"
         },

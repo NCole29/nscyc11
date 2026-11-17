@@ -153,19 +153,6 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 11
             additional: {  }
-          023a86c8-6145-4f39-bd20-20ca6c99734d:
-            uuid: 023a86c8-6145-4f39-bd20-20ca6c99734d
-            region: second
-            configuration:
-              id: 'views_block:club_route_blocks-route_list'
-              label: ''
-              label_display: visible
-              provider: views
-              context_mapping: {  }
-              views_label: ''
-              items_per_page: null
-            weight: 15
-            additional: {  }
           9bb2b3ef-4a0b-46a9-8d3f-8254165e972e:
             uuid: 9bb2b3ef-4a0b-46a9-8d3f-8254165e972e
             region: content
@@ -292,6 +279,82 @@ third_party_settings:
                   view_mode: default
                 third_party_settings: {  }
             weight: 9
+            additional: {  }
+          c7e0feb9-df06-42ce-8067-5ca140ed0f0e:
+            uuid: c7e0feb9-df06-42ce-8067-5ca140ed0f0e
+            region: second
+            configuration:
+              id: 'field_block:node:ride:field_webform'
+              label: 'Registration form'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: webform_entity_reference_link
+                label: visually_hidden
+                settings:
+                  label: Register
+                  dialog: narrow
+                  attributes:
+                    class:
+                      - button
+                third_party_settings: {  }
+            weight: 15
+            additional: {  }
+          82d48d19-1923-4dbb-b33f-5cbba7ebacb1:
+            uuid: 82d48d19-1923-4dbb-b33f-5cbba7ebacb1
+            region: second
+            configuration:
+              id: 'field_block:node:ride:field_webform_closing'
+              label: 'Registration closing date'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: datetime_default
+                label: above
+                settings:
+                  timezone_override: ''
+                  format_type: medium
+                third_party_settings: {  }
+            weight: 17
+            additional: {  }
+          49628821-05ba-4e0c-8940-2a9ab60d0fe6:
+            uuid: 49628821-05ba-4e0c-8940-2a9ab60d0fe6
+            region: second
+            configuration:
+              id: 'field_block:node:ride:field_webform_limit'
+              label: 'Registration limit'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: number_integer
+                label: inline
+                settings:
+                  thousand_separator: ''
+                  prefix_suffix: false
+                third_party_settings: {  }
+            weight: 18
+            additional: {  }
+          023a86c8-6145-4f39-bd20-20ca6c99734d:
+            uuid: 023a86c8-6145-4f39-bd20-20ca6c99734d
+            region: second
+            configuration:
+              id: 'views_block:club_route_blocks-route_list'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: null
+            weight: 19
             additional: {  }
         third_party_settings: {  }
       -

@@ -1,0 +1,657 @@
+commit 394b3908d0b7ec62c4688fe5d76361cabc97f8f2
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Fri Nov 13 14:25:23 2026 -0500
+
+    Updated CiviCRM to 6.19.5
+
+commit 66c0d96f44cd1925fc146709d76428ae19855058
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Fri Nov 13 12:03:18 2026 -0500
+
+    TWIG: Added documentation to custom templates. MENUS: Disabled Events on User account menu. Added Rides to Content dropdown menu.
+    CONTENT TYPES: Added "How to Use Components" to page forms.
+    MEDIA: Revised thumbnails. Revised Media Library View to use Thumbnail view mode.
+    CSS: admin.css - override Gin css for Media Library because thumbnail sizes vary by media type. pcallout.css - remove bottom border radius.
+    MODULES: Disabled SYSLOG ON DEV and added PROD to config split (MUST UPDATE SETTINGS.PHP ON PROD).
+
+commit f1d9b6868ce19046d59cd9a7405238c4823439f3
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Tue Nov 10 20:07:44 2026 -0500
+
+    Updated calendar to filter on moderation state. Added instructions to Club Leader page. Finalized SDC pcard (paragraphs) and card-vertical (home page). Added nsctheme.breakpoints and responsive image config to display banner-short on desktop and banner on mobile.
+
+commit baa16cbc496c62da63deed9935745bbee22e8876
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Sun Nov 8 12:02:15 2026 -0500
+
+    Uninstalled Stark theme (blocks deleted). Disabled Default admin theme and installed Gin and Gin toolbar (horizontal). Updated Calendar and Upcoming Rides view so draft recurring rides are not displayed. Removed uneccesary custom calendar templates and css.
+
+commit a49737d8b9559da31cc847b7bafc8036113a5de3
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Sat Nov 7 15:07:08 2026 -0500
+
+    Added banner-short and revised club_banner view. Updated club_paragraphs view and deleted obsolete paragraphs. Revised paragraph card/callout fields for consistency. Updated styles in ckeditor and added ckeditor5.css. Updated paragraph components (pcard, pcallout).
+
+commit 5b58e3825a5ec89eb978a0d4f919cbac9d049f5a
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Thu Nov 5 11:08:11 2026 -0500
+
+    Updated Drupal and modules.
+
+commit e1413c54be08f35cd601b597dfbe2d5ddbda005b
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Wed Oct 28 16:48:01 2026 -0400
+
+    Finalized pcard component. Put paragraph color settings in Appearance settings, updating nsctheme.theme and theme-settings.php
+
+commit 9538729503f588c54f6bf48192e8adb115b0b7b1
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Tue Oct 27 18:20:24 2026 -0400
+
+    Removed ckeditor-accordion from text editors and uninstalled. Added CSS to remove gap between bottom containers and change tooltip-taxonomy width. Moved components from club module to nsctheme. Installed maxlength module and imposed maximums on Summary for home page. Require image for Announcement and Event and provide default image.
+
+commit 57eb5d75c5f7d3a17bb3ca5a4fb407817793c0e6
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Mon Oct 26 11:51:49 2026 -0400
+
+    Added to admin-custom.css to hide Text format on FAQ field. Added view of messages to nscyc.org mailboxes. Reversed columns on ride pages so date/time, location appear on top for mobile users. Moved css for mobile from club-solo.css to club-mobile.css.
+
+commit 104c12ab593527c7e96295254c691a031fb6b682
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Sat Oct 24 19:58:22 2026 -0400
+
+    Added member directory view (limit to Yes include; temporarily limited to Board). Added member directory checkbox on 2 forms: membership, membership renewal, edit contact info. Revised shortcuts and Admin > reports > Mail list.
+
+commit abfeea4513b09266804e8b89743abb831f9b94b1
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Fri Oct 23 18:31:51 2026 -0400
+
+    Revised content type forms. Added message to media library form.
+
+commit 812410c54ee36de02c79c4f30735483b8c3e1077
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Thu Oct 22 12:59:22 2026 -0400
+
+    Updated card_row component.
+
+commit a982a93f78b06a5a7520cc9e79369573426c9f65
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Tue Oct 20 19:54:08 2026 -0400
+
+    Revised image styles and media types.
+
+commit cb973243feb4c6df9d6c7e80305149327f0da4d9
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Mon Oct 19 19:23:53 2026 -0400
+
+    Finalized media styles. Updated image instructions. Finalized card_row component. Set css classes for bottom containers containing ride page blocks.
+
+commit 0baa610c6ce44418aa396ba463507710c6a19fc4
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Sat Oct 17 15:09:47 2026 -0400
+
+    Implemented SDC view for events and announcements. Updated css for mobile.
+
+commit b560dfe92077e6a15457948250c2bf7cc413de3c
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Fri Oct 16 12:45:19 2026 -0400
+
+    Copied SDCs from bikeclub and installed views_row_sdc module.
+
+commit 80d2efb597668e73830a8f5891d172579dced29b
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Thu Oct 15 19:08:07 2026 -0400
+
+    Revised views.view.files and views.view.media.
+
+commit 29d88cd217fde4c83c4a73c3adbe7c9c24df6ac2
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Thu Oct 15 18:04:55 2026 -0400
+
+    Revised view.media to include usage. Updated Drupal and modules.
+
+commit 23279f126dc7e68997a2714b89a8b8404d30e583
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Wed Oct 14 20:33:51 2026 -0400
+
+    Revised media types for Embed 4:3 and 16:9 to use ImageWidgetCrop
+
+commit d697e5c212b14b68ef7af2d8100ddf4d6d2daf7a
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Tue Oct 13 16:43:15 2026 -0400
+
+    Added custom CSS for admin pages (club/css/admin-custom.css, ClubTemplates: hook_page_attachments). Customized template for focal_point_preview to reorder styles and exclude thumbnails (club/templates/focal-point-preview-custom and club.module: hook_theme_registry_alter).
+
+commit 883cc1af966dcb2b93532d2b5279e8cd39cb3b9d
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Sat Oct 10 19:53:56 2026 -0400
+
+    Moved content moderation state from right sidebar to bottom center on core.entity.forms. Deleted Master ride and Based on fields for Rides. Added field_custom_rule to recurring rides, added preprocess hook, and updated twig to display custom rule (e.g. Manter). Added field_inactive for ride starts (and deleted field_disabled). Installed focal point for use on ride pages, banner, gallery; keep image_crop_widget for images inserted in text editor. Updated media forms and views.
+
+commit 76903269d920d8442f8724402b5d87e8586c9c14
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Mon Oct 5 19:51:58 2026 -0400
+
+    Update Drupal core. Added view.club_rides (view of unique rides). Added code to support MySQL Views: club.services.yml, club.views.inc,  src/Repository/MySqlViewRepository.php, , src/Controller/MyViewController.php.
+
+commit b5c6a7c2054ffca9eb08548ccf8838215e93b736
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Sun Oct 4 11:54:23 2026 -0400
+
+    Revised permissions in routing.yml files. Updated Views_bulk_operations and webform.
+
+commit 0102b91a798b8be49298e5110ef7a706320636ae
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Wed Sep 30 13:56:31 2026 -0400
+
+    Modified nsctheme to add RWGPS icon in footer.
+
+commit f628e656ec90d8343bc9050b85d7d38a9bc7b922
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Tue Sep 29 13:31:21 2026 -0400
+
+    Deleted css files from module. Revised css in nsctheme. Updated CSS in Views. Added mailboxes to taxonomy.
+
+commit 5eb1a5e793545fb64db12846c02bcd359c5ceb74
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Fri Sep 25 19:05:33 2026 -0400
+
+    Removed registration fields after moveing data to webform fields.
+
+commit d1cdc61cf49b1e33bc69a3b8332e1e8ab2445d59
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Tue Sep 22 16:46:12 2026 -0400
+
+    Updated views: frontpage, banners, upcoming blocks. Styled home page. Moved masquerade and whos online to links.
+
+commit 1c7c07871b5d31cb6a3d8a8e875bdf5e6e34ddc1
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Mon Sep 21 15:15:03 2026 -0400
+
+    Updated modules. Revised form displays and markup fields.
+
+commit af3c01b094cbbbcc3bf1712f3d2cf77ba75d1753
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Mon Sep 21 13:13:15 2026 -0400
+
+    Added new registration fields to event and ride; did not update data. Updated ClubForms.php to limit the webform select list on event pages to event forms. Replaced register-for-picnic webform with picnic-5 webform.
+
+commit c9ba57d4ff48203ddb4c061370c4e7bfd8f1bbe3
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Sun Sep 20 11:30:02 2026 -0400
+
+    Removed clutheme references in config.
+
+commit 768f47b113253bd6faa7dff79f279a26497dffc7
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Sat Sep 19 12:15:45 2026 -0400
+
+    Removed typed_data, views_local_tasks, solo_copy_blocks modules. Added local tasks to club.links.task.yml.
+
+commit a43380f60c1b116fe4bc08977d3c297742d4d45e
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Fri Sep 18 16:56:01 2026 -0400
+
+    Added weight for Content > Archived.Separate Content tabs for Rides and Recurring rides.Removed 'Summary for Home Page' from Basic Page (use blocks for permanent home page content). Revised gallery image style to scale height only. Removed field_padding (gallery images). Fixed footer branding.
+
+commit cf4c17458d1aaef32530551a4eecf129b18a1540
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Wed Sep 16 15:29:28 2026 -0400
+
+    Installed navigation_extra_tools and linkit.Customized mailbox taxonomy list. Replaced view_club_leader_positions with view.club_taxonomies. Revised ClubNodes.php to clearContact for new personal contact form. Fixed content view (for moderation vs published) and added archived content. Revised and renamed contact form field formatters; added styles to contact webforms. Revised club/css/accordion.css.
+
+commit 19d91b1cdb8a2e9532a3bef08ece948d6496dbd5
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Tue Sep 15 13:34:12 2026 -0400
+
+    Installed club_reports and revised block plugin.
+
+commit 23fbba161d0348f72d21452c31bda9f28863768f
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Tue Sep 15 12:24:11 2026 -0400
+
+    Restored site after messing it up.
+
+commit 41f6e7b44cd615000ff777809d02713958b6c64f
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Fri Sep 11 10:06:24 2026 -0400
+
+    Added icon to Ride Tools. Revised Ride Start list (columns for address components). Enabled unmasquerade link.
+
+commit ad1524f5dd755687b1814be677bd259a661b213f
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Thu Sep 10 19:50:27 2026 -0400
+
+    Updated custom entities.
+
+commit 0cd63b77eb9676c0679533904bcfa8e5cb045563
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Thu Sep 10 09:16:01 2026 -0400
+
+    Restored date fields for club_leader module.
+
+commit 925ebf45b54d5c487c84d63e97899c03c3824c51
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Tue Sep 8 17:20:17 2026 -0400
+
+    Installed custom entities and fixed rwgps_route fields.
+
+commit a0fd0a38cef930fe7db4c0b9cf5b1b698a0bbf80
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Fri Sep 4 13:13:28 2026 -0400
+
+    Added club modules but did not enable. Had to uninstall text formats to uninstall club_temp.
+
+commit 62a1e87bf302cba8100f94d264a288d376786793
+Author: “Nancy <“NancyCole29@gmail.com”>
+Date:   Thu Sep 3 18:59:14 2026 -0400
+
+    Changed view names. Exported config to sync. Copied bikeclub module into /custom but did not enable.
+
+commit f99ee62eecf11a2441e60aa3e8c0b92cb2d60ea3
+Author: Nancy Cole <NancyCole29@gmail.com>
+Date:   Tue Sep 1 18:45:47 2026 -0400
+
+    Removed sync_partial
+
+commit d7d5e1dd5f1f2f348a5e547a1300ff69245970b1
+Author: Nancy Cole <NancyCole29@gmail.com>
+Date:   Tue Sep 1 18:38:28 2026 -0400
+
+    Deleted contact_storage module.
+
+commit 358b13fe209368d8e8612a5480722f1fe44e8706
+Author: Nancy Cole <NancyCole29@gmail.com>
+Date:   Tue Sep 1 11:12:01 2026 -0400
+
+    Drupal 11 installed.
+
+commit 34ca2836d01bb35eb71be90f8cf0a2c8c796e212
+Author: Nancy Cole <NancyCole29@gmail.com>
+Date:   Tue Sep 1 10:23:10 2026 -0400
+
+    Module and theme changes to prep for Drupal 11.
+
+commit 14bdfa958c5770c0386eb556f9ca37e117247d16
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Fri Aug 28 14:57:33 2026 -0400
+
+    Sync modified to remove club dependencies.
+
+commit 55fe03496bac0b79f3ff91a83503e838a283c303
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Fri Aug 28 13:20:57 2026 -0400
+
+    Adds webform contact forms, but not enabled.
+
+commit c6752fa1ff779eae888a694475e44fb64f5b6578
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Mon Aug 24 10:23:27 2026 -0400
+
+    Fixed webflo backup.
+
+commit d5cbc7daf4a0913588cbf07385d2c697c7826f2e
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Mon Aug 24 10:22:00 2026 -0400
+
+    Fixed webflo commit.
+
+commit a6b979e918b2e713708ec21d97d68978a1724a86
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sun Aug 23 17:21:04 2026 -0400
+
+    Added webform contact_form, webform handler, and contact plugin to replace the Contact module (deprecated in drupal 11.4)
+
+commit 75c9eeb3bd29de446399c3ac9811e0734440c010
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sat Aug 22 16:39:30 2026 -0400
+
+    Installed conditional_fields module and commented conditional code in modules.
+
+commit a655f13b286851a790f75dabfc3d926bf4e5a001
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sat Aug 22 15:18:19 2026 -0400
+
+    Added scripts to clean c3 & billboard libraries.
+
+commit 843aebcca2859fddf5037020903749d8627e7f94
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Mon Aug 17 13:38:36 2026 -0400
+
+    Updated webform. Install upgrade_status. Removed faqfield.
+
+commit 8809a112d5e5355767ab7d5918d52ca36e48c4e4
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Mon Aug 17 10:39:26 2026 -0400
+
+    Upgrade Drupal to 10.6.15; Address, Charts, Ctools, Diff, Entity Browser, Entity Usage, FontAwesome Icons, Geocoder, Geofield, Geofield Map, Kint, Layout Builder Restrictions, Leaflet, Magnific Popup, Paragraphs, Scheduler, Svg Image,Taxonomy Access Control Lite.
+
+commit 0a70317291038659279ce06e7bc8148b4803b701
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sun Aug 9 13:42:36 2026 -0400
+
+    Update CiviCRM & Entity browser module. Added purchase webform and handler for payment status. Minor changes to Views (pagers, fields for sorting)
+
+commit 13174dca236bfea17156fb862425bebfbec70c54
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Thu Jul 16 16:04:39 2026 -0400
+
+    Updated Rides view; links.menu.yml in club_report and club_ride.
+
+commit 157f42c77af44086f1bcea241250ea59ff27295a
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Wed Jul 15 19:27:09 2026 -0400
+
+    Update to Drupal 10.16, plus entity_usage, inline_entity_form, smart_date, tamper
+
+commit cb337f168c587279ba344bba7168471c537bee6f
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Fri Jul 10 14:22:43 2026 -0400
+
+    Updated sync/.
+
+commit a5f58911f057e3a418b2b1560e06c80d3c96fba6
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Fri Jul 10 14:18:01 2026 -0400
+
+    Update CiviCRM to 6.16. Fix club_user.module membership notice.
+
+commit 8f9f8dcc06f06a5a201615c355cf5b8fa5f577e7
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Thu Jun 25 10:56:00 2026 -0400
+
+    Added hook_upate to fix club_route.
+
+commit 8c0a5fd4f72fc8c44f54ea07a6f5ff8060c45a6c
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Thu Jun 25 10:13:41 2026 -0400
+
+    Module updates: crop, eneity_usage, paragraphs. Club_report update for unpaved, terrain, surface fields.
+
+commit 86b09eeab4bf0dc09fa8f74eadb363a25248f5a0
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Mon Jun 22 17:40:19 2026 -0400
+
+    Installed IMCE. Uninstalled ckeditor anchor. Theme updates for comments, though no comments enabled.
+
+commit 9a5b22a081c088f57c7de3f0c0c77d52cd241d4e
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Fri Jun 19 17:32:19 2026 -0400
+
+    Removed gitignore
+
+commit c0d38de215d5b3aca158bdc96518db66d5c69fa9
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Fri Jun 19 17:24:22 2026 -0400
+
+    Updated views per deleted infinite scroll. Updated club leader view to separate board and coordinators.
+
+commit 181bc77f26c956bcb667c2faef9db3cb51608bdf
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Fri Jun 19 16:56:39 2026 -0400
+
+    Updated Drupal, civicrm_entity, file_delete. Removed views_infinite_scroll, shortcutperrole, anchor_link
+
+commit 6fc72b32eb9f25b1484fc3267257309ef5256027
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Fri Jun 19 16:12:11 2026 -0400
+
+    Added node type Statistic. Updated report permissions for all board members.
+
+commit 4ad37809880df477533e66a12689c4f1a9401ded
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Thu Jun 11 21:04:43 2026 -0400
+
+    Added Club reports menu block. Added templates for club report block and page. Gave Board access to report Views.
+
+commit 84c4d27fadd030a546be4bf483ec6a6b670da653
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Mon Jun 8 10:58:41 2026 -0400
+
+    Picnic webforms fixed. Updated views for people and club rides.
+
+commit e7471585056cd14bcbf2fc46a1c57e591a683326
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Tue Jun 2 18:11:54 2026 -0400
+
+    Updated Charts module and Views. Dropped libraries and use CDN.
+
+commit d2070c9e78ee0a449b0b7c54c8dab68344417971
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Tue Jun 2 11:13:19 2026 -0400
+
+    Fixed free event webform submission views at Structure>Webform
+
+commit 825d0cb461f7673fc64339440b5f432b8e077a19
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Tue Jun 2 11:00:38 2026 -0400
+
+    Location entity reference fields now use Views to restrict to published locations. Updated Ride and Recurring ride location fields.
+
+commit de258623ed6e17c8536cff60a4bb19ee5dd43b0f
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Tue May 26 10:06:57 2026 -0400
+
+    Added multiple_fields_remove_button module.
+
+commit 0307e3b637b96b8e628adec95e9fe68b477e97ba
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sun May 24 11:59:09 2026 -0400
+
+    Updated views per changes on production
+
+commit 2b7df95ba88f7a5b69ec60453996f8fff3d4d56e
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sun May 24 11:37:30 2026 -0400
+
+    Drupal update to 10.6.9; Pathauto update; Remove Summary for home page from Basic Page
+
+commit 84e33d4b7b47f815b06e5077e8c83b7c74118d83
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sun May 3 12:29:55 2026 -0400
+
+    Deleted Statistics content type.
+
+commit eb4dd554ec9b13b917bfefa3af11c1fcc016653c
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sat May 2 18:52:16 2026 -0400
+
+    Revised help for Contact fields, Media View, and Files View. Removed Add media link from Media view so that media are only added through content pages and renamed with alt text.
+
+commit f24b8bbfb7dd61ea139e3d1383f232452f4a7392
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sat May 2 16:33:47 2026 -0400
+
+    Updated field group module. Revised help text: contact link, etc.
+
+commit 011fb3daa745f50e1d5d445c486bef5b7d4f5fa6
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sat May 2 12:10:32 2026 -0400
+
+    Revise content type descriptions. Add help on ride form (picture, recur date). Install redirect module. Update modeules: civicrm_entity, masquerade, node_revision_delete, smart_date.
+
+commit cb295ad319f3d4e052f8533fa3a3839b578e09a0
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Wed Apr 22 10:30:35 2026 -0400
+
+    Update header on Club Leaders.
+
+commit 658c241e8258989e01fd7a4dbcf7ede423d43571
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Wed Apr 22 10:12:59 2026 -0400
+
+    Add Treasurer contact form. Update club_contacts and club_memberships view with links to edit Civi entities.
+
+commit 04591483482e32d4bd6763a339e248b8294c2e32
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Tue Apr 21 13:51:56 2026 -0400
+
+    Update Drupal views of CiviCRM and Drupal forms for Civi entities.
+
+commit 39aaa5fec6e6e2ff03020e4f1df2b2151b182fb7
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sun Apr 19 19:49:07 2026 -0400
+
+    Changed line 318 in vendor/civicrm/civicrm-core/CRM/Core/Action.php to get contributions to load from Contact dashboard.
+
+commit 9ca9f26f36e54738ac623b34d174c47d327562ab
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sat Apr 18 11:17:51 2026 -0400
+
+    Updated Drupal to 10.6.7; updated modules civicrm_entity, layout_paragraphs, node_revision, webform_civicrm; added Forgot password link to twig login form.
+
+commit 40a263125cbcca118f669de23d2e809f6921182a
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Wed Apr 15 09:42:48 2026 -0400
+
+    Upgrade CiviCRM to 6.13.1
+
+commit ea3fade3655dded41ce7fb8132b21fa359eecac6
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Wed Apr 15 08:34:06 2026 -0400
+
+    Upgrade CiviCRM to 6.13. Fix membership renewal link.
+
+commit 2c09ab507e0f85bc5af05e36fcca8928a6b423fa
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Mon Apr 13 12:58:49 2026 -0400
+
+    Restored after testing.
+
+commit b1588b63729e387ee760a47f644c10536d36dafc
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Mon Apr 13 09:03:58 2026 -0400
+
+    Update form alter for PAST rides and events.
+
+commit d3cb460489ca58483b58847c390d4c0e2d25b5ba
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sun Apr 12 09:38:34 2026 -0400
+
+    Commented club_rides update hook because I copy the club_route tables to staging and prod.
+
+commit a4160d0d99c99e03c9e4c0078b12baecbba8211b
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sun Apr 12 09:27:50 2026 -0400
+
+    Updated views to remove RWGPS terrain and surface from displays.
+
+commit 8f4f2c11bc6619693af45a87c798f21fedf1761e
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sun Apr 12 09:07:41 2026 -0400
+
+    Updated robots.txt
+
+commit 591fae6613aaea51f7fb3c007f26d891ed172bce
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sun Apr 12 08:49:46 2026 -0400
+
+    Updated leader display in teasers. Removed infinite scroll from .info.yml files.
+
+commit 8918d2d0ddc04a7697e6955a1851986217e12f01
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sat Apr 11 09:35:31 2026 -0400
+
+    Add fields to RWGPS download and update Views. Remove Infinite Scroll on Views.
+
+commit 32cff18257ff64afd6f5b111180e5cedcb4d9a58
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Wed Apr 8 11:57:55 2026 -0400
+
+    CiviCRM update
+
+commit 44ef32b4f0401a5a4a77f05c943ba6be1777a059
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Thu Mar 12 11:23:49 2026 -0400
+
+    CiviMail CB error fix. Ride leader display format
+
+commit 5e45be7c5c2460220c589979e8ba988b3c7fff70
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Mon Mar 9 12:55:28 2026 -0400
+
+    Fixed ride leader links
+
+commit 8f52ff9490ce5958d2d025f3289c655db67f7ffc
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sun Mar 8 13:32:45 2026 -0400
+
+    Removed To on contact form labels. Updated permissions.
+
+commit 72f5ce476785099c65c9e0567c91fce1fc8be89b
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sat Mar 7 17:22:02 2026 -0500
+
+    Added contact links to nodes. Fixed hooks for club leader year. Added contact forms.
+
+commit 97c3f47b56c1a54191927b191316d70811128913
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Sat Mar 7 13:17:24 2026 -0500
+
+    Deleted club_forum. Updated content moderation. Added gravel rides block.
+
+commit c542868e9876c9682e09bb30b3415dbcb7d1a776
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Fri Mar 6 19:07:07 2026 -0500
+
+    Revised Site admin permissions
+
+commit f16e74262d7f3a19743b02122d0aebc0dc39cddb
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Fri Mar 6 18:47:15 2026 -0500
+
+    Upgrade to Drupal 10.6.5
+
+commit 06fe4498c119416153b727be499a609f4ec6c4b6
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Fri Mar 6 16:44:05 2026 -0500
+
+    Update CiviCRM, frre event webform, event displays
+
+commit e4baaf0d0ef0e13357c16967d475b7d9753eb02a
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Thu Mar 5 17:38:27 2026 -0500
+
+    Update to Drupal 10.6.4
+
+commit 1647440ba9d182a4b0af821ad4a41ab5092f4d41
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Thu Mar 5 16:46:09 2026 -0500
+
+    Installed config_split
+
+commit d25d68ebad3892b1ec943317ce19a2537869adcd
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Thu Mar 5 15:43:00 2026 -0500
+
+    Enable admin_toolbar_tools on prod
+
+commit c63d6c0d8e1b100f612ecb09a45b6131692f009c
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Thu Mar 5 14:21:52 2026 -0500
+
+    Installed Key and updated API configs.
+
+commit a07d1b592818ef3e7b6fc4b49bcc1371c0ce6a3a
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Wed Mar 4 17:47:01 2026 -0500
+
+    Removed sites files
+
+commit fd98830606dc3498753a70c3bf957681c4415b80
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Wed Mar 4 17:43:44 2026 -0500
+
+    Added sites folder to gitignore
+
+commit 184ee4c04a34111e35ad70412d9ae4c64cbe2442
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Wed Mar 4 17:27:05 2026 -0500
+
+    Exported updated config
+
+commit daef0e271f6abf1d2ea76e2c8a2ecef38ea3ee0a
+Author: nancy cole <nancycole29@gmail.com>
+Date:   Wed Mar 4 11:29:13 2026 -0500
+
+    Initial commit.

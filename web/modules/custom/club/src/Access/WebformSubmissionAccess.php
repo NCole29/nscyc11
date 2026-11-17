@@ -20,7 +20,7 @@ class WebformSubmissionAccess implements AccessInterface {
    *   The access result.
    */
   public function access(RouteMatchInterface $route_match, AccountInterface $account) {
-  
+
     if ($route_match->getRouteName() === 'entity.node.webform.results_submissions') {
 
       $node = $route_match->getParameter('node');

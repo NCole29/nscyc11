@@ -1037,7 +1037,7 @@ display:
           admin_label: ''
           plugin_id: text_custom
           empty: false
-          content: '<caption><b>See all <a href="/board-minutes">board minutes</a> and <a href="/club-reports">reports.</a>  Members must login to view these files.</b></caption>'
+          content: "<caption>See all <a href=\"/board-minutes\">board minutes</a> and <a href=\"/club-reports\">reports.</a><br>\r\nMembers must login to view these files.</caption>"
           tokenize: false
       display_extenders: {  }
       block_description: 'Recently added files'

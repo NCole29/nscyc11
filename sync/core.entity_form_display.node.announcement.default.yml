@@ -29,7 +29,7 @@ third_party_settings:
       label: 'Contact link'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 3
       format_type: details
       format_settings:
         classes: ''
@@ -45,7 +45,7 @@ third_party_settings:
       label: 'HOW TO ADD IMAGES'
       region: content
       parent_name: ''
-      weight: 1
+      weight: 4
       format_type: details
       format_settings:
         classes: info-details
@@ -99,7 +99,7 @@ content:
     third_party_settings: {  }
   field_image:
     type: media_library_widget
-    weight: 2
+    weight: 5
     region: content
     settings:
       media_types:
@@ -114,7 +114,7 @@ content:
     third_party_settings: {  }
   field_summary:
     type: text_textarea
-    weight: 4
+    weight: 2
     region: content
     settings:
       rows: 4
@@ -129,7 +129,7 @@ content:
         maxlength_js_enforce: true
   field_text:
     type: text_textarea
-    weight: 3
+    weight: 1
     region: content
     settings:
       rows: 5

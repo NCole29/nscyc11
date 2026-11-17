@@ -1336,6 +1336,17 @@ display:
       use_ajax: true
       display_description: ''
       header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text_custom
+          empty: false
+          content: "<details class=\"info-details\">\r\n<summary>About Locations</summary>\r\n<p>New locations are automatically geocoded when saved to the database.<br>\r\n<strong>Inactive</strong> ride starts cannot be used for future rides. <strong>Do not delete or unpublish</strong> them because they may be listed on past ride pages.\r\n</p>\r\n</details>\r\n<hr>"
+          tokenize: false
         result:
           id: result
           table: views
@@ -1345,7 +1356,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: "<h3>Displaying @start - @end of @total locations.</h3>\r\nNew locations are automatically geocoded when saved to the database.\r\n<p><strong>Inactive</strong> ride starts cannot be used for future rides. <strong>Do not delete or unpublish them</strong> because they may be listed on past ride pages and may serve as eating places.</p>"
+          content: '<h3>Displaying @start - @end of @total locations.</h3>'
       display_extenders: {  }
       path: admin/content/locations
       menu:

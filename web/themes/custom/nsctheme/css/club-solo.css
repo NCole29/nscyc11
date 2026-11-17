@@ -254,6 +254,15 @@ p.button a:hover {
   color: #c3dcf6!important; 
 }
 
+/* home page cards */
+.two-column-card ul {
+  margin: 0;
+}
+.two-column-card p {
+  margin: .5rem 0;
+}
+
+
 /* all pages */
 .solo-image {
   border-radius: 0.25rem;

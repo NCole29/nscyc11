@@ -416,7 +416,7 @@ display:
           prefix: ''
           suffix: ''
       pager:
-        type: mini
+        type: full
         options:
           offset: 0
           pagination_heading_level: h4
@@ -426,6 +426,8 @@ display:
           tags:
             next: ››
             previous: ‹‹
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -434,11 +436,12 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+          quantity: 9
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
-          reset_button: false
+          submit_button: Filter
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -477,6 +480,88 @@ display:
           granularity: minute
       arguments: {  }
       filters:
+        from_name:
+          id: from_name
+          table: civicrm_mailing
+          field: from_name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_mailing
+          entity_field: from_name
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: from_name_op
+            label: 'Mailing From'
+            description: ''
+            use_operator: false
+            operator: from_name_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: from_name
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        subject:
+          id: subject
+          table: civicrm_mailing
+          field: subject
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_mailing
+          entity_field: subject
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: subject_op
+            label: Subject
+            description: ''
+            use_operator: false
+            operator: subject_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: subject
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         scheduled_date:
           id: scheduled_date
           table: civicrm_mailing
@@ -487,11 +572,11 @@ display:
           entity_type: civicrm_mailing
           entity_field: scheduled_date
           plugin_id: datetime
-          operator: '>='
+          operator: 'not empty'
           value:
             min: ''
             max: ''
-            value: '2023-01-01'
+            value: ''
             type: date
           group: 1
           exposed: false
@@ -524,35 +609,34 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        from_name:
-          id: from_name
+        is_completed:
+          id: is_completed
           table: civicrm_mailing
-          field: from_name
+          field: is_completed
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: civicrm_mailing
-          entity_field: from_name
-          plugin_id: string
-          operator: contains
-          value: ''
+          entity_field: is_completed
+          plugin_id: boolean
+          operator: '='
+          value: '1'
           group: 1
-          exposed: true
+          exposed: false
           expose:
-            operator_id: from_name_op
-            label: 'Mailing From'
+            operator_id: ''
+            label: ''
             description: ''
             use_operator: false
-            operator: from_name_op
+            operator: ''
             operator_limit_selection: false
             operator_list: {  }
-            identifier: from_name
+            identifier: ''
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -651,7 +735,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: true
-          content: "Displaying @start - @end of @total\r\n<br>Click subject to view mailing."
+          content: "Displaying @start - @end of @total\r\n<br>Click subject to view the mailing. Delivery data was purged for mailings prior to 2023."
       footer: {  }
       display_extenders: {  }
     cache_metadata:

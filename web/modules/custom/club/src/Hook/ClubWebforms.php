@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Drupal\club\Hook;
@@ -55,6 +56,23 @@ class ClubWebforms {
 
         if ($this->currentUser->id() != $user and $this->getCurrentAdmin() == 1) {
           $this->messenger->addError('Form contains YOUR information. Use CiviCRM to manually renew membership for another user.');
+        }
+      break;
+
+      // Enforce read-only "From" name & email for authenticated users.
+      case 'webform_submission_contact_us_add_form':
+      case 'webform_submission_contact_form_add_form':
+        if ($this->currentUser->isAuthenticated()) {
+          
+          if (isset($form['elements']['name'])) {
+            $form['elements']['name']['#default_value'] = $this->currentUser->getDisplayName();
+            $form['elements']['name']['#attributes']['readonly'] = 'readonly';
+          }
+
+          if (isset($form['elements']['email'])) {
+            $form['elements']['email']['#default_value'] = $this->currentUser->getEmail();
+            $form['elements']['email']['#attributes']['readonly'] = 'readonly';
+          }
         }
       break;
     }

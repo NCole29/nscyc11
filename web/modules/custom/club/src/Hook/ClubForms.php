@@ -156,6 +156,8 @@ class ClubForms {
         } elseif ($nodeType == 'recurring_ride') {
            $form['field_datetime']['widget']['add_more']['#value'] = "Add another date";
         }
+
+        $form['#validate'][] = [$this, 'customizeRideFormErrors'];
       break;
     }
   }
@@ -250,4 +252,45 @@ class ClubForms {
       }
     }
   }
+
+  /**
+ * Custom validation callback for ride node forms.
+ */
+function customizeRideFormErrors ($form, $form_state) {
+  $errors = $form_state->getErrors();
+  if (empty($errors)) {
+    return;
+  }
+  $nerr = 0;
+
+  // Target the specific field's #parents path (e.g. 'field_author][0][target_id' or 'uid][0][target_id').
+  $leader_error_key = 'field_ride_leader][0][target_id';
+  $location_error_key = 'field_location][0][target_id';
+
+  if (isset($errors[$leader_error_key])) {
+    $nerr++;
+    $original_message = (string) $errors[$leader_error_key];
+                                         
+    $names = str_replace("There are no users matching", "", $original_message);
+    $errors[$leader_error_key] = t('There are no ride leaders matching ' . $names . ' Please check that they are ride leaders with a current membership.');
+  }
+
+  if (isset($errors[$location_error_key])) {
+    $nerr++;
+    $original_message = (string) $errors[$location_error_key];
+                                         
+    $locations = str_replace("There are no content items matching", "", $original_message);
+    $errors[$location_error_key] = t('There are no active ride start locations matching ' . $locations);
+  }
+
+  if ($nerr > 0) {
+    // Clear all errors, swap the message, and re-apply them.
+    $form_state->clearErrors();
+
+    foreach ($errors as $name => $message) {
+      $form_state->setErrorByName($name, $message);
+    }
+  }
+}
+
 }

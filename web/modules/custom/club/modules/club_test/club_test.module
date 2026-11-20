@@ -23,7 +23,11 @@ use Drupal\club_test\ResaveNodes;
 function club_test_help($route_name, RouteMatchInterface $route_match) {
 
   if ($route_name == 'help.page.club_test') {
+   
+  }
+}
 
+/*
     // If you know it is a configuration entity (e.g., 'view', 'node_type', 'field_config')
     $entity = \Drupal::service('entity.repository')->loadEntityByUuid('field_config', 'f4fe6934-853a-4553-9837-6fd31327c883');
 
@@ -31,10 +35,7 @@ function club_test_help($route_name, RouteMatchInterface $route_match) {
         // This outputs the configuration ID (e.g., article)
         echo $entity->id(); 
     }
-
-
-  }
-}
+*/
 
 /*
     // Force the Entity Field Manager to refresh its definitions (e.g., routes were not loading on ride pages).

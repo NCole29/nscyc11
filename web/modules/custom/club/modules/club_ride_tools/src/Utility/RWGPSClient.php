@@ -86,8 +86,6 @@ class RwgpsClient {
 
       if ($response->getStatusCode() == 200) {
         $routeInfo = json_decode($response->getBody(),true);
-        d($routeInfo);
-        die;
 
         // Set geofield values: starting location point; WKT version of the point; geofield point (polygon is NULL).
         $location_lon_lat = [$routeInfo['first_lng'], $routeInfo['first_lat']];

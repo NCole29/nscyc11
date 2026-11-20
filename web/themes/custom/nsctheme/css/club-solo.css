@@ -204,10 +204,41 @@ hr {
 .webform-flex--container > .form-item > select {
     width: fit-content!important; /* was 100% */
 }
+/* Change background from black to blue.
+   Microsoft Edge is not applying var() gin variables in dialogs so set explicitly here */
 .ui-dialog .ui-dialog-titlebar {
 	background-color: #0b294a!important;
+  padding: 1rem 1.5rem!important;
   color:#ffffff;
+  border-radius: .5rem .5rem 0 0!important;
 }
+.ui-dialog:not(.ui-dialog-off-canvas) {
+  max-width: 1280px;
+  border: 1 solid #0b294a!important;
+  background: #ffffff!important;
+  border-radius: .5rem!important;
+}
+.ui-dialog .ui-dialog-content {
+  padding: 1rem 1.5rem!important;
+}
+.ui-dialog .button--primary {
+  color: #ffffff;
+  background-color: #0444C4;
+  border: 2px solid #0444C4!important;
+  padding: .625rem 1rem!important;
+  border-radius: .5rem!important;
+}
+.ui-dialog .button:hover {
+  border: 2px solid #022A79!important;
+  background-color: #022A79!important;
+}
+.ui-widget-overlay {
+  /*background-color: rgba(0, 0, 0, 0.75)!important;
+  opacity: 1!important;*/
+  background-color: rgba(0, 0, 0, 0.5)!important; /* Semi-transparent dark gray tint */
+  backdrop-filter: grayscale(100%)!important;     /* Removes color from the page behind it */
+}
+
 
 .p {
   margin-top: 0;

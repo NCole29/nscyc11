@@ -57,4 +57,25 @@ class ClubTemplates {
     }
   }
 
+  /**
+   * Implements hook_theme_registry_alter().
+   */
+  #[Hook('theme_registry_alter')]
+  function registryAlter(&$theme_registry) {
+    // Check if the focal_point theme hook exists in the registry
+    if (isset($theme_registry['focal_point_preview_page'])) {
+      /** @var \Drupal\Core\Extension\ExtensionPathResolver $path_resolver */
+      $path_resolver = \Drupal::service('extension.path.resolver');
+      
+      // Get the path to your custom club module
+      $custom_module_path = $path_resolver->getPath('module', 'club');
+      
+      // Override the path to the template folder
+      $theme_registry['focal_point_preview_page']['path'] = $custom_module_path . '/templates';
+      
+      // Override the template filename (do not include '.html.twig' extension here)
+      $theme_registry['focal_point_preview_page']['template'] = 'focal-point-preview-custom';
+    }
+  }
+
 }

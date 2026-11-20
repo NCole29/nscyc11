@@ -93,10 +93,12 @@ class ClubMenus {
           $cacheability->addCacheableDependency($node);
 
           // Hide the tab if the webform field is empty else rename it.
-          if ($node->get('field_webform')->isEmpty()) {
-            $data['tabs'][0]['entity.node.webform.results']['#access'] = FALSE;
-          } else {
-            $data['tabs'][0]['entity.node.webform.results']['#link']['title'] = t('Registrations');
+          if (in_array($node->bundle(), ['event','ride','webform'])) {
+            if ($node->get('field_webform')->isEmpty()) {
+              $data['tabs'][0]['entity.node.webform.results']['#access'] = FALSE;
+            } else {
+              $data['tabs'][0]['entity.node.webform.results']['#link']['title'] = t('Registrations');
+            }
           }
         }
       break;

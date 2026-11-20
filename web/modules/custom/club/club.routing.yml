@@ -7,7 +7,7 @@ club.custom_entities:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
     _title: 'Custom entities'
   requirements:
-    _permission: 'access navigation'
+    _permission: 'access toolbar'
 
 # --------------------------------------------
 # Club config under Admin > Configuration
@@ -18,7 +18,7 @@ club.custom_config:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
     _title: 'Club configuration'
   requirements:
-    _permission: 'access navigation'
+    _permission: 'access toolbar'
 
 # ----------------------------------
 # Custom webform submission delete.

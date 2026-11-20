@@ -6,6 +6,7 @@ namespace Drupal\club\Hook;
 
 use Drupal\club\Controller\RenameImages;
 use Drupal\club\Controller\UpdateRecurDates;
+use Drupal\club_ride_tools\Utility\RWGPSClient;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Datetime\DateHelper;
@@ -25,7 +26,8 @@ class ClubNodes {
     protected ConfigFactoryInterface $config,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected MessengerInterface $messenger,
-    protected RenameImages $renameImages
+    protected RenameImages $renameImages,
+    protected RwgpsClient $rwgpsClient
   ) {
   }
   
@@ -238,23 +240,25 @@ class ClubNodes {
     }
     $this->clearWebformFields($node);
 
-    // Store routes when node is published (not when draft to keep junk out of route table.)
-    if ($node->status->value == 1 && !empty($node->field_rwgps_routes)) {
-      $ride_start = $node->field_location->target_id;
+    // Store routes when node is published, else only route_ids are saved. 
+    // This keeps the route table clean.
+    if (!empty($node->field_rwgps_routes)) {
+      if ($node->status->value == 1) { 
+        $ride_start = $node->field_location->target_id;
 
-      foreach ($node->field_rwgps_routes as $routeId) {
-        if (!empty($routeId->target_id) and !(is_int($routeId->target_id))) {
-          if (preg_match('/[^0-9()]/', $routeId->target_id)) {
-            \Drupal::messenger()->addStatus('A RWGPS route number has non-numeric characters and was not saved');
-            unset($routeId->target_id);
-          } 
-          /*
-          ** TODO: IF club_ride_tools is installed, call a utilit in that module.
-          if (is_numeric($routeId->target_id)) {
-            $this->rwgpsClient->getRouteInfo($routeId->target_id, $ride_start);
+        foreach ($node->field_rwgps_routes as $routeId) {
+          if (!empty($routeId->target_id) and !(is_int($routeId->target_id))) {
+            if (preg_match('/[^0-9()]/', $routeId->target_id)) {
+              \Drupal::messenger()->addStatus('A RWGPS route number has non-numeric characters and was not saved');
+              unset($routeId->target_id);
+            } 
+            elseif (is_numeric($routeId->target_id)) {
+              $this->rwgpsClient->getRouteInfo($routeId->target_id, $ride_start);
+            }
           }
-            */
         }
+      } else {
+        \Drupal::messenger()->addStatus('RWGPS route IDs are saved. Route details will be fetched from RWGPS when the ride is published.');
       }
     }  
   }

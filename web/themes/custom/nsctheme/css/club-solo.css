@@ -9,6 +9,10 @@ body {
   line-height: 1.6;
 }
 
+h1, h2, h3 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
 :where(.page-wrapper) a:not(.nav__menu-link, 
 .button,
 p.button,
@@ -22,7 +26,7 @@ h3 a) {
   text-decoration: none;
   padding: 4px 0 4px 0; /* Adds space around the text so the background looks clean on hover */
   border-radius: 4px; /* Optional: rounds the corners of the background */  
-  transition: background-color 0.3s ease; /* Smoothly animates hover background change over 0.3 seconds */
+/*  transition: background-color 0.3s ease; *//* Smoothly animates hover background change over 0.3 seconds */
 }
 
 /*:where(.page-wrapper) a:hover {*/
@@ -337,10 +341,6 @@ p.button a:hover {
   .site-logo-img {
     height:70%!important;
     width:auto;
-  }
-
-  h3 {
-    font-size: 1.25rem!important;
   }
 
   /* Reports added in the past 7 days */

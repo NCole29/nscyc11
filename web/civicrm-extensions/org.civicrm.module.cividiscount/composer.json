@@ -1,0 +1,5 @@
+{
+    "name": "civicrm/cividiscount",
+    "description": "Enables discount codes and automatic discounts for events and memberships",
+    "type": "civicrm-ext"
+}

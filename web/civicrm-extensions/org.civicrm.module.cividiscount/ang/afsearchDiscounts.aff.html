@@ -1,0 +1,12 @@
+<div af-fieldset="">
+  <p class="alert alert-info">
+    {{:: ts('Discount codes can be applied against events, memberships and price sets.') }}
+  </p>
+  <div class="af-container af-layout-inline" af-title="Filter">
+    <af-field name="code" defn="{label: null, input_attrs: {placeholder: 'Code'}}" />
+    <af-field name="description" defn="{label: null, input_attrs: {placeholder: 'Description'}}" />
+    <af-field name="organization_id.display_name" defn="{label: null, input_attrs: {placeholder: 'Organization'}}" />
+    <af-field name="is_active" defn="{afform_default: true}" />
+  </div>
+  <crm-search-display-table search-name="Administer_Discount_Codes" display-name="Discount_Codes"></crm-search-display-table>
+</div>

@@ -1,0 +1,33 @@
+{
+  "name": "uk.co.vedaconsulting.mosaico",
+  "version": "2.0.0",
+  "description": "This extension integrates Mosaico a responsive email template editor, with CiviCRM. - Initial Blog Post - https://civicrm.org/blogs/parvez/a-new-beginning-for-civimail - Beta Blog Post - https://civicrm.org/blog/deepaksrivastava/email-template-builder-civimosaico-is-now-beta - Initial Video - https://vimeo.com/156633077",
+  "main": "index.js",
+  "type": "module",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://lab.civicrm.org/extensions/mosaico.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://lab.civicrm.org/extensions/mosaico/-/work_items"
+  },
+  "homepage": "https://lab.civicrm.org/extensions/mosaico#readme",
+  "devDependencies": {
+    "angular": "1.8.3",
+    "angular-mocks": "1.8.3",
+    "jasmine-core": "^5.1.0",
+    "jquery": "^3.7.1",
+    "karma": "^6.4.4",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-jasmine": "^5.1.0",
+    "sass": "^1.102.0"
+  },
+  "scripts": {
+    "test": "karma start tests/karma/karma.conf.cjs --single-run"
+  }
+}

@@ -1,0 +1,30 @@
+# Pipeline for this extension, from the shared templates in infra/extension-ci
+# (see https://lab.civicrm.org/infra/gitlab/-/issues/50):
+#
+#   lint.yml      coding standards (civilint) and PHP version compatibility
+#   phpunit.yml   PHPUnit on a throwaway CiviCRM Standalone, oldest and newest
+#   security.yml  dependency advisories, committed credentials, semgrep
+#   composer.yml  publishes a tag to the Composer Packages registry
+include:
+  - project: 'infra/extension-ci'
+    ref: main
+    file:
+      - '/lint.yml'
+      - '/phpunit.yml'
+      - '/security.yml'
+      - '/composer.yml'
+
+variables:
+  # Installed before the tests run, so a missing one fails here with a clear
+  # message rather than inside Civi\Test.
+  EXTENSION_DEPENDENCIES: "mjwshared firewall contributionlog"
+
+# Oldest supported PHP on the oldest CiviCRM info.xml allows (or the newest
+# supported release, if later).
+phpunit:min:
+  extends: .phpunit-min
+
+# Newest PHP on CiviCRM master: early warning of core drift, never blocks.
+phpunit:max:
+  extends: .phpunit-max
+  allow_failure: true

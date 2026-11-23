@@ -1,0 +1,25 @@
+/**
+ * https://civicrm.org/licensing
+ */
+
+#card-element {
+  padding: 2%;
+  margin: 2% auto;
+  max-width: 800px;
+  background-color: #f0f0f0;
+  box-shadow: 0 0 1px 1px rgba(0,0,0,0.2);
+  border: 1px solid transparent;
+}
+#card-element.StripeElement--focus {
+  border: 1px solid gold;
+}
+
+#card-errors {
+  margin: 2%;
+  display: none;
+}
+
+#payment-request-button {
+  max-width: 400px;
+  margin: 2% auto;
+}

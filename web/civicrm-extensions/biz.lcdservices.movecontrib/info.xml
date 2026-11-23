@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<extension key="biz.lcdservices.movecontrib" type="module">
+  <file>movecontrib</file>
+  <name>Move Contribution</name>
+  <description>Adds an action to the contribution tab listing allowing the user to move a contribution to a different contact record.</description>
+  <license>AGPL-3.0</license>
+  <authors>
+    <author>
+      <name>Lighthouse Consulting and Design</name>
+      <email>dev@lcdservices.biz</email>
+    </author>
+    <author>
+      <name>JMA Consulting</name>
+      <email>support@jmaconsulting.biz</email>
+    </author>
+  </authors>
+  <urls>
+    <url desc="Main Extension Page">https://lab.civicrm.org/extensions/movecontrib/</url>
+    <url desc="Documentation">https://lab.civicrm.org/extensions/movecontrib/</url>
+    <url desc="Support">https://lab.civicrm.org/extensions/movecontrib/-/issues</url>
+    <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
+  </urls>
+  <releaseDate>2025-02-13</releaseDate>
+  <version>2.14.1</version>
+  <develStage>stable</develStage>
+  <compatibility>
+    <ver>5.82</ver>
+  </compatibility>
+  <smarty_compatibility>
+    <ver>5.0</ver>
+  </smarty_compatibility>
+  <php_compatibility>
+    <ver>8.1</ver>
+    <ver>8.2</ver>
+    <ver>8.3</ver>
+    <ver>8.4</ver>
+  </php_compatibility>
+  <civix>
+    <namespace>CRM/LCD/MoveContrib</namespace>
+    <format>25.01.1</format>
+  </civix>
+  <mixins>
+    <mixin>menu-xml@1.0.0</mixin>
+    <mixin>mgd-php@1.0.0</mixin>
+    <mixin>smarty@1.0.3</mixin>
+  </mixins>
+  <classloader>
+    <psr0 prefix="CRM_" path="."/>
+    <psr4 prefix="Civi\" path="Civi"/>
+  </classloader>
+</extension>

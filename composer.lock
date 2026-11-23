@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "06b21986fd1d983974161513a0edab77",
+    "content-hash": "0f9f6d4babf6add53c632c0f80b257a9",
     "packages": [
         {
             "name": "adrienrn/php-mimetyper",
@@ -3667,6 +3667,58 @@
                 "source": "https://git.drupalcode.org/project/charts",
                 "issues": "https://www.drupal.org/project/issues/charts?version=all_5.1.*",
                 "docs": "https://www.drupal.org/docs/contributed-modules/charts"
+            }
+        },
+        {
+            "name": "drupal/civicrm_drush",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/civicrm_drush.git",
+                "reference": "4.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/civicrm_drush-4.0.0.zip",
+                "reference": "4.0.0",
+                "shasum": "ab4976314947414f753f90f4a0268c951002fa81"
+            },
+            "require": {
+                "civicrm/civicrm-drupal-8": "*",
+                "drupal/core": "^10 || ^11",
+                "drush/drush": "^12 || ^13"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "4.0.0",
+                    "datestamp": "1754477718",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "AGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "markusa",
+                    "homepage": "https://www.drupal.org/user/142798"
+                },
+                {
+                    "name": "sunilpawar",
+                    "homepage": "https://www.drupal.org/user/1205442"
+                }
+            ],
+            "description": "Drush functionality for CiviCRM Core",
+            "homepage": "https://github.com/skvare/civicrm_drush",
+            "support": {
+                "source": "https://github.com/skvare/civicrm_drush",
+                "error": "Invalid dependency: \"civicrm\" is an unknown drupal 8 package name",
+                "issues": "https://github.com/skvare/civicrm_drush"
             }
         },
         {

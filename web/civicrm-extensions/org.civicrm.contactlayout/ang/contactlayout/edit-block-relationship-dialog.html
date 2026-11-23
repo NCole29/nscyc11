@@ -1,0 +1,39 @@
+<div class="contactlayout__relatioonship-dialog crm-container">
+  <p class="help">{{:: ts('Choose a relationship type to show a related contact in this block.') }}</p>
+  <div class="crm-section">
+    <div class="label">
+      <label for="contactlayout-relationship-select">
+        {{:: ts('Relationship') }}
+      </label>
+    </div>
+    <div class="content">
+      <input id="contactlayout-relationship-select"
+        ng-model="model.selectedRelationship"
+        ng-change="model.storeRelationshipInfoForSelectedOption()"
+        crm-ui-select="{
+          data: model.relationshipOptions.options,
+          dropdownAutoWidth : true,
+          allowClear: true,
+          placeholder: ts('- Select -')
+        }"
+      />
+    </div>
+    <div
+      ng-if="model.selectedRelationship"
+      class="contactlayout__relatioonship-dialog__illustration">
+      <div class="contactlayout__relatioonship-dialog__illustration__contact">
+        <i class="{{ model.contactIcons.onBlock }}" role="img" aria-hidden="true"></i><br />
+        <span class="description">{{:: ts('Contact in Block') }}</span>
+      </div>
+      <div class="contactlayout__relatioonship-dialog__illustration__relationship-type">
+        <i class="crm-i fa-long-arrow-right" role="img" aria-hidden="true"></i>
+        <span class="description">{{ model.relationshipLabel }}</span>
+        <i class="crm-i fa-long-arrow-right" role="img" aria-hidden="true"></i>
+      </div>
+      <div class="contactlayout__relatioonship-dialog__illustration__contact">
+        <i class="{{ model.contactIcons.viewing }}" role="img" aria-hidden="true"></i><br />
+        <span class="description">{{:: ts('Contact being Viewed') }}</span>
+      </div>
+    </div>
+  </div>
+</div>

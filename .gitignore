@@ -19,8 +19,13 @@
 
 # Ignore paths that may contain temporary files
 /tmp
+web/civicrm-extensions/.civicrm-staging/
+
+
+# Ignore tools used only in dev
+/vendor/civicrm/cli-tools
 
 # Ignore tar backups
 *.tar.gz
 # Ignore git repos inside vendor folders
-#/vendor/webflo/drupal-finder/.github
+/vendor/webflo/drupal-finder/.github

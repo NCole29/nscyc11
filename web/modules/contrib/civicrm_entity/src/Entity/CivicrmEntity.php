@@ -265,6 +265,10 @@ class CivicrmEntity extends ContentEntityBase {
         else {
           $value = $main_property->getValue();
         }
+        // CiviCRM API3 stores FALSE as NULL; 0 and 1 are unambiguous.
+        if (is_bool($value)) {
+          $value = (int) $value;
+        }
         $list[$delta] = $value;
       }
 
@@ -272,7 +276,9 @@ class CivicrmEntity extends ContentEntityBase {
       if ($storage_definition->getCardinality() === 1) {
         $list = reset($list);
       }
-      if (!empty($list)) {
+      // Do not use empty() here: 0, '0' and FALSE are values, e.g. an
+      // unticked checkbox, and must reach CiviCRM.
+      if ($list !== NULL && $list !== '' && $list !== []) {
         $params[$field_name] = $list;
       }
     }

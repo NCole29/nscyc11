@@ -2,27 +2,26 @@
 
 namespace Drupal\faqfield\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Plugin implementation of the 'faqfield_simple_text' formatter.
- *
- * @FieldFormatter(
- *   id = "faqfield_simple_text",
- *   label = @Translation("Simple text"),
- *   field_types = {
- *     "faqfield"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: "faqfield_simple_text",
+  label: new TranslatableMarkup("Simple text"),
+  field_types: ["faqfield"],
+)]
 class FaqFieldSimpleTextFormatter extends FormatterBase {
 
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'question_tag' => 'h3',
     ] + parent::defaultSettings();
@@ -31,7 +30,7 @@ class FaqFieldSimpleTextFormatter extends FormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state) {
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
     $elements = parent::settingsForm($form, $form_state);
     // An HTML tag for the question.
     $elements['question_tag'] = [
@@ -54,7 +53,7 @@ class FaqFieldSimpleTextFormatter extends FormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function viewElements(FieldItemListInterface $items, $langcode) {
+  public function viewElements(FieldItemListInterface $items, $langcode): array {
     $default_format = $this->getFieldSetting('default_format');
 
     $elements = [];

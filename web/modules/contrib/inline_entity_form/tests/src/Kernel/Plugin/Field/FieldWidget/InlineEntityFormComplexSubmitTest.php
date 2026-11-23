@@ -8,12 +8,17 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormState;
 use Drupal\inline_entity_form\Plugin\Field\FieldWidget\InlineEntityFormComplex;
 use Drupal\KernelTests\KernelTestBase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests submitConfirmRemove() delete decision logic.
  *
  * @group inline_entity_form
  */
+#[Group('inline_entity_form')]
+#[RunTestsInSeparateProcesses]
 class InlineEntityFormComplexSubmitTest extends KernelTestBase {
 
   /**
@@ -30,6 +35,7 @@ class InlineEntityFormComplexSubmitTest extends KernelTestBase {
    *
    * @dataProvider providerSubmitConfirmRemoveDeleteDecisions
    */
+  #[DataProvider('providerSubmitConfirmRemoveDeleteDecisions')]
   public function testSubmitConfirmRemoveDeleteDecisions(string $removed_reference, array $row_form_values, bool $should_queue_delete): void {
     $entity = $this->createMock(EntityInterface::class);
     $entity->expects($this->once())

@@ -80,11 +80,11 @@ class HelperManager {
       throw new \DomainException('Helper name ' . $name . ' is already defined');
     }
 
-    // @codingStandardsIgnoreStart
+    // phpcs:disable
     eval('function ' . $name . ' (...$args){
             return \Drupal::service("kint.helper.manager")->executeHelper(' . var_export($name, TRUE) . ', $args);
         }');
-    // @codingStandardsIgnoreEnd
+    // phpcs:enable
     self::$historicalHelpers[$name] = TRUE;
     Kint::$aliases[] = $name;
   }
@@ -122,7 +122,8 @@ class HelperManager {
       }
 
       $output = Kint::dump(...$args);
-    } finally {
+    }
+    finally {
       Kint::$enabled_mode = $stash['enabled_mode'];
       Kint::$mode_default = $stash['mode_default'];
       Kint::$cli_detection = $stash['cli_detection'];

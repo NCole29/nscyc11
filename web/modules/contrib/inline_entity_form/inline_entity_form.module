@@ -56,6 +56,10 @@ function inline_entity_form_theme() {
   return [
     'inline_entity_form_entity_table' => [
       'render element' => 'form',
+      // Core no longer auto-discovers template_preprocess_HOOK() in .module
+      // files; register it explicitly.
+      // @see https://www.drupal.org/node/3542527
+      'initial preprocess' => 'template_preprocess_inline_entity_form_entity_table',
     ],
   ];
 }

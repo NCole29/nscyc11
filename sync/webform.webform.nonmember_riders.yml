@@ -404,6 +404,7 @@ access:
       - administrator
       - civicrm
       - ride_leader
+      - rides_coordinator
     users: {  }
     permissions: {  }
   view_any:

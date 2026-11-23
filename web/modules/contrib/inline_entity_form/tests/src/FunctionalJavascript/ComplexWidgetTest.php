@@ -9,6 +9,9 @@ use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\Tests\TestFileCreationTrait;
 use Drupal\user\Entity\Role;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 // cspell:ignore Bojan WSOD
 
@@ -17,6 +20,8 @@ use Drupal\user\Entity\Role;
  *
  * @group inline_entity_form
  */
+#[Group('inline_entity_form')]
+#[RunTestsInSeparateProcesses]
 class ComplexWidgetTest extends InlineEntityFormTestBase {
 
   use TestFileCreationTrait {
@@ -40,13 +45,6 @@ class ComplexWidgetTest extends InlineEntityFormTestBase {
    * @var string
    */
   protected $formContentAddUrl;
-
-  /**
-   * Entity form display storage.
-   *
-   * @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface
-   */
-  protected $entityFormDisplayStorage;
 
   /**
    * {@inheritdoc}
@@ -73,7 +71,6 @@ class ComplexWidgetTest extends InlineEntityFormTestBase {
     $this->drupalLogin($this->user);
 
     $this->formContentAddUrl = 'node/add/ief_test_complex';
-    $this->entityFormDisplayStorage = $this->container->get('entity_type.manager')->getStorage('entity_form_display');
   }
 
   /**
@@ -969,7 +966,7 @@ class ComplexWidgetTest extends InlineEntityFormTestBase {
    */
   protected function updateSetting(string $name, $value) {
     /** @var \Drupal\Core\Entity\Display\EntityFormDisplayInterface $display */
-    $display = $this->entityFormDisplayStorage->load('node.ief_test_complex.default');
+    $display = $this->container->get('entity_type.manager')->getStorage('entity_form_display')->load('node.ief_test_complex.default');
     $component = $display->getComponent('multi');
     $component['settings'][$name] = $value;
     $display->setComponent('multi', $component)->save();
@@ -1007,11 +1004,11 @@ class ComplexWidgetTest extends InlineEntityFormTestBase {
     $assert_session = $this->assertSession();
     $page = $this->getSession()->getPage();
     /** @var \Drupal\Core\Field\FieldConfigInterface $ief_test_nested1 */
-    $this->fieldConfigStorage->load('node.ief_test_nested1.test_ref_nested1')
+    $this->container->get('entity_type.manager')->getStorage('field_config')->load('node.ief_test_nested1.test_ref_nested1')
       ->setRequired($required)
       ->save();
     /** @var \Drupal\Core\Field\FieldConfigInterface $ief_test_nested2 */
-    $this->fieldConfigStorage
+    $this->container->get('entity_type.manager')->getStorage('field_config')
       ->load('node.ief_test_nested2.test_ref_nested2')
       ->setRequired($required)
       ->save();
@@ -1169,6 +1166,7 @@ class ComplexWidgetTest extends InlineEntityFormTestBase {
    *
    * @dataProvider simpleFalseTrueDataProvider
    */
+  #[DataProvider('simpleFalseTrueDataProvider')]
   public function testNestedCreateAndEditWontClash(bool $required) {
     // Get the xpath selectors for the input fields in this test.
     $top_title_field_xpath = $this->getXpathForNthInputByLabelText('Title', 1);

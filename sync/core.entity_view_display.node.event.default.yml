@@ -217,7 +217,7 @@ third_party_settings:
                 view_mode: view_mode
               formatter:
                 type: number_integer
-                label: inline
+                label: above
                 settings:
                   thousand_separator: ''
                   prefix_suffix: true
@@ -275,21 +275,6 @@ third_party_settings:
                     attribute: lazy
                 third_party_settings: {  }
             weight: 3
-            additional: {  }
-          eb6d6058-10da-4f67-af9e-24b269efc4f0:
-            uuid: eb6d6058-10da-4f67-af9e-24b269efc4f0
-            region: first
-            configuration:
-              id: 'field_block:node:event:field_use_components'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: markup
-                label: above
-                settings: {  }
-                third_party_settings: {  }
-            weight: 11
             additional: {  }
         third_party_settings: {  }
       -

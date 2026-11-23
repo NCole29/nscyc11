@@ -67,6 +67,7 @@ module:
   image_widget_crop: 0
   imce: 0
   inline_entity_form: 0
+  inline_form_errors: 0
   jquery_ui: 0
   jquery_ui_accordion: 0
   key: 0
@@ -97,6 +98,7 @@ module:
   multiple_fields_remove_button: 0
   mysql: 0
   node: 0
+  node_export: 0
   node_revision_delete: 0
   options: 0
   page_cache: 0

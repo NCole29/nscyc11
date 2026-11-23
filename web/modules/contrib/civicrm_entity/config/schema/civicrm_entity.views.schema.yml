@@ -80,3 +80,74 @@ views.argument_validator.entity:civicrm_contact:
       sequence:
         type: string
         label: 'Contact type'
+
+views.relationship.civicrm_entity_activity_contact:
+  type: views_relationship
+  label: 'Activity contact'
+  mapping:
+    record_type_id:
+      # The form's multi-select saves a list of record type IDs. The default,
+      # and configuration written by hand, hold one ID or ''. No schema type
+      # takes both, and casting a scalar to a sequence fails the save.
+      type: ignore
+      label: 'Activity contact type'
+
+views.relationship.civicrm_entity_civicrm_contact_user:
+  type: views_relationship
+  label: 'CiviCRM contact user'
+  mapping:
+    domain_id:
+      # NULL until a domain is chosen: every domain.
+      type: sequence
+      label: 'Domains'
+      nullable: true
+      sequence:
+        # A domain ID, or `_current_`.
+        type: string
+        label: 'Domain'
+
+views.relationship.civicrm_entity_civicrm_relationship:
+  type: views_relationship
+  label: 'CiviCRM relationship'
+  mapping:
+    relationship_type:
+      type: sequence
+      label: 'Relationship types'
+      sequence:
+        type: string
+        label: 'Relationship type'
+    relationship_state:
+      type: boolean
+      label: 'Active relationships only'
+
+views.relationship.civicrm_entity_reverse_location:
+  type: views_relationship
+  label: 'CiviCRM location'
+  mapping:
+    location_type:
+      # A location type ID, `default` for the default location type, or 0 for
+      # any.
+      type: string
+      label: 'Location type'
+    is_billing:
+      type: boolean
+      label: 'Billing'
+    is_primary:
+      type: boolean
+      label: 'Primary'
+
+views.relationship.civicrm_entity_reverse_location_phone:
+  type: views.relationship.civicrm_entity_reverse_location
+  label: 'CiviCRM phone'
+  mapping:
+    phone_type:
+      type: integer
+      label: 'Phone type'
+
+views.relationship.civicrm_entity_reverse_website_type:
+  type: views_relationship
+  label: 'CiviCRM website'
+  mapping:
+    website_type:
+      type: integer
+      label: 'Website type'

@@ -5,6 +5,8 @@
  * Update hooks for the Entity browser module.
  */
 
+use Drupal\Core\Config\Entity\ConfigEntityStorageInterface;
+
 /**
  * Implements hook_update_last_removed().
  */
@@ -22,7 +24,9 @@ function entity_browser_update_8202() {
     ? (bool) \Drupal::config('node.settings')->get('use_admin_theme')
     : FALSE;
 
-  foreach (\Drupal::entityTypeManager()->getStorage('entity_browser')->loadMultiple() as $browser) {
+  $storage = \Drupal::entityTypeManager()->getStorage('entity_browser');
+  assert($storage instanceof ConfigEntityStorageInterface);
+  foreach ($storage->loadMultipleOverrideFree() as $browser) {
     if (!array_key_exists('use_admin_theme', $browser->display_configuration)) {
       $browser->display_configuration['use_admin_theme'] = $node_default;
       $browser->save();

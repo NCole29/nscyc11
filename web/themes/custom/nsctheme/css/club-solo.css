@@ -1,9 +1,9 @@
-/*---------------------------------------------------------------
+/*----------------------------------------------------------------------
   Modify SOLO theme
   Most colors are specified through the UI in nsctheme settings.
-  If location for applying CSS is not specified,
-   the custom CSS overrides the SOLO theme style.
-  ---------------------------------------------------------------*/
+  Unless otherwise specified, custom CSS overrides the SOLO theme style.
+  CSS is "mobile-first", see last section for desktop adjustments.
+  ----------------------------------------------------------------------*/
 html,
 body {
   line-height: 1.6;
@@ -67,12 +67,27 @@ a:hover {
   padding: 0.95rem 0.5rem 0 0!important;
 }
 
+/* Add gap between stacked column sections - mobile */
+.layout--twocol-section.layout--twocol-section--50-50 > .layout__region--first,
+.layout--twocol-section.layout--twocol-section--33-67 > .layout__region--first,
+.layout--twocol-section.layout--twocol-section--67-33 > .layout__region--first,
+.layout--twocol-section.layout--twocol-section--25-75 > .layout__region--first,
+.layout--twocol-section.layout--twocol-section--75-25 > .layout__region--first {
+  margin-bottom:1rem;
+}
+
+/* This fixes Ride pages where description was extending past page in mobile */
+.layout--twocol-section > .layout__region {
+  flex: 0 1 100%;
+  width: 100%;
+}
+
 /*----------- 
   HOME PAGE 
  ------------*/
 .site-logo-img {
-  height:60%!important;
-  width:auto;
+  height: 100%!important;
+  padding-bottom: 1rem;
 }
 
 .branding-wrapper .branding-first a {
@@ -129,13 +144,12 @@ a:hover {
 /*----------- 
   RIDE PAGES 
  ------------*/
- /* applied in template */
+ /* applied in views.view.club_route_blocks */
 .w3-maps {
   display: inline-block!important;
 }
-.field--name-field-registration-close-date {
-  margin-top: 16px;
-}
+/* Eliminate space between place name and address 
+   This overrides address class in contrib/address/templates/address-plain.html.twig */
 .address {
   margin-top: 0;
   margin-bottom: 0;  
@@ -143,7 +157,7 @@ a:hover {
 
 /*------------------------------------------------------------------------------------------------------------
   BOTTOM CONTAINER - USED ONLY FOR RIDE BLOCKS (Join Our Club, First Time NSC Riders, NSC Ride Safety Culture)
-  Both css classes applied in Appearance > NSC solo subtheme > Bottom containers > CSS classes 
+  CSS classes applied in Appearance > NSC solo subtheme > Bottom containers > CSS classes 
  -------------------------------------------------------------------------------------------------------------*/
 .ride-block-border {
   border:0!important;
@@ -152,14 +166,6 @@ a:hover {
 }
 .ride-block-gap .solo-col {
   gap:0!important;
-}
-
-
-/* applied in field_ride_picture template */
-.picture-margins {
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  margin-left: -1rem;
 }
 
 /* FOOTER */
@@ -176,13 +182,18 @@ h1.page-title-text {
 .page-wrapper h2 {
   font-weight: 600!important;
 }
-h3 {
+h2, h3 {
   color: #0d3158;
-  font-weight: 400; /* was 700 */
 }
+
+h5 a {
+  color: #C00000!important; /* less bright #B00000 */
+}
+
 label, .field__label {
   font-weight: 600;
   font-size: 110%;
+  padding-top: 1rem;;
 }
 hr {
   margin-block: 0;
@@ -303,14 +314,6 @@ p.button a:hover {
   width: 100%;
 }
 
-.layout--twocol-section.layout--twocol-section--50-50 > .layout__region--first,
-.layout--twocol-section.layout--twocol-section--33-67 > .layout__region--first,
-.layout--twocol-section.layout--twocol-section--67-33 > .layout__region--first,
-.layout--twocol-section.layout--twocol-section--25-75 > .layout__region--first,
-.layout--twocol-section.layout--twocol-section--75-25 > .layout__region--first {
-  padding-right:0.5rem;
-}
-
 /* FORMS - Reduce width (improves webform fit on page) */ 
 .solo-input,
 .solo-select {
@@ -327,4 +330,40 @@ p.button a:hover {
 .active-footer-1 > .solo-inner) {
   padding-bottom: 0!important;
   padding-top: 1px!important;
+}
+
+/* Desktop width */
+@media (min-width:36rem) {
+  .site-logo-img {
+    height:70%!important;
+    width:auto;
+  }
+
+  h3 {
+    font-size: 1.25rem!important;
+  }
+
+  /* Reports added in the past 7 days */
+  .view-club-file-uploads {
+    margin-top: 1rem;
+  }
+
+  /* Add gap between column sections */
+  .layout--twocol-section.layout--twocol-section--50-50 > .layout__region--first,
+  .layout--twocol-section.layout--twocol-section--33-67 > .layout__region--first,
+  .layout--twocol-section.layout--twocol-section--67-33 > .layout__region--first,
+  .layout--twocol-section.layout--twocol-section--25-75 > .layout__region--first,
+  .layout--twocol-section.layout--twocol-section--75-25 > .layout__region--first {
+    padding-right:1rem;
+    margin-bottom:0;
+  }
+
+}
+
+/* mobile display - reduce padding */
+@media (max-width:35.99875rem) {
+  .solo-outer .region-inner {
+    padding: 0.25rem;
+    min-width: 0;
+  }
 }

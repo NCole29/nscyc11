@@ -5,11 +5,13 @@
     And made available to twig by hook_preprocess_paragraph in nsctheme.theme.
  #}
 
+{% if image_uri %}
 {% set styled_media = {
   '#theme': 'image_style',
   '#style_name': 'large_4_3',
   '#uri': image_uri,
 } %}
+{% endif %}
 
 <div class="pcard" style="background-color: {{ shade_color|e('html_attr') }}; height: {{ height|e('html_attr') }};">
 

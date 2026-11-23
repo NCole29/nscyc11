@@ -191,6 +191,14 @@ elements: |-
     '#type': webform_wizard_page
     '#form_key': contribution_pagebreak
     '#title': Payment
+    civicrm_1_contribution_1_contribution_is_test:
+      '#type': hidden
+      '#expose_list': true
+      '#value': '0'
+      '#form_key': civicrm_1_contribution_1_contribution_is_test
+      '#extra': {  }
+      '#parent': contribution_pagebreak
+      '#title': 'Payment Processor Mode'
 css: ''
 javascript: ''
 settings:

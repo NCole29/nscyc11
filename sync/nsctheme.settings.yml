@@ -220,7 +220,7 @@ sm_icon_drupal: ''
 sm_icon_mastodon: ''
 sm_icon_rss: ''
 sm_icon_email: ''
-sm_icon_rwgps: /ride-gps-club-account
+sm_icon_rwgps: /ride-gps
 sm_icon_strava: ''
 disable_block_title_visibility: false
 features:
@@ -233,7 +233,7 @@ features:
   slogan: true
 logo:
   use_default: false
-  path: 'public://header.svg'
+  path: sites/default/header.svg
 favicon:
   use_default: false
   path: 'public://NSC favicon.jpg'
@@ -673,8 +673,6 @@ back_to_top_style: solid
 back_to_top_icon: arrow-up
 settings_back_to_top___r_bg: ''
 settings_back_to_top___r_tx: ''
-rwgps_url: /ride-gps-club-account
-strava_url: ''
 solo_layout_top_2col_announcement: solo-col-1-1
 solo_layout_top_3col_announcement: solo-col-1-1-1
 solo_layout_top_2col_banner: solo-col-1-1
@@ -774,7 +772,6 @@ solo_layout_footer_2col_statistic: solo-col-1-1
 solo_layout_footer_3col_statistic: solo-col-1-1-1
 solo_layout_footer_2col_webform: solo-col-1-1
 solo_layout_footer_3col_webform: solo-col-1-1-1
-nsctheme_rwgps_url: /ride-gps-club-account-0
 nsctheme_callout_br: '#134a85'
 nsctheme_callout_bt_bg: '#134a85'
 nsctheme_callout_bt_tx: '#ffffff'

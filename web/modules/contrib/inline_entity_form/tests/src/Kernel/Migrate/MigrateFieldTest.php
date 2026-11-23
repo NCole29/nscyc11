@@ -6,12 +6,16 @@ namespace Drupal\Tests\inline_entity_form\Kernel\Migrate;
 
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\field\FieldStorageConfigInterface;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests migration of inline_entity_form fields.
  *
  * @group inline_entity_form
  */
+#[Group('inline_entity_form')]
+#[RunTestsInSeparateProcesses]
 class MigrateFieldTest extends MigrateTestBase {
 
   // phpcs:disable

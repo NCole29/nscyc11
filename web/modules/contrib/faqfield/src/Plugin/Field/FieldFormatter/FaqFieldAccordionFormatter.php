@@ -2,27 +2,26 @@
 
 namespace Drupal\faqfield\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Plugin implementation of the 'faqfield_accordion' formatter.
- *
- * @FieldFormatter(
- *   id = "faqfield_accordion",
- *   label = @Translation("jQuery Accordion"),
- *   field_types = {
- *     "faqfield"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: "faqfield_accordion",
+  label: new TranslatableMarkup("jQuery Accordion"),
+  field_types: ["faqfield"],
+)]
 class FaqFieldAccordionFormatter extends FormatterBase {
 
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'question_tag' => 'h3',
       'active' => 0,
@@ -39,7 +38,7 @@ class FaqFieldAccordionFormatter extends FormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state) {
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
     $elements = parent::settingsForm($form, $form_state);
     // An HTML tag for the question.
     $elements['question_tag'] = [
@@ -121,7 +120,7 @@ class FaqFieldAccordionFormatter extends FormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsSummary() {
+  public function settingsSummary(): array {
     $summary = [];
     if (is_numeric($this->getSetting('active'))) {
       $active = $this->getSetting('active');
@@ -159,7 +158,7 @@ class FaqFieldAccordionFormatter extends FormatterBase {
    * This will not be themeable, because changes would break jQuery UI
    * accordion functionality!
    */
-  public function viewElements(FieldItemListInterface $items, $langcode) {
+  public function viewElements(FieldItemListInterface $items, $langcode): array {
     $elements = [];
     $default_format = $this->getFieldSetting('default_format');
     $settings = $this->getSettings();

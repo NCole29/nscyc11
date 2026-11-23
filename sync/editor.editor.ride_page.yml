@@ -22,7 +22,6 @@ settings:
       - numberedList
       - alignment
       - link
-      - drupalMedia
       - insertTable
       - blockQuote
       - removeFormat

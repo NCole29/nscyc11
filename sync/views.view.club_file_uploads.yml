@@ -400,7 +400,7 @@ display:
         type: normal
         title: 'Board Meeting Minutes'
         description: ''
-        weight: -51
+        weight: -49
         expanded: false
         menu_name: main
         parent: 'menu_link_content:85a2f340-9d20-46d5-94e9-c3f26d2fb6ff'

@@ -12,7 +12,7 @@ dependencies:
     - options
     - user
 id: club_member_directory
-label: 'Club Member directory'
+label: 'Club member directory'
 module: views
 description: ''
 tag: ''
@@ -651,11 +651,28 @@ display:
           row_class: ''
           default_row_class: true
           columns:
+            uid: uid
+            display_name: display_name
             sort_name: sort_name
             city: city
-            state_province_id: state_province_id
+            abbreviation: abbreviation
+            include_in_membership_directory_51: include_in_membership_directory_51
           default: '-1'
           info:
+            uid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            display_name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             sort_name:
               sortable: true
               default_sort_order: asc
@@ -670,8 +687,15 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            state_province_id:
+            abbreviation:
               sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            include_in_membership_directory_51:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -715,9 +739,9 @@ display:
           entity_type: civicrm_contact
           plugin_id: civicrm_entity_reverse_location
           required: false
-          location_type: '0'
-          is_billing: 0
-          is_primary: 1
+          location_type: default
+          is_billing: false
+          is_primary: false
         user:
           id: user
           table: civicrm_contact
@@ -730,6 +754,17 @@ display:
           required: false
           domain_id:
             1: '1'
+        state_province_id:
+          id: state_province_id
+          table: civicrm_address
+          field: state_province_id
+          relationship: reverse__civicrm_address__contact_id
+          group_type: group
+          admin_label: 'CiviCRM State/Province'
+          entity_type: civicrm_address
+          entity_field: state_province_id
+          plugin_id: standard
+          required: false
       header:
         result:
           id: result
@@ -739,7 +774,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: result
-          empty: false
+          empty: true
           content: 'Displaying @start - @end of @total'
       footer: {  }
       display_extenders: {  }
@@ -752,19 +787,594 @@ display:
         - url.query_args
         - user.roles
       tags: {  }
-  page_1:
-    id: page_1
+  directory:
+    id: directory
     display_title: Page
     display_plugin: page
     position: 1
     display_options:
+      fields:
+        uid:
+          id: uid
+          table: users_field_data
+          field: uid
+          relationship: user
+          group_type: group
+          admin_label: ''
+          entity_type: user
+          entity_field: uid
+          plugin_id: field
+          label: 'User ID'
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        display_name:
+          id: display_name
+          table: civicrm_contact
+          field: display_name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_contact
+          entity_field: display_name
+          plugin_id: field
+          label: Name
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: true
+            path: '/contact-form?uid={{ uid }}&username={{ display_name }}'
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: 'webform-dialog webform-dialog-normal'
+            prefix: ''
+            suffix: ''
+            target: _self
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        sort_name:
+          id: sort_name
+          table: civicrm_contact
+          field: sort_name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_contact
+          entity_field: sort_name
+          plugin_id: field
+          label: Name
+          exclude: true
+          alter:
+            alter_text: false
+            text: '<a href="/contact-form?uid={{ uid }}&username={{ display_name }}">{{ sort_name }}</a>'
+            make_link: true
+            path: '/contact-form?uid={{ uid }}&username={{ display_name }}'
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: 'webform-dialog webform-dialog-normal'
+            prefix: ''
+            suffix: ''
+            target: _self
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        city:
+          id: city
+          table: civicrm_address
+          field: city
+          relationship: reverse__civicrm_address__contact_id
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_address
+          entity_field: city
+          plugin_id: field
+          label: 'City / Town'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        abbreviation:
+          id: abbreviation
+          table: civicrm_state_province
+          field: abbreviation
+          relationship: state_province_id
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_state_province
+          entity_field: abbreviation
+          plugin_id: field
+          label: State
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        include_in_membership_directory_51:
+          id: include_in_membership_directory_51
+          table: civicrm_value_contacts_6
+          field: include_in_membership_directory_51
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_contact
+          entity_field: include_in_membership_directory_51
+          plugin_id: civicrm_entity_custom_field
+          label: 'Include in membership directory'
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          type: boolean
+          settings:
+            format: yes-no
+            format_custom_true: ''
+            format_custom_false: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: 0
+      access:
+        type: role
+        options:
+          role:
+            administrator: administrator
+            member: member
+      empty: {  }
+      filters:
+        status_id:
+          id: status_id
+          table: civicrm_membership
+          field: status_id
+          relationship: reverse__civicrm_membership__contact_id
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_membership
+          entity_field: status_id
+          plugin_id: list_field
+          operator: or
+          value:
+            1: '1'
+            2: '2'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+        display_name:
+          id: display_name
+          table: civicrm_contact
+          field: display_name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_contact
+          entity_field: display_name
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: display_name_op
+            label: Name
+            description: 'Enter any portion of a name. If entering a full name enter first and last (i.e., John Smith).'
+            use_operator: false
+            operator: display_name_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: display_name
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        include_in_membership_directory_51:
+          id: include_in_membership_directory_51
+          table: civicrm_value_contacts_6
+          field: include_in_membership_directory_51
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_contact
+          entity_field: custom_51
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        roles_target_id:
+          id: roles_target_id
+          table: user__roles
+          field: roles_target_id
+          relationship: user
+          group_type: group
+          admin_label: ''
+          entity_type: user
+          entity_field: roles
+          plugin_id: user_roles
+          operator: or
+          value:
+            member: member
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      defaults:
+        empty: false
+        access: false
+        fields: false
+        filters: false
+        filter_groups: false
       display_extenders: {  }
       path: member-directory
       menu:
         type: normal
         title: 'Member directory'
         description: ''
-        weight: -50
+        weight: -48
         expanded: false
         menu_name: main
         parent: 'menu_link_content:85a2f340-9d20-46d5-94e9-c3f26d2fb6ff'

@@ -94,8 +94,13 @@ abstract class CivicrmEntityTestBase extends KernelTestBase implements ServiceMo
     $civicrm_api_mock->getFields('event')->willReturn($this->sampleEventsGetFields());
     // @phpstan-ignore-next-line
     $civicrm_api_mock->getFields('event', 'create')->willReturn($this->sampleEventsGetFields());
+    // Like the real API, getfields for Contact.get includes the 'group' and
+    // 'tag' filters, which loading a contact must not ask for.
     // @phpstan-ignore-next-line
-    $civicrm_api_mock->getFields('contact')->willReturn($this->sampleContactGetFields());
+    $civicrm_api_mock->getFields('contact')->willReturn($this->sampleContactGetFields() + [
+      'group' => ['name' => 'group', 'title' => 'Group(s)', 'type' => 1],
+      'tag' => ['name' => 'tag', 'title' => 'Tag(s)', 'type' => 1],
+    ]);
     // @phpstan-ignore-next-line
     $civicrm_api_mock->getFields('contact', 'create')->willReturn($this->sampleContactGetFields());
     // @phpstan-ignore-next-line

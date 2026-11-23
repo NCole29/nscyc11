@@ -1034,12 +1034,12 @@ definitions:
   club_reports__file_uploads:
     menu_name: admin
     parent: system.admin
-    weight: -91
+    weight: -98
     expanded: false
     enabled: true
   club_ride_tools__ride_tools:
     menu_name: admin
     parent: system.admin
-    weight: -90
+    weight: -98
     expanded: false
     enabled: true

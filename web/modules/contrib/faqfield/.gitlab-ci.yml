@@ -28,5 +28,8 @@ include:
 #   OPT_IN_TEST_NEXT_MAJOR: '1'
 #   _CURL_TEMPLATES_REF: 'main'
 variables:
+  OPT_IN_TEST_NEXT_MAJOR: '1'
+  # jquery_ui and jquery_ui_accordion have no ^12 release yet.
+  _LENIENT_ALLOW_LIST: jquery_ui,jquery_ui_accordion
   # Convenient, and we have no secrets.
   _SHOW_ENVIRONMENT_VARIABLES: 1

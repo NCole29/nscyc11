@@ -6,7 +6,7 @@ use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\RevisionLogInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\Element\RenderElement;
+use Drupal\Core\Render\Element\RenderElementBase;
 use Drupal\inline_entity_form\ElementSubmit;
 use Drupal\inline_entity_form\TranslationHelper;
 
@@ -29,7 +29,7 @@ use Drupal\inline_entity_form\TranslationHelper;
  *
  * @RenderElement("inline_entity_form")
  */
-class InlineEntityForm extends RenderElement {
+class InlineEntityForm extends RenderElementBase {
 
   /**
    * {@inheritdoc}

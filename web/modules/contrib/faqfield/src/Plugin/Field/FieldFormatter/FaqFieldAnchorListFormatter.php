@@ -2,27 +2,26 @@
 
 namespace Drupal\faqfield\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Plugin implementation of the 'faqfield_anchor_list' formatter.
- *
- * @FieldFormatter(
- *   id = "faqfield_anchor_list",
- *   label = @Translation("HTML anchor list"),
- *   field_types = {
- *     "faqfield"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: "faqfield_anchor_list",
+  label: new TranslatableMarkup("HTML anchor list"),
+  field_types: ["faqfield"],
+)]
 class FaqFieldAnchorListFormatter extends FormatterBase {
 
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'anchor_list_type' => 'ul',
       'question_tag' => 'h3',
@@ -32,7 +31,7 @@ class FaqFieldAnchorListFormatter extends FormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state) {
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
     $elements = parent::settingsForm($form, $form_state);
     // HTML element type.
     $elements['anchor_list_type'] = [
@@ -66,7 +65,7 @@ class FaqFieldAnchorListFormatter extends FormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsSummary() {
+  public function settingsSummary(): array {
     $summary = [];
     if ($this->getSetting('anchor_list_type') == 'ul') {
       $summary[] = $this->t('Bullet list');
@@ -80,7 +79,7 @@ class FaqFieldAnchorListFormatter extends FormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function viewElements(FieldItemListInterface $items, $langcode) {
+  public function viewElements(FieldItemListInterface $items, $langcode): array {
     $default_format = $this->getFieldSetting('default_format');
     $settings = $this->getSettings();
     $element_items = [];

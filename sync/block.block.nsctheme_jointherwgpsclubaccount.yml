@@ -1,0 +1,37 @@
+uuid: 9f092998-54ff-4948-99ed-360b98af0941
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:c5c5211f-0db2-4a9b-b11b-6f3db743188b'
+  module:
+    - block_content
+    - system
+    - user
+  theme:
+    - nsctheme
+id: nsctheme_jointherwgpsclubaccount
+theme: nsctheme
+region: content
+weight: 0
+provider: null
+plugin: 'block_content:c5c5211f-0db2-4a9b-b11b-6f3db743188b'
+settings:
+  id: 'block_content:c5c5211f-0db2-4a9b-b11b-6f3db743188b'
+  label: 'Join the RWGPS Club Account'
+  label_display: '0'
+  provider: block_content
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /ride-gps
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      administrator: administrator
+      member: member

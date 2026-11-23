@@ -142,10 +142,10 @@ class SettingsForm extends ConfigFormBase {
 
     if ($devel_enabled) {
       ob_start();
-      // @codingStandardsIgnoreStart
+      // phpcs:disable
       devel_dump($config, '$config');
       ddebug_backtrace();
-      // @codingStandardsIgnoreEnd
+      // phpcs:enable
       $demo_dump = ob_get_clean();
 
       $form['devel']['contents']['demo'] = [
@@ -449,7 +449,10 @@ class SettingsForm extends ConfigFormBase {
    */
   public function isValidFunctionName(array &$element, FormStateInterface $form_state): void {
     if ($element['#value'] !== '') {
-      if (!is_string($element['#value']) || !Utils::isValidPhpName($element['#value'])) {
+      if (!is_string($element['#value'])) {
+        $form_state->setError($element, $this->t('Invalid function name.'));
+      }
+      elseif (!Utils::isValidPhpName($element['#value'])) {
         $form_state->setError($element, $this->t('"@value" is not a valid function name.', ['@value' => $element['#value']]));
       }
     }

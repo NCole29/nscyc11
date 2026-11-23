@@ -15,14 +15,6 @@ class ClubTemplates {
   #[Hook('theme')]
   public function addTemplates() {
     return [
-      'node__location' => [
-        'template' => 'node--location',
-        'base hook' => 'node',
-      ],
-      'field__address' => [
-        'template' => 'field--address',
-        'base hook' => 'field',
-      ],  
       // Adding 'uri' to variables so its available in paragraph templates.
       'fontawesomeicons' => [
         'variables' => [

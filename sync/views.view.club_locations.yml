@@ -1345,7 +1345,7 @@ display:
           admin_label: ''
           plugin_id: text_custom
           empty: false
-          content: "<details class=\"info-details\">\r\n<summary>About Locations</summary>\r\n<p>New locations are automatically geocoded when saved to the database.<br>\r\n<strong>Inactive</strong> ride starts cannot be used for future rides. <strong>Do not delete or unpublish</strong> them because they may be listed on past ride pages.\r\n</p>\r\n</details>\r\n<hr>"
+          content: "<details class=\"info-details\">\r\n<summary>About Locations</summary>\r\n<ul>\r\n<li>New locations are automatically <strong>geocoded</strong> when saved to the database.</li>\r\n<li>Locations may have multiple <strong>Location types</strong> (e.g., Ride start and Eating place).</li>\r\n<li>Code a location as <strong>Inactive ride start</strong> if it cannot be used for future rides, but do not delete or unpublish an inactive ride start because it may be listed on past ride pages.</li>\r\n</ul>\r\n</details>\r\n<hr>"
           tokenize: false
         result:
           id: result
@@ -1632,6 +1632,44 @@ display:
           hierarchy: false
           limit: true
           error_message: true
+        field_inactive_value:
+          id: field_inactive_value
+          table: node__field_inactive
+          field: field_inactive_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: boolean
+          operator: '!='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:

@@ -518,6 +518,30 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      defaults:
+        header: false
+      header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text_custom
+          empty: false
+          content: "<details class=\"info-details\">\r\n<summary>About Blocks</summary>\r\n<p>Drupal blocks are individual content or layout pieces placed inside defined regions (like a header, sidebar, or footer). You create blocks and then place, reorder, configure, and remove them on the Block layout page (admin/structure/block) or place them in page sections using Layout Builder.\r\n</p>\r\n<strong>Types of Blocks</strong>\r\n<ul>\r\n<li><strong>Basic block</strong> is like a simple one-column page, whereby you fill in the text editor.</li>\r\n<li><strong>Paragraphs block</strong> is like a page with section layouts and design components (callouts, cards, text areas).</li>\r\n</ul>\r\n</details>\r\n<hr>"
+          tokenize: false
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: false
+          content: 'Displaying @start - @end of @total'
       display_extenders: {  }
       path: admin/content/block
       menu:

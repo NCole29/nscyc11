@@ -40,28 +40,36 @@ phpunit:
     - if: '$CI_COMMIT_BRANCH == "4.0.x" && $CI_PIPELINE_SOURCE == "push"'
     - if: '$CI_PIPELINE_SOURCE == "web"'
     - if: '$CI_PIPELINE_SOURCE == "trigger"'
+  # Each row runs as SHARD_TOTAL jobs, each running about a third of the
+  # test classes (see .gitlab-ci/shard-tests.sh).
   parallel:
     matrix:
-      - PHP: "8.1"
-        DRUPAL: "10.3.*"
-        CIVICRM: "5.75.*"
-        CHROMEDRIVER_VERSION: "133.0.6943.126"
       - PHP: "8.3"
-        DRUPAL: "10.4.*"
+        DRUPAL: "10.6.*"
+        CIVICRM: "6.16.*"
+        CHROMEDRIVER_VERSION: "133.0.6943.126"
+        SHARD: ["1", "2", "3"]
+      - PHP: "8.4"
+        DRUPAL: "10.6.*"
         CIVICRM: "^6.0"
         CHROMEDRIVER_VERSION: "133.0.6943.126"
-      - PHP: "8.3"
-        DRUPAL: "11.1.*"
-        CIVICRM: "5.81.*"
+        SHARD: ["1", "2", "3"]
+      - PHP: "8.5"
+        DRUPAL: "11.4.*"
+        CIVICRM: "6.16.*"
         CHROMEDRIVER_VERSION: "133.0.6943.126"
-      - PHP: "8.4"
+        SHARD: ["1", "2", "3"]
+      - PHP: "8.5"
         DRUPAL: "^11.4"
         CIVICRM: "^6.0"
         CHROMEDRIVER_VERSION: "133.0.6943.126"
+        SHARD: ["1", "2", "3"]
   services:
     - name: mysql:8.0
       alias: mysql
   variables:
+    # The number of values in the matrix SHARD lists.
+    SHARD_TOTAL: "3"
     MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     MYSQL_DATABASE: "db"
     COMPOSER_MEMORY_LIMIT: "-1"
@@ -117,32 +125,66 @@ phpunit:
     - |
       cd ~/drupal
       COMPOSER_MEMORY_LIMIT=-1 composer require drupal/civicrm_entity "*@dev"
+      # fullcalendar_view 5.3.0 ends two case labels with a semicolon, which
+      # PHP 8.5 deprecates. PHP prints the notice when it compiles the file,
+      # PHPUnit marks the calendar tests risky for the output, and core's
+      # phpunit.xml.dist fails on risky tests.
+      composer config --json extra.patches.drupal/fullcalendar_view \
+        "{\"PHP 8.5: colons after case labels\": \"$CI_PROJECT_DIR/.gitlab-ci/patches/fullcalendar_view-php85-case-colon.patch\"}"
       COMPOSER_MEMORY_LIMIT=-1 composer require drupal/fullcalendar_view
     - |
       if [ "$CHROMEDRIVER_VERSION" = "latest" ]; then
         apt-get install -y -qq chromium chromium-driver
       else
-        apt-get install -y -qq libu2f-udev
-        curl --retry 2 -L -o /tmp/chrome.deb \
-          "https://mirror.cs.uchicago.edu/google-chrome/pool/main/g/google-chrome-stable/google-chrome-stable_133.0.6943.126-1_amd64.deb"
-        dpkg -i /tmp/chrome.deb || apt-get install -f -y
-        curl -L -o /tmp/chromedriver.zip \
-          "https://storage.googleapis.com/chrome-for-testing-public/$CHROMEDRIVER_VERSION/linux64/chromedriver-linux64.zip" \
-          || curl -L -o /tmp/chromedriver.zip \
-          "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
-        unzip -o /tmp/chromedriver.zip '*/chromedriver' -d /tmp/
-        find /tmp -name chromedriver -exec mv {} /usr/local/bin/chromedriver \;
-        chmod +x /usr/local/bin/chromedriver
+        # Chrome for Testing: Google's versioned Chrome builds + matching chromedriver.
+        CFT="https://storage.googleapis.com/chrome-for-testing-public/$CHROMEDRIVER_VERSION/linux64"
+        curl -fsSL --retry 3 -o /tmp/chrome.zip "$CFT/chrome-linux64.zip"
+        curl -fsSL --retry 3 -o /tmp/chromedriver.zip "$CFT/chromedriver-linux64.zip"
+        unzip -q -o /tmp/chrome.zip -d /opt
+        unzip -q -o /tmp/chromedriver.zip -d /opt
+        # Install Chrome's runtime libraries from the dependency list shipped in the zip.
+        sed -E 's/ *\(.*//; s/ *\|.*//' /opt/chrome-linux64/deb.deps \
+          | xargs apt-get install -y -qq --no-install-recommends
+        ln -sf /opt/chrome-linux64/chrome /usr/local/bin/google-chrome
+        ln -sf /opt/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+        google-chrome --version
       fi
       chromedriver --version
       chromedriver --port=9515 &
     - php -S 127.0.0.1:8080 -t ~/drupal/web 2> /dev/null &
   script:
-    - mkdir -p "$BROWSERTEST_OUTPUT_DIRECTORY"
+    - mkdir -p "$BROWSERTEST_OUTPUT_DIRECTORY" "$CI_PROJECT_DIR/junit"
     - cd ~/drupal/web
-    - ../vendor/bin/phpunit -c core modules/contrib/civicrm_entity
+    # Run each test class on fresh databases. CiviCRM's tables are not
+    # prefixed and are only dropped when a test tears down cleanly, so one
+    # test failing in tearDown would otherwise fail every test after it with
+    # "SIMPLETEST_DB contains CiviCRM tables".
+    - |
+      tests=$(bash "$CI_PROJECT_DIR/.gitlab-ci/shard-tests.sh" "$SHARD" "$SHARD_TOTAL" modules/contrib/civicrm_entity/tests/src)
+      if [ -z "$tests" ]; then
+        echo "Shard $SHARD of $SHARD_TOTAL has no test classes."
+        exit 1
+      fi
+      echo "Shard $SHARD of $SHARD_TOTAL runs:"
+      printf '  %s\n' $tests
+      failed=""
+      for test in $tests; do
+        mysql --skip-ssl -uroot -hmysql -e 'DROP DATABASE IF EXISTS db; CREATE DATABASE db; DROP DATABASE IF EXISTS db_civicrm; CREATE DATABASE db_civicrm;'
+        ../vendor/bin/phpunit -c core --log-junit "$CI_PROJECT_DIR/junit/$(basename "$test" .php).xml" "$test" || failed="$failed $test"
+      done
+      if [ -n "$failed" ]; then
+        echo "Failed test classes:"
+        printf '  %s\n' $failed
+        exit 1
+      fi
+  after_script:
+    # Drupal writes the HTML snapshots to sites/simpletest/browser_output, not
+    # to BROWSERTEST_OUTPUT_DIRECTORY.
+    - cp -r ~/drupal/web/sites/simpletest/browser_output/. "$CI_PROJECT_DIR/browser-output/" 2>/dev/null || true
   artifacts:
     when: always
     paths:
       - browser-output/
+    reports:
+      junit: junit/*.xml
     expire_in: 1 week

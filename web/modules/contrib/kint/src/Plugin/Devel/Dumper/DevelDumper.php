@@ -91,7 +91,6 @@ class DevelDumper extends DevelDumperBase implements ContainerFactoryPluginInter
 
     $kint_instance->setStatesFromStatics($statics);
     $call_info = Kint::getCallInfo(Kint::$aliases, \debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS), $args);
-    assert(is_null($call_info['callee']) || is_array($call_info['callee']));
     $kint_instance->setStatesFromCallInfo($call_info);
 
     // Override devel's "nice trace" because ours is nicer.

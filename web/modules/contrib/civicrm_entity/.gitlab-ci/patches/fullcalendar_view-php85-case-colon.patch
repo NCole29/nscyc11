@@ -1,0 +1,15 @@
+diff --git a/src/Controller/CalendarEventController.php b/src/Controller/CalendarEventController.php
+index 6521722..0a7be87 100644
+--- a/src/Controller/CalendarEventController.php
++++ b/src/Controller/CalendarEventController.php
+@@ -328,8 +328,8 @@ class CalendarEventController extends ControllerBase {
+           // Hide those fields we don't need for this form.
+           foreach ($form as $name => &$element) {
+             switch ($name) {
+-              case 'advanced';
+-              case 'body';
++              case 'advanced':
++              case 'body':
+                 $element['#access'] = FALSE;
+             }
+             // Hide all fields that are irrelevant to the event date.

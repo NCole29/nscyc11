@@ -162,6 +162,15 @@ class EntityBrowserForm extends FormBase implements EntityBrowserFormInterface, 
       return $form;
     }
 
+    // Reset the file-element flag before building the active widget. The flag
+    // is cached on the form state, so an upload on a previous tab leaves it
+    // TRUE and the rebuilt form for a non-upload widget (e.g. View) wrongly
+    // gets enctype="multipart/form-data", which breaks the views exposed form
+    // AJAX submit. The active widget will re-set the flag during processing
+    // if it actually contains a managed_file element.
+    // @see https://www.drupal.org/project/entity_browser/issues/3012432
+    $form_state->setHasFileElement(FALSE);
+
     // Allow submission in non-default workspace.
     $form_state->set('workspace_safe', TRUE);
 
@@ -179,6 +188,9 @@ class EntityBrowserForm extends FormBase implements EntityBrowserFormInterface, 
     else {
       $this->messenger->addWarning($this->t('Access to the widget forbidden.'));
     }
+
+    // The form is built from the entity browser configuration.
+    $this->renderer->addCacheableDependency($form, $this->entityBrowser);
 
     // Add cache access cache metadata from the widgets to the form directly as
     // it is affected.

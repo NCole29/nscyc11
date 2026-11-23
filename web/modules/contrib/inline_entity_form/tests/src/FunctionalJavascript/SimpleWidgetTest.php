@@ -7,12 +7,16 @@ namespace Drupal\Tests\inline_entity_form\FunctionalJavascript;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the IEF simple widget.
  *
  * @group inline_entity_form
  */
+#[Group('inline_entity_form')]
+#[RunTestsInSeparateProcesses]
 class SimpleWidgetTest extends InlineEntityFormTestBase {
 
   /**
@@ -62,7 +66,7 @@ class SimpleWidgetTest extends InlineEntityFormTestBase {
       FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED => 3,
     ];
     /** @var \Drupal\field\FieldStorageConfigInterface $field_storage */
-    $field_storage = $this->fieldStorageConfigStorage->load('node.single');
+    $field_storage = $this->container->get('entity_type.manager')->getStorage('field_storage_config')->load('node.single');
 
     foreach ($cardinality_options as $cardinality => $number_of_items) {
       $field_storage->setCardinality($cardinality);

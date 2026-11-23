@@ -132,9 +132,24 @@ final class ActivityFullcalendarViewTest extends CivicrmEntityTestBase {
     $event = $this->assertSession()->waitForElement('css', '.fc-event-container .fc-event');
     $destination = $this->assertSession()->elementExists('css', ".fc-bg [data-date='$previous_day_formatted']", $fullcalendar);
 
-    // Using dragTo causes exceptions due to an alert appearing during the
-    // "drop" event.
-    // $event->dragTo($destination);
+    // The calendar asks to confirm the drop with window.confirm(), and reports
+    // a failed save with window.alert(). A native dialog can open while the
+    // WebDriver command that caused it is still running, or after the test
+    // has already looked for it, depending on timing. One still open at the
+    // end of the test also breaks tearDown, which then leaves CiviCRM's
+    // tables behind and fails every later test. Record the dialogs in the
+    // page instead, as fullcalendar_view's own tests do.
+    $this->getSession()->executeScript(<<<'JS'
+      window.civicrmEntityDialogs = {confirm: [], alert: []};
+      window.confirm = function (message) {
+        window.civicrmEntityDialogs.confirm.push(String(message));
+        return true;
+      };
+      window.alert = function (message) {
+        window.civicrmEntityDialogs.alert.push(String(message));
+      };
+    JS);
+
     $driver = $this->getSession()->getDriver();
     assert($driver instanceof DrupalSelenium2Driver);
     $webdriver_session = $driver->getWebDriverSession();
@@ -148,18 +163,15 @@ final class ActivityFullcalendarViewTest extends CivicrmEntityTestBase {
     ]);
     $webdriver_session->buttonup();
 
-    $driver = $this->getSession()->getDriver();
-    assert($driver instanceof DrupalSelenium2Driver);
-    $alert_text = $driver->getWebDriverSession()->getAlert_text();
-    // @todo deprecated in Drupal 9.2 PHPUnit bump.
-    // Change to assertMatchesRegularExpression for PHPUnit 10.
-    // @see https://www.drupal.org/project/drupal/issues/3217709
+    $this->assertJsCondition('window.civicrmEntityDialogs.confirm.length > 0', 10000, 'The calendar did not ask to confirm the drop.');
+    $dialogs = $this->getSession()->evaluateScript('window.civicrmEntityDialogs');
+    $this->assertCount(1, $dialogs['confirm']);
     $this->assertMatchesRegularExpression(
       '/^Meeting about new seeds start is now ([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) and end is now ([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) - Do you want to save this change\?$/',
-      $alert_text
+      $dialogs['confirm'][0]
     );
-    $driver->getWebDriverSession()->accept_alert();
     $this->assertSession()->assertWaitOnAjaxRequest();
+    $this->assertSame([], $this->getSession()->evaluateScript('window.civicrmEntityDialogs.alert'), 'The calendar reported an error saving the change.');
 
     $civicrm_api = $this->container->get('civicrm_entity.api');
     $activity = $civicrm_api->get('activity', [

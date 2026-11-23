@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace Drupal\Tests\inline_entity_form\FunctionalJavascript;
 
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * IEF complex field widget containing an IEF simple field widget tests.
  *
  * @group inline_entity_form
  */
+#[Group('inline_entity_form')]
+#[RunTestsInSeparateProcesses]
 class ComplexSimpleWidgetTest extends InlineEntityFormTestBase {
 
   /**
@@ -37,9 +41,6 @@ class ComplexSimpleWidgetTest extends InlineEntityFormTestBase {
       'view own unpublished content',
     ]);
     $this->drupalLogin($this->user);
-    $this->fieldConfigStorage = $this->container
-      ->get('entity_type.manager')
-      ->getStorage('field_config');
   }
 
   /**
@@ -61,9 +62,9 @@ class ComplexSimpleWidgetTest extends InlineEntityFormTestBase {
     $outer_title_field_xpath = $this->getXpathForNthInputByLabelText('Title', 2);
     $inner_title_field_xpath = $this->getXpathForNthInputByLabelText('Title', 3);
     /** @var \Drupal\field\FieldStorageConfigInterface $field_storage */
-    $field_storage = $this->fieldStorageConfigStorage->load('node.ief_complex_outer');
+    $field_storage = $this->container->get('entity_type.manager')->getStorage('field_storage_config')->load('node.ief_complex_outer');
     /** @var \Drupal\Core\Field\FieldConfigInterface $field_config */
-    $field_config = $this->fieldConfigStorage->load('node.ief_complex_simple.ief_complex_outer');
+    $field_config = $this->container->get('entity_type.manager')->getStorage('field_config')->load('node.ief_complex_simple.ief_complex_outer');
     foreach ($outer_required_options as $outer_required_option) {
       $field_config->setRequired($outer_required_option);
       $field_config->save();

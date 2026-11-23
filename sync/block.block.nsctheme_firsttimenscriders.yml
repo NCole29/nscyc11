@@ -18,7 +18,7 @@ plugin: 'block_content:e8c17fdb-e5b3-4530-b24c-77e30d79acc0'
 settings:
   id: 'block_content:e8c17fdb-e5b3-4530-b24c-77e30d79acc0'
   label: 'First Time NSC Riders'
-  label_display: '0'
+  label_display: visible
   provider: block_content
   view_mode: full
 visibility:

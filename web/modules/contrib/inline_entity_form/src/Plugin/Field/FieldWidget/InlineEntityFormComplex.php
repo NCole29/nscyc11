@@ -10,28 +10,29 @@ use Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\inline_entity_form\TranslationHelper;
 use Drupal\rat\v1\RenderArray;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Complex inline widget.
- *
- * @FieldWidget(
- *   id = "inline_entity_form_complex",
- *   label = @Translation("Inline entity form - Complex"),
- *   field_types = {
- *     "entity_reference",
- *     "entity_reference_revisions",
- *   },
- *   multiple_values = true
- * )
  */
+#[FieldWidget(
+  id: 'inline_entity_form_complex',
+  label: new TranslatableMarkup('Inline entity form - Complex'),
+  field_types: [
+    'entity_reference',
+    'entity_reference_revisions',
+  ],
+  multiple_values: TRUE,
+)]
 class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerFactoryPluginInterface {
 
   /**

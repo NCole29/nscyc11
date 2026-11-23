@@ -7,6 +7,10 @@ parameters:
   level: 1
   paths:
     - .
+  # Migrate Drupal was removed from core in Drupal 12, the migrate tests extend
+  # its test base class through an alias PHPStan can't follow.
+  excludePaths:
+    - tests/src/Kernel/Migrate
   ignoreErrors:
     # new static() is a best practice in Drupal, so we cannot fix that.
     - "#^Unsafe usage of new static#"

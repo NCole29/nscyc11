@@ -2,26 +2,25 @@
 
 namespace Drupal\faqfield\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 
 /**
  * Plugin implementation of the 'faqfield_definition_list' formatter.
- *
- * @FieldFormatter(
- *   id = "faqfield_definition_list",
- *   label = @Translation("HTML definition list"),
- *   field_types = {
- *     "faqfield"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: "faqfield_definition_list",
+  label: new TranslatableMarkup("HTML definition list"),
+  field_types: ["faqfield"],
+)]
 class FaqFieldDefinitionListFormatter extends FormatterBase {
 
   /**
    * {@inheritdoc}
    */
-  public function viewElements(FieldItemListInterface $items, $langcode) {
+  public function viewElements(FieldItemListInterface $items, $langcode): array {
     $default_format = $this->getFieldSetting('default_format');
     $element_items = [];
     foreach ($items as $item) {

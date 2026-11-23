@@ -9,13 +9,11 @@
  * - delta: Delta # of field element.
  *
  * @see template_preprocess()
- * @see template_preprocess_faqfield_simple_text_formatter()
+ * @see faqfield_preprocess_faqfield_simple_text_formatter()
  *
  * @ingroup themeable
  */
 #}
 {% set tag = question_tag ?: 'h3' %}
-{% apply spaceless %}
-  <{{ tag }} class="faqfield-question">{{ question }}</{{ tag }}>
-  <div class="faqfield-answer">{{ answer }}</div>
-{% endapply %}
+<{{ tag }} class="faqfield-question">{{ question }}</{{ tag }}>
+<div class="faqfield-answer">{{ answer }}</div>

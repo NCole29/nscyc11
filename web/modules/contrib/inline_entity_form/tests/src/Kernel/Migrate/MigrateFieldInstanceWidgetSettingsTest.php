@@ -6,12 +6,16 @@ namespace Drupal\Tests\inline_entity_form\Kernel\Migrate;
 
 use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests migration of inline_entity_form widgets settings.
  *
  * @group inline_entity_form
  */
+#[Group('inline_entity_form')]
+#[RunTestsInSeparateProcesses]
 class MigrateFieldInstanceWidgetSettingsTest extends MigrateTestBase {
 
   // phpcs:disable

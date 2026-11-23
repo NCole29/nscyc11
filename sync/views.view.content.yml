@@ -1399,6 +1399,17 @@ display:
         header: false
       display_description: 'Includes all content types'
       header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text_custom
+          empty: false
+          content: "<details class=\"info-details\">\r\n<summary>About the Content Lists</summary>\r\n<ul>\r\n<li><strong>Overview (this list):</strong> Shows all <strong>Published</strong> Announcements, Basic pages, Events, FAQ pages, and Webform pages.</li>\r\n<li><strong>Moderated content:</strong> Shows Basic pages, Events, FAQ pages, and Webform pages saved as <strong>Draft</strong> or <strong>Ready for review</strong>.</li>\r\n<li><strong>Scheduled content:</strong> Shows published Announcements with the <strong>Publish on</strong> (optional) and <strong>Unpublish on</strong> (required) dates.</li> \r\n<li><strong>Archived content:</strong> Shows <strong>Archived</strong> items (Basic pages, Events, FAQ pages, and Webform pages) as well as <strong>Unpublished Announcements.</strong></li>\r\n</ul>\r\n<p><strong>Note:</strong> Announcements are only ever <strong>Published</strong> or <strong>Unpublished</strong>. Because they rely on scheduled publishing, they do not use the content moderation workflow (Draft/Ready for review/Published/Archived), as the two features conflict.\r\n</p>\r\n</details>\r\n<hr>"
+          tokenize: false
         result:
           id: result
           table: views

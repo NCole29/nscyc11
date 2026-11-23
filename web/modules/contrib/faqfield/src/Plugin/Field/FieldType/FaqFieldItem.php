@@ -2,6 +2,10 @@
 
 namespace Drupal\faqfield\Plugin\Field\FieldType;
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\filter\FilterFormatRepositoryInterface;
+use Drupal\Core\Field\Attribute\FieldType;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -9,21 +13,20 @@ use Drupal\Core\TypedData\DataDefinition;
 
 /**
  * Plugin implementation of the 'faqfield' field type.
- *
- * @FieldType(
- *   id = "faqfield",
- *   label = @Translation("FAQ Field"),
- *   description = @Translation("Stores a question, an answer and its format to
- *   assemble a FAQ."), default_widget = "faqfield_default", default_formatter
- *   = "faqfield_accordion"
- * )
  */
+#[FieldType(
+  id: "faqfield",
+  label: new TranslatableMarkup("FAQ Field"),
+  description: new TranslatableMarkup("Stores a question, an answer and its format to assemble a FAQ."),
+  default_widget: "faqfield_default",
+  default_formatter: "faqfield_accordion",
+)]
 class FaqFieldItem extends FieldItemBase {
 
   /**
    * {@inheritdoc}
    */
-  public static function defaultFieldSettings() {
+  public static function defaultFieldSettings(): array {
     return [
       'default_format' => 'plain_text',
     ] + parent::defaultFieldSettings();
@@ -32,7 +35,7 @@ class FaqFieldItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
+  public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition): array {
     $properties = [];
     $properties['question'] = DataDefinition::create('string')
       ->setLabel(t('Question value'));
@@ -47,7 +50,7 @@ class FaqFieldItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public static function schema(FieldStorageDefinitionInterface $field_definition) {
+  public static function schema(FieldStorageDefinitionInterface $field_definition): array {
     return [
       'columns' => [
         'question' => [
@@ -75,10 +78,10 @@ class FaqFieldItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public function fieldSettingsForm(array $form, FormStateInterface $form_state) {
+  public function fieldSettingsForm(array $form, FormStateInterface $form_state): array {
     $element = [];
     // Get a list of formats that the current user has access to.
-    $formats = filter_formats();
+    $formats = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.4.0', fn() => \Drupal::service(FilterFormatRepositoryInterface::class)->getAllFormats(), fn() => filter_formats());
     $filter_options = [];
     foreach ($formats as $format) {
       $filter_options[$format->get('format')] = $format->get('name');
@@ -100,7 +103,7 @@ class FaqFieldItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public function isEmpty() {
+  public function isEmpty(): bool {
     $answer = $this->get('answer')->getValue();
     $question = $this->get('question')->getValue();
     $answer_value = is_array($answer) ? $answer['value'] : $answer;
@@ -111,14 +114,14 @@ class FaqFieldItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public static function mainPropertyName() {
+  public static function mainPropertyName(): ?string {
     return 'question';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setValue($values, $notify = TRUE) {
+  public function setValue($values, $notify = TRUE): void {
     if (is_array($values) && isset($values['answer']) && is_array($values['answer'])) {
       // Normal textarea's and textfields put their values simply in by
       // array($name => $value); Unfortunately text_format textareas put
@@ -128,7 +131,7 @@ class FaqFieldItem extends FieldItemBase {
       // and text_format fields to 'answer_value' and 'answer_format'.
       // To bypass this, we pull the values out of this array and force
       // them to be saved in 'answer' and 'answer_format'.
-      $values['answer_format'] = $values['answer']['format'];
+      $values['answer_format'] = $values['answer']['format'] ?? NULL;
       $values['answer'] = $values['answer']['value'];
     }
     parent::setValue($values, $notify);

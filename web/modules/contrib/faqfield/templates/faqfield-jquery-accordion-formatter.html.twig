@@ -10,17 +10,15 @@
  * - id: Id to wrap the accordion markup in.
  *
  * @see template_preprocess()
- * @see template_preprocess_faqfield_jquery_accordion_formatter()
+ * @see faqfield_preprocess_faqfield_jquery_accordion_formatter()
  *
  * @ingroup themeable
  */
 #}
 {% set tag = question_tag ?: 'h3' %}
-{% apply spaceless %}
-  <div id="{{ id }}">
-    {% for item in items %}
-      <{{ tag }} class="faqfield-question">{{ item.question }}</{{ tag }}>
-      <div class="faqfield-answer">{{ item.answer }}</div>
-    {% endfor %}
-  </div>
-{% endapply %}
+<div id="{{ id }}">
+  {% for item in items %}
+    <{{ tag }} class="faqfield-question">{{ item.question }}</{{ tag }}>
+    <div class="faqfield-answer">{{ item.answer }}</div>
+  {% endfor %}
+</div>

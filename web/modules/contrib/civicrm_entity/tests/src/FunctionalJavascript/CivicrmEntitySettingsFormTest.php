@@ -36,7 +36,7 @@ final class CivicrmEntitySettingsFormTest extends CivicrmEntityTestBase {
       $page->uncheckField("enabled_entity_types[$entity_type][enable_links][edit]");
       $page->uncheckField("enabled_entity_types[$entity_type][enable_links][delete]");
     }
-    $page->pressButton('Save configuration');
+    $this->pressButtonAndWait('Save configuration', 'The configuration options have been saved.');
     $this->drupalGet('/civicrm-contact/add');
     $this->assertSession()->responseContains('Page not found');
     $this->drupalGet('/civicrm-contact/1');
@@ -74,8 +74,7 @@ final class CivicrmEntitySettingsFormTest extends CivicrmEntityTestBase {
     $this->drupalGet(Url::fromRoute('civicrm_entity.admin'));
     $this->clickLink('Settings');
     $this->getSession()->getPage()->selectFieldOption('filter_format', $basic_html_format->id());
-    $this->getSession()->getPage()->pressButton('Save configuration');
-    $this->assertSession()->pageTextContains('The configuration options have been saved.');
+    $this->pressButtonAndWait('Save configuration', 'The configuration options have been saved.');
   }
 
   /**

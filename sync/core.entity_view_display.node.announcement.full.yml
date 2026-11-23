@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.announcement.field_text
     - node.type.announcement
   module:
+    - club
     - layout_builder
     - layout_builder_restrictions
     - text
@@ -35,18 +36,16 @@ bundle: announcement
 mode: full
 content:
   field_contact_person:
-    type: entity_reference_label
+    type: contact_person
     label: above
-    settings:
-      link: true
+    settings: {  }
     third_party_settings: {  }
     weight: 3
     region: content
   field_contact_us:
-    type: entity_reference_label
+    type: contact_admin_mailbox
     label: above
-    settings:
-      link: true
+    settings: {  }
     third_party_settings: {  }
     weight: 2
     region: content

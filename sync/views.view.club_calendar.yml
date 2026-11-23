@@ -19,7 +19,7 @@ dependencies:
     - datetime
     - node
 id: club_calendar
-label: 'Club Calendar'
+label: 'Club calendar'
 module: views
 description: ''
 tag: ''
@@ -488,7 +488,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if type == 'recurring_dates' %}\r\n  {{ title_1 }}\r\n{% elseif type == 'event' %}\r\n  <h3>{{ title }} </h3>\r\n{% else %}\r\n  {{ title }}\r\n{% endif %}\r\n"
+            text: "{% if type == 'recurring_dates' %}\r\n  {{ title_1 }}\r\n{% elseif type == 'event' %}\r\n  <h5>{{ title }} </h5>\r\n{% else %}\r\n  {{ title }}\r\n{% endif %}\r\n"
             make_link: false
             path: ''
             absolute: false
@@ -529,6 +529,7 @@ display:
           type: string
           settings:
             link_to_entity: true
+            link_rel: canonical
           group_column: value
           group_columns: {  }
           group_rows: true

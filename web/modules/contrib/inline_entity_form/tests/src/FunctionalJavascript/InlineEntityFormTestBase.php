@@ -19,67 +19,9 @@ abstract class InlineEntityFormTestBase extends WebDriverTestBase {
   protected $user;
 
   /**
-   * Field config storage.
-   *
-   * @var \Drupal\Core\Config\Entity\ConfigEntityStorage
-   */
-  protected $fieldStorageConfigStorage;
-
-  /**
-   * Field config storage.
-   *
-   * @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface
-   */
-  protected $fieldConfigStorage;
-
-  /**
    * {@inheritdoc}
    */
   protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-    $this->fieldStorageConfigStorage = $this->container->get('entity_type.manager')->getStorage('field_storage_config');
-    $this->fieldConfigStorage = $this->container->get('entity_type.manager')->getStorage('field_config');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function prepareSettings() {
-    $drupal_version = (float) substr(\Drupal::VERSION, 0, 3);
-    if ($drupal_version < 8.8) {
-      // Fix entity_reference_autocomplete match_limit schema errors.
-      $this->strictConfigSchema = FALSE;
-    }
-    parent::prepareSettings();
-  }
-
-  /**
-   * Gets IEF button name.
-   *
-   * @param string $xpath
-   *   Xpath of the button.
-   *
-   * @return string
-   *   The name of the button.
-   */
-  protected function getButtonName(string $xpath) {
-    $retval = '';
-    /** @var \SimpleXMLElement[] $elements */
-    if ($elements = $this->xpath($xpath)) {
-      foreach ($elements[0]->attributes() as $name => $value) {
-        if ($name === 'name') {
-          $retval = $value;
-          break;
-        }
-      }
-    }
-    return $retval;
-  }
 
   /**
    * Passes if no node is found for the title.

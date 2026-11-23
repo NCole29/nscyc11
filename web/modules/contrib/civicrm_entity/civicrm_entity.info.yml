@@ -10,7 +10,7 @@ dependencies:
   - drupal:filter
   - drupal:options
 
-# Information added by Drupal.org packaging script on 2026-10-13
-version: '4.0.9'
+# Information added by Drupal.org packaging script on 2026-11-14
+version: '4.0.11'
 project: 'civicrm_entity'
-datestamp: 1791934445
+datestamp: 1794617338

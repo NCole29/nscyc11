@@ -3,6 +3,7 @@
 namespace Drupal\inline_entity_form\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -10,22 +11,22 @@ use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\inline_entity_form\TranslationHelper;
 use Drupal\rat\v1\RenderArray;
 
 /**
  * Simple inline widget.
- *
- * @FieldWidget(
- *   id = "inline_entity_form_simple",
- *   label = @Translation("Inline entity form - Simple"),
- *   field_types = {
- *     "entity_reference",
- *     "entity_reference_revisions",
- *   },
- *   multiple_values = false
- * )
  */
+#[FieldWidget(
+  id: 'inline_entity_form_simple',
+  label: new TranslatableMarkup('Inline entity form - Simple'),
+  field_types: [
+    'entity_reference',
+    'entity_reference_revisions',
+  ],
+  multiple_values: FALSE,
+)]
 class InlineEntityFormSimple extends InlineEntityFormBase {
 
   /**

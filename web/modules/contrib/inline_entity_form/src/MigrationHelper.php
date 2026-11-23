@@ -3,8 +3,6 @@
 namespace Drupal\inline_entity_form;
 
 use Drupal\Component\Utility\NestedArray;
-use Drupal\field\Plugin\migrate\source\d7\FieldInstance;
-use Drupal\field\Plugin\migrate\source\d7\FieldInstancePerFormDisplay;
 use Drupal\migrate\Exception\RequirementsException;
 use Drupal\migrate\Plugin\MigratePluginManagerInterface;
 use Drupal\migrate\Plugin\MigrateSourceInterface;
@@ -15,6 +13,19 @@ use Drupal\migrate\Row;
  * Helper for migration hooks in inline_entity_form.module.
  */
 class MigrationHelper {
+
+  /**
+   * The Drupal 7 field instance source plugin class.
+   *
+   * Referenced by name, the class is gone since Drupal 12 removed the Drupal 7
+   * migrations from core.
+   */
+  protected const FIELD_INSTANCE_SOURCE = 'Drupal\field\Plugin\migrate\source\d7\FieldInstance';
+
+  /**
+   * The Drupal 7 field instance per form display source plugin class.
+   */
+  protected const FIELD_INSTANCE_PER_FORM_DISPLAY_SOURCE = 'Drupal\field\Plugin\migrate\source\d7\FieldInstancePerFormDisplay';
 
   /**
    * The plugin manager for migration source plugins.
@@ -59,7 +70,7 @@ class MigrationHelper {
       }
       if (isset($source['class'])) {
         // Field instance.
-        if ($source['class'] === FieldInstance::class) {
+        if ($source['class'] === self::FIELD_INSTANCE_SOURCE) {
           $settings = $migration['process']['settings'];
           if (isset($settings['plugin'])) {
             // Prepare for multiple plugins,
@@ -74,7 +85,7 @@ class MigrationHelper {
           $settings = NestedArray::mergeDeepArray([$settings, $addition], TRUE);
           $migration['process']['settings'] = $settings;
         }
-        if (is_a($source['class'], FieldInstancePerFormDisplay::class, TRUE)) {
+        if (is_a($source['class'], self::FIELD_INSTANCE_PER_FORM_DISPLAY_SOURCE, TRUE)) {
           // Ensure the map exists and is an array:
           if (!empty($migration['process']['options/type']['type']['map']) && is_array($migration['process']['options/type']['type']['map'])) {
             $map_addition = [
@@ -107,7 +118,7 @@ class MigrationHelper {
    */
   public function alterRow(Row $row, MigrateSourceInterface $source, MigrationInterface $migration) {
     if ($source) {
-      if (get_class($source) === FieldInstance::class && $row->get('type') === 'entityreference') {
+      if (get_class($source) === self::FIELD_INSTANCE_SOURCE && $row->get('type') === 'entityreference') {
         $widget = $row->get('widget/type');
         if ($widget === 'inline_entity_form_single' || $widget === 'inline_entity_form') {
           $data = $row->get('field_definition/data');

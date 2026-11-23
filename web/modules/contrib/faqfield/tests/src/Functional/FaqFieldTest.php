@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\faqfield\Functional;
 
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Drupal\Core\Entity\EntityDisplayRepository;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\field\Entity\FieldConfig;
@@ -14,12 +15,13 @@ use PHPUnit\Framework\Attributes\Group;
  * Test faqfield functionality.
  */
 #[Group('faqfield')]
+#[RunTestsInSeparateProcesses]
 final class FaqFieldTest extends BrowserTestBase {
 
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'claro';
+  protected $defaultTheme = 'stark';
 
   /**
    * {@inheritdoc}
@@ -77,8 +79,8 @@ final class FaqFieldTest extends BrowserTestBase {
       ->save();
 
     $this->drupalGet('/node/add/page');
-    $question = $this->randomString();
-    $answer = $this->randomString();
+    $question = $this->randomMachineName();
+    $answer = $this->randomMachineName();
     $this->submitForm([
       'Title' => $this->randomString(),
       'field_faq_field[0][question]' => $question,

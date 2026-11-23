@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Drupal\Tests\inline_entity_form\FunctionalJavascript;
 
 use Drupal\node\Entity\Node;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 // cspell:ignore animaux haus haut kangourou kann maison nguru peut sautent
 // cspell:ignore sauter springen tous
@@ -14,6 +16,8 @@ use Drupal\node\Entity\Node;
  *
  * @group inline_entity_form
  */
+#[Group('inline_entity_form')]
+#[RunTestsInSeparateProcesses]
 class TranslationTest extends InlineEntityFormTestBase {
 
   /**

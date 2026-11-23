@@ -50,6 +50,10 @@ variables:
   _CSPELL_IGNORE_PATHS: 'tests/fixtures/*'
   # _PHPUNIT_CONCURRENT=1 uses run-tests.sh, 0 uses phpunit directly.
   _PHPUNIT_CONCURRENT: 1
+  OPT_IN_TEST_PREVIOUS_MAJOR: 1
+  _AUTORUN_PREVIOUS_MAJOR: 'push-and-mr'
+  OPT_IN_TEST_NEXT_MAJOR: 1
+  _AUTORUN_NEXT_MAJOR: 'push-and-mr'
 
 # Job overrides
 composer:
@@ -57,7 +61,7 @@ composer:
   variables:
     DRUPAL_CORE: "11.3.x"
     IGNORE_PROJECT_DRUPAL_CORE_VERSION: 1
-    PHP_VERSION: "8.4"
+    PHP_VERSION: "8.3"
     PHP_IMAGE_VARIANT: "ubuntu-apache"
 
 cspell:
@@ -78,66 +82,8 @@ composer-d11_next:
     DRUPAL_CORE: "11.x-dev"
     MINIMUM_STABILITY_OVERRIDE: 'dev'
     IGNORE_PROJECT_DRUPAL_CORE_VERSION: 1
-    PHP_VERSION: "8.4"
+    PHP_VERSION: "8.5"
     PHP_IMAGE_VARIANT: "ubuntu-apache"
-  dependencies: []
-  rules:
-    - when: manual
-  allow_failure: true
-
-## Drupal 10.6
-composer-d10_6:
-  stage: build
-  extends: .composer-base
-  variables:
-    DRUPAL_CORE: "10.6.x"
-    IGNORE_PROJECT_DRUPAL_CORE_VERSION: 1
-    PHP_VERSION: "8.3"
-    PHP_IMAGE_VARIANT: "ubuntu-apache"
-  dependencies: []
-  rules:
-    - when: manual
-  allow_failure: true
-
-## Drupal 10.5
-composer-d10_5:
-  stage: build
-  extends: .composer-base
-  variables:
-    DRUPAL_CORE: "10.5.x"
-    IGNORE_PROJECT_DRUPAL_CORE_VERSION: 1
-    PHP_VERSION: "8.2"
-    PHP_IMAGE_VARIANT: "apache"
-  dependencies: []
-  rules:
-    - when: manual
-  allow_failure: true
-
-## Drupal 9.5
-composer-d9_5:
-  stage: build
-  extends: .composer-base
-  variables:
-    DRUPAL_CORE: "9.5.x"
-    IGNORE_PROJECT_DRUPAL_CORE_VERSION: 1
-    PHP_VERSION: "8.1"
-    PHP_IMAGE_VARIANT: "apache"
-    COMPOSER_AUDIT_BLOCK_INSECURE: false
-  dependencies: []
-  rules:
-    - when: manual
-  allow_failure: true
-
-## Drupal 8.9
-composer-d8_9:
-  stage: build
-  extends: .composer-base
-  variables:
-    DRUPAL_CORE: "8.9.x"
-    IGNORE_PROJECT_DRUPAL_CORE_VERSION: 1
-    PHP_VERSION: "7.4"
-    PHP_IMAGE_VARIANT: "apache"
-    COMPOSER_AUDIT_BLOCK_INSECURE: false
   dependencies: []
   rules:
     - when: manual
@@ -152,15 +98,6 @@ phpstan-d11_next:
   stage: validate
   needs:
     - composer-d11_next
-  allow_failure: true
-  rules:
-    - when: manual
-
-phpstan-d10_6:
-  extends: .phpstan-base
-  stage: validate
-  needs:
-    - composer-d10_6
   allow_failure: true
   rules:
     - when: manual
@@ -187,26 +124,9 @@ phpunit-d11_next-all_deprecations:
     # Use core ignoreFile to show deprecations. This will only work with $_PHPUNIT_CONCURRENT=1
     SYMFONY_DEPRECATIONS_HELPER: "ignoreFile=$CI_PROJECT_DIR/$_WEB_ROOT/core/.deprecation-ignore.txt"
 
-phpunit-d10_6:
-  extends: .phpunit-base
-  stage: test
-  needs:
-    - composer-d10_6
-
-phpunit-d10_5:
-  extends: .phpunit-base
-  stage: test
-  needs:
-    - composer-d10_5
-
-phpunit-d9_5:
-  extends: .phpunit-base
-  stage: test
-  needs:
-    - composer-d9_5
-
-phpunit-d8_9:
-  extends: .phpunit-base
-  stage: test
-  needs:
-    - composer-d8_9
+# Drupal 12 turns deprecations into failures. Most come from dependencies
+# (entity_reference_revisions, core test modules) or are about Drupal 13, so
+# don't fail the next major job on them.
+phpunit (next major):
+  variables:
+    _PHPUNIT_EXTRA: --suppress-deprecations

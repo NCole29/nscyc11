@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\inline_entity_form\FunctionalJavascript;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+
 /**
  * Tests the IEF element on a custom form.
  *
  * @group inline_entity_form
  */
+#[Group('inline_entity_form')]
+#[RunTestsInSeparateProcesses]
 class ElementWebTest extends InlineEntityFormTestBase {
 
   /**
@@ -32,10 +37,6 @@ class ElementWebTest extends InlineEntityFormTestBase {
     ]);
 
     $this->drupalLogin($this->user);
-
-    $this->fieldStorageConfigStorage = $this->container
-      ->get('entity_type.manager')
-      ->getStorage('field_storage_config');
   }
 
   /**

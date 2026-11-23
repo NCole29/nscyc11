@@ -1,0 +1,5 @@
+
+services:
+  Drupal\faqfield\Hook\FaqfieldHooks:
+    class: Drupal\faqfield\Hook\FaqfieldHooks
+    autowire: true

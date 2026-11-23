@@ -16,6 +16,7 @@ dependencies:
     - quick_node_clone
     - smart_date_recur
     - system
+    - toolbar
     - webform_node
 id: ride_leader
 label: 'Ride leader'
@@ -24,6 +25,7 @@ is_admin: false
 permissions:
   - 'access comments'
   - 'access content overview'
+  - 'access toolbar'
   - 'add club_route entity'
   - 'cancel smart date recur instances'
   - 'change own username'

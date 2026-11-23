@@ -18,7 +18,7 @@ plugin: 'block_content:17d4d0c9-cbbf-40c0-a1e9-2a147791906b'
 settings:
   id: 'block_content:17d4d0c9-cbbf-40c0-a1e9-2a147791906b'
   label: 'NSC Ride Safety Culture'
-  label_display: '0'
+  label_display: visible
   provider: block_content
   view_mode: full
 visibility:

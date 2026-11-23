@@ -185,7 +185,10 @@ class CiviEntityStorage extends SqlContentEntityStorage {
     if (!empty($ids)) {
       $options = [
         'id' => ['IN' => $ids],
-        'return' => array_keys($fields),
+        // 'group' and 'tag' are filters of Contact.get, not entity fields.
+        // Returning them joins the group, smart group cache and tag tables
+        // for every contact, and nothing reads the result.
+        'return' => array_values(array_diff(array_keys($fields), ['group', 'tag'])),
         'options' => ['limit' => 0],
       ];
 

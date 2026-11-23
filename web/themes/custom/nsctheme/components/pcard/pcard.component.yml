@@ -18,13 +18,13 @@ props:
       title: Full height
       type: string
       default: "0"
+    image:
+      title: Image
+      type: 'string'
+      label: The image URL or data.
 slots:
   content:
     title: Content
-  image:
-    title: Image
-    type: 'string'
-    label: The image URL or data.
   link:
     title: URL
     type: ['string','null']

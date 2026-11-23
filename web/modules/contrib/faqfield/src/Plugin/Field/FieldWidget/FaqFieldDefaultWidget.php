@@ -2,6 +2,8 @@
 
 namespace Drupal\faqfield\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\Attribute\FieldWidget;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
@@ -9,21 +11,18 @@ use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Plugin implementation of the 'faqfield_default' widget.
- *
- * @FieldWidget(
- *   id = "faqfield_default",
- *   label = @Translation("FAQ Field"),
- *   field_types = {
- *     "faqfield"
- *   }
- * )
  */
+#[FieldWidget(
+  id: "faqfield_default",
+  label: new TranslatableMarkup("FAQ Field"),
+  field_types: ["faqfield"],
+)]
 class FaqFieldDefaultWidget extends WidgetBase {
 
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'answer_widget' => 'text_format',
       'question_title' => t('Question'),
@@ -42,7 +41,7 @@ class FaqFieldDefaultWidget extends WidgetBase {
   /**
    * {@inheritdoc}
    */
-  public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+  public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state): array {
     // Add textfield for question.
     $element['question'] = [
       '#title' => Html::escape($this->getSetting('question_title')),
@@ -82,7 +81,7 @@ class FaqFieldDefaultWidget extends WidgetBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state) {
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
     $elements = parent::settingsForm($form, $form_state);
     // Input for the count of rows for the answer field.
     $elements['answer_widget'] = [
@@ -200,7 +199,7 @@ class FaqFieldDefaultWidget extends WidgetBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsSummary() {
+  public function settingsSummary(): array {
     $summary = [];
     // Answer widget setting.
     $answer_widget_options = [

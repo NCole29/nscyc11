@@ -9,16 +9,14 @@
  *   - answer: Pre-filtered answer value by field setting format.
  *
  * @see template_preprocess()
- * @see template_preprocess_faqfield_definition_list_formatter()
+ * @see faqfield_preprocess_faqfield_definition_list_formatter()
  *
  * @ingroup themeable
  */
 #}
-{% apply spaceless %}
-  <dl class="faqfield-definition-list">
-    {% for item in items %}
-      <dt class="faqfield-question">{{ item.question }}</dt>
-      <dd class="faqfield-answer">{{ item.answer }}</dd>
-    {% endfor %}
-  </dl>
-{% endapply %}
+<dl class="faqfield-definition-list">
+  {% for item in items %}
+    <dt class="faqfield-question">{{ item.question }}</dt>
+    <dd class="faqfield-answer">{{ item.answer }}</dd>
+  {% endfor %}
+</dl>

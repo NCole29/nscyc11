@@ -1,0 +1,47 @@
+uuid: 6e37413a-9d90-49d3-9b37-54124a2af115
+langcode: en
+status: true
+dependencies:
+  module:
+    - civicrm_entity
+    - layout_builder
+    - layout_discovery
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          05580055-1d08-4dd7-b5cd-3823a914fa96:
+            uuid: 05580055-1d08-4dd7-b5cd-3823a914fa96
+            region: content
+            configuration:
+              id: 'field_block:civicrm_state_province:civicrm_state_province:abbreviation'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: geocoder_geocode_formatter
+                label: hidden
+                settings:
+                  dumper: wkt
+                  providers: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+id: civicrm_state_province.civicrm_state_province.default
+targetEntityType: civicrm_state_province
+bundle: civicrm_state_province
+mode: default
+content: {  }
+hidden:
+  abbreviation: true
+  country_id: true
+  id: true
+  is_active: true
+  name: true

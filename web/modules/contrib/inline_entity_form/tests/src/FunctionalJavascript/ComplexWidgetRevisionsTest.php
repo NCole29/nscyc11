@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\inline_entity_form\FunctionalJavascript;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+
 /**
  * IEF complex entity reference revisions tests.
  *
  * @group inline_entity_form
  */
+#[Group('inline_entity_form')]
+#[RunTestsInSeparateProcesses]
 class ComplexWidgetRevisionsTest extends InlineEntityFormTestBase {
 
   /**
@@ -30,13 +36,6 @@ class ComplexWidgetRevisionsTest extends InlineEntityFormTestBase {
    * @var string
    */
   protected $formContentAddUrl;
-
-  /**
-   * Entity form display storage.
-   *
-   * @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface
-   */
-  protected $entityFormDisplayStorage;
 
   /**
    * Prepares environment for testing.
@@ -62,7 +61,6 @@ class ComplexWidgetRevisionsTest extends InlineEntityFormTestBase {
     $this->drupalLogin($this->user);
 
     $this->formContentAddUrl = 'node/add/err_level_1';
-    $this->entityFormDisplayStorage = $this->container->get('entity_type.manager')->getStorage('entity_form_display');
   }
 
   /**
@@ -80,6 +78,7 @@ class ComplexWidgetRevisionsTest extends InlineEntityFormTestBase {
    *
    * @dataProvider revisionsAtDepthDataProvider
    */
+  #[DataProvider('revisionsAtDepthDataProvider')]
   public function testRevisionsAtDepth(bool $inner_widget_adds_revisions) {
     $page = $this->getSession()->getPage();
     $assert_session = $this->assertSession();
@@ -95,7 +94,7 @@ class ComplexWidgetRevisionsTest extends InlineEntityFormTestBase {
     $first_edit_button_xpath = $this->getXpathForButtonWithValue('Edit', 1);
     $first_update_button_xpath = $this->getXpathForButtonWithValue('Update node', 1);
 
-    $level_2_display_config = $this->entityFormDisplayStorage->load('node.err_level_2.default');
+    $level_2_display_config = $this->container->get('entity_type.manager')->getStorage('entity_form_display')->load('node.err_level_2.default');
     $component = $level_2_display_config->getComponent('field_level_3_items');
     $component['settings']['revision'] = $inner_widget_adds_revisions;
     $level_2_display_config->setComponent('field_level_3_items', $component);

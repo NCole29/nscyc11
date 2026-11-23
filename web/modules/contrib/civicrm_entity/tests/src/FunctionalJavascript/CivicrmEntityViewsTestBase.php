@@ -140,7 +140,7 @@ abstract class CivicrmEntityViewsTestBase extends CivicrmEntityTestBase {
   public function testCreateView() {
     $this->createNewView();
     $this->doSetupCreateView();
-    $this->getSession()->getPage()->pressButton('Save');
+    $this->saveView();
     $this->drupalGet('/' . static::$civicrmEntityTypeId);
     $this->htmlOutput();
     $this->assertCreateViewResults();
@@ -152,7 +152,7 @@ abstract class CivicrmEntityViewsTestBase extends CivicrmEntityTestBase {
   public function testViewWithRelationships() {
     $this->createNewView();
     $this->doSetupViewWithRelationships();
-    $this->getSession()->getPage()->pressButton('Save');
+    $this->saveView();
     $this->drupalGet('/' . static::$civicrmEntityTypeId);
     $this->htmlOutput();
     $this->assertViewWithRelationshipsResults();
@@ -164,7 +164,7 @@ abstract class CivicrmEntityViewsTestBase extends CivicrmEntityTestBase {
   public function testViewWithFilters() {
     $this->createNewView();
     $this->doSetupViewWithFilters();
-    $this->getSession()->getPage()->pressButton('Save');
+    $this->saveView();
     $this->drupalGet('/' . static::$civicrmEntityTypeId);
     $this->htmlOutput();
     $this->assertViewWithFiltersResults();
@@ -176,7 +176,7 @@ abstract class CivicrmEntityViewsTestBase extends CivicrmEntityTestBase {
   public function testViewWithSorts() {
     $this->createNewView();
     $this->doSetupViewWithSorts();
-    $this->getSession()->getPage()->pressButton('Save');
+    $this->saveView();
     $this->drupalGet('/' . static::$civicrmEntityTypeId);
     $this->htmlOutput();
     $this->assertViewWithSortsResults();
@@ -193,7 +193,7 @@ abstract class CivicrmEntityViewsTestBase extends CivicrmEntityTestBase {
   public function testViewWithArguments(array $arguments) {
     $this->createNewView();
     $this->doSetupViewWithArguments();
-    $this->getSession()->getPage()->pressButton('Save');
+    $this->saveView();
     $this->drupalGet('/' . static::$civicrmEntityTypeId . '/' . implode('/', $arguments));
     $this->htmlOutput();
     $this->assertViewWithArgumentsResults($arguments);
@@ -281,8 +281,14 @@ abstract class CivicrmEntityViewsTestBase extends CivicrmEntityTestBase {
     $this->assertSession()->assertWaitOnAjaxRequest();
     $page->checkField('page[create]');
     $page->fillField('page[path]', '/' . static::$civicrmEntityTypeId);
-    $page->pressButton('Save and edit');
-    $this->assertSession()->pageTextContains('The view ' . static::$civicrmEntityTypeId . ' view has been saved.');
+    $this->pressButtonAndWait('Save and edit', 'The view ' . static::$civicrmEntityTypeId . ' view has been saved.');
+  }
+
+  /**
+   * Saves the View being edited and waits for the save to complete.
+   */
+  protected function saveView(): void {
+    $this->pressButtonAndWait('Save', 'The view ' . static::$civicrmEntityTypeId . ' view has been saved.');
   }
 
   /**

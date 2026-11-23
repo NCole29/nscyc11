@@ -749,6 +749,7 @@ class CivicrmEntityViewsData extends EntityViewsData {
         $filter = [
           'id' => 'civicrm_entity_in_operator',
           'options callback' => 'CRM_Core_PseudoConstant::country',
+          'allow empty' => TRUE,
         ];
 
         if ($field_metadata['html_type'] === 'Multi-Select Country') {
@@ -761,6 +762,7 @@ class CivicrmEntityViewsData extends EntityViewsData {
         $filter = [
           'id' => 'civicrm_entity_in_operator',
           'options callback' => 'CRM_Core_PseudoConstant::stateProvince',
+          'allow empty' => TRUE,
         ];
 
         if ($field_metadata['html_type'] === 'Multi-Select State/Province') {
@@ -790,7 +792,7 @@ class CivicrmEntityViewsData extends EntityViewsData {
       case \CRM_Utils_Type::T_INT:
       case \CRM_Utils_Type::T_FLOAT:
       case \CRM_Utils_Type::T_MONEY:
-        return ['id' => 'numeric'];
+        return ['id' => 'numeric', 'allow empty' => TRUE];
 
       case \CRM_Utils_Type::T_ENUM:
       case \CRM_Utils_Type::T_STRING:
@@ -798,11 +800,11 @@ class CivicrmEntityViewsData extends EntityViewsData {
       case \CRM_Utils_Type::T_LONGTEXT:
       case \CRM_Utils_Type::T_URL:
       case \CRM_Utils_Type::T_EMAIL:
-        return ['id' => 'string'];
+        return ['id' => 'string', 'allow empty' => TRUE];
 
       case \CRM_Utils_Type::T_DATE:
       case \CRM_Utils_Type::T_TIMESTAMP:
-        return ['id' => 'civicrm_entity_date'];
+        return ['id' => 'civicrm_entity_date', 'allow empty' => TRUE];
 
       case 'pseudoconstant':
         if ($class_name = SupportedEntities::getEntityTypeDaoClass($field_metadata['entity_type'])) {
@@ -810,6 +812,7 @@ class CivicrmEntityViewsData extends EntityViewsData {
             'id' => 'civicrm_entity_in_operator',
             'options callback' => "{$class_name}::buildOptions",
             'options arguments' => $field_metadata['name'],
+            'allow empty' => TRUE,
           ];
           $multi_type_fields = [
             'Multi-Select',

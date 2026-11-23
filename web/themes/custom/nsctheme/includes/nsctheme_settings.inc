@@ -36,10 +36,10 @@
     "#weight" => -10,
     "#id" => "edit-club-accounts",
   ];
-  $form['nsctheme_settings']["{$prefix}"]['club_accounts']["{$prefix}_rwgps_url"] = [
+  $form['nsctheme_settings']["{$prefix}"]['club_accounts']["sm_icon_rwgps"] = [
     '#type' => 'textfield',
     '#title' => t('RWGPS Club Account'),
-    '#default_value' => theme_get_setting("{$prefix}_rwgps_url"),
+    '#default_value' => theme_get_setting("sm_icon_rwgps"),
   ];
 
   // Cancellation color Tab.

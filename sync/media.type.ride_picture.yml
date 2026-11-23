@@ -23,7 +23,7 @@ third_party_settings:
     image_field: _none
 id: ride_picture
 label: ' Ride picture'
-description: 'Focal point crop. 16:9 aspect ratio enforced.'
+description: "Focal point crop. 16:9 aspect ratio enforced. \r\nMedia types \"Ride picture\" and \"Standard 16:9\" both use the \"Standard 16:9\" image style, but files are saved in different locations (files/images/rides; files/images/standard16x9).\r\nRide content types select from Ride pictures; Announcements and Events select from Standard16x9."
 source: image
 queue_thumbnail_downloads: false
 new_revision: false

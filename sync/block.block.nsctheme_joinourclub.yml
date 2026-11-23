@@ -18,7 +18,7 @@ plugin: 'block_content:ba371780-1f39-4cfc-ab03-48534c63f83a'
 settings:
   id: 'block_content:ba371780-1f39-4cfc-ab03-48534c63f83a'
   label: 'Join Our Club'
-  label_display: '0'
+  label_display: visible
   provider: block_content
   view_mode: full
 visibility:

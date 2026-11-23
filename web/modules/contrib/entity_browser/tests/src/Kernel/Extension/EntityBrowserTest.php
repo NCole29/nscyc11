@@ -336,6 +336,25 @@ class EntityBrowserTest extends KernelTestBase {
   }
 
   /**
+   * Tests that the browser config is a cache dependency of its form.
+   */
+  public function testFormCacheability() {
+    $this->installConfig(['entity_browser_test']);
+
+    /** @var \Drupal\entity_browser\EntityBrowserInterface $entity */
+    $entity = $this->controller->load('test');
+
+    /** @var \Drupal\entity_browser\EntityBrowserFormInterface $form_object */
+    $form_object = $entity->getFormObject();
+    $form_object->setEntityBrowser($entity);
+
+    $form = [];
+    $form = $form_object->buildForm($form, new FormState());
+
+    $this->assertEmpty(array_diff($entity->getCacheTags(), $form['#cache']['tags']));
+  }
+
+  /**
    * Test selected event dispatch.
    */
   public function testSelectedEvent() {
@@ -510,6 +529,47 @@ class EntityBrowserTest extends KernelTestBase {
     \Drupal::currentUser()->setAccount($user);
 
     $this->assertTrue($entity->getWidget('774798f1-5ec5-4b63-84bd-124cd51ec07d')->access()->isAllowed());
+  }
+
+  /**
+   * Tests submitting the view widget without a selection.
+   *
+   * @see https://www.drupal.org/project/entity_browser/issues/3117243
+   */
+  public function testViewWidgetSubmitWithoutSelection() {
+    $this->installConfig(['entity_browser_test']);
+    $this->installEntitySchema('user');
+
+    /** @var \Drupal\entity_browser\EntityBrowserInterface $entity */
+    $entity = $this->controller->load('test_entity_browser_file');
+    $widget = $entity->getWidget('774798f1-5ec5-4b63-84bd-124cd51ec07d');
+
+    $form = $element = [];
+    $form_state = new FormState();
+    $form_state->set(['entity_browser', 'selected_entities'], []);
+    $form_state->set(['entity_browser', 'instance_uuid'], $this->container->get('uuid')->generate());
+
+    // Submitting without any row checked leaves no entity_browser_select key
+    // in the user input at all.
+    $form_state->setUserInput([]);
+    $widget->submit($element, $form, $form_state);
+
+    $this->assertSame([], $form_state->get(['entity_browser', 'selected_entities']), 'No entity is selected when nothing was checked.');
+
+    // A checked row still gets selected.
+    $user = $this->container->get('entity_type.manager')
+      ->getStorage('user')
+      ->create([
+        'name' => $this->randomMachineName(),
+        'mail' => 'info@example.com',
+      ]);
+    $user->save();
+    $form_state->setUserInput(['entity_browser_select' => ['user:' . $user->id()]]);
+    $widget->submit($element, $form, $form_state);
+
+    $this->assertEquals([$user->id()], array_map(function ($selected) {
+      return $selected->id();
+    }, $form_state->get(['entity_browser', 'selected_entities'])), 'The checked entity is selected.');
   }
 
 }
